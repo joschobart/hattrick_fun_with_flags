@@ -1,1 +1,0 @@
-# hattrick_fun_with_flags
