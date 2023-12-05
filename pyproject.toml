@@ -4,7 +4,7 @@ version = "0.1.1"
 description = "Add your description here"
 dependencies = [
     "flask>=3.0.0",
-    "hattrick-libs==0.4.12",
+    "hattrick-libs==0.5.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
