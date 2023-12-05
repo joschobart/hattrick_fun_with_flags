@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <p>1. Click the button to open a new tab for the hattrick-authorization.</p>
+    <a href="{{ g.authorize_url }}" target="_blank">
+      <input type="button" class="button" value="Hattrick-Authorization" />
+    </a>
+  <p>2. Come back here after the authorization and enter the received pin in the box below</p>
+
+  <form method="post">
+    <label for="pin">Pin</label>
+    <input type="text" name="pin" id="pin" required>
+    <input type="submit" value="Start Session">
+  </form>
+{% endblock %}

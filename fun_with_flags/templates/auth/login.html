@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Log In{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% if session['username'] %}
+    <p>Welcome '{{ session['username'] }}'!</p>
+  {% endif %}
+{% endblock %}

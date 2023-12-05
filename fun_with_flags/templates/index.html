@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Bazinga!{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <p>Fun with Flags allows you to automate capturing flags on hattrick.org</p>
+  <p>This project is work in progress... (23/11/30)</p>
+  {% if g.ht_session %}
+    <p>{{ g.ht_session }}</p>
+  {% endif %}
+{% endblock %}

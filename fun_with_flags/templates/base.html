@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>{% block title %}{% endblock %} - Fun with Flags</title>
+
+  <link rel="favicon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <nav>
+    <h1><a href="{{url_for('index')}}">Fun with Flags</a></h1>
+    <ul>
+      <table id="table1">
+        <tr>
+          <th>
+            <li>
+              <span>
+                <p style="color:lightgray;"> </p>
+              </span>
+            </li>
+          </th>
+          <th>
+          {% if session['username'] %}
+            <li>
+              <span>
+                {{ session['username'] }}
+              </span>
+            </li>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <li>
+              <span>
+                <a href="{{url_for('flags.overview')}}">[Manage Flags]</a>
+              </span>
+            </li>
+          </td>
+          <td>
+            <li>
+              <span>
+                <a href="{{url_for('auth.logout')}}">[Log Out]</a>
+              </span>
+            </li>
+          </td>
+          {% else %}
+            <li>
+              <span>
+              </span>
+            </li>
+          </th>
+        </tr>
+        <tr>
+          <th>
+            <li>
+              <span>
+              </span>
+            </li>
+          </th>
+          <td>
+            <li>
+              <span>
+                <a href="{{ url_for('auth.authorize') }}">[Authorize CHPP]</a>
+              </span>
+            </li>
+          </td>
+          {% endif %}
+        </tr>
+      </table>
+    </ul>
+  </nav>
+
+  <section class="content">
+    <header>
+      {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </section>
+</body>
+
+<div class="footer">&copy;
+  <span id="year">
+    <script>document.write(/\d{4}/.exec(Date())[0]);</script>
+ </span>
+  <span> Hattrick.org &amp; CHPP Fun with Flags. All rights reserved.</span>
+</div>
+
+</html>

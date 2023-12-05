@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Flag Overview{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <h3>Welcome '{{ session['username'] }}'!</h3>
+  <br>
+  <h4>Home Flags</h4>
+    <table id="flags_table">
+      <tr>
+        {% for i in range(g.l_home | length) %}
+          {% if (i + 1) % 22 == 0 %}
+            <td>
+              <p style="color:lightgray;">
+                <img src="{{ g.l_home[i][1] }}" alt="{{ g.l_home[i][0] }}">
+              </p>
+            </td>
+          </tr>
+          <tr>
+          {% else %}
+            <td>
+              <p style="color:lightgray;">
+                <img src="{{ g.l_home[i][1] }}" alt="{{ g.l_home[i][0] }}">
+              </p>
+            </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    </table>
+    <br><br>
+  <h4>Away Flags</h4>
+    <table id="flags_table">
+      <tr>
+        {% for i in range(g.l_away | length) %}
+          {% if (i + 1) % 22 == 0 %}
+            <td>
+              <p style="color:lightgray;">
+                <img src="{{ g.l_away[i][1] }}" alt="{{ g.l_away[i][0] }}">
+              </p>
+            </td>
+          </tr>
+          <tr>
+          {% else %}
+            <td>
+              <p style="color:lightgray;">
+                <img src="{{ g.l_away[i][1] }}" alt="{{ g.l_away[i][0] }}">
+              </p>
+            </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    </table>
+{% endblock %}
