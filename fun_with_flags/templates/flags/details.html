@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Flag Details{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <h3>Welcome {{ session['username'] }}!</h3>
+{% endblock %}

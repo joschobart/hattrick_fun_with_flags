@@ -43,48 +43,32 @@ nav ul li a, nav ul li span, header .action {
 	display: block;
 	padding: 0.2rem; }
 
-#table1 {
+.nav_table {
   border: 0px solid black;
-	table-layout: fixed;
-  width: 350px;
-  border-collapse: inherit; }
+	table-layout: auto;
+  width: 350px; }
 
-#table1, td, th {
+.nav_table, a, td, th, li {
   text-align: right;
 	vertical-align: bottom; }
 
-#table1 td:hover {
+.nav_table td:hover {
 	background-color: #7bb381;
 	text-align: right;
 	vertical-align: bottom;}
 
-#flags_table {
+.flags_table {
   border: 2px solid black;
 	table-layout: fixed;
   width: 100%;
   border-collapse: inherit; }
 
-#flags_table, td, th {
+.flags_table, td, th {
   text-align: center;}
 
-#flags_table td:hover {
+.flags_table td:hover {
 	background-color: #7bb381;
 	text-align: center;}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2rem;
-  background: #7bb381;
-  color: white;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.2rem;
-}
 
 .content {
 	padding: 0 1rem 1rem; }
@@ -96,6 +80,27 @@ nav ul li a, nav ul li span, header .action {
 
 .content > header h1 { 
 	flex: auto; margin: 1rem 0 0.25rem 0; }
+
+.content:last-child { margin-bottom: 0; }
+
+.content form {
+	margin: 1em 0;
+	display: flex;
+	flex-direction: column; }
+
+.content label {
+	font-weight: bold;
+	margin-bottom: 0.5em; }
+
+.content input, .content textarea { margin-bottom: 1em; }
+
+.content textarea {
+	min-height: 2em;
+	resize: vertical; }
+
+.content {
+    height: 1300px; /* or any value */
+    overflow-y: auto; }
 
 .flash {
 	margin: 1em 0;
@@ -120,22 +125,19 @@ nav ul li a, nav ul li span, header .action {
 
 .post .body { white-space: pre-line; }
 
-.content:last-child { margin-bottom: 0; }
-
-.content form {
-	margin: 1em 0;
-	display: flex;
-	flex-direction: column; }
-
-.content label {
-	font-weight: bold;
-	margin-bottom: 0.5em; }
-
-.content input, .content textarea { margin-bottom: 1em; }
-
-.content textarea {
-	min-height: 12em;
-	resize: vertical; }
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  background: #7bb381;
+  color: white;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem; }
 
 input.danger { color: #cc2f2e; }
 
