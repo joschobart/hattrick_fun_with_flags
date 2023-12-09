@@ -9,6 +9,7 @@ from . import auth
 from . import flags
 
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -31,6 +32,7 @@ def create_app(test_config=None):
         pass
 
 
+
     # entry-point
     @app.route('/')
     def index():
@@ -41,7 +43,6 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp_a)
 
     app.register_blueprint(flags.bp_f)
-
 
 
     return app

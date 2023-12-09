@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Flag Details{% endblock %}</h1>
+  <h2>{% block title %}Flag Details{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
-  <h3>Welcome {{ session['username'] }}!</h3>
+  {% if g.team is defined and g.place is defined and g.nation is defined %}
+    <h3>
+      {{ g.nation }} 
+      <img src="{{ g.flagurl }}" alt="{{ g.nation }}" title="{{ g.nation }}">
+    </h3>
+    {% if g.challengeable is true %}
+      <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
+    {% else %}
+      <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> for your team <b>{{ g.team }}</b> is in your collection already. Doesn't it look amazing?!:)</p>
+    {% endif %}
+  {% endif %}
 {% endblock %}

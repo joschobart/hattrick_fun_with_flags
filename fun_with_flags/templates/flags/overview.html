@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Flag Overview{% endblock %}</h1>
+  <h2>{% block title %}Flag Overview{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -33,7 +33,7 @@
             {% if (i + 1) % 22 == 0 %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&teamid={{ g.teamid }}&place=home">
                     <img src="{{ g.l_home[i][2] }}" alt="{{ g.l_home[i][1] }}" title="{{ g.l_home[i][1] }}">
                   </a>
                 </p>
@@ -43,7 +43,7 @@
             {% else %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&teamid={{ g.teamid }}&place=home">
                     <img src="{{ g.l_home[i][2] }}" alt="{{ g.l_home[i][1] }}" title="{{ g.l_home[i][1] }}">
                 </p>
               </td>
@@ -59,7 +59,7 @@
             {% if (i + 1) % 22 == 0 %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&teamid={{ g.teamid }}&place=away">
                     <img src="{{ g.l_away[i][2] }}" alt="{{ g.l_away[i][1] }}" title="{{ g.l_away[i][1] }}">
                   </a>
                 </p>
@@ -69,7 +69,7 @@
             {% else %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&teamid={{ g.teamid }}&place=away">
                     <img src="{{ g.l_away[i][2] }}" alt="{{ g.l_away[i][1] }}" title="{{ g.l_away[i][1] }}">
                   </a>
                 </p>

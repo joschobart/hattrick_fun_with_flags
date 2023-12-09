@@ -11,10 +11,16 @@ scope = 'manage_challenges'
 session_status_url = 'https://chpp.hattrick.org/oauth/check_token.ashx'
 api_url = 'https://chpp.hattrick.org/chppxml.ashx'
 
-api_params =	{'teamdetails': {	'file': 'teamdetails', 
-									'version': '3.6',
-									'includeFlags': 'true',
-								},
+api_params =   {'teamdetails':		{	'file': 			'teamdetails', 
+										'version': 			'3.6',
+										'includeFlags': 	'true',
+								 	},
+				'search_series':	{	'file': 			'search',
+										'version':			'1.2',
+										'searchType':		'3',
+										'searchString':		'',					# e.g.: ii.1 for series II.1
+										'searchLeagueID':	'',					# e.g.: 46 for switzerland
+				 					},
 				}
 
 
@@ -24,6 +30,7 @@ def oauth_get_url(scope=scope):
 			do_hattrick_request.fetch_authorize_url(scope=scope)
 
 	return authorize_url
+
 
 
 def oauth_get_access_token(pin):
@@ -39,6 +46,7 @@ def oauth_get_access_token(pin):
 	return
 
 
+
 def oauth_open_session():
 	ht_session = do_hattrick_request.open_auth_session(
 					session['access_token_key'],
@@ -48,10 +56,13 @@ def oauth_open_session():
 	return ht_session
 
 
-def ht_get_data(name, *args, api_url=api_url, **kwargs):
+
+def ht_get_data(name, api_url=api_url, **kwargs):
 	ht_session = oauth_open_session()
 
 	params = api_params[name]
+
+	params.update(kwargs)
 
 	xml_data = ht_session.get(api_url, params=params)
 	xml_data = str(xml_data.text).encode('latin1')\
@@ -62,16 +73,19 @@ def ht_get_data(name, *args, api_url=api_url, **kwargs):
 	return xml_data
 
 
+
 def ht_get_team(xml_data):
 	team_dict = get_teamdetails.get_my_teamdetails(xml_data)
 
 	return team_dict
 
 
+
 def ht_get_flags(teamdetails_xml):
 	flags_dict = get_flags.get_my_flags(teamdetails_xml)
 
 	return flags_dict
+
 
 
 def get_missing_flags(teamdetails_xml):

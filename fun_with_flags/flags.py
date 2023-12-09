@@ -3,9 +3,9 @@ from flask import (
     request, session,
 	)
 
-
 from . import auth
 from . import api
+from . import decs
 
 
 
@@ -13,7 +13,24 @@ bp_f = Blueprint('flags', __name__, url_prefix='/flags')
 
 
 
-def compose_flag_matrix(teamid, l_home, l_away):
+def get_my_teams():
+	g.teams = []
+
+
+	for x in list(session['my_team']):
+		if x != 'user':
+			team = (x, session['my_team'][x]['team_name'], session['my_team'][x]['team_primary'])
+			g.teams.append(team)
+
+	# first sort after 'team_primary', then team_id
+	g.teams = sorted(g.teams, key=lambda x: (x[2], x[0]), reverse=True)
+
+
+	return g.teams
+
+
+
+def compose_flag_matrix(teamid):
 	xml_data = api.ht_get_data("teamdetails")
 
 	my_flags = api.ht_get_flags(xml_data)
@@ -23,6 +40,9 @@ def compose_flag_matrix(teamid, l_home, l_away):
 	url_end_i = '_inactive.png'
 	url_end = '.png'
 
+	g.l_home = []
+	g.l_away = []
+	
 
 	for m in (my_flags, my_missing_flags):
 		for ha in m[teamid].keys():
@@ -58,28 +78,18 @@ def compose_flag_matrix(teamid, l_home, l_away):
 
 
 @bp_f.route('/overview', methods=('GET', 'POST'))
-@auth.login_required
+@decs.login_required
+@decs.error_check
 def overview():
-	g.teams = list()
-
-	for x in list(session['my_team']):
-		if x != 'user':
-			team = (x, session['my_team'][x]['team_name'], session['my_team'][x]['team_primary'])
-			g.teams.append(team)
-
-	# first sort after 'team_primary', then team_id
-	g.teams = sorted(g.teams, key=lambda x: (x[2], x[0]), reverse=True)
-
+	get_my_teams()
 
 	if request.method == 'POST':
 		g.teamid = request.form['teams']
-		g.l_home = []
-		g.l_away = []
 
-		compose_flag_matrix(g.teamid, g.l_home, g.l_away)
+		compose_flag_matrix(g.teamid)
 
-		g.l_home = sorted(g.l_home, key=lambda x: x[0])
-		g.l_away = sorted(g.l_away, key=lambda x: x[0])
+		g.l_home = sorted(g.l_home, key=lambda x: x[1])
+		g.l_away = sorted(g.l_away, key=lambda x: x[1])
 
 
 	return render_template('flags/overview.html')
@@ -87,10 +97,45 @@ def overview():
 
 
 @bp_f.route('/details', methods=('GET', 'POST'))
-@auth.login_required
+@decs.login_required
+#@decs.error_check
 def details():
-	flag_id = request.args.get('flagid')
-	print(flag_id)
+	g.flagid = request.args.get('flagid')
+	g.teamid = request.args.get('teamid')
+	g.place = request.args.get('place')
+	
 
+	compose_flag_matrix(g.teamid)
+	get_my_teams()
+
+	for item in g.teams:
+		if int(item[0]) == int(g.teamid):
+			g.team = item[1]
+			break
+
+	if g.place == 'home':
+		func = g.l_home[:]
+	else:
+		func = g.l_away[:]
+
+	for item in func:
+		if int(item[0]) == int(g.flagid):
+			g.nation  = item[1]
+			g.flagurl = item[2]
+
+			if 'inactive' in g.flagurl:
+				g.challengeable = True
+			
+			break
+
+	result =	api.ht_get_data('search_series', searchString='iii.1', searchLeagueID='46')
+	print(result)
+
+
+	if request.method == 'POST':
+		pass
 
 	return render_template('flags/details.html')
+
+
+

@@ -1,10 +1,10 @@
 [project]
-name = "hattrick-fwf"
-version = "0.1.1"
+name = "hattrick_fun_with_flags"
+version = "0.1.2"
 description = "Add your description here"
 dependencies = [
+    "hattrick-libs==0.6.0",
     "flask>=3.0.0",
-    "hattrick-libs==0.5.1",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

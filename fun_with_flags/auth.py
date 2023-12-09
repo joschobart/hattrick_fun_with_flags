@@ -5,26 +5,11 @@ from flask import (
 	render_template, request, session, url_for
 	)
 
-from . import api
+from . import api, decs
 
 
 
 bp_a = Blueprint('auth', __name__, url_prefix='/auth')
-
-
-
-def login_required(view):
-	@functools.wraps(view)
-	def wrapped_view(**kwargs):
-		username = session.get('username')
-
-		if not username:
-
-			return redirect(url_for('auth.authorize'))
-
-		return view(**kwargs)
-
-	return wrapped_view
 
 
 
@@ -52,6 +37,7 @@ def authorize():
 
 
 @bp_a.route('/login', methods=('GET', 'POST'))
+@decs.error_check
 def login():
 	access_token_key = session.get('access_token_key', None)
 	access_token_secret = session.get('access_token_secret', None)
@@ -83,6 +69,7 @@ def login():
 
 
 @bp_a.route('/logout')
+@decs.error_check
 def logout():
 	access_token_key = session.get('access_token_key', None)
 	access_token_secret = session.get('access_token_secret', None)
