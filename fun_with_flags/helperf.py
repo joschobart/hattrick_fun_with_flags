@@ -10,7 +10,9 @@ def get_my_teams():
 
 	for x in list(session['my_team']):
 		if x != 'user':
-			team = (x, session['my_team'][x]['team_name'], session['my_team'][x]['team_primary'])
+			team = (x, session['my_team'][x]['team_name'],\
+					session['my_team'][x]['team_primary'])
+
 			g.teams.append(team)
 
 	# first sort after 'team_primary', then team_id
@@ -26,7 +28,7 @@ def compose_flag_matrix(teamid):
 												includeFlags='true')
 
 	my_flags = api.ht_get_flags(xml_data)
-	my_missing_flags = api.get_missing_flags(xml_data)
+	my_missing_flags = api.ht_get_missing_flags(xml_data)
 
 	base_url = 'https://www.hattrick.org/Img/flags/'
 	url_end_i = '_inactive.png'
@@ -83,10 +85,9 @@ def get_series_list(flagid, search_level=2):
 	league_depth = api.ht_get_worlddetails(league_depth)
 
 
-
 	def get_series_id(search_string, flagid):
 		api_response = api.ht_get_data('search_series',\
-								searchString=search_string, searchLeagueID=flagid)
+					searchString=search_string, searchLeagueID=flagid)
 
 		probe_list.append(api.ht_get_series(api_response)['series_id'])
 
@@ -112,7 +113,7 @@ def get_series_list(flagid, search_level=2):
 		l_difference = l_tuple[2] - 1
 
 		if lid_difference != l_difference:
-			print('WARNING: anomaly in league-naming found. do pricy loops as fallback.')
+			print('WARNING: anomaly in leagueID numbering found. do pricy loops as fallback.')
 			# not integrated yet
 			pass
 
@@ -134,19 +135,19 @@ def get_challengeable_teams_list(teamid, place, series_list):
 	for series in series_list:
 		teams_in_series = api.ht_get_data('teams_in_series', leagueLevelUnitID=series)
 		teams_in_series = api.ht_get_teams_in_series(teams_in_series)
+		teams_in_series = ', '.join(teams_in_series['series_teams'])
 
-		t_i_s = ', '.join(teams_in_series['series_teams'])
 
 		challengeable_teams = api.ht_get_data('challengeable_teams',\
-								teamId=teamid, matchPlace=place, suggestedTeamIds=t_i_s)
-
+					teamId=teamid, matchPlace=place, suggestedTeamIds=teams_in_series)
 
 		challengeable_teams = api.ht_get_challengeable_teams(challengeable_teams)
 
-		for t in challengeable_teams:
-			challengeable_teams_list.append(t)
+		for team in challengeable_teams:
+			challengeable_teams_list.append(team)
 
 
 	print(f'Number of challengeable teams: {len(challengeable_teams_list)}')
+
 
 	return challengeable_teams_list

@@ -71,54 +71,28 @@ def details():
 
 			break
 
+
 	if g.missing_flag:
 		sl = helperf.get_series_list(g.flagid)
 
 		ctl = helperf.get_challengeable_teams_list(g.teamid, g.place, sl)
 
 		for team in ctl:
-			xml = api.ht_get_data('teamdetails', teamID=team, includeFlags='false')
-		
-			_team =api.ht_get_team(xml)
+			_xml = api.ht_get_data('teamdetails', teamID=team, includeFlags='false')
+			_team =api.ht_get_team(_xml)
 
 			signup_year = _team['user']['signup_date'].split('-', 1)[0]
 			actual_year = datetime.now().year
-
 			
-			if _team['user']['supporter_tier'] != 'none'\
-				and int(actual_year) - int(signup_year) > 0:
+			if _team['user']['supporter_tier'] != 'none' and\
+			int(actual_year) - int(signup_year) > 0:
 				
 				_team = (team, _team[team]['team_name'])
 				g.challengeable.append(_team)
 
-		print(g.challengeable)
-
-
-
-
-# {'file': 'teamdetails', 'version': '3.6', 'teamID': '2065350', 'includeFlags': 'false'}
-# {'user': {'user_id': '12104809', 'login_name': 'xxSandroxx', 'supporter_tier': 'platinum', 'signup_date': '2012-05-23 23:03:18'}, '857050': {'team_name': 'Mumak_2', 'team_short': 'Mumak_2', 'team_primary': 'True', 'team_country_id': '4', 'team_league_level_unit_id': '5932', 'team_league_level_unit_name': 'V.97', 'team_league_level_unit_level': '5', 'team_is_bot': 'False', 'team_in_cup': 'False'}, '2065350': {'team_name': 'Fc Livercool', 'team_short': 'Livercool', 'team_primary': 'False', 'team_country_id': '159', 'team_league_level_unit_id': '258573', 'team_league_level_unit_name': 'III.8', 'team_league_level_unit_level': '3', 'team_is_bot': 'False', 'team_in_cup': 'False'}}
-
-
-# [{	'user': 	{	'user_id': '2495234', 
-# 					'login_name': 'TITILASCIENCE', 
-# 					'supporter_tier': 'platinum', 
-# 					'signup_date': '2011-12-16 19:20:07'
-# 					}, 
-# 	'298619': 	{	'team_name': 'Personne', 
-# 					'team_short': 'Personne', 
-# 					'team_primary': 'True', 
-# 					'team_country_id': '5', 
-# 					'team_league_level_unit_id': '36394', 
-# 					'team_league_level_unit_name': 'VI.406', 
-# 					'team_league_level_unit_level': '6', 
-# 					'team_is_bot': 'False', 
-# 					'team_in_cup': 'False'
-# 					},
-
 
 	if request.method == 'POST':
-		pass
+		pass					# not yet implemented
 
 
 	return render_template('flags/details.html')

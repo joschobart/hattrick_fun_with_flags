@@ -41,7 +41,7 @@ api_params =   {'teamdetails':			{	'file': 				'teamdetails',
 											'matchType':			'1',					# 0 = normal, 1 = cup-rules
 											'matchPlace':			'',						# 0 = home, 1 = away
 				 							'suggestedTeamIds':		'',						# CSV list of TeamIds
-				 							},
+				 						},
 				}
 
 
@@ -49,6 +49,7 @@ api_params =   {'teamdetails':			{	'file': 				'teamdetails',
 def oauth_get_url(scope=scope):
 	session['request_token'], session['request_token_secret'], authorize_url = \
 			do_hattrick_request.fetch_authorize_url(scope=scope)
+
 
 	return authorize_url
 
@@ -63,7 +64,8 @@ def oauth_get_access_token(pin):
 
 	session.pop('request_token', None)
 	session.pop('request_token_secret', None)
-    
+
+
 	return
 
 
@@ -74,6 +76,7 @@ def oauth_open_session():
 					session['access_token_secret'],
 					)
 
+
 	return ht_session
 
 
@@ -82,8 +85,8 @@ def ht_get_data(name, api_url=api_url, **kwargs):
 	ht_session = oauth_open_session()
 
 	params = api_params[name]
-
 	params.update(kwargs)
+	print(params)
 
 	xml_data = ht_session.get(api_url, params=params)
 	xml_data = str(xml_data.text).encode('latin1')\
@@ -91,7 +94,6 @@ def ht_get_data(name, api_url=api_url, **kwargs):
 									.encode('latin1')\
 									.decode('utf8')
 
-	print(params)
 
 	return xml_data
 
@@ -100,6 +102,7 @@ def ht_get_data(name, api_url=api_url, **kwargs):
 def ht_get_team(xml_data):
 	team_dict = get_teamdetails.get_teamdetails(xml_data)
 
+
 	return team_dict
 
 
@@ -107,12 +110,14 @@ def ht_get_team(xml_data):
 def ht_get_flags(teamdetails_xml):
 	flags_dict = get_flags.get_my_flags(teamdetails_xml)
 
+
 	return flags_dict
 
 
 
-def get_missing_flags(teamdetails_xml):
+def ht_get_missing_flags(teamdetails_xml):
 	missing_flags_dict = get_flags.get_missing_flags(teamdetails_xml)
+
 
 	return missing_flags_dict
 
@@ -121,12 +126,14 @@ def get_missing_flags(teamdetails_xml):
 def ht_get_worlddetails(worlddetails_xml):
 	worlddetails_dict = get_worlddetails.get_my_worlddetails(worlddetails_xml)
 
+
 	return worlddetails_dict
 
 
 
 def ht_get_series(search_series_xml):
 	series_dict = get_series.get_my_series(search_series_xml)
+
 
 	return series_dict
 
@@ -135,11 +142,13 @@ def ht_get_series(search_series_xml):
 def ht_get_teams_in_series(teams_in_series_xml):
 	teams_dict = get_series.get_teams_in_series(teams_in_series_xml)
 
+
 	return teams_dict
 
 
 
 def ht_get_challengeable_teams(challengeable_xml):
 	challengeable_teams_list = do_challenge.is_challengeable(challengeable_xml)
+
 
 	return challengeable_teams_list
