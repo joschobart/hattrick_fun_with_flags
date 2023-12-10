@@ -1,8 +1,11 @@
 from flask import session
 
+from ht_libs import do_challenge
 from ht_libs import do_hattrick_request
-from ht_libs import get_teamdetails
 from ht_libs import get_flags
+from ht_libs import get_series
+from ht_libs import get_teamdetails
+from ht_libs import get_worlddetails
 
 
 
@@ -11,16 +14,34 @@ scope = 'manage_challenges'
 session_status_url = 'https://chpp.hattrick.org/oauth/check_token.ashx'
 api_url = 'https://chpp.hattrick.org/chppxml.ashx'
 
-api_params =   {'teamdetails':		{	'file': 			'teamdetails', 
-										'version': 			'3.6',
-										'includeFlags': 	'true',
-								 	},
-				'search_series':	{	'file': 			'search',
-										'version':			'1.2',
-										'searchType':		'3',
-										'searchString':		'',					# e.g.: ii.1 for series II.1
-										'searchLeagueID':	'',					# e.g.: 46 for switzerland
-				 					},
+api_params =   {'teamdetails':			{	'file': 				'teamdetails', 
+											'version': 				'3.6',
+											'teamID':				'',
+											'includeFlags': 		'',
+								 		},
+				'search_series':		{	'file': 				'search',
+											'version':				'1.2',
+											'searchType':			'3',
+											'searchString':			'ii.1',					# e.g.: ii.1 for series II.1
+											'searchLeagueID':		'',						# e.g.: 46 for switzerland
+				 						},
+				'worlddetails':			{	'file': 				'worlddetails',
+											'version':				'1.9',
+											'includeRegions':		'false',
+											'leagueID':				'',						# e.g.: 46 for switzerland
+				 						},
+				'teams_in_series':		{	'file': 				'leaguedetails',
+											'version':				'1.6',
+											'leagueLevelUnitID':	'false',
+				 						},
+				'challengeable_teams':	{	'file': 				'challenges',
+											'version':				'1.6',
+											'actionType':			'challengeable',
+											'teamId':				'',						# team to challenge
+											'matchType':			'1',					# 0 = normal, 1 = cup-rules
+											'matchPlace':			'',						# 0 = home, 1 = away
+				 							'suggestedTeamIds':		'',						# CSV list of TeamIds
+				 							},
 				}
 
 
@@ -70,12 +91,14 @@ def ht_get_data(name, api_url=api_url, **kwargs):
 									.encode('latin1')\
 									.decode('utf8')
 
+	print(params)
+
 	return xml_data
 
 
 
 def ht_get_team(xml_data):
-	team_dict = get_teamdetails.get_my_teamdetails(xml_data)
+	team_dict = get_teamdetails.get_teamdetails(xml_data)
 
 	return team_dict
 
@@ -92,3 +115,31 @@ def get_missing_flags(teamdetails_xml):
 	missing_flags_dict = get_flags.get_missing_flags(teamdetails_xml)
 
 	return missing_flags_dict
+
+
+
+def ht_get_worlddetails(worlddetails_xml):
+	worlddetails_dict = get_worlddetails.get_my_worlddetails(worlddetails_xml)
+
+	return worlddetails_dict
+
+
+
+def ht_get_series(search_series_xml):
+	series_dict = get_series.get_my_series(search_series_xml)
+
+	return series_dict
+
+
+
+def ht_get_teams_in_series(teams_in_series_xml):
+	teams_dict = get_series.get_teams_in_series(teams_in_series_xml)
+
+	return teams_dict
+
+
+
+def ht_get_challengeable_teams(challengeable_xml):
+	challengeable_teams_list = do_challenge.is_challengeable(challengeable_xml)
+
+	return challengeable_teams_list

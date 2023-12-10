@@ -49,7 +49,7 @@ def login():
 
 	if error is None:
 		try:
-			xml_response = api.ht_get_data("teamdetails")
+			xml_response = api.ht_get_data('teamdetails', includeFlags='false')
 
 			session['my_team'] = api.ht_get_team(xml_response)
 

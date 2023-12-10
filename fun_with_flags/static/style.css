@@ -43,6 +43,9 @@ nav ul li a, nav ul li span, header .action {
 	display: block;
 	padding: 0.2rem; }
 
+.list_0  {
+    margin: 0; padding: 0; }
+
 .nav_table {
   border: 0px solid black;
 	table-layout: auto;

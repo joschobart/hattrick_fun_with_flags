@@ -10,10 +10,21 @@
       {{ g.nation }} 
       <img src="{{ g.flagurl }}" alt="{{ g.nation }}" title="{{ g.nation }}">
     </h3>
-    {% if g.challengeable is true %}
-      <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
-    {% else %}
+    {% if g.missing_flag is false %}
       <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> for your team <b>{{ g.team }}</b> is in your collection already. Doesn't it look amazing?!:)</p>
+    {% else %}
+      <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
+      <p></p>
+      <p></p>
+      <p>There are <b>{{ g.challengeable | length }}</b> supporter-teams challengeable in <b>{{ g.nation }}</b> at the moment. This are the Teams:</p>
+      <p></p>
+      <div id='list_0'>
+        <div class="list_0">
+          {% for item in g.challengeable %}
+            <p><a href="https://www.hattrick.org/Club/?TeamID={{ item[0] }}" target="_blank">{{ item[1] }}</a></p>
+          {% endfor %}
+        </div>
+      </div> 
     {% endif %}
   {% endif %}
 {% endblock %}

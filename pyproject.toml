@@ -3,7 +3,7 @@ name = "hattrick_fun_with_flags"
 version = "0.1.2"
 description = "Add your description here"
 dependencies = [
-    "hattrick-libs==0.6.0",
+    "hattrick-libs==0.8.0",
     "flask>=3.0.0",
 ]
 readme = "README.md"
