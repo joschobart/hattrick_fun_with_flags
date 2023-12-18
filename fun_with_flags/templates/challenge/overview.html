@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Challenges Overview{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+
+  {% for t in range(session['teams'] | length) %}
+    {% if session['teamid'] is defined and session['teamid'] == session['teams'][t][0] %}
+      <h3>{{ session['teams'][t][1] }}</h3>
+
+
+    {% if g.challenges is defined %}
+      <h4>Challenges</h4>
+        <table class="flags_table">
+          <tr>
+            <th>
+              <strong>
+                <p>
+                  Opponent Name:
+                </p>
+              </strong>
+            </th>
+            <td>
+              <strong>
+                <p>
+                  {{ g.challenges['opponent_team_name'] }}
+                </p>
+              </strong>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <strong>
+                <p>
+                  Opponent Country:
+                </p>
+              </strong>
+            </th>
+            <td>
+              <strong>
+                <p>
+                  {{ g.challenges['country_name'] }}
+                </p>
+              </strong>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <strong>
+                <p>
+                  Match booked:
+                </p>
+              </strong>
+            </th>
+            <td>
+              <strong>
+                <p>
+                  {{ g.challenges['is_agreed'] }}
+                </p>
+              </strong>
+            </td>
+          </tr>
+        </table>
+  {% endif %}
+
+  {% endif %}
+  {% endfor %}
+{% endblock %}

@@ -1,9 +1,12 @@
 [project]
-name = "hattrick_fun_with_flags"
+name = "hattrick-fun-with-flags"
 version = "0.1.2"
 description = "Add your description here"
+authors = [
+    { name = "joe", email = "github@schicker.guru" }
+]
 dependencies = [
-    "hattrick-libs==0.8.0",
+    "hattrick-libs==0.9.5",
     "flask>=3.0.0",
 ]
 readme = "README.md"

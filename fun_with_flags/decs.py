@@ -1,6 +1,8 @@
 import functools
 
-from flask import flash, redirect, session, url_for
+from flask import flash, redirect, session, url_for, request
+
+from . import helperf
 
 
 
@@ -35,6 +37,25 @@ def login_required(view):
 		if not username:
 
 			return redirect(url_for('auth.authorize'))
+
+
+		return view(**kwargs)
+
+	return wrapped_view
+
+
+
+def choose_team(view):
+	@functools.wraps(view)
+	def wrapped_view(**kwargs):
+		if session.get('username'):
+			helperf.get_my_teams()
+
+			if request.method == 'POST' and request.form['teams']:
+				session['teamid'] = request.form['teams']
+
+
+				return redirect(url_for('flags.overview'))
 
 
 		return view(**kwargs)

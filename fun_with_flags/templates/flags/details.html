@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block content %}
+
+
   {% if g.team is defined and g.place is defined and g.nation is defined %}
     <h3>
       {{ g.nation }} 
@@ -14,17 +16,24 @@
       <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> for your team <b>{{ g.team }}</b> is in your collection already. Doesn't it look amazing?!:)</p>
     {% else %}
       <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
-      <p></p>
-      <p></p>
-      <p>There are <b>{{ g.challengeable | length }}</b> supporter-teams challengeable in <b>{{ g.nation }}</b> at the moment. This are the Teams:</p>
-      <p></p>
+      <p>Do you want to search for opponents to challenge? <b>This may take up to five minutes!</b></p>
+      <form method="post">
+        <input type="submit" value="Search Opponents" name="search_opponents" id="search_opponents" onclick="loadSpinner()">
+      </form>
+      {% if g.challengeable | length > 0 %}
+      <p>There are <b>{{ g.challengeable | length }}</b> supporter-teams challengeable in <b>{{ g.nation }}</b> at the moment.</p>
+      <form method="post">
+        <input type="submit" value="Challenge Opponents" name="challenge_opponents" formaction="{{ url_for('challenge.overview') }}" onclick="loadSpinner()">
+      </form>
       <div id='list_0'>
         <div class="list_0">
           {% for item in g.challengeable %}
-            <p><a href="https://www.hattrick.org/Club/?TeamID={{ item[0] }}" target="_blank">{{ item[1] }}</a></p>
+            <p><a href="https://hattrick.org/goto.ashx?path=/Club/?TeamID={{ item[0] }}" target="_blank">{{ item[1] }}</a></p>
           {% endfor %}
         </div>
-      </div> 
+      </div>
+      {% endif %}
     {% endif %}
   {% endif %}
+
 {% endblock %}

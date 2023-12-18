@@ -5,27 +5,15 @@
 {% endblock %}
 
 {% block content %}
-  <h3>Welcome {{ session['username'] }}!</h3>
-  <label for="teams">Choose a team:</label>
-  <form method="post">
-    <select name="teams" id="teams">
-      {% for t in range(g.teams | length) %}
-        {% if g.teamid is defined and g.teamid == g.teams[t][0] %}
-          <option value="{{ g.teams[t][0] }}" selected>
-            {{ g.teams[t][1] }}
-          </option>
-        {% else %}
-          <option value="{{ g.teams[t][0] }}" >
-            {{ g.teams[t][1] }}
-          </option>
-        {% endif %}
-      {% endfor %}
-    </select>
-    <input type="submit" value="Select">
-  </form>
-  <br>
 
-  {% if g.teamid is defined %}
+  {% for t in range(session['teams'] | length) %}
+    {% if session['teamid'] is defined and session['teamid'] == session['teams'][t][0] %}
+      <h3>{{ session['teams'][t][1] }}</h3>
+    {% endif %}
+  {% endfor %}
+
+
+  {% if g.l_home is defined %}
     <h4>Home Flags</h4>
       <table class="flags_table">
         <tr>
@@ -33,7 +21,7 @@
             {% if (i + 1) % 22 == 0 %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&teamid={{ g.teamid }}&place=home">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=home">
                     <img src="{{ g.l_home[i][2] }}" alt="{{ g.l_home[i][1] }}" title="{{ g.l_home[i][1] }}">
                   </a>
                 </p>
@@ -43,7 +31,7 @@
             {% else %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&teamid={{ g.teamid }}&place=home">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=home">
                     <img src="{{ g.l_home[i][2] }}" alt="{{ g.l_home[i][1] }}" title="{{ g.l_home[i][1] }}">
                 </p>
               </td>
@@ -59,7 +47,7 @@
             {% if (i + 1) % 22 == 0 %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&teamid={{ g.teamid }}&place=away">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=away">
                     <img src="{{ g.l_away[i][2] }}" alt="{{ g.l_away[i][1] }}" title="{{ g.l_away[i][1] }}">
                   </a>
                 </p>
@@ -69,7 +57,7 @@
             {% else %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&teamid={{ g.teamid }}&place=away">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=away">
                     <img src="{{ g.l_away[i][2] }}" alt="{{ g.l_away[i][1] }}" title="{{ g.l_away[i][1] }}">
                   </a>
                 </p>

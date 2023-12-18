@@ -37,10 +37,15 @@ api_params =   {'teamdetails':			{	'file': 				'teamdetails',
 				'challengeable_teams':	{	'file': 				'challenges',
 											'version':				'1.6',
 											'actionType':			'challengeable',
-											'teamId':				'',						# team to challenge
+											'teamId':				'',						# id of team to manage
 											'matchType':			'1',					# 0 = normal, 1 = cup-rules
 											'matchPlace':			'',						# 0 = home, 1 = away
 				 							'suggestedTeamIds':		'',						# CSV list of TeamIds
+				 						},
+				'get_challenges':		{	'file': 				'challenges',
+											'version':				'1.6',
+											'actionType':			'view',
+											'teamId':				'',						# id of team to manage
 				 						},
 				}
 
@@ -152,3 +157,21 @@ def ht_get_challengeable_teams(challengeable_xml):
 
 
 	return challengeable_teams_list
+
+
+
+def ht_do_challenge(teamid, challengeable_teams_list):
+	session = oauth_open_session()
+
+	my_challenges = do_challenge.do_challenge(teamid, session, challengeable_teams_list)
+
+
+	return my_challenges
+
+
+
+def ht_get_challenges(challenges_xml):
+	challenges = do_challenge.get_challenges(challenges_xml)
+
+
+	return challenges

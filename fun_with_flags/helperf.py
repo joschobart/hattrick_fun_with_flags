@@ -5,7 +5,7 @@ from . import api
 
 
 def get_my_teams():
-	g.teams = []
+	teams = []
 
 
 	for x in list(session['my_team']):
@@ -13,13 +13,13 @@ def get_my_teams():
 			team = (x, session['my_team'][x]['team_name'],\
 					session['my_team'][x]['team_primary'])
 
-			g.teams.append(team)
+			teams.append(team)
 
 	# first sort after 'team_primary', then team_id
-	g.teams = sorted(g.teams, key=lambda x: (x[2], x[0]), reverse=True)
+	session['teams'] = sorted(teams, key=lambda x: (x[2], x[0]), reverse=True)
 
 
-	return g.teams
+	return
 
 
 
@@ -29,6 +29,7 @@ def compose_flag_matrix(teamid):
 
 	my_flags = api.ht_get_flags(xml_data)
 	my_missing_flags = api.ht_get_missing_flags(xml_data)
+
 
 	base_url = 'https://www.hattrick.org/Img/flags/'
 	url_end_i = '_inactive.png'
@@ -48,22 +49,22 @@ def compose_flag_matrix(teamid):
 
 				if ha == 'missing_home':
 					l_home.append((i, w, (base_url + \
-							m[g.teamid][ha][flag][0] + \
+							m[teamid][ha][flag][0] + \
 							url_end_i)))
 
 				elif ha == 'flags_home':
 					l_home.append((i, w, (base_url + \
-							m[g.teamid][ha][flag][0] + \
+							m[teamid][ha][flag][0] + \
 							url_end)))
 
 				elif ha == 'missing_away':
 					l_away.append((i, w, (base_url + \
-							m[g.teamid][ha][flag][0] + \
+							m[teamid][ha][flag][0] + \
 							url_end_i)))
 
 				else:
 					l_away.append((i, w, (base_url + \
-							m[g.teamid][ha][flag][0] + \
+							m[teamid][ha][flag][0] + \
 							url_end)))
 
 
@@ -71,7 +72,7 @@ def compose_flag_matrix(teamid):
 
 
 
-def get_series_list(flagid, search_level=2):
+def get_series_list(flagid, search_level=3):
 	probe_list = []
 	series_list = []
 
@@ -83,6 +84,7 @@ def get_series_list(flagid, search_level=2):
 
 	league_depth = api.ht_get_data('worlddetails', leagueID=flagid)
 	league_depth = api.ht_get_worlddetails(league_depth)
+
 
 
 	def get_series_id(search_string, flagid):

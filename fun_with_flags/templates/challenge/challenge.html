@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}Challenges{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+
+
+  {% if session['challengeable'] | length > 0 %}
+    <h3>
+      {{ g.nation }} Challenges
+      <img src="{{ g.flagurl }}" alt="{{ g.nation }}" title="{{ g.nation }}">
+    </h3>
+  {% endif %}
+
+{% endblock %}

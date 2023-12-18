@@ -7,6 +7,7 @@ from flask import (
 
 from . import auth
 from . import flags
+from . import challenge
 
 
 
@@ -34,7 +35,8 @@ def create_app(test_config=None):
 
 
     # entry-point
-    @app.route('/')
+    @app.route('/', methods=('GET', 'POST'))
+    @decs.choose_team
     def index():
         return render_template('index.html')
 
@@ -43,6 +45,8 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp_a)
 
     app.register_blueprint(flags.bp_f)
+
+    app.register_blueprint(challenge.bp_c)
 
 
     return app

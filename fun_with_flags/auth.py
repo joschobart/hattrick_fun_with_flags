@@ -38,6 +38,7 @@ def authorize():
 
 @bp_a.route('/login', methods=('GET', 'POST'))
 @decs.error_check
+@decs.choose_team
 def login():
 	access_token_key = session.get('access_token_key', None)
 	access_token_secret = session.get('access_token_secret', None)
