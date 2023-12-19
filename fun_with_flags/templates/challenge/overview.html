@@ -13,7 +13,23 @@
 
     {% if g.challenges is defined %}
       <h4>Challenges</h4>
-        <table class="flags_table">
+        <table class="challenges_table">
+          <tr>
+            <th>
+              <strong>
+                <p>
+                  Next Friendly date:
+                </p>
+              </strong>
+            </th>
+            <td>
+              <strong>
+                <p>
+                  {{ g.challenges['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
+                </p>
+              </strong>
+            </td>
+          </tr>
           <tr>
             <th>
               <strong>

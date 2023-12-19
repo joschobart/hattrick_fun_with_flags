@@ -16,7 +16,7 @@ bp_f = Blueprint('flags', __name__, url_prefix='/flags')
 @bp_f.route('/overview', methods=('GET', 'POST'))
 @decs.login_required
 @decs.choose_team
-#@decs.error_check
+@decs.error_check
 def overview():
 
 	g.l_home, g.l_away = helperf.compose_flag_matrix(session['teamid'])
@@ -32,7 +32,7 @@ def overview():
 @bp_f.route('/details', methods=('GET', 'POST'))
 @decs.login_required
 @decs.choose_team
-#@decs.error_check
+@decs.error_check
 def details():
 	g.challengeable = []
 

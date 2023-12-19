@@ -29,8 +29,32 @@ def overview():
 
 	except:
 		error = f"Getting challenges was unsuccessful."
-		
 		flash(error)
+
+
+	if g.challenges != []:
+
+		if g.challenges['is_agreed'] == 'True':
+
+			_now = datetime.now()
+			match_time = g.challenges['match_time']
+			match_time = datetime.strptime(match_time, '%Y-%m-%d %H:%M:%S')
+			tdelta = match_time - _now
+			tdelta = tdelta.total_seconds()
+			g.tdelta_hours = round(tdelta / 3600, 1)
+
+			session['my_team'][session['teamid']]['has_friendly'] = match_time
+
+		
+		print(session['my_team'][session['teamid']]['has_friendly'])
+
+
+	else:
+		message = f"No challenges to show"
+		flash(message)
+
+
+
 
 
 	return render_template('challenge/overview.html')
@@ -40,7 +64,7 @@ def overview():
 @bp_c.route('/challenge', methods=('GET', 'POST'))
 @decs.login_required
 @decs.choose_team
-#@decs.error_check
+@decs.error_check
 def challenge():
 	if request.method == 'POST':
 		g.challengeable = list(zip(*session.get('challengeable', None)))[0]
@@ -57,6 +81,7 @@ def challenge():
 			flash(error)
 
 		else:
+			flash('Challenges booked!')
 			return redirect(url_for("challenge.overview"))
 
 

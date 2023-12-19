@@ -80,6 +80,33 @@ p 	{
 	background-color: #7bb381;
 	text-align: center;}
 
+
+.challenges_table {
+  border: 2px solid black;
+	table-layout: fixed;
+  width: 100%;
+  border-collapse: inherit; }
+
+.challenges_table p {
+	margin-bottom: 20px; }
+
+.challenges_table th {
+	background-color: lightgray;
+  text-align: left;}
+
+.challenges_table td {
+	border: 2px lightgray;
+	background-color: white;
+	text-align: left;}
+
+.challenges_table td:hover {
+	background-color: #7bb381;
+	text-align: left;}
+
+.challenge_date {
+	font-family: serif;
+	font-size: 10px; }
+
 .content {
 	padding: 0 1rem 1rem; }
 
