@@ -6,7 +6,7 @@ authors = [
     { name = "joe", email = "github@schicker.guru" }
 ]
 dependencies = [
-    "hattrick-libs==0.9.6",
+    "hattrick-libs==0.9.13",
     "flask>=3.0.0",
 ]
 readme = "README.md"

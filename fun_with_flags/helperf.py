@@ -176,8 +176,11 @@ def get_my_challenges():
 	challenges = api.ht_get_challenges(_xml)
 
 
-	if challenges != []:
-		match_time = challenges['match_time']
+	print(challenges)
+
+
+	if challenges['challenges'] != []:
+		match_time = challenges['challenges'][0]['match_time']
 		match_time = datetime.strptime(match_time, '%Y-%m-%d %H:%M:%S')
 		tdelta = match_time - now
 		tdelta = tdelta.total_seconds()

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from flask import (Blueprint,
-	g, render_template, request, session, redirect, flash)
+	g, render_template, request, session, redirect, url_for, flash)
 
 from . import api
 from . import decs
@@ -22,7 +22,7 @@ def overview():
 	teamid = session.get('teamid', None)
 
 
-	if g.challenges != [] and g.challenges['is_agreed'] == 'True':
+	if g.challenges['challenges'] != [] and g.challenges['challenges'][0]['is_agreed'] == 'True':
 		if now.weekday() in range(0, 3) and tdelta_hours > 100:
 			message = f"Match is running.\
 							Come back Thursday after 7 o'clock UTC to book a new match."
@@ -34,6 +34,10 @@ def overview():
 			message = f"Match booked!"
 
 			session['my_team'][session['teamid']]['has_friendly'] = match_time
+
+
+	elif g.challenges['challenges'] != [] and g.challenges['challenges'][0]['is_agreed'] == 'False':
+		message = f"Teams are challanged but not agreed yet."
 
 
 	else:
@@ -52,11 +56,15 @@ def overview():
 @bp_c.route('/challenge', methods=('GET', 'POST'))
 @decs.login_required
 @decs.choose_team
-@decs.error_check
+#@decs.error_check
 def challenge():
 	if request.method == 'POST':
 		g.challengeable = list(zip(*session.get('challengeable', None)))[0]
 		g.teamid = session.get('teamid', None)
+
+
+		print(g.challengeable)
+
 
 		session.pop('challengeable', None)
 

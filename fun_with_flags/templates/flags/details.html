@@ -27,7 +27,7 @@
       {% if g.challengeable | length > 0 %}
       <p>There are <b>{{ g.challengeable | length }}</b> supporter-teams challengeable in <b>{{ g.nation }}</b> at the moment.</p>
       <form method="post">
-        <input type="submit" value="Challenge Opponents" name="challenge_opponents" formaction="{{ url_for('challenge.overview') }}" onclick="loadSpinner()">
+        <input type="submit" value="Challenge Opponents" name="challenge_opponents" formaction="{{ url_for('challenge.challenge') }}" onclick="loadSpinner()">
       </form>
       <div id='list_0'>
         <div class="list_0">

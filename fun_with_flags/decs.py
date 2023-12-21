@@ -38,7 +38,6 @@ def login_required(view):
 
 			return redirect(url_for('auth.authorize'))
 
-
 		return view(**kwargs)
 
 	return wrapped_view
@@ -47,16 +46,15 @@ def login_required(view):
 
 def choose_team(view):
 	@functools.wraps(view)
+
 	def wrapped_view(**kwargs):
 		if session.get('username'):
 			helperf.get_my_teams()
 
-			if request.method == 'POST' and request.form['teams']:
+			if request.method == 'POST' and 'teams' in request.form:
 				session['teamid'] = request.form['teams']
 
-
 				return redirect(url_for('flags.overview'))
-
 
 		return view(**kwargs)
 
