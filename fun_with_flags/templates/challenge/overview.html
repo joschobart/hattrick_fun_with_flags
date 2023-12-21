@@ -11,12 +11,12 @@
       <h3>{{ session['teams'][t][1] }}</h3>
 
 
-    {% if g.challenges is defined and g.challenges != [] %}
-      <h4>Challenges</h4>
+    {% if g.challenges is defined and g.challenges['challenges'] != [] %}
+      <h4>Challenges ({{  g.challenges['challenges'] | length }})</h4>
 
-      {% for challenge in range(g.challenges | length) %}
+      {% for i in range(g.challenges['challenges'] | length) %}
         <table class="challenges_table">
-          {% if challenge['is_agreed'] == "True" %}
+          {% if g.challenges['challenges'][i]['is_agreed'] == "True" %}
           <tr>
             <th>
               <strong>
@@ -28,7 +28,7 @@
             <td>
               <strong>
                 <p>
-                  {{ challenge['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
+                  {{ g.challenges['challenges'][i]['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
                 </p>
               </strong>
             </td>
@@ -45,27 +45,14 @@
             <td>
               <strong>
                 <p>
-                  {{ challenge['opponent_team_name'] }}
+                  <a href="https://hattrick.org/goto.ashx?path=/Club/Challenges/?TeamID={{ session['teamid'] }}"  target="_blank">
+                    {{ g.challenges['challenges'][i]['opponent_team_name'] }} ({{ g.challenges['challenges'][i]['country_name'] }})
+                  </a>
                 </p>
               </strong>
             </td>
           </tr>
-          <tr>
-            <th>
-              <strong>
-                <p>
-                  Opponent Country:
-                </p>
-              </strong>
-            </th>
-            <td>
-              <strong>
-                <p>
-                  {{ challenge['country_name'] }}
-                </p>
-              </strong>
-            </td>
-          </tr>
+          {% if g.challenges['challenges'][i]['is_agreed'] == "True" %}
           <tr>
             <th>
               <strong>
@@ -77,11 +64,12 @@
             <td>
               <strong>
                 <p>
-                  {{ challenge['is_agreed'] }}
+                  {{ g.challenges['challenges'][i]['is_agreed'] }}
                 </p>
               </strong>
             </td>
           </tr>
+          {% endif %}
         </table>
         {% endfor %}
 

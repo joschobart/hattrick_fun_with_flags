@@ -19,7 +19,9 @@ bp_f = Blueprint('flags', __name__, url_prefix='/flags')
 @decs.error_check
 def overview():
 
-	g.l_home, g.l_away = helperf.compose_flag_matrix(session['teamid'])
+	g.l_home, g.l_away, g.nr_flags_home, g.nr_flags_away =\
+				helperf.compose_flag_matrix(session['teamid'])
+
 
 	g.l_home = sorted(g.l_home, key=lambda x: x[1])
 	g.l_away = sorted(g.l_away, key=lambda x: x[1])
@@ -39,7 +41,7 @@ def details():
 	g.flagid = request.args.get('flagid')
 	g.place = request.args.get('place')
 
-	g.l_home, g.l_away = helperf.compose_flag_matrix(session['teamid'])
+	g.l_home, g.l_away, *_ = helperf.compose_flag_matrix(session['teamid'])
 
 	helperf.get_my_teams()
 

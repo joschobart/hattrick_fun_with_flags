@@ -18,26 +18,29 @@ bp_c = Blueprint('challenge', __name__, url_prefix='/challenge')
 @decs.choose_team
 #@decs.error_check
 def overview():
-	g.challenges, now, match_time, tdelta, tdelta_hours, bookable = helperf.get_my_challenges()
+	g.challenges, now, match_time, tdelta, g.tdelta_hours, bookable = helperf.get_my_challenges()
 	teamid = session.get('teamid', None)
 
 
-	if g.challenges['challenges'] != [] and g.challenges['challenges'][0]['is_agreed'] == 'True':
-		if now.weekday() in range(0, 3) and tdelta_hours > 100:
-			message = f"Match is running.\
+	if g.challenges['challenges'] != []:
+		if g.challenges['challenges'][0]['is_agreed'] == 'True':
+			if now.weekday() in range(0, 3) and tdelta_hours > 100:
+				message = f"Match is running.\
 							Come back Thursday after 7 o'clock UTC to book a new match."
 
-			session['my_team'][session['teamid']]['has_friendly'] = None
-			g.challenges.clear()
+				session['my_team'][session['teamid']]['has_friendly'] = None
+				g.challenges.clear()
+
+			else:
+				message = f"Match booked!"
+
+				session['my_team'][session['teamid']]['has_friendly'] = match_time
+
+				print(match_time)
+
 
 		else:
-			message = f"Match booked!"
-
-			session['my_team'][session['teamid']]['has_friendly'] = match_time
-
-
-	elif g.challenges['challenges'] != [] and g.challenges['challenges'][0]['is_agreed'] == 'False':
-		message = f"Teams are challanged but not agreed yet."
+			message = f"Teams are challenged but not agreed yet."
 
 
 	else:
@@ -61,9 +64,6 @@ def challenge():
 	if request.method == 'POST':
 		g.challengeable = list(zip(*session.get('challengeable', None)))[0]
 		g.teamid = session.get('teamid', None)
-
-
-		print(g.challengeable)
 
 
 		session.pop('challengeable', None)

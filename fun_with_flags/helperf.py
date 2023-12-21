@@ -39,7 +39,10 @@ def compose_flag_matrix(teamid):
 
 	l_home = []
 	l_away = []
-	
+
+	nbr_flags_home = (len(my_flags[teamid]['flags_home']), 147)
+	nbr_flags_away = (len(my_flags[teamid]['flags_away']), 147)
+
 
 	for m in (my_flags, my_missing_flags):
 		for ha in m[teamid].keys():
@@ -70,11 +73,11 @@ def compose_flag_matrix(teamid):
 							url_end)))
 
 
-	return l_home, l_away
+	return l_home, l_away, nbr_flags_home, nbr_flags_away
 
 
 
-def get_series_list(flagid, search_level=3):
+def get_series_list(flagid, search_level=2):
 	probe_list = []
 	series_list = []
 
@@ -151,9 +154,6 @@ def get_challengeable_teams_list(teamid, place, series_list):
 			challengeable_teams_list.append(team)
 
 
-	print(f'Number of challengeable teams: {len(challengeable_teams_list)}')
-
-
 	return challengeable_teams_list
 
 
@@ -176,15 +176,20 @@ def get_my_challenges():
 	challenges = api.ht_get_challenges(_xml)
 
 
-	print(challenges)
+	if len(challenges['challenges']) < 25:
+		bookable = True
 
 
 	if challenges['challenges'] != []:
+		if challenges['challenges'][0]['is_agreed'] == 'True':
+			bookable = False
+
 		match_time = challenges['challenges'][0]['match_time']
 		match_time = datetime.strptime(match_time, '%Y-%m-%d %H:%M:%S')
 		tdelta = match_time - now
 		tdelta = tdelta.total_seconds()
 		tdelta_hours = round(tdelta / 3600, 1)
+
 
 	else:
 
