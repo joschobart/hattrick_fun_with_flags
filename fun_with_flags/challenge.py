@@ -18,43 +18,31 @@ bp_c = Blueprint('challenge', __name__, url_prefix='/challenge')
 @decs.choose_team
 #@decs.error_check
 def overview():
-	g.challenges = []
+	g.challenges, now, match_time, tdelta, tdelta_hours, bookable = helperf.get_my_challenges()
 	teamid = session.get('teamid', None)
 
-	_xml = api.ht_get_data('get_challenges', teamId=teamid)
 
+	if g.challenges != [] and g.challenges['is_agreed'] == 'True':
+		if now.weekday() in range(0, 3) and tdelta_hours > 100:
+			message = f"Match is running.\
+							Come back Thursday after 7 o'clock UTC to book a new match."
 
-	try:
-		g.challenges = api.ht_get_challenges(_xml)
+			session['my_team'][session['teamid']]['has_friendly'] = None
+			g.challenges.clear()
 
-	except:
-		error = f"Getting challenges was unsuccessful."
-		flash(error)
-
-
-	if g.challenges != []:
-
-		if g.challenges['is_agreed'] == 'True':
-
-			_now = datetime.now()
-			match_time = g.challenges['match_time']
-			match_time = datetime.strptime(match_time, '%Y-%m-%d %H:%M:%S')
-			tdelta = match_time - _now
-			tdelta = tdelta.total_seconds()
-			g.tdelta_hours = round(tdelta / 3600, 1)
+		else:
+			message = f"Match booked!"
 
 			session['my_team'][session['teamid']]['has_friendly'] = match_time
-
-		
-		print(session['my_team'][session['teamid']]['has_friendly'])
 
 
 	else:
 		message = f"No challenges to show"
-		flash(message)
+
+		session['my_team'][session['teamid']]['has_friendly'] = None
 
 
-
+	flash(message)
 
 
 	return render_template('challenge/overview.html')

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import (session, g,)
 
 from . import api
@@ -153,3 +155,39 @@ def get_challengeable_teams_list(teamid, place, series_list):
 
 
 	return challengeable_teams_list
+
+
+
+def get_my_challenges():
+	now = datetime.now()
+	utc = datetime.utcnow()
+
+	challenges = []
+	match_time = ''
+	tdelta = ''
+	tdelta_hours = ''
+	bookable = False
+
+
+	_teamid = session.get('teamid', None)
+
+	_xml = api.ht_get_data('get_challenges', teamId=_teamid)
+
+	challenges = api.ht_get_challenges(_xml)
+
+
+	if challenges != []:
+		match_time = challenges['match_time']
+		match_time = datetime.strptime(match_time, '%Y-%m-%d %H:%M:%S')
+		tdelta = match_time - now
+		tdelta = tdelta.total_seconds()
+		tdelta_hours = round(tdelta / 3600, 1)
+
+	else:
+
+		if utc.weekday() == 3 and utc.hour >= 7 or\
+					utc.weekday() >= 4 or utc.weekday() <= 1:
+			bookable = True
+
+
+	return challenges, now, match_time, tdelta, tdelta_hours, bookable

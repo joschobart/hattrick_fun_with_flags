@@ -32,7 +32,7 @@ def overview():
 @bp_f.route('/details', methods=('GET', 'POST'))
 @decs.login_required
 @decs.choose_team
-@decs.error_check
+#@decs.error_check
 def details():
 	g.challengeable = []
 
@@ -42,6 +42,9 @@ def details():
 	g.l_home, g.l_away = helperf.compose_flag_matrix(session['teamid'])
 
 	helperf.get_my_teams()
+
+	gmc = helperf.get_my_challenges()	
+	g.bookable = gmc[-1]
 
 
 	for item in session['teams']:

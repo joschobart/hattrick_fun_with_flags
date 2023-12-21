@@ -11,9 +11,12 @@
       <h3>{{ session['teams'][t][1] }}</h3>
 
 
-    {% if g.challenges is defined %}
+    {% if g.challenges is defined and g.challenges != [] %}
       <h4>Challenges</h4>
+
+      {% for challenge in range(g.challenges | length) %}
         <table class="challenges_table">
+          {% if challenge['is_agreed'] == "True" %}
           <tr>
             <th>
               <strong>
@@ -25,11 +28,12 @@
             <td>
               <strong>
                 <p>
-                  {{ g.challenges['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
+                  {{ challenge['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
                 </p>
               </strong>
             </td>
           </tr>
+          {% endif %}
           <tr>
             <th>
               <strong>
@@ -41,7 +45,7 @@
             <td>
               <strong>
                 <p>
-                  {{ g.challenges['opponent_team_name'] }}
+                  {{ challenge['opponent_team_name'] }}
                 </p>
               </strong>
             </td>
@@ -57,7 +61,7 @@
             <td>
               <strong>
                 <p>
-                  {{ g.challenges['country_name'] }}
+                  {{ challenge['country_name'] }}
                 </p>
               </strong>
             </td>
@@ -73,12 +77,14 @@
             <td>
               <strong>
                 <p>
-                  {{ g.challenges['is_agreed'] }}
+                  {{ challenge['is_agreed'] }}
                 </p>
               </strong>
             </td>
           </tr>
         </table>
+        {% endfor %}
+
   {% endif %}
 
   {% endif %}
