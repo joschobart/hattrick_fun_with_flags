@@ -8,6 +8,8 @@ authors = [
 dependencies = [
     "hattrick-libs==0.9.13",
     "flask>=3.0.0",
+    "pymongo>=4.6.1",
+    "cryptography>=41.0.7",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

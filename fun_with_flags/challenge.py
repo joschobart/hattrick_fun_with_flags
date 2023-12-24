@@ -24,7 +24,7 @@ def overview():
 
 	if g.challenges['challenges'] != []:
 		if g.challenges['challenges'][0]['is_agreed'] == 'True':
-			if now.weekday() in range(0, 3) and tdelta_hours > 100:
+			if now.weekday() in range(0, 3) and g.tdelta_hours > 100:
 				message = f"Match is running.\
 							Come back Thursday after 7 o'clock UTC to book a new match."
 

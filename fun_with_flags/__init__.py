@@ -2,7 +2,7 @@ import os
 
 from flask import (
     Flask,
-    render_template,
+    render_template
     )
 
 from . import auth
@@ -33,7 +33,6 @@ def create_app(test_config=None):
         pass
 
 
-
     # entry-point
     @app.route('/', methods=('GET', 'POST'))
     @decs.choose_team
@@ -41,11 +40,8 @@ def create_app(test_config=None):
         return render_template('index.html')
 
 
-
     app.register_blueprint(auth.bp_a)
-
     app.register_blueprint(flags.bp_f)
-
     app.register_blueprint(challenge.bp_c)
 
 

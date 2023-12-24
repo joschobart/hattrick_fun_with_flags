@@ -5,7 +5,7 @@ from flask import (
 	render_template, request, session, url_for
 	)
 
-from . import api, decs
+from . import api, db, decs, helperf
 
 
 
@@ -21,16 +21,21 @@ def authorize():
 	elif request.method == 'POST':
 		g.pin = request.form['pin']
 
-
 		try:
-			at = api.oauth_get_access_token(g.pin)
+			access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
 
 		except:
 			error = f"Pin {g.pin} was not accepted."
 			flash(error)
 
 		else:
-			return redirect(url_for("auth.login"))
+			creds = f'{access_token_key} {access_token_secret}'
+
+			session['encrypted_access_token'] = helperf.crypto_string(creds, "encrypt")
+
+
+			return redirect(url_for('auth.login'))
+
 
 	return render_template('auth/authorize.html')
 
@@ -40,30 +45,19 @@ def authorize():
 @decs.error_check
 @decs.choose_team
 def login():
-	access_token_key = session.get('access_token_key', None)
-	access_token_secret = session.get('access_token_secret', None)
+	try:
+		xml_response = api.ht_get_data('teamdetails', includeFlags='false')
 
-	error = None
+	except:
+		error = flash('Session initialization failed.')
 
-	if access_token_key is None or access_token_secret is None:
-		error = 'Can\'t process Data.'
+	else:
+		session['my_team'] = api.ht_get_team(xml_response)
+		session['username'] = session['my_team']['user']['login_name']
 
-	if error is None:
-		try:
-			xml_response = api.ht_get_data('teamdetails', includeFlags='false')
 
-			session['my_team'] = api.ht_get_team(xml_response)
+		flash('login successful')
 
-			session['username'] = session['my_team']['user']['login_name']
-
-		except:
-			error = f"Session initialization failed."
-
-		else:
-			flash('login successful')
-
-	if error is not None:
-		flash(error)
 
 	return render_template('auth/login.html')
 
@@ -72,12 +66,10 @@ def login():
 @bp_a.route('/logout')
 @decs.error_check
 def logout():
-	access_token_key = session.get('access_token_key', None)
-	access_token_secret = session.get('access_token_secret', None)
 	g.username = session.get('username', None)
 	error = None
 
-	if access_token_key is None or access_token_secret is None:
+	if g.username is None:
 		error = 'Already logged out'
 
 	if error is None:
@@ -91,5 +83,6 @@ def logout():
 
 	if error is not None:
 		flash(error)
+
 
 	return render_template('auth/logout.html')

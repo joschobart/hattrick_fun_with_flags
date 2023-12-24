@@ -7,6 +7,8 @@ from ht_libs import get_series
 from ht_libs import get_teamdetails
 from ht_libs import get_worlddetails
 
+from . import helperf
+
 
 
 scope = 'manage_challenges'
@@ -61,7 +63,7 @@ def oauth_get_url(scope=scope):
 
 
 def oauth_get_access_token(pin):
-	session['access_token_key'], session['access_token_secret'] = do_hattrick_request.get_access_token(
+	access_token_key, access_token_secret = do_hattrick_request.get_access_token(
 				session['request_token'],
 				session['request_token_secret'],
 				pin,
@@ -71,14 +73,20 @@ def oauth_get_access_token(pin):
 	session.pop('request_token_secret', None)
 
 
-	return
+	return access_token_key, access_token_secret
 
 
 
 def oauth_open_session():
+	creds = helperf.crypto_string(
+		session['encrypted_access_token'], "decrypt")
+
+	access_token_key = creds.split(' ', 1)[0]
+	access_token_secret = creds.split(' ', 1)[1]
+
 	ht_session = do_hattrick_request.open_auth_session(
-					session['access_token_key'],
-					session['access_token_secret'],
+					access_token_key,
+					access_token_secret,
 					)
 
 

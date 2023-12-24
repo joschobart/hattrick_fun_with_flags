@@ -1,8 +1,29 @@
+import os
+
+from cryptography.fernet import Fernet
+
 from datetime import datetime
 
 from flask import (session, g,)
 
 from . import api
+
+
+
+def crypto_string(_input, _op='encrypt'):
+	fernet = Fernet(os.environb[b'FERNET_SECRET'])
+
+
+	if _op == 'encrypt':
+		output = fernet.encrypt(_input.encode())
+
+	elif _op == 'decrypt':
+		output = fernet.decrypt(_input).decode()
+	else:
+		output = ''
+
+
+	return output
 
 
 
@@ -19,6 +40,10 @@ def get_my_teams():
 
 	# first sort after 'team_primary', then team_id
 	session['teams'] = sorted(teams, key=lambda x: (x[2], x[0]), reverse=True)
+
+
+	if not 'teamid' in session:
+		session['teamid'] = session['teams'][0][0]
 
 
 	return
