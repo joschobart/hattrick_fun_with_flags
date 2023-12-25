@@ -1,6 +1,6 @@
 [project]
 name = "hattrick-fwf"
-version = "0.2.0"
+version = "0.2.1"
 description = "Hattrick Fun with Flags"
 authors = [
     { name = "joe", email = "github@schicker.guru" }
@@ -10,6 +10,7 @@ dependencies = [
     "flask>=3.0.0",
     "cryptography>=41.0.7",
     "CouchDB>=1.2",
+    "gunicorn>=21.2.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
