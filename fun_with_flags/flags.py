@@ -6,11 +6,11 @@ from flask import (Blueprint,
 from . import api
 from . import decs
 from . import helperf
+from . import db
 
 
 
 bp_f = Blueprint('flags', __name__, url_prefix='/flags')
-
 
 
 @bp_f.route('/overview', methods=('GET', 'POST'))
@@ -18,7 +18,6 @@ bp_f = Blueprint('flags', __name__, url_prefix='/flags')
 @decs.choose_team
 @decs.error_check
 def overview():
-
 	g.l_home, g.l_away, g.nr_flags_home, g.nr_flags_away =\
 				helperf.compose_flag_matrix(session['teamid'])
 

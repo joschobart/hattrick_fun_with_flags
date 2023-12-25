@@ -1,8 +1,8 @@
 import functools
 
-from flask import flash, redirect, session, url_for, request
+from flask import flash, redirect, session, url_for, request, g
 
-from . import helperf
+from . import helperf, db
 
 
 
@@ -56,6 +56,21 @@ def choose_team(view):
 				session['teamid'] = request.form['teams']
 
 				return redirect(url_for('flags.overview'))
+
+
+		return view(**kwargs)
+
+	return wrapped_view
+
+
+
+def use_db(view):
+	@functools.wraps(view)
+
+	def wrapped_view(**kwargs):
+		if 'my_team' in session:
+			g.db_instance = db.get_db()
+			g.db_doc_id = session['my_team']['user']['user_id']
 
 
 		return view(**kwargs)

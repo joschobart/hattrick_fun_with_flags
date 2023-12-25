@@ -5,6 +5,8 @@ from flask import (
     render_template
     )
 
+from werkzeug.middleware.proxy_fix import ProxyFix
+
 from . import auth
 from . import flags
 from . import challenge
@@ -16,8 +18,11 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY = os.environ['FLASK_SECRET'],
-    )
+        )
 
+    app.wsgi_app = ProxyFix(
+        app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+        )
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

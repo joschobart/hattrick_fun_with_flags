@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 
 from datetime import datetime
 
-from flask import (session, g,)
+from flask import (session,)
 
 from . import api
 

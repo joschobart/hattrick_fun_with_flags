@@ -36,8 +36,6 @@ def overview():
 
 				session['my_team'][session['teamid']]['has_friendly'] = match_time
 
-				print(match_time)
-
 
 		else:
 			message = f"Teams are challenged but not agreed yet."
