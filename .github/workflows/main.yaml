@@ -24,6 +24,8 @@ jobs:
       - name: Build the latest Docker image
         uses: actions/checkout@v3
 
+      - name: ls for verbose
+        run: ls -la .
       - name: Build the latest Docker image
         run: docker build . --file Dockerfile.couchdb --tag ${{ vars.REGISTRY_URL }}/${{ secrets.OPENSHIFT_PROJECT }}/couchdb-image:latest --build-arg pw=${{ secrets.COUCHDB_PW }}
 
