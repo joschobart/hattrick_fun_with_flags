@@ -10,44 +10,30 @@ defaults:
     working-directory: 'docker'
 
 
+
 jobs:
-  build-and-push:
+  docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Build and push to APPUiO Cloud registry
-        uses: sclorg/build-and-push-action@v2
+      - name: Login to GitLab
+        uses: docker/login-action@v3
         with:
           registry: ${{ vars.REGISTRY_URL }}
-          registry_namespace: ${{ vars.OPENSHIFT_PROJECT }}
-          registry_username: ${{ secrets.REGISTRY_USERNAME }}
-          registry_token: ${{ secrets.REGISTRY_PASSWORD }}
-          dockerfile: "Dockerfile.couchdb"
-          image_name: "couchdb-image"
-          tag: "latest"
-
-# jobs:
-#   docker:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Login to GitLab
-#         uses: docker/login-action@v3
-#         with:
-#           registry: ${{ vars.REGISTRY_URL }}
-#           username: ${{ secrets.REGISTRY_USERNAME }}
-#           password: ${{ secrets.REGISTRY_PASSWORD }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
 
-#       - name: Build the latest Docker image
-#         uses: actions/checkout@v3
+      # - name: Build the latest Docker image
+      #   uses: actions/checkout@v3
 
-#       - name: Build the latest Docker image
-#         run: docker build --file Dockerfile.couchdb --tag ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest --build-arg pw=${{ secrets.COUCHDB_PW }} .
+      - name: Build the latest Docker image
+        run: docker build --file Dockerfile.couchdb --tag ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest --build-arg pw=${{ secrets.COUCHDB_PW }} .
 
-#       # - name: tag image
-#       #   run: docker tag couchdb-image:latest ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest
+      # - name: tag image
+      #   run: docker tag couchdb-image:latest ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest
 
-#       - name: Push the latest Docker image to APPUiO Cloud
-#         run: docker push ${{ vars.REGISTRY_URL }}/${{ secrets.OPENSHIFT_PROJECT }}/couchdb-image:latest
+      - name: Push the latest Docker image to APPUiO Cloud
+        run: docker push ${{ vars.REGISTRY_URL }}/${{ secrets.OPENSHIFT_PROJECT }}/couchdb-image:latest
 
 
   # deploy:
