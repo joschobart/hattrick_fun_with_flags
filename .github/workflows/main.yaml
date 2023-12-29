@@ -23,8 +23,8 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
 
-      # - name: Build the latest Docker image
-      #   uses: actions/checkout@v3
+      - name: Build the latest Docker image
+        uses: actions/checkout@v3
 
       - name: Build the latest Docker image
         run: docker build --file Dockerfile.couchdb --tag ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest --build-arg pw=${{ secrets.COUCHDB_PW }} .
