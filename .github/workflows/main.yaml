@@ -1,4 +1,4 @@
-name: couch-ci
+name: ci
 
 on:
   push:
@@ -10,9 +10,8 @@ defaults:
     working-directory: 'docker'
 
 
-
 jobs:
-  docker:
+  couchdb:
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitLab
@@ -22,8 +21,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-
-      - name: Build the latest Docker image
+      - name: Pull the latest github commit
         uses: actions/checkout@v3
 
       - name: Build the latest Docker image
@@ -32,17 +30,23 @@ jobs:
       - name: Push the latest Docker image to APPUiO Cloud
         run: docker push ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest
 
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to GitLab
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: docker
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Login to APPUiO Cloud Project
-  #     run: oc login --token=${{ secrets.REGISTRY_PASSWORD }} --server=${{ secrets.OPENSHIFT_URL }}
-  #   - name: Select project
-  #     run: oc project ${{ secrets.OPENSHIFT_PROJECT }}
-  #   - name: Deploy application
-  #     run: oc apply --overwrite --filename deployment.yaml
-  #   - name: Rollout latest version
-  #     run: oc rollout latest dc/couchdb-image
+      - name: Build the latest Docker image
+        run: docker build --file Dockerfile.app --tag ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest \
+                                                                                                                    --build-arg ck=${{ secrets.HATTRICK_OAUTH_CONSUMER_KEY }} \
+                                                                                                                    --build-arg cs=${{ secrets.HATTRICK_OAUTH_CONSUMER_SECRET }} \
+                                                                                                                    --build-arg fls=${{ secrets.FLASK_SECRET }} \
+                                                                                                                    --build-arg fes=${{ secrets.FERNET_SECRET }} \
+                                                                                                                    --build-arg cdbcs=${{ secrets.COUCHDB_CONNECTION_STRING }} .
+
+      - name: Push the latest Docker image to APPUiO Cloud
+        run: docker push ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest
