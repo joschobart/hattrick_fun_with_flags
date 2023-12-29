@@ -15,7 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Login to APPUiO Cloud Registry
-      run: echo ${{ secrets.REGISTRY_PASSWORD }} | docker login ${{ vars.REGISTRY_URL }} --username ${{ secrets.REGISTRY_USERNAME }} --password-stdin
+      run: echo ${{ secrets.REGISTRY_PASSWORD }} | docker login --username ${{ secrets.REGISTRY_USERNAME }} --password-stdin ${{ vars.REGISTRY_URL }}
+
 
     - name: Build the latest Docker image
       run: docker build . --file Dockerfile.couchdb --tag ${{ vars.REGISTRY_URL }}/${{ secrets.OPENSHIFT_PROJECT }}/couchdb-image:latest --build-arg pw=${{ secrets.COUCHDB_PW }}
