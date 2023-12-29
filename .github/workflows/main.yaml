@@ -45,11 +45,11 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build the latest Docker image
-        run: docker build --file Dockerfile.app --tag ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest \
-                                                                                                                    --build-arg ck=${{ secrets.HATTRICK_OAUTH_CONSUMER_KEY }} \
-                                                                                                                    --build-arg cs=${{ secrets.HATTRICK_OAUTH_CONSUMER_SECRET }} \
-                                                                                                                    --build-arg fls=${{ secrets.FLASK_SECRET }} \
-                                                                                                                    --build-arg fes=${{ secrets.FERNET_SECRET }} \
+        run: docker build --file Dockerfile.app --tag ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest
+                                                                                                                    --build-arg ck=${{ secrets.HATTRICK_OAUTH_CONSUMER_KEY }}
+                                                                                                                    --build-arg cs=${{ secrets.HATTRICK_OAUTH_CONSUMER_SECRET }}
+                                                                                                                    --build-arg fls=${{ secrets.FLASK_SECRET }}
+                                                                                                                    --build-arg fes=${{ secrets.FERNET_SECRET }}
                                                                                                                     --build-arg cdbcs=${{ secrets.COUCHDB_CONNECTION_STRING }} .
 
       - name: Push the latest Docker image to APPUiO Cloud
