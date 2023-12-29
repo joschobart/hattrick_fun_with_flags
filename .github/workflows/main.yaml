@@ -28,7 +28,6 @@ jobs:
         run: docker build . --file Dockerfile.couchdb --tag ${{ vars.REGISTRY_URL }}/${{ secrets.OPENSHIFT_PROJECT }}/couchdb-image:latest --build-arg pw=${{ secrets.COUCHDB_PW }}
 
       - name: Push the latest Docker image to APPUiO Cloud
-        uses: actions/checkout@v3
         run: docker push ${{ vars.REGISTRY_URL }}/${{ secrets.OPENSHIFT_PROJECT }}/couchdb-image:latest
 
 
