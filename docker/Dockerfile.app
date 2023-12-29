@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
 
-# build with: "docker build -t "fun-with-flags-app:latest" -f Dockerfile.app --build-arg ck=GK \
-																			 --build-arg cs=CS \
-																			 --bulid-arg fls=FLS \
-																			 --bulid-arg fes=FES \
-																			 --build-arg cdbcs=CDBCS ."
+# build with: "docker build -t "fun-with-flags-app:latest" -f Dockerfile.app --build-arg ck=GK
+#																			 --build-arg cs=CS
+#																			 --bulid-arg fls=FLS
+#																			 --bulid-arg fes=FES
+#																			 --build-arg cdbcs=CDBCS ."
 
 
 
