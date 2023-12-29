@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  app:
+    image: registry.cloudscale-lpg-2.appuio.cloud/fun-with-flags/fun-with-flags_app-image:latest
+    container_name: fwf-app
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - HATTRICK_OAUTH_CONSUMER_KEY
+      - HATTRICK_OAUTH_CONSUMER_SECRET
+      - FLASK_SECRET
+      - FERNET_SECRET
+      - COUCHDB_CONNECTION_STRING
+
+
+
+
+  couchdb:
+    image: registry.cloudscale-lpg-2.appuio.cloud/fun-with-flags/couchdb-image:latest
+    ports:
+      - 5984:5984

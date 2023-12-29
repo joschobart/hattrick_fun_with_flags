@@ -1,0 +1,11 @@
+FROM apache/couchdb
+
+ARG pw
+
+ENV PW $pw
+
+COPY local.ini /opt/couchdb/etc/local.ini
+
+RUN echo "dbadmin = $PW" >> /opt/couchdb/etc/local.ini
+
+# build with: "docker build -t "couchdb-image:latest" -f Dockerfile.couchdb --build-arg pw=PW ."
