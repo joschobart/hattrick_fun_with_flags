@@ -48,7 +48,7 @@ jobs:
           pip install pylint
       - name: Analysing the code with pylint
         run: |
-          find . -name '*.py' -exec pylint {} \;
+          find /home/runner/work/hattrick_fun_with_flags/ -name '*.py' -exec pylint {} \;
 
 
       - name: Login to GitLab
