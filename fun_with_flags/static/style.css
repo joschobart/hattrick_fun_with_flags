@@ -1,68 +1,68 @@
-html	{ 
-	font-family: sans-serif;
-	background:#7bb381 url(https://www.hattrick.org/img/ClubTheme/backgrounds/bg.png) fixed top left repeat;
-	padding: 1rem;
+html  { 
+  font-family: sans-serif;
+  background:#7bb381 url(https://www.hattrick.org/img/ClubTheme/backgrounds/bg.png) fixed top left repeat;
+  padding: 1rem;
 }
 
-body	{
-	max-width: 960px;
-	margin: 0 auto;
-	background: white;
+body  {
+  max-width: 960px;
+  margin: 0 auto;
+  background: white;
 }
 
-h1 	{
-	font-family: serif;
-	color: #377ba8;
-	margin: 1rem 0;
+h1  {
+  font-family: serif;
+  color: #377ba8;
+  margin: 1rem 0;
 }
 
-a 	{
-	color: #377ba8;
+a   {
+  color: #377ba8;
 }
 
 ul, ol, ul li, ol li {
-	margin: 5px;
+  margin: 5px;
   text-align: left;
 }
 
-hr 	{
-	border: none;
-	border-top: 1px solid lightgray;
+hr  {
+  border: none;
+  border-top: 1px solid lightgray;
 }
 
 nav {
-	display: flex;
-	align-items: center;
-	padding: 0 0.5rem; 
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem; 
 
   -webkit-background-size: 550px 550px;
   -moz-background-size: 550px 550px;
   background-size: 550px 550px;
 }
 
-nav h1	{
-	flex: auto; margin: 0;
+nav h1  {
+  flex: auto; margin: 0;
 }
 
-nav h1 a	{
-	text-decoration: none;
-	padding: 0.25rem 0.5rem;
+nav h1 a  {
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
 }
 
 nav ul  {
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li a, nav ul li span, header .action { 
-	display: block;
-	padding: 0.2rem;
+  display: block;
+  padding: 0.2rem;
 }
 
-p 	{
-	margin-bottom: 30px;
+p   {
+  margin-bottom: 30px;
 }
 
 .list_0  {
@@ -71,7 +71,7 @@ p 	{
 
 .nav_table {
   border: 1px solid black;
-	table-layout: auto;
+  table-layout: auto;
   width: 700px;
 }
 
@@ -82,20 +82,20 @@ p 	{
 }
 
 .nav_table td:hover {
-	background-color: #7bb381;
-	text-align: right;
-	vertical-align: bottom;
+  background-color: #7bb381;
+  text-align: right;
+  vertical-align: bottom;
 }
 
 .flags_table {
   border: 2px solid black;
-	table-layout: fixed;
+  table-layout: fixed;
   width: 100%;
   border-collapse: inherit;
 }
 
 .flags_table p {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .flags_table, td, th {
@@ -103,76 +103,76 @@ p 	{
 }
 
 .flags_table td:hover {
-	background-color: #7bb381;
-	text-align: center;
+  background-color: #7bb381;
+  text-align: center;
 }
 
 .challenges_table {
   border: 2px solid black;
-	table-layout: fixed;
+  table-layout: fixed;
   width: 100%;
   border-collapse: inherit;
 }
 
 .challenges_table p {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .challenges_table th {
-	background-color: lightgray;
+  background-color: lightgray;
   text-align: left;
 }
 
 .challenges_table td {
-	border: 2px lightgray;
-	background-color: white;
-	text-align: left;
+  border: 2px lightgray;
+  background-color: white;
+  text-align: left;
 }
 
 .challenges_table td:hover {
-	background-color: #7bb381;
-	text-align: left;
+  background-color: #7bb381;
+  text-align: left;
 }
 
 .challenge_date {
-	font-family: serif;
-	font-size: 10px;
+  font-family: serif;
+  font-size: 10px;
 }
 
 .content {
-	padding: 0 1rem 1rem;
+  padding: 0 1rem 1rem;
 }
 
 .content > header {
-	border-bottom: 1px solid lightgray;
-	display: flex;
-	align-items: flex-end;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: flex-end;
 }
 
 .content > header h1 { 
-	flex: auto; margin: 1rem 0 0.25rem 0;
+  flex: auto; margin: 1rem 0 0.25rem 0;
 }
 
 .content:last-child { margin-bottom: 0;
 }
 
 .content form {
-	margin: 1em 0;
-	display: flex;
-	flex-direction: column;
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .content label {
-	font-weight: bold;
-	margin-bottom: 0.5em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
 }
 
 .content input, .content textarea { margin-bottom: 1em;
 }
 
 .content textarea {
-	min-height: 1000px;
-	resize: vertical;
+  min-height: 1000px;
+  resize: vertical;
 }
 
 .content {
@@ -181,36 +181,36 @@ p 	{
 }
 
 .images {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 95%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
 }
 
 .flash {
-	margin: 1em 0;
-	padding: 1em;
-	background: #cae6f6;
-	border: 1px solid #377ba8;
+  margin: 1em 0;
+  padding: 1em;
+  background: #cae6f6;
+  border: 1px solid #377ba8;
 }
 
 .post > header { 
-	display: flex;
-	align-items: flex-end;
-	font-size: 0.85em;
+  display: flex;
+  align-items: flex-end;
+  font-size: 0.85em;
 }
 
 .post > header > div:first-of-type { flex: auto;
 }
 
 .post > header h1 {
-	font-size: 1.5em;
-	margin-bottom: 0;
+  font-size: 1.5em;
+  margin-bottom: 0;
 }
 
 .post .about {
-	color: slategray;
-	font-style: italic;
+  color: slategray;
+  font-style: italic;
 }
 
 .post .body { white-space: pre-line;

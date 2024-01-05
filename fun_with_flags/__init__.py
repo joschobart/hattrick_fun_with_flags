@@ -1,16 +1,9 @@
 import os
 
-from flask import (
-    Flask,
-    render_template
-    )
-
+from flask import Flask, render_template
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from . import auth
-from . import flags
-from . import challenge
-
+from . import auth, challenge, flags
 
 
 def create_app(test_config=None):
