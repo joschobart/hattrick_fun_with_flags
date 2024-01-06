@@ -11,6 +11,7 @@
 FROM python:3.12.1-bookworm
 
 
+COPY . /. 
 RUN pwd && ls -la
 
 
