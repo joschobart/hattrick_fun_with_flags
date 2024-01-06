@@ -9,6 +9,6 @@ ARG pw
 
 ENV PW $pw
 
-COPY local.ini /opt/couchdb/etc/local.ini
+COPY docker/local.ini /opt/couchdb/etc/local.ini
 
 RUN echo "dbadmin = $PW" >> /opt/couchdb/etc/local.ini
