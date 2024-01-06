@@ -11,7 +11,9 @@
 FROM python:3.12.1-bookworm
 
 
-COPY . .
+COPY . /opt/app
+
+WORKDIR /opt/app
 
 
 ARG ck
