@@ -72,7 +72,6 @@ jobs:
   #       run: docker push ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest
 
 
-jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
