@@ -18,7 +18,7 @@ couchdb==1.2
 cryptography==41.0.7
 flask==3.0.0
 gunicorn==21.2.0
-hattrick-libs==0.10.1
+hattrick-libs==0.10.2
 idna==3.6
 itsdangerous==2.1.2
 jinja2==3.1.2

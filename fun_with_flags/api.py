@@ -161,10 +161,10 @@ def ht_get_challengeable_teams(challengeable_xml):
 
 
 
-def ht_do_challenge(teamid, challengeable_teams_list):
+def ht_do_challenge(teamid, challengeable_teams_list, match_type, match_place):
     session = oauth_open_session()
 
-    my_challenges = do_challenge.do_challenge(teamid, session, challengeable_teams_list)
+    my_challenges = do_challenge.do_challenge(teamid, session, challengeable_teams_list, match_type, match_place)
 
 
     return my_challenges

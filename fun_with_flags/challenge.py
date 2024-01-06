@@ -57,18 +57,25 @@ def overview():
 def challenge():
     if request.method == 'POST':
         g.challengeable = list(zip(*session.get('challengeable', None)))[0]
-        g.teamid = session.get('teamid', None)
+        g.place = session.get('place', None)
 
+        match_type = request.args.get('match_type')
 
         session.pop('challengeable', None)
+        session.pop('place', None)
+
+        if g.place == 'home':
+            g.place = '0'
+        else:
+            g.place = '1'
 
 
         try:
-            challenge = api.ht_do_challenge(g.teamid, g.challengeable)
+            # challenge = api.ht_do_challenge(session['teamid'], g.challengeable, match_type, g.place)
+            print(f"match_type: {match_type}, match_place: {g.place}")
 
-        except:
-            error = f"Do challenge was unsuccessful."
-            flash(error)
+        except Exception as e:
+            flash(f"Var '{e}' is missing.")
 
         else:
             flash('Challenges booked!')

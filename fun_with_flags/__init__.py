@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from . import auth, challenge, flags
@@ -36,6 +36,12 @@ def create_app(test_config=None):
     @decs.choose_team
     def index():
         return render_template('index.html')
+
+
+    @app.route("/favicon.ico")
+    def fav():
+        print(os.path.join(app.root_path, 'static'))
+        return send_from_directory(app.static_folder, 'favicon.ico')
 
 
     app.register_blueprint(auth.bp_a)

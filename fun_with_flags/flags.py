@@ -16,8 +16,8 @@ def overview():
                 helperf.compose_flag_matrix(session['teamid'])
 
 
-    g.l_home = sorted(g.l_home, key=lambda x: x[1])
-    g.l_away = sorted(g.l_away, key=lambda x: x[1])
+    g.l_home = sorted(g.l_home, key=lambda x: x[1].lower())
+    g.l_away = sorted(g.l_away, key=lambda x: x[1].lower())
 
 
     return render_template('flags/overview.html')
@@ -27,12 +27,13 @@ def overview():
 @bp_f.route('/details', methods=('GET', 'POST'))
 @decs.login_required
 @decs.choose_team
-@decs.error_check
+#@decs.error_check
 def details():
     g.challengeable = []
 
     g.flagid = request.args.get('flagid')
-    g.place = request.args.get('place')
+
+    session['place'] = request.args.get('place')
 
     g.l_home, g.l_away, *_ = helperf.compose_flag_matrix(session['teamid'])
 
@@ -47,7 +48,7 @@ def details():
             break
 
 
-    if g.place == 'home':
+    if session['place'] == 'home':
         func = g.l_home[:]
     else:
         func = g.l_away[:]
@@ -69,7 +70,7 @@ def details():
         if g.missing_flag:
             sl = helperf.get_series_list(g.flagid)
 
-            ctl = helperf.get_challengeable_teams_list(session['teamid'], g.place, sl)
+            ctl = helperf.get_challengeable_teams_list(session['teamid'], sl)
 
 
             for team in ctl:

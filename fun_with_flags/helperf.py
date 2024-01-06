@@ -158,7 +158,7 @@ def get_series_list(flagid, search_level=2):
 
 
 
-def get_challengeable_teams_list(teamid, place, series_list):
+def get_challengeable_teams_list(teamid, series_list):
     challengeable_teams_list = []
 
     for series in series_list:
@@ -168,7 +168,7 @@ def get_challengeable_teams_list(teamid, place, series_list):
 
 
         challengeable_teams = api.ht_get_data('challengeable_teams',\
-                    teamId=teamid, matchPlace=place, suggestedTeamIds=teams_in_series)
+                    teamId=teamid, matchPlace=session['place'], suggestedTeamIds=teams_in_series)
 
         challengeable_teams = api.ht_get_challengeable_teams(challengeable_teams)
 
