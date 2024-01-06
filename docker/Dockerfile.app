@@ -7,7 +7,6 @@
 #																			 --build-arg cdbcs=CDBCS ."
 
 
-
 FROM python:3.12.1-bookworm
 
 
@@ -29,8 +28,6 @@ ENV FERNET_SECRET $fes
 ENV COUCHDB_CONNECTION_STRING $cdbcs
 
 
-RUN pwd
-RUN ls -la .
 RUN python -m pip install --upgrade pip && pip install .
 
 
