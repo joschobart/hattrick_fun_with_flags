@@ -11,9 +11,7 @@
 FROM python:3.12.1-bookworm
 
 
-RUN echo $GITHUB_WORKSPACE
-
-WORKDIR /opt/app
+RUN pwd && ls -la
 
 
 ARG ck
