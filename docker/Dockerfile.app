@@ -11,7 +11,7 @@
 FROM python:3.12.1-bookworm
 
 
-ADD /home/runner/work/hattrick_fun_with_flags /opt/app/.
+RUN echo $GITHUB_WORKSPACE
 
 WORKDIR /opt/app
 
