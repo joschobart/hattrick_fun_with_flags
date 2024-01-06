@@ -11,11 +11,7 @@
 FROM python:3.12.1-bookworm
 
 
-COPY ../. /opt/app
-
-WORKDIR /opt/app
- 
-RUN pwd && ls -la
+COPY . .
 
 
 ARG ck
@@ -33,7 +29,7 @@ ENV COUCHDB_CONNECTION_STRING $cdbcs
 
 RUN pwd
 RUN ls -la .
-RUN pip install .
+RUN python -m pip install --upgrade pip && pip install .
 
 
 EXPOSE 8000
