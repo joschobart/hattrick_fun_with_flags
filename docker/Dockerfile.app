@@ -11,6 +11,11 @@
 FROM python:3.12.1-bookworm
 
 
+ADD /home/runner/work/hattrick_fun_with_flags /opt/app/.
+
+WORKDIR /opt/app
+
+
 ARG ck
 ARG cs
 ARG fls
@@ -24,12 +29,11 @@ ENV FERNET_SECRET $fes
 ENV COUCHDB_CONNECTION_STRING $cdbcs
 
 
-WORKDIR .
-
-EXPOSE 8000
-
 RUN pwd
 RUN ls -la .
 RUN pip install .
+
+
+EXPOSE 8000
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "-w", "4", "-t", "120", "fun_with_flags:create_app()"]
