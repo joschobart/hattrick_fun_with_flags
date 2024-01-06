@@ -28,6 +28,8 @@ WORKDIR .
 
 EXPOSE 8000
 
+RUN pwd
+RUN ls -la .
 RUN pip install .
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "-w", "4", "-t", "120", "fun_with_flags:create_app()"]
