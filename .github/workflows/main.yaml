@@ -11,68 +11,7 @@ defaults:
 
 
 jobs:
-  couchdb:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Login to GitLab
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ vars.REGISTRY_URL }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-
-      - name: Pull the latest github commit
-        uses: actions/checkout@v4
-
-      - name: Build the latest Docker image
-        run: docker build --file Dockerfile.couchdb --tag ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest --build-arg pw=${{ secrets.COUCHDB_PW }} .
-
-      - name: Push the latest Docker image to APPUiO Cloud
-        run: docker push ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest
-
-
-  # app:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Pull the latest github commit
-  #       uses: actions/checkout@v4
-
-
-  #     - name: Set up Python 3.11
-  #       uses: actions/setup-python@v5
-  #       with:
-  #         python-version: 3.11
-  #     - name: Install dependencies
-  #       run: |
-  #         python -m pip install --upgrade pip
-  #         pip install pylint
-  #     - name: Analysing the code with pylint
-  #       run: |
-  #         find /home/runner/work/hattrick_fun_with_flags/ -name '*.py' -exec pylint {} \;
-
-
-  #     - name: Login to GitLab
-  #       uses: docker/login-action@v3
-  #       with:
-  #         context: .
-  #         registry: ${{ vars.REGISTRY_URL }}
-  #         username: ${{ secrets.REGISTRY_USERNAME }}
-  #         password: ${{ secrets.REGISTRY_PASSWORD }}
-
-
-  #     - name: Build the latest Docker image
-  #       run: docker build --file Dockerfile.app --tag ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest
-  #                                                                                                                   --build-arg ck=${{ secrets.HATTRICK_OAUTH_CONSUMER_KEY }}
-  #                                                                                                                   --build-arg cs=${{ secrets.HATTRICK_OAUTH_CONSUMER_SECRET }}
-  #                                                                                                                   --build-arg fls=${{ secrets.FLASK_SECRET }}
-  #                                                                                                                   --build-arg fes=${{ secrets.FERNET_SECRET }}
-  #                                                                                                                   --build-arg cdbcs=${{ secrets.COUCHDB_CONNECTION_STRING }} .
-
-  #     - name: Push the latest Docker image to APPUiO Cloud
-  #       run: docker push ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest
-
-
-  docker:
+  publish-couchdb-container:
     runs-on: ubuntu-latest
     steps:
       -
@@ -82,7 +21,34 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       -
-        name: Login to Docker Hub
+        name: Login to APPUiO registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest
+          file: docker/Dockerfile.couchdb
+          build-args: |
+              pw=${{ secrets.COUCHDB_PW }}
+
+
+  publish-app-container:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Login to APPUiO registry
         uses: docker/login-action@v3
         with:
           registry: ${{ vars.REGISTRY_URL }}
