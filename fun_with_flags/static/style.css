@@ -17,6 +17,7 @@ h1  {
 }
 
 a   {
+  text-decoration: none;
   color: #377ba8;
 }
 
@@ -85,6 +86,11 @@ p   {
   background-color: #7bb381;
   text-align: right;
   vertical-align: bottom;
+}
+
+.username a   {
+  text-decoration: none;
+  color: black;
 }
 
 .flags_table {

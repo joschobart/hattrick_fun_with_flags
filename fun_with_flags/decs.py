@@ -68,8 +68,8 @@ def use_db(view):
 
     def wrapped_view(**kwargs):
         if 'my_team' in session:
-            g.db_instance = db.get_db()
-            g.db_doc_id = session['my_team']['user']['user_id']
+            g.couch = db.get_db()
+            g.user_id = session['my_team']['user']['user_id']
 
 
         return view(**kwargs)

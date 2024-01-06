@@ -11,8 +11,8 @@ def get_db():
         try:
             g.couch = couch['fwf_db'] # existing
 
-        except:
-            print("CouchDB server not available")
+        except Exception as e:
+            print(f"CouchDB server not available: {e}")
 
 
     return g.couch
