@@ -28,7 +28,7 @@
           </th>
           <th class="username" style="width:20%; text-align: right;">
           {% if session['username'] %}
-            <a href="{{url_for('settings.overview')}}">
+            <a href="{{url_for('settings.settings')}}">
               <img src="{{ url_for('static', filename='cogwheel.png') }}" alt="settings" height="18px">
               {{ session['username'] }}
             </a>
@@ -92,9 +92,10 @@
     <header>
       {% block header %}{% endblock %}
     </header>
-    {% for message in get_flashed_messages() %}
-      <div class="flash">{{ message }}</div>
-    {% endfor %}
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    
     {% block content %}{% endblock %}
   </section>
 </body>
