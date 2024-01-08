@@ -9,15 +9,20 @@
   {% if g.my_document is defined and g.db_settings is defined %}
   <form method="POST">
     {% for object in g.db_settings['objects'].items() %}
-    <h3>{{ object[1]['name'] }}</h3>
-      <table>
+      <h3>{{ object[1]['name'] }}</h3>
+      <table border="1px">
         <tbody>
           {% for key, value in object[1]['schema'].items() %}
           <tr>
-            <td style="text-align:left">{{ value[0] }}: </td>
             <td style="text-align:left">
-              <select name="{{ object[0] }}.{{ key }}" id="{{ object[0] }}.{{ key }}">
-                {% for item in value[1] %}
+              {{ value[0] }}: 
+            </td>
+            <td style="text-align:left">
+              <div title="{{ value[1] }}">
+                <img src="{{ url_for('static', filename='info.png') }}" alt="Info" height="20px">
+                <select name="{{ object[0] }}.{{ key }}" id="{{ object[0] }}.{{ key }}">
+              </div>
+                {% for item in value[2] %}
                   {% if g.my_document['settings'][object[0]][key] is defined %}
                     {% if g.my_document['settings'][object[0]][key] == item %}
                       <option value="{{ item }}" selected>{{ item }}</option>
@@ -33,7 +38,7 @@
         </tbody>
       </table>
     {% endfor %}
-    <input type="submit" value="Update Settings" id="update_settings">
+    <p><input type="submit" value="Update Settings" id="update_settings"></p>
   </form>
   {% endif %}
 

@@ -27,16 +27,6 @@
       {% if g.challengeable | length > 0 %}
       <p>There are <b>{{ g.challengeable | length }}</b> supporter-teams challengeable in <b>{{ g.nation }}</b> at the moment.</p>
       <form method="post">
-        <p>Match rules:
-          <select name="match_type" id="match_type">
-            <option value="0">
-              Normal
-            </option>
-            <option value="1" selected>
-              Cup
-            </option>
-          </select>
-        </p>
         <input type="submit" value="Challenge Opponents" name="challenge_opponents" formaction="{{ url_for('challenge.challenge') }}" onclick="loadSpinner()">
       </form>
       <div id='list_0'>

@@ -20,57 +20,48 @@ def error_check(view):
         if error is not None:
             flash(error)
 
-            return redirect(url_for('index'))
-
+            return redirect(url_for("index"))
 
         return view(**kwargs)
 
     return wrapped_view
-
 
 
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        username = session.get('username')
+        username = session.get("username")
 
         if not username:
-            return redirect(url_for('auth.authorize'))
-
+            return redirect(url_for("auth.authorize"))
 
         return view(**kwargs)
 
     return wrapped_view
-
 
 
 def choose_team(view):
     @functools.wraps(view)
-
     def wrapped_view(**kwargs):
-        if 'username' in session:
+        if "username" in session:
             helperf.get_my_teams()
 
-            if request.method == 'POST' and 'teams' in request.form:
-                session['teamid'] = request.form['teams']
+            if request.method == "POST" and "teams" in request.form:
+                session["teamid"] = request.form["teams"]
 
-                return redirect(url_for('flags.overview'))
-
+                return redirect(url_for("flags.overview"))
 
         return view(**kwargs)
 
     return wrapped_view
 
 
-
 def use_db(view):
     @functools.wraps(view)
-
     def wrapped_view(**kwargs):
-        if 'my_team' in session:
+        if "my_team" in session:
             g.couch = db.get_db()
-            g.user_id = session['my_team']['user']['user_id']
-
+            g.user_id = session["my_team"]["user"]["user_id"]
 
         return view(**kwargs)
 
