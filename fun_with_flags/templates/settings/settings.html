@@ -23,7 +23,7 @@
                 <img src="{{ url_for('static', filename='info.png') }}" alt="Info" height="20px">
               </div>
               <script>
-                $("#{{ key }}").on("mouseenter", function() {
+                $("#{{ key }}").on("touchstart mouseenter", function() {
                   $(this).css('cursor','pointer').attr('title', '{{ value[1] }}')
                 });
               </script>
