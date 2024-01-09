@@ -6,12 +6,7 @@
   <link rel="favicon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-  <script>
-    function loadSpinner() {
-      document.getElementById("loader").style.display = "block";
-    }
-  </script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -110,4 +105,9 @@
 
 </div>
 
+  <script>
+    function loadSpinner() {
+      document.getElementById("loader").style.display = "block";
+    }
+  </script>
 </html>
