@@ -297,9 +297,10 @@ input[type=submit] { align-self: start; min-width: 10em;
   color: white;
   background-color: black;
   border: 0px solid;
-  width: 200px;
+  width: 400px;
   padding: 20px;
   font-size: 15px;
   z-index: 1000;
   }
 }
+

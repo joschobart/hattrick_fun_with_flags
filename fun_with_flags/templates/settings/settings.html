@@ -19,16 +19,9 @@
               {{ value[0] }}: 
             </td>
             <td style="text-align:left" width="30px">
-              <div id="{{ key }}" tabindex="0" title="{{ value[1] }}">
+              <div id="hideMe" tabindex="0" title="{{ value[1] }}">
                 <img src="{{ url_for('static', filename='info.png') }}" alt="Info" height="20px">
               </div>
-<!--               <script>
-                $("#{{ key }}").bind("touchstart mouseenter", function() {
-                  $(this).css('cursor','auto').attr('title', '{{ value[1] }}');
-                }).bind("touchend mouseleave", function() {
-                  $(this).css('cursor','auto').attr('title', "");
-                });
-              </script> -->
             </td>
             <td style="text-align:left">
               <select name="{{ object[0] }}.{{ key }}" id="{{ object[0] }}.{{ key }}">
