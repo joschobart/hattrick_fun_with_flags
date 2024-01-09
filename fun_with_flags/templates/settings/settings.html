@@ -15,20 +15,20 @@
         <tbody>
           {% for key, value in object[1]['schema'].items() %}
           <tr>
-            <td style="text-align:left">
+            <td style="text-align:left" width="500px">
               {{ value[0] }}: 
             </td>
             <td style="text-align:left" width="30px">
-              <div id="{{ key }}">
+              <div id="{{ key }}" tabindex="0" title="{{ value[1] }}">
                 <img src="{{ url_for('static', filename='info.png') }}" alt="Info" height="20px">
               </div>
-              <script>
+<!--               <script>
                 $("#{{ key }}").bind("touchstart mouseenter", function() {
                   $(this).css('cursor','auto').attr('title', '{{ value[1] }}');
                 }).bind("touchend mouseleave", function() {
                   $(this).css('cursor','auto').attr('title', "");
                 });
-              </script>
+              </script> -->
             </td>
             <td style="text-align:left">
               <select name="{{ object[0] }}.{{ key }}" id="{{ object[0] }}.{{ key }}">
