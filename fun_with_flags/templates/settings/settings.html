@@ -21,12 +21,12 @@
             <td style="text-align:left" width="30px">
               <div id="{{ key }}">
                 <img src="{{ url_for('static', filename='info.png') }}" alt="Info" height="20px">
-                <script>
-                  $("#{{ key }}").on('click mouseover', function() {
-                    $(this).css('cursor','pointer').attr('title', '{{ value[1] }}')
-                  });
-                </script>
               </div>
+              <script>
+                $("#{{ key }}").on("mouseenter", function() {
+                  $(this).css('cursor','pointer').attr('title', '{{ value[1] }}')
+                });
+              </script>
             </td>
             <td style="text-align:left">
               <select name="{{ object[0] }}.{{ key }}" id="{{ object[0] }}.{{ key }}">
