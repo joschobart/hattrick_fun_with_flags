@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from . import auth, challenge, flags, settings
+from . import auth, challenge, decs, flags, settings
 
 
 def create_app(test_config=None):

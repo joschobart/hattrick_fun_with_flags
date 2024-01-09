@@ -1,18 +1,7 @@
-from datetime import datetime
+from flask import (Blueprint, current_app, flash, g, redirect, render_template,
+                   request, session, url_for)
 
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
-
-from . import api, db, decs, helperf
+from . import decs, helperf
 
 bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 
@@ -30,27 +19,26 @@ def overview():
         g.tdelta_hours,
         bookable,
     ) = helperf.get_my_challenges()
-    teamid = session.get("teamid", None)
 
     if g.challenges["challenges"] != []:
         if g.challenges["challenges"][0]["is_agreed"] == "True":
             if now.weekday() in range(0, 3) and g.tdelta_hours > 100:
-                message = f"Match is running.\
+                message = "Match is running.\
                             Come back Thursday after 7 o'clock UTC to book a new match."
 
                 session["my_team"][session["teamid"]]["has_friendly"] = None
                 g.challenges.clear()
 
             else:
-                message = f"Match booked!"
+                message = "Match booked!"
 
                 session["my_team"][session["teamid"]]["has_friendly"] = match_time
 
         else:
-            message = f"Teams are challenged but not agreed yet."
+            message = "Teams are challenged but not agreed yet."
 
     else:
-        message = f"No challenges to show"
+        message = "No challenges to show"
 
         session["my_team"][session["teamid"]]["has_friendly"] = None
 

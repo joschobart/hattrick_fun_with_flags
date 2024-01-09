@@ -13,9 +13,9 @@ def error_check(view):
         try:
             view(**kwargs)
 
-        except:
+        except Exception as e:
             error = f"Something went wrong on page '{view.__name__}'. \
-                                Please try again or report an error to joschobart on hattrick.org."
+                    Please try again or report an error to joschobart on hattrick.org. ({e})"
 
         if error is not None:
             flash(error)

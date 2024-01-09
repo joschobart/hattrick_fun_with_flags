@@ -1,15 +1,7 @@
-from flask import (
-    Blueprint,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Blueprint, flash, g, redirect, render_template, request,
+                   session, url_for)
 
-from . import api, db, decs, helperf
+from . import api, decs, helperf
 
 bp_a = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -25,8 +17,8 @@ def authorize():
         try:
             access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
 
-        except:
-            error = f"Pin {g.pin} was not accepted."
+        except Exception as e:
+            error = f"Pin {g.pin} was not accepted: {e}"
             flash(error)
 
         else:
@@ -46,8 +38,8 @@ def login():
     try:
         xml_response = api.ht_get_data("teamdetails", includeFlags="false")
 
-    except:
-        error = flash("Session initialization failed.")
+    except Exception as e:
+        flash(f"Session initialization failed: {e}")
 
     else:
         session["my_team"] = api.ht_get_team(xml_response)
@@ -70,8 +62,8 @@ def logout():
     if error is None:
         try:
             session.clear()
-        except:
-            error = f"Session logout failed"
+        except Exception as e:
+            error = f"Session logout failed: {e}"
 
         else:
             flash("logout successful")

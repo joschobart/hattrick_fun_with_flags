@@ -46,7 +46,9 @@
               <strong>
                 <p>
                   <a href="https://hattrick.org/goto.ashx?path=/Club/Challenges/?TeamID={{ session['teamid'] }}"  target="_blank">
-                    {{ g.challenges['challenges'][i]['opponent_team_name'] }} ({{ g.challenges['challenges'][i]['country_name'] }})
+                    <img src="https://www.hattrick.org/Img/flags/{{ g.challenges['challenges'][i]['country_id'] }}.png" alt="{{ g.challenges['challenges'][i]['country_name'] }}"> {{ g.challenges['challenges'][i]['opponent_team_name'] }}
+
+
                   </a>
                 </p>
               </strong>

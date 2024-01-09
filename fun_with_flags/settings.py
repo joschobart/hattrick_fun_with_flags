@@ -1,9 +1,10 @@
+""" View to customize settings for FwF. """
+
 from datetime import datetime
 
-from flask import (Blueprint, current_app, flash, g, redirect, render_template,
-                   request, session, url_for)
+from flask import Blueprint, current_app, flash, g, render_template, request
 
-from . import api, db, decs, helperf
+from . import decs
 
 bp_s = Blueprint("settings", __name__, url_prefix="/settings")
 
@@ -18,14 +19,14 @@ def settings():
     something_changed = False
 
     # Bootstrap db-document if it doesn't exist
-    if not g.user_id in g.couch:
+    if g.user_id not in g.couch:
         g.couch.save({"_id": g.user_id})
 
     # Instantiate clone of db-document
     g.my_document = g.couch[g.user_id]
 
     # Bootstrap settings-object if it doesn't exist
-    if not "settings" in g.my_document:
+    if "settings" not in g.my_document:
         g.my_document["settings"] = {"meta": g.db_settings["meta"]}
         g.my_document["settings"].update(g.db_settings["defaults"])
         g.my_document["settings"]["meta"]["date_initialized"] = str(datetime.utcnow())
@@ -36,15 +37,15 @@ def settings():
         g.my_document["settings"]["meta"]["schema_version"]
         < g.db_settings["meta"]["schema_version"]
     ):
-        for object in g.db_settings["objects"].items():
-            if not object[0] in g.my_document["settings"]:
-                g.my_document["settings"][object[0]] = {}
+        for _object in g.db_settings["objects"].items():
+            if _object[0] not in g.my_document["settings"]:
+                g.my_document["settings"][_object[0]] = {}
 
-            for item_key in object[1]["schema"]:
-                if not item_key in g.my_document["settings"][object[0]]:
-                    g.my_document["settings"][object[0]][item_key] = g.db_settings[
+            for item_key in _object[1]["schema"]:
+                if item_key not in g.my_document["settings"][_object[0]]:
+                    g.my_document["settings"][_object[0]][item_key] = g.db_settings[
                         "defaults"
-                    ][object[0]][item_key]
+                    ][_object[0]][item_key]
 
         g.my_document["settings"]["meta"]["schema_version"] = g.db_settings["meta"][
             "schema_version"

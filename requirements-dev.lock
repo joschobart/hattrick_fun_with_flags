@@ -7,6 +7,7 @@
 #   all-features: false
 
 -e file:.
+astroid==3.0.2
 beautifulsoup4==4.12.2
 black==23.12.1
 blinker==1.7.0
@@ -17,22 +18,28 @@ charset-normalizer==3.3.2
 click==8.1.7
 couchdb==1.2
 cryptography==41.0.7
+dill==0.3.7
 flask==3.0.0
 gunicorn==21.2.0
 hattrick-libs==0.10.2
 idna==3.6
+isort==5.13.2
 itsdangerous==2.1.2
 jinja2==3.1.2
 lxml==4.9.3
 markupsafe==2.1.3
+mccabe==0.7.0
 mypy-extensions==1.0.0
 packaging==23.2
 pathspec==0.12.1
 platformdirs==4.1.0
 pycparser==2.21
+pylint==3.0.3
 rauth==0.7.3
 requests==2.31.0
+ruff==0.1.11
 soupsieve==2.5
+tomlkit==0.12.3
 types-beautifulsoup4==4.12.0.7
 types-html5lib==1.1.11.15
 urllib3==2.1.0

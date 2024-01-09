@@ -4,12 +4,10 @@ from ht_libs import (do_challenge, do_hattrick_request, get_flags, get_series,
 
 from . import helperf
 
-scope = "manage_challenges"
+API_URL = "https://chpp.hattrick.org/chppxml.ashx"
 
-session_status_url = "https://chpp.hattrick.org/oauth/check_token.ashx"
-api_url = "https://chpp.hattrick.org/chppxml.ashx"
 
-api_params = {
+API_PARAMS = {
     "teamdetails": {
         "file": "teamdetails",
         "version": "3.6",
@@ -52,7 +50,7 @@ api_params = {
 }
 
 
-def oauth_get_url(scope=scope):
+def oauth_get_url(scope="manage_challenges"):
     (
         session["request_token"],
         session["request_token_secret"],
@@ -89,10 +87,10 @@ def oauth_open_session():
     return ht_session
 
 
-def ht_get_data(name, api_url=api_url, **kwargs):
+def ht_get_data(name, api_url=API_URL, **kwargs):
     ht_session = oauth_open_session()
 
-    params = api_params[name]
+    params = API_PARAMS[name]
     params.update(kwargs)
     print(params)
 
@@ -151,10 +149,10 @@ def ht_get_challengeable_teams(challengeable_xml):
 
 
 def ht_do_challenge(teamid, challengeable_teams_list, match_type, match_place):
-    session = oauth_open_session()
+    ht_session = oauth_open_session()
 
     my_challenges = do_challenge.do_challenge(
-        teamid, session, challengeable_teams_list, match_type, match_place
+        teamid, ht_session, challengeable_teams_list, match_type, match_place
     )
 
     return my_challenges

@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask import Blueprint, current_app, g, render_template, request, session
 
-from . import api, db, decs, helperf
+from . import api, decs, helperf
 
 bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 
@@ -77,7 +77,8 @@ def details():
                         "league_search_depth"
                     ]
 
-            print(_opponent_type, _search_level)
+            print(_opponent_type, _league_search_depth)
+
 
             sl = helperf.get_series_list(
                 g.flagid, search_level=int(_league_search_depth)

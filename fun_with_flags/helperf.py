@@ -8,6 +8,8 @@ from . import api
 
 
 def crypto_string(_input, _op="encrypt"):
+    output = ""
+
     fernet = Fernet(os.environb[b"FERNET_SECRET"])
 
     if _op == "encrypt":
@@ -15,8 +17,6 @@ def crypto_string(_input, _op="encrypt"):
 
     elif _op == "decrypt":
         output = fernet.decrypt(_input).decode()
-    else:
-        output = ""
 
     return output
 
@@ -24,23 +24,21 @@ def crypto_string(_input, _op="encrypt"):
 def get_my_teams():
     teams = []
 
-    for x in list(session["my_team"]):
-        if x != "user":
+    for _entry in list(session["my_team"]):
+        if _entry != "user":
             team = (
-                x,
-                session["my_team"][x]["team_name"],
-                session["my_team"][x]["team_primary"],
+                _entry,
+                session["my_team"][_entry]["team_name"],
+                session["my_team"][_entry]["team_primary"],
             )
 
             teams.append(team)
 
     # first sort after 'team_primary', then team_id
-    session["teams"] = sorted(teams, key=lambda x: (x[2], x[0]), reverse=True)
+    session["teams"] = sorted(teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True)
 
-    if not "teamid" in session:
+    if "teamid" not in session:
         session["teamid"] = session["teams"][0][0]
-
-    return
 
 
 def compose_flag_matrix(teamid):
@@ -129,7 +127,7 @@ def get_series_list(flagid, search_level=2):
                 "WARNING: anomaly in leagueID numbering found. do pricy loops as fallback."
             )
             # not integrated yet
-            pass
+
 
         else:
             for i in range(int(probe_list[0]), int(probe_list[1]) + 1):
