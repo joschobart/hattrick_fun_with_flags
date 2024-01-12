@@ -1,14 +1,5 @@
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Blueprint, current_app, flash, g, redirect, render_template,
+                   request, session, url_for)
 
 from . import api, decs, helperf
 
@@ -18,7 +9,7 @@ bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 @bp_c.route("/overview", methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
-@decs.error_check
+#@decs.error_check
 def overview():
     (
         g.challenges,
