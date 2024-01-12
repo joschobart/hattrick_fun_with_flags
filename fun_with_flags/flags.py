@@ -26,7 +26,7 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-# @decs.error_check
+@decs.error_check
 def details():
     g.challengeable = []
 
@@ -65,20 +65,21 @@ def details():
             # Set opponent_type for match and league_search_depth
             # from config and overwrite if custom config is available in db.
             _db_settings = current_app.config["DB__SETTINGS_DICT"]
-            _opponent_type = _db_settings["defaults"]["opponent_type"]
-            _league_search_depth = _db_settings["defaults"]["league_search_depth"]
+            _opponent_type = _db_settings["defaults"]["friendly"]["opponent_type"]
+            _league_search_depth = _db_settings["defaults"]["friendly"][
+                "league_search_depth"
+            ]
 
             if g.user_id in g.couch:
                 _my_document = g.couch[g.user_id]
 
                 if "settings" in _my_document:
-                    _opponent_type = _my_document["friendly"]["opponent_type"]
-                    _league_search_depth = _my_document["friendly"][
+                    _opponent_type = _my_document["settings"]["friendly"][
+                        "opponent_type"
+                    ]
+                    _league_search_depth = _my_document["settings"]["friendly"][
                         "league_search_depth"
                     ]
-
-            print(_opponent_type, _league_search_depth)
-
 
             sl = helperf.get_series_list(
                 g.flagid, search_level=int(_league_search_depth)
@@ -91,7 +92,7 @@ def details():
                 _team = api.ht_get_team(_xml)
 
                 if _opponent_type == "all":
-                    team = (team, _team[team]["team_name"])
+                    _team = (team, _team[team]["team_name"])
                     g.challengeable.append(_team)
 
                 else:

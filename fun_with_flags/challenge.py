@@ -1,7 +1,16 @@
-from flask import (Blueprint, current_app, flash, g, redirect, render_template,
-                   request, session, url_for)
+from flask import (
+    Blueprint,
+    current_app,
+    flash,
+    g,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
-from . import decs, helperf
+from . import api, decs, helperf
 
 bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 
@@ -9,7 +18,7 @@ bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 @bp_c.route("/overview", methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
-# @decs.error_check
+@decs.error_check
 def overview():
     (
         g.challenges,
@@ -51,19 +60,18 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-# @decs.error_check
+@decs.error_check
 def challenge():
     if request.method == "POST":
         # Set match_rules for match from config and overwrite if custom config is available in db.
         _db_settings = current_app.config["DB__SETTINGS_DICT"]
-        _match_rules = _db_settings["defaults"]["match_rules"]
+        _match_rules = _db_settings["defaults"]["friendly"]["match_rules"]
 
         if g.user_id in g.couch:
             _my_document = g.couch[g.user_id]
 
             if "settings" in _my_document:
-                _match_rules = _my_document["friendly"]["match_rules"]
-        print(_match_rules)
+                _match_rules = _my_document["settings"]["friendly"]["match_rules"]
 
         g.challengeable = list(zip(*session.get("challengeable", None)))[0]
         _place = session.get("place", None)
@@ -82,8 +90,9 @@ def challenge():
             _match_rules = "1"
 
         try:
-            # challenge = api.ht_do_challenge(session['teamid'], g.challengeable, match_type, g.place)
-            print(f"match_type: {_match_rules}, match_place: {_place}")
+            api.ht_do_challenge(
+                session["teamid"], g.challengeable, _match_rules, _place
+            )
 
         except Exception as e:
             flash(f"Var '{e}' is missing.")

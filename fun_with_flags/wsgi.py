@@ -1,4 +1,4 @@
-#from hattrick-fwf import create_app
+# from hattrick-fwf import create_app
 
 from . import create_app
 

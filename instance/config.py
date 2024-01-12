@@ -1,6 +1,6 @@
 DB__SETTINGS_DICT = {
     "meta": {
-        "schema_version": 4.0,
+        "schema_version": 4.1,
         "date_initialized": "",
         "date_updated": "",
     },
@@ -12,7 +12,7 @@ DB__SETTINGS_DICT = {
                     "League Search Depth",
                     "Default: 2; The higher the number, the deeper the search, the longer it \
                         takes to find potential opponents but also the more potential opponents there are.",
-                    ["0", "1", "2", "3", "4"],
+                    ["1", "2", "3", "4"],
                 ),
                 "match_rules": (
                     "Match Rules",

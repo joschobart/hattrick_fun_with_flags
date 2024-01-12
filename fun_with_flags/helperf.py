@@ -35,7 +35,9 @@ def get_my_teams():
             teams.append(team)
 
     # first sort after 'team_primary', then team_id
-    session["teams"] = sorted(teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True)
+    session["teams"] = sorted(
+        teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True
+    )
 
     if "teamid" not in session:
         session["teamid"] = session["teams"][0][0]
@@ -92,7 +94,11 @@ def get_series_list(flagid, search_level=2):
         (2, "ii", 4),
         (3, "iii", 16),
         (4, "iv", 64),  # <------ default (search_level=2)
-        (5, "v", 256,),  # <------ 340 series, max. 2720 teams (deep-search)
+        (
+            5,
+            "v",
+            256,
+        ),  # <------ 340 series, max. 2720 teams (deep-search)
         (6, "vi", 1024),
     ]
 
@@ -128,7 +134,6 @@ def get_series_list(flagid, search_level=2):
             )
             # not integrated yet
 
-
         else:
             for i in range(int(probe_list[0]), int(probe_list[1]) + 1):
                 series_list.append(i)
@@ -139,8 +144,6 @@ def get_series_list(flagid, search_level=2):
 
 
 def get_challengeable_teams_list(teamid, series_list):
-    challengeable_teams_list = []
-
     for series in series_list:
         teams_in_series = api.ht_get_data("teams_in_series", leagueLevelUnitID=series)
         teams_in_series = api.ht_get_teams_in_series(teams_in_series)
@@ -156,9 +159,7 @@ def get_challengeable_teams_list(teamid, series_list):
         challengeable_teams = api.ht_get_challengeable_teams(challengeable_teams)
 
         for team in challengeable_teams:
-            challengeable_teams_list.append(team)
-
-    return challengeable_teams_list
+            yield team
 
 
 def get_my_challenges():
