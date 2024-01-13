@@ -2,7 +2,8 @@ import os
 from datetime import datetime
 
 from cryptography.fernet import Fernet
-from flask import session
+from flask import g, session
+from pygal import maps, style
 
 from . import api
 
@@ -83,7 +84,9 @@ def compose_flag_matrix(teamid):
                 else:
                     l_away.append((i, w, (base_url + m[teamid][ha][flag][0] + url_end)))
 
-    return l_home, l_away, nbr_flags_home, nbr_flags_away
+    worldmap_chart = render_worldmap(my_flags, teamid)
+
+    return l_home, l_away, nbr_flags_home, nbr_flags_away, worldmap_chart
 
 
 def get_series_list(flagid, search_level=2):
@@ -201,3 +204,54 @@ def get_my_challenges():
             bookable = True
 
     return challenges, now, match_time, tdelta, tdelta_hours, bookable
+
+
+def render_worldmap(flaglist, teamid):
+    my_flags = flaglist
+    teamid = teamid
+
+    map_flags_home = []
+    map_flags_away = []
+    map_flags_both = []
+
+    _style = style.Style(
+        foreground='#53E89B',
+        foreground_strong='#311D3F',
+        foreground_subtle='#522546',
+        opacity='.6',
+        opacity_hover='.9',
+        transition='400ms ease-in',
+        colors=('#40513B', '#609966', '#522546', '#88304E'
+            )
+        )
+
+
+    worldmap_chart = maps.world.World(height=350, style=_style)
+
+    for home_flag in my_flags[teamid]["flags_home"]:
+        home_flag = home_flag[2].lower()
+
+        map_flags_home.append(home_flag)
+
+    for away_flag in my_flags[teamid]["flags_away"]:
+        away_flag = away_flag[2].lower()
+
+        map_flags_away.append(away_flag)
+
+    for home_flag in map_flags_home:
+        if home_flag in map_flags_away:
+            map_flags_both.append(home_flag)
+
+            home_flag_index = map_flags_home.index(home_flag)
+            away_flag_index = map_flags_away.index(home_flag)
+
+            map_flags_home.pop(home_flag_index)
+            map_flags_away.pop(away_flag_index)
+
+    worldmap_chart.add('Home Flags', map_flags_home)
+    worldmap_chart.add('Away Flags', map_flags_away)
+    worldmap_chart.add('Both Flags', map_flags_both)
+
+    worldmap_chart = worldmap_chart.render_data_uri()
+
+    return worldmap_chart

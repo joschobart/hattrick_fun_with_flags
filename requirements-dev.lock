@@ -23,6 +23,7 @@ flask==3.0.0
 gunicorn==21.2.0
 hattrick-libs==0.10.2
 idna==3.6
+importlib-metadata==7.0.1
 isort==5.13.2
 itsdangerous==2.1.2
 jinja2==3.1.2
@@ -34,6 +35,8 @@ packaging==23.2
 pathspec==0.12.1
 platformdirs==4.1.0
 pycparser==2.21
+pygal==3.0.4
+pygal-maps-world==1.0.2
 pylint==3.0.3
 rauth==0.7.3
 requests==2.31.0
@@ -44,3 +47,4 @@ types-beautifulsoup4==4.12.0.7
 types-html5lib==1.1.11.15
 urllib3==2.1.0
 werkzeug==3.0.1
+zipp==3.17.0

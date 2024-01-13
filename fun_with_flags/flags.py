@@ -10,16 +10,16 @@ bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 @bp_f.route("/overview", methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
-@decs.error_check
+#@decs.error_check
 def overview():
-    g.l_home, g.l_away, g.nr_flags_home, g.nr_flags_away = helperf.compose_flag_matrix(
+    g.l_home, g.l_away, g.nr_flags_home, g.nr_flags_away, *_ = helperf.compose_flag_matrix(
         session["teamid"]
     )
 
     g.l_home = sorted(g.l_home, key=lambda x: x[1].lower())
     g.l_away = sorted(g.l_away, key=lambda x: x[1].lower())
 
-    return render_template("flags/overview.html")
+    return render_template("flags/overview.html", svg_image=_[0])
 
 
 @bp_f.route("/details", methods=("GET", "POST"))
