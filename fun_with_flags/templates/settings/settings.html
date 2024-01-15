@@ -9,7 +9,8 @@
 
   {% if g.my_document is defined and g.db_settings is defined %}
   <form method="POST">
-    {% for object in g.db_settings['objects'].items() %}
+    {% for object in g.db_settings['settings'].items() %}
+      {% if object[0] != "meta" %}
       <h3>{{ object[1]['name'] }}</h3>
       <table border="1px">
         <tbody>
@@ -40,6 +41,7 @@
           {% endfor %}
         </tbody>
       </table>
+      {% endif %}
     {% endfor %}
     <p><input type="submit" value="Update Settings" id="update_settings"></p>
   </form>

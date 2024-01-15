@@ -1,10 +1,35 @@
 DB__SETTINGS_DICT = {
-    "meta": {
-        "schema_version": 4.2,
-        "date_initialized": "",
-        "date_updated": "",
+    "defaults": {
+        "meta": {
+            "schema_version": 1.1,
+            "date_initialized": "",
+            "date_updated": "",
+        },
+        "history": {
+            "friendlies": {},
+        },
+        "settings": {
+            "friendly": {
+                "league_search_depth": "2",
+                "match_rules": "cup",
+                "opponent_type": "all",
+            },
+        },
     },
-    "objects": {
+    "history": {
+        "meta": {
+            "schema_version": 1.6,
+            "date_initialized": "",
+            "date_updated": "",
+        },
+        "friendlies": {},
+    },
+    "settings": {
+        "meta": {
+            "schema_version": 5.1,
+            "date_initialized": "",
+            "date_updated": "",
+        },
         "friendly": {
             "name": "Friendlies",
             "schema": {
@@ -25,13 +50,6 @@ DB__SETTINGS_DICT = {
                     ["all", "supporters"],
                 ),
             },
-        },
-    },
-    "defaults": {
-        "friendly": {
-            "league_search_depth": "2",
-            "match_rules": "cup",
-            "opponent_type": "all",
         },
     },
 }
