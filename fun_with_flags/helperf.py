@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from random import randrange
 
 from cryptography.fernet import Fernet
 from flask import g, session
@@ -204,6 +205,18 @@ def get_my_challenges():
             bookable = True
 
     return challenges, now, match_time, tdelta, tdelta_hours, bookable
+
+
+def random_quotes(_quotes):
+    for _key in _quotes.keys():
+        random_quote_index = randrange(0, len(_quotes[_key]) - 1)
+
+        if _key == "quotes_ante":
+            quote_ante = _quotes[_key][random_quote_index]
+        else:
+            quote_post = _quotes[_key][random_quote_index]
+
+    return quote_ante, quote_post
 
 
 def render_worldmap(flaglist, teamid):

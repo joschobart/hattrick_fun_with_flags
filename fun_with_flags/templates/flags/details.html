@@ -6,18 +6,6 @@
 
 {% block content %}
 
-
-    <div id="trainer_parent" class="trainer_parent">
-      <img class="trainer_bg" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_background']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_background']['left'] }};top:{{ session['trainer_avatar']['avatar_background']['top'] }};" alt="">
-      <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_body']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_body']['left'] }};top:{{ session['trainer_avatar']['avatar_body']['top'] }};" alt="">
-      <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_face']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_face']['left'] }};top:{{ session['trainer_avatar']['avatar_face']['top'] }};" alt="">
-      <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_eyes']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_eyes']['left'] }};top:{{ session['trainer_avatar']['avatar_eyes']['top'] }};" alt="">
-      <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_mouth']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_mouth']['left'] }};top:{{ session['trainer_avatar']['avatar_mouth']['top'] }};" alt="">
-      <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_nose']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_nose']['left'] }};top:{{ session['trainer_avatar']['avatar_nose']['top'] }};" alt="">
-      <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_hair']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_hair']['left'] }};top:{{ session['trainer_avatar']['avatar_hair']['top'] }};" alt="">
-    </div>
-
-
   {% if g.team is defined and session['place'] is defined and g.nation is defined %}
     <h3>
       {{ g.nation }} 

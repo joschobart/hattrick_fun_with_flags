@@ -53,3 +53,17 @@ DB__SETTINGS_DICT = {
         },
     },
 }
+
+
+QUOTES = {
+    "quotes_ante": [
+        "Hey Boss! I'm sure you're quite surprised to see me here. Between you and me: I'm quite new in the flags business. Lovely to share this passion with you! Now to something completely different:",
+        "Nice to see you lad! I want to bring this to your attention:",
+        "That was a close call! Awful traffic today downtown! Really clever you always take the bus instead. May I bring something up regarding our flags thingy?",
+    ],
+    "quotes_post": [
+        "BTW: Did you notice something different about my appearance? That's right! I've shaved my goatee.",
+        "What a day! Sorry to interrupt you bro, but I have to rush. It's my turn to pick up the kids today.",
+        "It's always a pleasure to have a chat, mate!",
+    ],
+}

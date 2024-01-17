@@ -1,11 +1,11 @@
 from flask import session
-from ht_libs import (do_challenge, do_hattrick_request, get_flags, get_series,
-                     get_teamdetails, get_trainer_avatar, get_worlddetails)
+from ht_libs import (do_challenge, do_hattrick_request, get_flags,
+                     get_matchdetails, get_series, get_teamdetails,
+                     get_trainer_avatar, get_worlddetails)
 
 from . import helperf
 
 API_URL = "https://chpp.hattrick.org/chppxml.ashx"
-
 
 API_PARAMS = {
     "teamdetails": {
@@ -51,6 +51,13 @@ API_PARAMS = {
         "file": "staffavatars",
         "version": "1.1",
         "teamId": "",
+    },
+    "matchdetails": {
+        "file": "matchdetails",
+        "version": "3.1",
+        "matchEvents": "false",
+        "matchID": "",  # id of match to get
+        "sourceSystem": "hattrick",
     },
 }
 
@@ -173,3 +180,9 @@ def ht_get_trainer_avatar(staffavatars_xml):
     trainer_avatar = get_trainer_avatar.get_trainer_avatar(staffavatars_xml)
 
     return trainer_avatar
+
+
+def ht_get_matchdetails(matchdetails_xml):
+    matchdetails = get_matchdetails.get_matchdetails(matchdetails_xml)
+
+    return matchdetails

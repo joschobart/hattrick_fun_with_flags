@@ -1,8 +1,8 @@
 import functools
 
-from flask import flash, g, redirect, request, session, url_for
+from flask import current_app, flash, g, redirect, request, session, url_for
 
-from . import db, helperf
+from . import api, db, helperf
 
 
 def error_check(view):
@@ -35,6 +35,9 @@ def login_required(view):
         if not username:
             return redirect(url_for("auth.authorize"))
 
+        _quotes = current_app.config["QUOTES"]
+        g.quote_ante, g.quote_post = helperf.random_quotes(_quotes)
+
         return view(**kwargs)
 
     return wrapped_view
@@ -48,6 +51,9 @@ def choose_team(view):
 
             if request.method == "POST" and "teams" in request.form:
                 session["teamid"] = request.form["teams"]
+
+                _xml = api.ht_get_data("get_trainer_avatar", teamId=session["teamid"])
+                session["trainer_avatar"] = api.ht_get_trainer_avatar(_xml)
 
                 return redirect(url_for("flags.overview"))
 

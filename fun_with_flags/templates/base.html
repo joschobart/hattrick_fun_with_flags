@@ -86,9 +86,33 @@
       {% block header %}{% endblock %}
     </header>
       {% for message in get_flashed_messages() %}
+      {% if session['trainer_avatar'] %}
+      <table border="0px">
+        <tr>
+          <td style="vertical-align: bottom;">
+            <div id="trainer_parent" class="trainer_parent">
+              <img class="trainer_bg" src="https://hattrick.org/goto.ashx?path=/Img/Avatar/backgrounds/bg_blue.png" style="left:{{ session['trainer_avatar']['avatar_background']['left'] }};top:{{ session['trainer_avatar']['avatar_background']['top'] }};" alt="">
+              <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_body']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_body']['left'] }};top:{{ session['trainer_avatar']['avatar_body']['top'] }};" alt="">
+              <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_face']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_face']['left'] }};top:{{ session['trainer_avatar']['avatar_face']['top'] }};" alt="">
+              <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_eyes']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_eyes']['left'] }};top:{{ session['trainer_avatar']['avatar_eyes']['top'] }};" alt="">
+              <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_mouth']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_mouth']['left'] }};top:{{ session['trainer_avatar']['avatar_mouth']['top'] }};" alt="">
+              <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_nose']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_nose']['left'] }};top:{{ session['trainer_avatar']['avatar_nose']['top'] }};" alt="">
+              <img class="trainer_avatar" src="https://hattrick.org/goto.ashx?path={{ session['trainer_avatar']['avatar_hair']['url'] }}" style="left:{{ session['trainer_avatar']['avatar_hair']['left'] }};top:{{ session['trainer_avatar']['avatar_hair']['top'] }};" alt="">
+            </div>
+          </td>
+          <td style="vertical-align: bottom;">
+            <div class="container">    
+              <blockquote class="rectangle-speech-border">
+                <p class="italic"><b>"</b>{{ g.quote_ante }} <b>{{ message }}</b><br>{{ g.quote_post }}<b>"</b></p>
+              </blockquote>
+            </div>
+          </td>
+        </tr>
+      </table>
+      {% else %}
         <div class="flash">{{ message }}</div>
+      {% endif %}
       {% endfor %}
-
     {% block content %}{% endblock %}
   </section>
 </body>

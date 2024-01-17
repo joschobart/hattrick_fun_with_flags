@@ -10,7 +10,7 @@ bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 @bp_f.route("/overview", methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
-# @decs.error_check
+@decs.error_check
 def overview():
     (
         g.l_home,
@@ -30,16 +30,8 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-# @decs.error_check
+@decs.error_check
 def details():
-
-
-
-    _xml = api.ht_get_data("get_trainer_avatar", teamId=session["teamid"])
-    session["trainer_avatar"] = api.ht_get_trainer_avatar(_xml)
-
-
-
 
     g.challengeable = []
 

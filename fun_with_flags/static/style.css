@@ -67,6 +67,11 @@ p   {
   margin-bottom: 30px;
 }
 
+
+p.italic {
+  font-style: italic;
+}
+
 .list_0  {
     margin: 0; padding: 0;
 }
@@ -321,3 +326,71 @@ input[type=submit] { align-self: start; min-width: 10em;
 .trainer_avatar {
   position: absolute;
 }
+
+.container{
+  width: 800px;
+  margin: 20px;
+}
+
+.rectangle-speech-border{
+  position: relative;
+  padding: 1px 10px;
+  margin: 30px 0 30px;
+  border: 5px solid #7bb381;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.rectangle-speech-border:before{
+  content:"";
+  position: absolute;
+  z-index: 10;
+  bottom: -40px;
+  left: 50px;
+  width: 50px;
+  height: 30px;
+  border-style: solid;
+  border-color: #7bb381;
+  border-width: 0 8px 5px 0;
+  background: transparent;
+  display: block;
+  border-bottom-right-radius: 80px 50px;
+}
+
+.rectangle-speech-border:after{
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: 50px;
+  width: 20px;
+  height: 35px;
+  z-index: 10;
+  border-style: solid;
+  border-width: 0 8px 4px 0;
+  border-color: #7bb381;
+  background: transparent;
+  display: block;
+  border-bottom-right-radius: 40px 50px;
+}
+
+.rectangle-speech-border > :first-child:before{
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: 47px;
+  width: 4px;
+  height: 5px;
+  background: #7bb381;
+  border-radius: 4px;
+}
+
+.rectangle-speech-border > :first-child:after{
+  content: "";
+  background: white;
+  position: absolute;
+  bottom: -10px;
+  left: 76px;
+  width: 24px;
+  height: 15px;
+}
+
