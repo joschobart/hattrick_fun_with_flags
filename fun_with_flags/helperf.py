@@ -199,7 +199,7 @@ def get_my_challenges():
             utc.weekday() == 3
             and utc.hour >= 7
             or utc.weekday() >= 4
-            or utc.weekday() <= 1
+            or utc.weekday() == 0
         ):
             bookable = True
 

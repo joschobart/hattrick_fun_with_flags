@@ -306,3 +306,18 @@ input[type=submit] { align-self: start; min-width: 10em;
   z-index: 1000;
   }
 }
+
+
+/* face-card */
+.trainer_parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.trainer_bg {
+  position: inherit;
+  box-shadow: grey 0px 0px 6px;
+}
+.trainer_avatar {
+  position: absolute;
+}

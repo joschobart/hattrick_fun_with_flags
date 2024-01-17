@@ -32,6 +32,15 @@ def overview():
 @decs.use_db
 # @decs.error_check
 def details():
+
+
+
+    _xml = api.ht_get_data("get_trainer_avatar", teamId=session["teamid"])
+    session["trainer_avatar"] = api.ht_get_trainer_avatar(_xml)
+
+
+
+
     g.challengeable = []
 
     g.flagid = request.args.get("flagid")

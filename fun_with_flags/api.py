@@ -1,12 +1,6 @@
 from flask import session
-from ht_libs import (
-    do_challenge,
-    do_hattrick_request,
-    get_flags,
-    get_series,
-    get_teamdetails,
-    get_worlddetails,
-)
+from ht_libs import (do_challenge, do_hattrick_request, get_flags, get_series,
+                     get_teamdetails, get_trainer_avatar, get_worlddetails)
 
 from . import helperf
 
@@ -52,6 +46,11 @@ API_PARAMS = {
         "version": "1.6",
         "actionType": "view",
         "teamId": "",  # id of team to manage
+    },
+    "get_trainer_avatar": {
+        "file": "staffavatars",
+        "version": "1.1",
+        "teamId": "",
     },
 }
 
@@ -168,3 +167,9 @@ def ht_get_challenges(challenges_xml):
     challenges = do_challenge.get_challenges(challenges_xml)
 
     return challenges
+
+
+def ht_get_trainer_avatar(staffavatars_xml):
+    trainer_avatar = get_trainer_avatar.get_trainer_avatar(staffavatars_xml)
+
+    return trainer_avatar
