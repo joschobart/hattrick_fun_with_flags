@@ -37,9 +37,7 @@ def get_my_teams():
             teams.append(team)
 
     # first sort after 'team_primary', then team_id
-    session["teams"] = sorted(
-        teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True
-    )
+    session["teams"] = sorted(teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True)
 
     if "teamid" not in session:
         session["teamid"] = session["teams"][0][0]
