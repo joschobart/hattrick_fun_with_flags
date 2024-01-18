@@ -16,7 +16,7 @@
     {% else %}
         <p>The '{{ session['place'] }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
       {% if g.bookable == True %}
-        <p>Do you want to search for opponents to challenge? <b>This may take up to five minutes on level 3 depth!</b></p>
+        <p>Do you want to search for opponents to challenge? <b>This may take up to five minutes on level 5 depth!</b></p>
         <form method="post">
           <input type="submit" value="Search Opponents" name="search_opponents" id="search_opponents" onclick="loadSpinner()">
         </form>

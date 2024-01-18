@@ -1,7 +1,14 @@
 from flask import session
-from ht_libs import (do_challenge, do_hattrick_request, get_flags,
-                     get_matchdetails, get_series, get_teamdetails,
-                     get_trainer_avatar, get_worlddetails)
+from ht_libs import (
+    do_challenge,
+    do_hattrick_request,
+    get_flags,
+    get_matchdetails,
+    get_series,
+    get_teamdetails,
+    get_trainer_avatar,
+    get_worlddetails,
+)
 
 from . import helperf
 

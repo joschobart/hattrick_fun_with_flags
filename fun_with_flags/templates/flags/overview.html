@@ -21,7 +21,7 @@
             {% if (i + 1) % 22 == 0 %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=home"  onclick="loadSpinner()">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=home">
                     <img src="{{ g.l_home[i][2] }}" alt="{{ g.l_home[i][1] }}" title="{{ g.l_home[i][1] }}">
                   </a>
                 </p>
@@ -31,7 +31,7 @@
             {% else %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=home"  onclick="loadSpinner()">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=home">
                     <img src="{{ g.l_home[i][2] }}" alt="{{ g.l_home[i][1] }}" title="{{ g.l_home[i][1] }}">
                 </p>
               </td>
@@ -47,7 +47,7 @@
             {% if (i + 1) % 22 == 0 %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=away"  onclick="loadSpinner()">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=away">
                     <img src="{{ g.l_away[i][2] }}" alt="{{ g.l_away[i][1] }}" title="{{ g.l_away[i][1] }}">
                   </a>
                 </p>
@@ -57,7 +57,7 @@
             {% else %}
               <td>
                 <p style="color:lightgray;">
-                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=away"  onclick="loadSpinner()">
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.l_home[i][0] }}&place=away">
                     <img src="{{ g.l_away[i][2] }}" alt="{{ g.l_away[i][1] }}" title="{{ g.l_away[i][1] }}">
                   </a>
                 </p>

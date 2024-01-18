@@ -80,12 +80,13 @@
       </table>
     </ul>
   </nav>
-
   <section class="content">
     <header>
       {% block header %}{% endblock %}
     </header>
-      {% for message in get_flashed_messages() %}
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
       {% if session['trainer_avatar'] %}
       <table border="0px">
         <tr>
@@ -103,17 +104,22 @@
           <td style="vertical-align: bottom;">
             <div class="container">    
               <blockquote class="rectangle-speech-border">
-                <p class="italic"><b>"</b>{{ g.quote_ante }} <b>{{ message }}</b><br>{{ g.quote_post }}<b>"</b></p>
+                <p class="italic"><b>"</b>{{ g.quote_ante }} <b>{{ messages[0] }}</b><br>{{ g.quote_post }}<b>"</b></p>
               </blockquote>
             </div>
           </td>
         </tr>
       </table>
       {% else %}
+      {% for message in messages %}
         <div class="flash">{{ message }}</div>
-      {% endif %}
       {% endfor %}
-    {% block content %}{% endblock %}
+
+      {% endif %}
+      {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
   </section>
 </body>
 

@@ -228,16 +228,14 @@ def render_worldmap(flaglist, teamid):
     map_flags_both = []
 
     _style = style.Style(
-        foreground='#53E89B',
-        foreground_strong='#311D3F',
-        foreground_subtle='#522546',
-        opacity='.6',
-        opacity_hover='.9',
-        transition='400ms ease-in',
-        colors=('#40513B', '#609966', '#522546', '#88304E'
-            )
-        )
-
+        foreground="#53E89B",
+        foreground_strong="#311D3F",
+        foreground_subtle="#522546",
+        opacity=".6",
+        opacity_hover=".9",
+        transition="400ms ease-in",
+        colors=("#40513B", "#609966", "#522546", "#88304E"),
+    )
 
     worldmap_chart = maps.world.World(height=350, style=_style)
 
@@ -261,9 +259,9 @@ def render_worldmap(flaglist, teamid):
             map_flags_home.pop(home_flag_index)
             map_flags_away.pop(away_flag_index)
 
-    worldmap_chart.add('Home Flags', map_flags_home)
-    worldmap_chart.add('Away Flags', map_flags_away)
-    worldmap_chart.add('Both Flags', map_flags_both)
+    worldmap_chart.add("Home Flags", map_flags_home)
+    worldmap_chart.add("Away Flags", map_flags_away)
+    worldmap_chart.add("Both Flags", map_flags_both)
 
     worldmap_chart = worldmap_chart.render_data_uri()
 

@@ -11,18 +11,14 @@ def error_check(view):
         error = None
 
         try:
-            view(**kwargs)
+            return view(**kwargs)
 
         except Exception as e:
             error = f"Something went wrong on page '{view.__name__}'. \
                     Please try again or report an error to joschobart on hattrick.org. ({e})"
 
-        if error is not None:
             flash(error)
-
             return redirect(url_for("index"))
-
-        return view(**kwargs)
 
     return wrapped_view
 
@@ -35,9 +31,6 @@ def login_required(view):
         if not username:
             return redirect(url_for("auth.authorize"))
 
-        _quotes = current_app.config["QUOTES"]
-        g.quote_ante, g.quote_post = helperf.random_quotes(_quotes)
-
         return view(**kwargs)
 
     return wrapped_view
@@ -48,6 +41,9 @@ def choose_team(view):
     def wrapped_view(**kwargs):
         if "username" in session:
             helperf.get_my_teams()
+
+            _quotes = current_app.config["QUOTES"]
+            g.quote_ante, g.quote_post = helperf.random_quotes(_quotes)
 
             if request.method == "POST" and "teams" in request.form:
                 session["teamid"] = request.form["teams"]

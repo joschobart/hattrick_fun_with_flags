@@ -30,9 +30,8 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-@decs.error_check
+# @decs.error_check
 def details():
-
     g.challengeable = []
 
     g.flagid = request.args.get("flagid")
@@ -111,8 +110,11 @@ def details():
             _team = api.ht_get_team(_xml)
 
             if _opponent_type == "all":
-                _team = (team, _team[team]["team_name"])
-                g.challengeable.append(_team)
+                if len(g.challengeable) < 25:
+                    _team = (team, _team[team]["team_name"])
+                    g.challengeable.append(_team)
+                else:
+                    break
 
             else:
                 signup_year = _team["user"]["signup_date"].split("-", 1)[0]
@@ -122,8 +124,11 @@ def details():
                     _team["user"]["supporter_tier"] != "none"
                     and int(actual_year) - int(signup_year) > 0
                 ):
-                    _team = (team, _team[team]["team_name"])
-                    g.challengeable.append(_team)
+                    if len(g.challengeable) < 25:
+                        _team = (team, _team[team]["team_name"])
+                        g.challengeable.append(_team)
+                    else:
+                        break
 
         session["challengeable"] = g.challengeable
 

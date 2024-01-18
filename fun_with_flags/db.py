@@ -38,9 +38,7 @@ def bootstrap_document(_userid, _couch, _settings):
                     if _subkey != "meta":
                         db_document[_key][_subkey] = {}
 
-                        for _subsubkey in _settings["defaults"][_key][
-                            _subkey
-                        ].keys():
+                        for _subsubkey in _settings["defaults"][_key][_subkey].keys():
                             db_document[_key][_subkey][_subsubkey] = _settings[
                                 "defaults"
                             ][_key][_subkey][_subsubkey]

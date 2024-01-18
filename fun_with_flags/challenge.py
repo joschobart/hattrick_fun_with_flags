@@ -1,5 +1,14 @@
-from flask import (Blueprint, current_app, flash, g, redirect, render_template,
-                   request, session, url_for)
+from flask import (
+    Blueprint,
+    current_app,
+    flash,
+    g,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
 from . import api, decs, helperf
 
@@ -38,7 +47,7 @@ def overview():
             message = "Teams are challenged but not agreed yet."
 
     else:
-        message = "No challenges to show"
+        message = "No challenges to show."
 
         session["my_team"][session["teamid"]]["has_friendly"] = None
 
@@ -56,7 +65,7 @@ def challenge():
     if request.method == "POST":
         # Set match_rules for match from config and overwrite if custom config is available in db.
         _db_settings = current_app.config["DB__SETTINGS_DICT"]
-        _match_rules = _db_settings["defaults"]["friendly"]["match_rules"]
+        _match_rules = _db_settings["defaults"]["settings"]["friendly"]["match_rules"]
 
         if g.user_id in g.couch:
             _my_document = g.couch[g.user_id]
@@ -84,6 +93,7 @@ def challenge():
             api.ht_do_challenge(
                 session["teamid"], g.challengeable, _match_rules, _place
             )
+            print("Would do challenge here")
 
         except Exception as e:
             flash(f"Var '{e}' is missing.")

@@ -27,6 +27,7 @@ def settings():
             g.my_document["settings"][_target_dict][_key] = item[1]
 
         g.my_document["settings"]["meta"]["date_updated"] = str(datetime.utcnow())
+
         flash("Settings updated.")
 
     # Write changements on the settings-object to db
