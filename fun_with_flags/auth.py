@@ -40,8 +40,8 @@ def authorize():
 
 
 @bp_a.route("/login", methods=("GET", "POST"))
-@decs.error_check
 @decs.choose_team
+@decs.error_check
 def login():
     try:
         xml_response = api.ht_get_data("teamdetails", includeFlags="false")
