@@ -207,7 +207,7 @@ def get_my_challenges():
 
 def random_quotes(_quotes):
     for _key in _quotes.keys():
-        random_quote_index = randrange(0, len(_quotes[_key]) - 1)
+        random_quote_index = randrange(0, len(_quotes[_key]))
 
         if _key == "quotes_ante":
             quote_ante = _quotes[_key][random_quote_index]
