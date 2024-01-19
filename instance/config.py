@@ -60,7 +60,7 @@ QUOTES = {
         "Hey Boss! I'm sure you're quite surprised to see me here. Between you and me: I'm quite new in the flags business. Lovely to share this passion with you! Now to something completely different:",
         "Nice to see you lad! I want to bring this to your attention:",
         "That was a close call! Awful traffic today downtown! Really clever you always take the bus instead. May I bring something up regarding our flags thingy?",
-        "Look at you! You look fantastic today my maan! Anyways, you might want to know that:",
+        "Look at you! You look fantastic today my maan! Anyways, you might want to know this:",
     ],
     "quotes_post": [
         "BTW: Did you notice something different about my appearance? That's right! I've shaved my goatee.",
