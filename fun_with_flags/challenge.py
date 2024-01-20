@@ -53,8 +53,6 @@ def overview():
                     "opponent_country": {}
                 }
 
-            print(g.my_document["history"]["friendlies"][session["teamid"]])
-
             if (
                 g.challenges["challenges"][0]["country_id"]
                 not in g.my_document["history"]["friendlies"][session["teamid"]][
@@ -68,13 +66,21 @@ def overview():
                     "away": [],
                 }
 
-            g.my_document["history"]["friendlies"][session["teamid"]][
-                "opponent_country"
-            ][g.challenges["challenges"][0]["country_id"]][session["place"]].append(
+            if (
                 g.challenges["challenges"][0]["match_id"]
-            )
+                not in g.my_document["history"]["friendlies"][session["teamid"]][
+                    "opponent_country"
+                ][g.challenges["challenges"][0]["country_id"]][session["place"]]
+            ):
+                g.my_document["history"]["friendlies"][session["teamid"]][
+                    "opponent_country"
+                ][g.challenges["challenges"][0]["country_id"]][session["place"]].append(
+                    g.challenges["challenges"][0]["match_id"]
+                )
 
-            g.my_document["history"]["meta"]["date_updated"] = str(datetime.utcnow())
+                g.my_document["history"]["meta"]["date_updated"] = str(
+                    datetime.utcnow()
+                )
 
             # Write changements on the history-object to db
             g.couch[g.user_id] = g.my_document
