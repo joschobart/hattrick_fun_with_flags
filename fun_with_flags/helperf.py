@@ -181,7 +181,6 @@ def get_my_challenges():
     _xml = api.ht_get_data("get_challenges", teamId=_teamid)
 
     challenges = api.ht_get_challenges(_xml)
-    print(challenges["challenges"])
 
     if 0 < len(challenges["challenges"]) < 25:
         bookable = True
