@@ -7,7 +7,7 @@
 {% block content %}
   {% if session['username'] %}
     <p>Welcome '{{ session['username'] }}'!</p>
-    {{  session["teams"][0][0] }}
-    {{ session["teams"] }} {{ session["teamid"] }}
+    <meta http-equiv="refresh" content="1;{{ url_for('index') }}">
+
   {% endif %}
 {% endblock %}

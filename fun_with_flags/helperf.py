@@ -37,7 +37,9 @@ def get_my_teams():
             teams.append(team)
 
     # first sort after 'team_primary', then team_id
-    session["teams"] = sorted(teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True)
+    session["teams"] = sorted(
+        teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True
+    )
 
     if "teamid" not in session:
         session["teamid"] = session["teams"][0][0]
@@ -179,6 +181,7 @@ def get_my_challenges():
     _xml = api.ht_get_data("get_challenges", teamId=_teamid)
 
     challenges = api.ht_get_challenges(_xml)
+    print(challenges["challenges"])
 
     if 0 < len(challenges["challenges"]) < 25:
         bookable = True

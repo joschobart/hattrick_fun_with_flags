@@ -94,11 +94,23 @@ def details():
                         "opponent_country"
                     ]
                 ):
-                    for match in _my_document["history"]["friendlies"][
+                    for _match in _my_document["history"]["friendlies"][
                         session["teamid"]
                     ]["opponent_country"][g.flagid][session["place"]]:
-                        g.played_matches.append(match)
-                        print(g.played_matches)
+                        _xml_data = api.ht_get_data(
+                            "matchdetails", teamID=session["teamid"], matchID=_match
+                        )
+                        _my_match = api.ht_get_matchdetails(_xml_data)
+                        _match_date = datetime.strptime(
+                            _my_match["match_date"], "%Y-%m-%d %H:%M:%S"
+                        )
+                        _timedelta = datetime.now() - _match_date
+                        _timedelta = _timedelta.total_seconds()
+
+                        if _timedelta > 0:
+                            _match_date = _match_date.strftime("%d.%m.%Y %H:%M")
+                            _my_match["match_date"] = _match_date
+                            g.played_matches.append(_my_match)
 
     if request.method == "POST":
         sl = helperf.get_series_list(g.flagid, search_level=int(_league_search_depth))

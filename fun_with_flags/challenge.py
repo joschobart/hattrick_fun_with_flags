@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import (
     Blueprint,
     current_app,
@@ -10,7 +12,7 @@ from flask import (
     url_for,
 )
 
-from . import api, decs, helperf
+from . import api, db, decs, helperf
 
 bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 
@@ -18,7 +20,8 @@ bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 @bp_c.route("/overview", methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
-@decs.error_check
+@decs.use_db
+# @decs.error_check
 def overview():
     (
         g.challenges,
@@ -31,6 +34,51 @@ def overview():
 
     if g.challenges["challenges"] != []:
         if g.challenges["challenges"][0]["is_agreed"] == "True":
+            _xml_data = api.ht_get_data(
+                "matchdetails",
+                teamID=session["teamid"],
+                matchID=g.challenges["challenges"][0]["match_id"],
+            )
+            _my_match = api.ht_get_matchdetails(_xml_data)
+            if _my_match["home_team_id"] == session["teamid"]:
+                session["place"] = "home"
+            else:
+                session["place"] = "away"
+
+            g.db_settings = current_app.config["DB__SETTINGS_DICT"]
+            g.my_document = db.bootstrap_document(g.user_id, g.couch, g.db_settings)
+
+            if session["teamid"] not in g.my_document["history"]["friendlies"]:
+                g.my_document["history"]["friendlies"][session["teamid"]] = {
+                    "opponent_country": {}
+                }
+
+            print(g.my_document["history"]["friendlies"][session["teamid"]])
+
+            if (
+                g.challenges["challenges"][0]["country_id"]
+                not in g.my_document["history"]["friendlies"][session["teamid"]][
+                    "opponent_country"
+                ]
+            ):
+                g.my_document["history"]["friendlies"][session["teamid"]][
+                    "opponent_country"
+                ][g.challenges["challenges"][0]["country_id"]] = {
+                    "home": [],
+                    "away": [],
+                }
+
+            g.my_document["history"]["friendlies"][session["teamid"]][
+                "opponent_country"
+            ][g.challenges["challenges"][0]["country_id"]][session["place"]].append(
+                g.challenges["challenges"][0]["match_id"]
+            )
+
+            g.my_document["history"]["meta"]["date_updated"] = str(datetime.utcnow())
+
+            # Write changements on the history-object to db
+            g.couch[g.user_id] = g.my_document
+
             if now.weekday() in range(0, 3) and g.tdelta_hours > 100:
                 message = "Match is running.\
                             Come back Thursday after 7 o'clock UTC to book a new match."
@@ -90,9 +138,9 @@ def challenge():
             _match_rules = "1"
 
         try:
-            api.ht_do_challenge(
-                session["teamid"], g.challengeable, _match_rules, _place
-            )
+            # api.ht_do_challenge(
+            #     session["teamid"], g.challengeable, _match_rules, _place
+            # )
             print("Would do challenge here")
 
         except Exception as e:
