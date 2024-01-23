@@ -1,16 +1,7 @@
 from datetime import datetime
 
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Blueprint, current_app, flash, g, redirect, render_template,
+                   request, session, url_for)
 
 from . import api, db, decs, helperf
 
@@ -39,7 +30,7 @@ def overview():
         if challenges["challenges"] != []:
             if challenges["challenges"][0]["is_agreed"] == "True":
                 _xml = api.ht_get_data(
-                    "worlddetails", countryID=challenges["challenges"][0]["country_id"]
+                    "worlddetails", countryID=challenges["challenges"][0]["country_id"], leagueID=""
                 )
                 _worlddetails = api.ht_get_worlddetails(_xml)
 
