@@ -23,89 +23,128 @@ bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 @decs.use_db
 # @decs.error_check
 def overview():
-    (
-        g.challenges,
-        now,
-        match_time,
-        tdelta,
-        g.tdelta_hours,
-        bookable,
-    ) = helperf.get_my_challenges()
+    def get_challenges_list(is_weekend_match=False):
+        (
+            challenges,
+            now,
+            match_time,
+            tdelta,
+            tdelta_hours,
+            bookable,
+        ) = helperf.get_my_challenges(
+            flagid=session["my_team"][str(session["teamid"])]["team_country_id"],
+            is_weekend_match=is_weekend_match,
+        )
 
-    if g.challenges["challenges"] != []:
-        if g.challenges["challenges"][0]["is_agreed"] == "True":
-            _xml_data = api.ht_get_data(
-                "matchdetails",
-                teamID=session["teamid"],
-                matchID=g.challenges["challenges"][0]["match_id"],
-            )
-            _my_match = api.ht_get_matchdetails(_xml_data)
-            if _my_match["home_team_id"] == session["teamid"]:
-                session["place"] = "home"
-            else:
-                session["place"] = "away"
-
-            g.db_settings = current_app.config["DB__SETTINGS_DICT"]
-            g.my_document = db.bootstrap_document(g.user_id, g.couch, g.db_settings)
-
-            if session["teamid"] not in g.my_document["history"]["friendlies"]:
-                g.my_document["history"]["friendlies"][session["teamid"]] = {
-                    "opponent_country": {}
-                }
-
-            if (
-                g.challenges["challenges"][0]["country_id"]
-                not in g.my_document["history"]["friendlies"][session["teamid"]][
-                    "opponent_country"
-                ]
-            ):
-                g.my_document["history"]["friendlies"][session["teamid"]][
-                    "opponent_country"
-                ][g.challenges["challenges"][0]["country_id"]] = {
-                    "home": [],
-                    "away": [],
-                }
-
-            if (
-                g.challenges["challenges"][0]["match_id"]
-                not in g.my_document["history"]["friendlies"][session["teamid"]][
-                    "opponent_country"
-                ][g.challenges["challenges"][0]["country_id"]][session["place"]]
-            ):
-                g.my_document["history"]["friendlies"][session["teamid"]][
-                    "opponent_country"
-                ][g.challenges["challenges"][0]["country_id"]][session["place"]].append(
-                    g.challenges["challenges"][0]["match_id"]
+        if challenges["challenges"] != []:
+            if challenges["challenges"][0]["is_agreed"] == "True":
+                _xml = api.ht_get_data(
+                    "worlddetails", countryID=challenges["challenges"][0]["country_id"]
                 )
+                _worlddetails = api.ht_get_worlddetails(_xml)
 
-                g.my_document["history"]["meta"]["date_updated"] = str(
-                    datetime.utcnow()
+                _xml_data = api.ht_get_data(
+                    "matchdetails",
+                    teamID=session["teamid"],
+                    matchID=challenges["challenges"][0]["match_id"],
                 )
+                _my_match = api.ht_get_matchdetails(_xml_data)
+                if _my_match["home_team_id"] == session["teamid"]:
+                    session["place"] = "home"
+                else:
+                    session["place"] = "away"
 
-            # Write changements on the history-object to db
-            g.couch[g.user_id] = g.my_document
+                g.db_settings = current_app.config["DB__SETTINGS_DICT"]
+                g.my_document = db.bootstrap_document(g.user_id, g.couch, g.db_settings)
 
-            if now.weekday() in range(0, 3) and g.tdelta_hours > 100:
-                message = "Match is running.\
-                            Come back Thursday after 7 o'clock UTC to book a new match."
+                if session["teamid"] not in g.my_document["history"]["friendlies"]:
+                    g.my_document["history"]["friendlies"][session["teamid"]] = {
+                        "opponent_country": {}
+                    }
 
-                session["my_team"][session["teamid"]]["has_friendly"] = None
-                g.challenges.clear()
+                if (
+                    _worlddetails["league_id"]
+                    not in g.my_document["history"]["friendlies"][session["teamid"]][
+                        "opponent_country"
+                    ]
+                ):
+                    g.my_document["history"]["friendlies"][session["teamid"]][
+                        "opponent_country"
+                    ][_worlddetails["league_id"]] = {
+                        "home": [],
+                        "away": [],
+                    }
+
+                if (
+                    challenges["challenges"][0]["match_id"]
+                    not in g.my_document["history"]["friendlies"][session["teamid"]][
+                        "opponent_country"
+                    ][_worlddetails["league_id"]][session["place"]]
+                ):
+                    g.my_document["history"]["friendlies"][session["teamid"]][
+                        "opponent_country"
+                    ][_worlddetails["league_id"]][session["place"]].append(
+                        challenges["challenges"][0]["match_id"]
+                    )
+
+                    g.my_document["history"]["meta"]["date_updated"] = str(
+                        datetime.utcnow()
+                    )
+
+                # Write changements on the history-object to db
+                g.couch[g.user_id] = g.my_document
+
+                if (
+                    now.weekday() in range(0, 3)
+                    and tdelta_hours > 100
+                    and not is_weekend_match
+                ):
+                    message = "Match is running.\
+                                Come back Thursday after 7 o'clock UTC to book a new match."
+
+                    session["my_team"][session["teamid"]]["has_friendly"] = None
+                    challenges.clear()
+                elif is_weekend_match:
+                    if now.weekday() == 5 and tdelta_hours > 100:
+                        message = "Weekend-Match is running."
+                    else:
+                        message = "Match booked!"
+
+                else:
+                    message = "Match booked!"
+
+                    session["my_team"][session["teamid"]]["has_friendly"] = match_time
 
             else:
-                message = "Match booked!"
-
-                session["my_team"][session["teamid"]]["has_friendly"] = match_time
+                message = "Teams are challenged but not agreed yet."
 
         else:
-            message = "Teams are challenged but not agreed yet."
+            message = "No challenges to show."
 
-    else:
-        message = "No challenges to show."
+            session["my_team"][session["teamid"]]["has_friendly"] = None
 
-        session["my_team"][session["teamid"]]["has_friendly"] = None
+        flash(message)
 
-    flash(message)
+        return challenges, tdelta_hours
+
+    g.challenges, g.tdelta_hours = get_challenges_list()
+
+    _xml = api.ht_get_data(
+        "worlddetails",
+        leagueID=session["my_team"][str(session["teamid"])]["team_country_id"],
+    )
+    _worlddetails = api.ht_get_worlddetails(_xml)
+
+    if int(_worlddetails["season_round"]) > 14:
+        weekend_friendly, g.tdelta_hours_weekend = get_challenges_list(
+            is_weekend_match=True
+        )
+
+        if g.tdelta_hours_weekend != 0:
+            g.is_weekend_match = True
+
+            weekend_friendly = weekend_friendly["challenges"][0]
+            g.challenges["challenges"].append(weekend_friendly)
 
     return render_template("challenge/overview.html")
 

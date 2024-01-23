@@ -3,7 +3,7 @@ from datetime import datetime
 from random import randrange
 
 from cryptography.fernet import Fernet
-from flask import g, session
+from flask import session
 from pygal import maps, style
 
 from . import api
@@ -147,7 +147,7 @@ def get_series_list(flagid, search_level=2):
     return series_list
 
 
-def get_challengeable_teams_list(teamid, series_list):
+def get_challengeable_teams_list(teamid, series_list, weekend_friendly):
     for series in series_list:
         teams_in_series = api.ht_get_data("teams_in_series", leagueLevelUnitID=series)
         teams_in_series = api.ht_get_teams_in_series(teams_in_series)
@@ -158,6 +158,7 @@ def get_challengeable_teams_list(teamid, series_list):
             teamId=teamid,
             matchPlace=session["place"],
             suggestedTeamIds=teams_in_series,
+            isWeekendFriendly=weekend_friendly,
         )
 
         challengeable_teams = api.ht_get_challengeable_teams(challengeable_teams)
@@ -166,19 +167,23 @@ def get_challengeable_teams_list(teamid, series_list):
             yield team
 
 
-def get_my_challenges():
+def get_my_challenges(flagid, is_weekend_match=False):
     now = datetime.now()
     utc = datetime.utcnow()
 
     challenges = []
-    match_time = ""
-    tdelta = ""
-    tdelta_hours = ""
     bookable = False
+
+    match_time = 0
+    tdelta = 0
+    tdelta_hours = 0
 
     _teamid = session.get("teamid", None)
 
-    _xml = api.ht_get_data("get_challenges", teamId=_teamid)
+    if is_weekend_match:
+        _xml = api.ht_get_data("get_challenges", teamId=_teamid, isWeekendFriendly="1")
+    else:
+        _xml = api.ht_get_data("get_challenges", teamId=_teamid, isWeekendFriendly="0")
 
     challenges = api.ht_get_challenges(_xml)
 
@@ -191,10 +196,16 @@ def get_my_challenges():
 
         match_time = challenges["challenges"][0]["match_time"]
         match_time = datetime.strptime(match_time, "%Y-%m-%d %H:%M:%S")
+
         tdelta = match_time - now
         tdelta = tdelta.total_seconds()
         tdelta_hours = round(tdelta / 3600, 1)
 
+    elif is_weekend_match:
+        if (utc.weekday() == 0 and utc.hour >= 6) or (
+            utc.weekday() >= 1 and utc.weekday() < 5
+        ):
+            bookable = True
     else:
         if (
             utc.weekday() == 3

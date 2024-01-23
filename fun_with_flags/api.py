@@ -44,15 +44,17 @@ API_PARAMS = {
         "version": "1.6",
         "actionType": "challengeable",
         "teamId": "",  # id of team to manage
-        "matchType": "",  # 0 = normal, 1 = cup-rules
+        "matchType": "1",  # 0 = normal, 1 = cup-rules
         "matchPlace": "",  # 0 = home, 1 = away
         "suggestedTeamIds": "",  # CSV list of TeamIds
+        "isWeekendFriendly": "",  # 0 = normal, 1 = weekend
     },
     "get_challenges": {
         "file": "challenges",
         "version": "1.6",
         "actionType": "view",
         "teamId": "",  # id of team to manage
+        "isWeekendFriendly": "0",
     },
     "get_trainer_avatar": {
         "file": "staffavatars",

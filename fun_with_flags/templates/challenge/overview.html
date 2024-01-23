@@ -15,6 +15,13 @@
       <h4>Challenges ({{  g.challenges['challenges'] | length }})</h4>
 
       {% for i in range(g.challenges['challenges'] | length) %}
+
+        {% if g.is_weekend_match is defined %}
+          {% if i == 1 %}
+            <p><h4>Weekend-Friendly:</h4></p>
+          {% endif %}
+        {% endif %}
+        
         <table class="challenges_table">
           {% if g.challenges['challenges'][i]['is_agreed'] == "True" %}
           <tr>
@@ -28,7 +35,15 @@
             <td>
               <strong>
                 <p>
-                  {{ g.challenges['challenges'][i]['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
+                  {% if g.is_weekend_match is defined %}
+                    {% if i == 1 %}
+                      {{ g.challenges['challenges'][i]['match_time'] }} LT (in {{ g.tdelta_hours_weekend }} hours)
+                    {% else %}
+                      {{ g.challenges['challenges'][i]['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
+                    {% endif %}
+                  {% else %}
+                    {{ g.challenges['challenges'][i]['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
+                  {% endif %}
                 </p>
               </strong>
             </td>
@@ -73,7 +88,8 @@
           </tr>
           {% endif %}
         </table>
-        {% endfor %}
+
+      {% endfor %}
 
   {% endif %}
 

@@ -18,8 +18,6 @@ def get_db():
 
 
 def bootstrap_document(_userid, _couch, _settings):
-    something_changed = False
-
     # Bootstrap db-document if it doesn't exist
     if _userid not in _couch:
         _couch.save({"_id": _userid})

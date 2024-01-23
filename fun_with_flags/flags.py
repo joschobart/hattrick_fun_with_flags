@@ -40,8 +40,21 @@ def details():
 
     g.l_home, g.l_away, *_ = helperf.compose_flag_matrix(session["teamid"])
 
-    gmc = helperf.get_my_challenges()
+    gmc = helperf.get_my_challenges(g.flagid)
     g.bookable = gmc[-1]
+
+    _xml = api.ht_get_data("worlddetails", leagueID=g.flagid)
+    _worlddetails = api.ht_get_worlddetails(_xml)
+
+    if int(_worlddetails["season_round"]) > 14:
+        weekend_challenges = helperf.get_my_challenges(g.flagid, is_weekend_match=True)
+
+        g.weekend_bookable = weekend_challenges[-1]
+
+    if g.weekend_bookable:
+        weekend_friendly = "1"
+    else:
+        weekend_friendly = "0"
 
     for item in session["teams"]:
         if int(item[0]) == int(session["teamid"]):
@@ -115,7 +128,9 @@ def details():
     if request.method == "POST":
         sl = helperf.get_series_list(g.flagid, search_level=int(_league_search_depth))
 
-        ctl = helperf.get_challengeable_teams_list(session["teamid"], sl)
+        ctl = helperf.get_challengeable_teams_list(
+            session["teamid"], sl, weekend_friendly
+        )
 
         for team in ctl:
             _xml = api.ht_get_data("teamdetails", teamID=team, includeFlags="false")
