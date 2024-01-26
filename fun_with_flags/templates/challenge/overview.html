@@ -7,23 +7,23 @@
 {% block content %}
 
   {% for t in range(session['teams'] | length) %}
-    {% if session['teamid'] is defined and session['teamid'] == session['teams'][t][0] %}
+  {% if session['teamid'] is defined and session['teamid'] == session['teams'][t][0] %}
       <h3>{{ session['teams'][t][1] }}</h3>
 
 
-    {% if g.challenges is defined and g.challenges['challenges'] != [] %}
-      <h4>Challenges ({{  g.challenges['challenges'] | length }})</h4>
+    {% if g.challenges is defined and g.challenges != [] %}
+      <h4>Challenges ({{  g.challenges | length }})</h4>
 
-      {% for i in range(g.challenges['challenges'] | length) %}
+      {% for _index in range(g.challenges | length) %}
 
-        {% if g.is_weekend_match is defined %}
-          {% if i == 1 %}
+       {% if g.challenges[_index][-2] %}
+          {% if g.challenges[_index][0]["is_agreed"] == 'True' %}
             <p><h4>Weekend-Friendly:</h4></p>
           {% endif %}
         {% endif %}
         
-        <table class="challenges_table">
-          {% if g.challenges['challenges'][i]['is_agreed'] == "True" %}
+         <table class="challenges_table">
+          {% if g.challenges[_index][0]["is_agreed"] == 'True' %}
           <tr>
             <th>
               <strong>
@@ -35,15 +35,7 @@
             <td>
               <strong>
                 <p>
-                  {% if g.is_weekend_match is defined %}
-                    {% if i == 1 %}
-                      {{ g.challenges['challenges'][i]['match_time'] }} LT (in {{ g.tdelta_hours_weekend }} hours)
-                    {% else %}
-                      {{ g.challenges['challenges'][i]['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
-                    {% endif %}
-                  {% else %}
-                    {{ g.challenges['challenges'][i]['match_time'] }} LT (in {{ g.tdelta_hours }} hours)
-                  {% endif %}
+                  {{ g.challenges[_index][0]['match_time'] }} LT (in {{ g.challenges[_index][-3] }} hours)
                 </p>
               </strong>
             </td>
@@ -61,7 +53,7 @@
               <strong>
                 <p>
                   <a href="https://hattrick.org/goto.ashx?path=/Club/Challenges/?TeamID={{ session['teamid'] }}"  target="_blank">
-                    {{ g.challenges['challenges'][i]['opponent_team_name'] }} ({{ g.challenges['challenges'][i]['country_name'] }})
+                    {{ g.challenges[_index][0]['opponent_team_name'] }} ({{ g.challenges[_index][0]['country_name'] }})
 
 
                   </a>
@@ -69,7 +61,7 @@
               </strong>
             </td>
           </tr>
-          {% if g.challenges['challenges'][i]['is_agreed'] == "True" %}
+          {% if g.challenges[_index][0]['is_agreed'] == "True" %}
           <tr>
             <th>
               <strong>
@@ -81,7 +73,7 @@
             <td>
               <strong>
                 <p>
-                  {{ g.challenges['challenges'][i]['arena_name'] }}
+                  {{ g.challenges[_index][0]['arena_name'] }}
                 </p>
               </strong>
             </td>
@@ -90,9 +82,9 @@
         </table>
 
       {% endfor %}
-
-  {% endif %}
+    {% endif %}
 
   {% endif %}
   {% endfor %}
+
 {% endblock %}

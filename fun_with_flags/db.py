@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 import couchdb
-from flask import g
+from flask import g, session
 
 
 def get_db():
@@ -68,3 +68,40 @@ def bootstrap_document(_userid, _couch, _settings):
                 ]
 
     return db_document
+
+
+def set_match_history(_userid, _couch, _worlddetails, _match_id):
+    # Instantiate clone of db-document
+    my_document = _couch[_userid]
+
+    if session["teamid"] not in my_document["history"]["friendlies"]:
+        my_document["history"]["friendlies"][session["teamid"]] = {
+            "opponent_country": {}
+        }
+
+    if (
+        _worlddetails["league_id"]
+        not in my_document["history"]["friendlies"][session["teamid"]][
+            "opponent_country"
+        ]
+    ):
+        my_document["history"]["friendlies"][session["teamid"]]["opponent_country"][
+            _worlddetails["league_id"]
+        ] = {
+            "home": [],
+            "away": [],
+        }
+
+    if (
+        _match_id
+        not in my_document["history"]["friendlies"][session["teamid"]][
+            "opponent_country"
+        ][_worlddetails["league_id"]][session["place"]]
+    ):
+        my_document["history"]["friendlies"][session["teamid"]]["opponent_country"][
+            _worlddetails["league_id"]
+        ][session["place"]].append(_match_id)
+
+        my_document["history"]["meta"]["date_updated"] = str(datetime.utcnow())
+
+    return my_document

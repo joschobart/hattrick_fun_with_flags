@@ -106,7 +106,7 @@ def get_series_list(flagid, search_level=2):
         (6, "vi", 1024),
     ]
 
-    league_depth = api.ht_get_data("worlddetails", leagueID=flagid)
+    league_depth = api.ht_get_data("worlddetails", countryID=flagid)
     league_depth = api.ht_get_worlddetails(league_depth)
 
     def get_series_id(search_string, flagid):
@@ -167,55 +167,68 @@ def get_challengeable_teams_list(teamid, series_list, weekend_friendly):
             yield team
 
 
-def get_my_challenges(flagid, is_weekend_match=False):
+def get_my_challenges():
     now = datetime.now()
     utc = datetime.utcnow()
 
     challenges = []
     bookable = False
 
-    match_time = 0
-    tdelta = 0
-    tdelta_hours = 0
-
     _teamid = session.get("teamid", None)
 
-    if is_weekend_match:
-        _xml = api.ht_get_data("get_challenges", teamId=_teamid, isWeekendFriendly="1")
-    else:
-        _xml = api.ht_get_data("get_challenges", teamId=_teamid, isWeekendFriendly="0")
+    for i in "0", "1":
+        if i == "1":
+            is_weekend_match = True
+        else:
+            is_weekend_match = False
 
-    challenges = api.ht_get_challenges(_xml)
+        _xml = api.ht_get_data("get_challenges", teamId=_teamid, isWeekendFriendly=i)
+        _challenges = api.ht_get_challenges(_xml)
 
-    if 0 < len(challenges["challenges"]) < 25:
-        bookable = True
+        if 0 < len(_challenges["challenges"]) < 25:
+            bookable = True
 
-    if challenges["challenges"] != []:
-        if challenges["challenges"][0]["is_agreed"] == "True":
+        elif (
+            0 < len(_challenges["challenges"])
+            and _challenges["challenges"][0]["is_agreed"] == "True"
+        ):
             bookable = False
 
-        match_time = challenges["challenges"][0]["match_time"]
-        match_time = datetime.strptime(match_time, "%Y-%m-%d %H:%M:%S")
+        elif is_weekend_match:
+            if (utc.weekday() == 0 and utc.hour >= 6) or (
+                utc.weekday() >= 1 and utc.weekday() < 5
+            ):
+                bookable = True
+        else:
+            if (
+                utc.weekday() == 3
+                and utc.hour >= 7
+                or utc.weekday() >= 4
+                or utc.weekday() == 0
+            ):
+                bookable = True
 
-        tdelta = match_time - now
-        tdelta = tdelta.total_seconds()
-        tdelta_hours = round(tdelta / 3600, 1)
+        if _challenges["challenges"] != []:
+            match_time = _challenges["challenges"][0]["match_time"]
+            match_time = datetime.strptime(match_time, "%Y-%m-%d %H:%M:%S")
 
-    elif is_weekend_match:
-        if (utc.weekday() == 0 and utc.hour >= 6) or (
-            utc.weekday() >= 1 and utc.weekday() < 5
-        ):
-            bookable = True
-    else:
-        if (
-            utc.weekday() == 3
-            and utc.hour >= 7
-            or utc.weekday() >= 4
-            or utc.weekday() == 0
-        ):
-            bookable = True
+            tdelta = match_time - now
+            tdelta = tdelta.total_seconds()
+            tdelta_hours = round(tdelta / 3600, 1)
 
-    return challenges, now, match_time, tdelta, tdelta_hours, bookable
+            for challenge in _challenges["challenges"]:
+                challenges.append(
+                    (
+                        challenge,
+                        match_time,
+                        tdelta,
+                        tdelta_hours,
+                        is_weekend_match,
+                        bookable,
+                    )
+                )
+
+    return challenges
 
 
 def random_quotes(_quotes):
