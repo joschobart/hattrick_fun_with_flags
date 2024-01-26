@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from . import auth, challenge, decs, flags, settings
+from . import auth, challenge, decs, flags, scheduler, settings
 
 
 def create_app(test_config=None):
@@ -41,6 +41,7 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp_a)
     app.register_blueprint(flags.bp_f)
     app.register_blueprint(challenge.bp_c)
+    app.register_blueprint(scheduler.bp_s)
     app.register_blueprint(settings.bp_s)
 
     return app
