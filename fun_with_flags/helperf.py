@@ -58,9 +58,6 @@ def compose_flag_matrix(teamid):
     l_home = []
     l_away = []
 
-    nbr_flags_home = (len(my_flags[teamid]["flags_home"]), 147)
-    nbr_flags_away = (len(my_flags[teamid]["flags_away"]), 147)
-
     for m in (my_flags, my_missing_flags):
         for ha in m[teamid].keys():
             for flag in range(len(m[teamid][ha])):
@@ -84,6 +81,9 @@ def compose_flag_matrix(teamid):
 
                 else:
                     l_away.append((i, w, (base_url + m[teamid][ha][flag][0] + url_end)))
+
+    nbr_flags_home = (len(my_flags[teamid]["flags_home"]), len(l_home))
+    nbr_flags_away = (len(my_flags[teamid]["flags_away"]), len(l_away))
 
     worldmap_chart = render_worldmap(my_flags, teamid)
 
