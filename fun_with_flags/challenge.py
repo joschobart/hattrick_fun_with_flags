@@ -1,16 +1,7 @@
 from datetime import datetime
 
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Blueprint, current_app, flash, g, redirect, render_template,
+                   request, session, url_for)
 
 from . import api, db, decs, helperf
 
@@ -37,7 +28,9 @@ def overview():
                 and tdelta_hours > 100
                 and not is_weekend_match
             ) or (
-                now.weekday() in range(5, 6) and tdelta_hours > 100 and is_weekend_match
+                now.weekday() in range(5, 6) 
+                and tdelta_hours > 100 
+                and is_weekend_match
             ):
                 message = "Match is running.\
                             Come back Thursday after 7 o'clock UTC to book a new match."

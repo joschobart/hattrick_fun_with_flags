@@ -42,13 +42,20 @@ def choose_team(view):
         if "username" in session:
             helperf.get_my_teams()
 
-            _xml = api.ht_get_data("get_trainer_avatar", teamId=session["teamid"])
-            session["trainer_avatar"] = api.ht_get_trainer_avatar(_xml)
+            if session["my_team"][session["teamid"]]["team_league_level_unit_id"] == "":
+                _xml = api.ht_get_data(
+                    "teamdetails", includeFlags="false", teamID=session["teamid"]
+                )
+                session["my_team"] = api.ht_get_team(_xml)
+
             _quotes = current_app.config["QUOTES"]
             g.quote_ante, g.quote_post = helperf.random_quotes(_quotes)
 
             if request.method == "POST" and "teams" in request.form:
                 session["teamid"] = request.form["teams"]
+
+                _xml = api.ht_get_data("get_trainer_avatar", teamId=session["teamid"])
+                session["trainer_avatar"] = api.ht_get_trainer_avatar(_xml)
 
                 return redirect(url_for("flags.overview"))
 
