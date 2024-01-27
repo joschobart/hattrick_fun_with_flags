@@ -34,7 +34,7 @@ def create_app(test_config=None):
     # setup scheduler
     sched = BackgroundScheduler(daemon=True)
     # regular job for challenging friendlies
-    sched.add_job(scheduler.sensor, 'cron', day_of_week='thu', hour=8, minute=20)
+    sched.add_job(scheduler.sensor, "cron", day_of_week="thu", hour=8, minute=20)
     # for testing
     # sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=23, minute=10)
     sched.start()
@@ -42,7 +42,7 @@ def create_app(test_config=None):
 
     # setup logger for scheduler
     logging.basicConfig()
-    logging.getLogger('apscheduler').setLevel(logging.INFO)
+    logging.getLogger("apscheduler").setLevel(logging.INFO)
 
     # entry-point
     @app.route("/", methods=("GET", "POST"))

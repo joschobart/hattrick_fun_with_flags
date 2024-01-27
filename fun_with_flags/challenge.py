@@ -1,7 +1,16 @@
 from datetime import datetime
 
-from flask import (Blueprint, current_app, flash, g, redirect, render_template,
-                   request, session, url_for)
+from flask import (
+    Blueprint,
+    current_app,
+    flash,
+    g,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
 from . import api, db, decs, helperf
 
@@ -18,13 +27,10 @@ def overview():
     now = datetime.now()
     g.challenges = helperf.get_my_challenges()
 
-
-    print(g.challenges)
-
     if len(g.challenges) != 0:
         for challenge in g.challenges:
-            is_weekend_match = challenge[-2]
-            tdelta_hours = challenge[-3]
+            is_weekend_match = challenge[-3]
+            tdelta_hours = challenge[-4]
 
             if (
                 now.weekday() in range(0, 3)
@@ -46,8 +52,8 @@ def overview():
                 _worlddetails = api.ht_get_worlddetails(_xml)
 
                 _xml_data = api.ht_get_data(
-                            "matchdetails", matchID=challenge[0]["match_id"]
-                        )
+                    "matchdetails", matchID=challenge[0]["match_id"]
+                )
                 _my_match = api.ht_get_matchdetails(_xml_data)
 
                 if session["teamid"] == _my_match["home_team_id"]:
@@ -56,11 +62,13 @@ def overview():
                     _place = "away"
 
                 g.db_settings = current_app.config["DB__SETTINGS_DICT"]
-                g.my_document = db.bootstrap_document(
-                    g.user_id, g.couch, g.db_settings
-                )
+                g.my_document = db.bootstrap_document(g.user_id, g.couch, g.db_settings)
                 g.my_document = db.set_match_history(
-                    g.user_id, g.couch, _worlddetails["league_id"], challenge[0]["match_id"], _place
+                    g.user_id,
+                    g.couch,
+                    _worlddetails["league_id"],
+                    challenge[0]["match_id"],
+                    _place,
                 )
                 # Write changements on the history-object to db
                 g.couch[g.user_id] = g.my_document

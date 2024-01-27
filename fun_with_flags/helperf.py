@@ -173,8 +173,26 @@ def get_my_challenges():
 
     challenges = []
     bookable = False
+    weekend_bookable = False
 
     _teamid = session.get("teamid", None)
+
+    _xml = api.ht_get_data("worlddetails")
+    _worlddetails = api.ht_get_worlddetails(_xml)
+
+    if int(_worlddetails["season_round"]) > 14:
+        if (utc.weekday() == 0 and utc.hour >= 6) or (
+            utc.weekday() >= 1 and utc.weekday() < 5
+        ):
+            weekend_bookable = True
+    else:
+        if (
+            utc.weekday() == 3
+            and utc.hour >= 7
+            or utc.weekday() >= 4
+            or utc.weekday() == 0
+        ):
+            bookable = True
 
     for i in "0", "1":
         if i == "1":
@@ -186,27 +204,22 @@ def get_my_challenges():
         _challenges = api.ht_get_challenges(_xml)
 
         if 0 < len(_challenges["challenges"]) < 25:
-            bookable = True
+            if weekend_bookable:
+                if (
+                    1 <= len(_challenges["challenges"]) <= 2
+                    and _challenges["challenges"][0]["is_agreed"] == "True"
+                ):
+                    bookable = False
 
-        elif (
-            0 < len(_challenges["challenges"])
-            and _challenges["challenges"][0]["is_agreed"] == "True"
-        ):
-            bookable = False
+                    if (
+                        _challenges["challenges"][1]
+                        and _challenges["challenges"][1]["is_agreed"] == "True"
+                    ):
+                        weekend_bookable = False
 
-        elif is_weekend_match:
-            if (utc.weekday() == 0 and utc.hour >= 6) or (
-                utc.weekday() >= 1 and utc.weekday() < 5
-            ):
-                bookable = True
-        else:
-            if (
-                utc.weekday() == 3
-                and utc.hour >= 7
-                or utc.weekday() >= 4
-                or utc.weekday() == 0
-            ):
-                bookable = True
+            else:
+                if _challenges["challenges"][0]["is_agreed"] == "True":
+                    bookable = False
 
         if _challenges["challenges"] != []:
             match_time = _challenges["challenges"][0]["match_time"]
@@ -225,6 +238,7 @@ def get_my_challenges():
                         tdelta_hours,
                         is_weekend_match,
                         bookable,
+                        weekend_bookable,
                     )
                 )
 

@@ -47,12 +47,14 @@
 
     {% else %}
         <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
-      {% if g.bookable %}
+      {% if g.bookable or g.weekend_bookable %}
         <p>Do you want to search for opponents to challenge? <b>This may take up to five minutes on level 5 depth!</b></p>
         <form method="post" style="width: 200px;">
           <p>
             <select name="match_type" id="match_type">
-              <option value="0" selected>Normal friendly</option>
+              {% if g.bookable %}
+                <option value="0" selected>Normal friendly</option>
+              {% endif %}
               {% if g.weekend_bookable %}
                 <option value="1">Weekend friendly</option>
               {% endif %}

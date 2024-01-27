@@ -43,15 +43,11 @@ def details():
     gmc = helperf.get_my_challenges()
 
     if gmc != []:
-        g.bookable = gmc[-1]
+        g.bookable = gmc[0][-2]
+        g.weekend_bookable = gmc[0][-1]
     else:
         g.bookable = True
-
-    _xml = api.ht_get_data("worlddetails", leagueID=g.flagid)
-    _worlddetails = api.ht_get_worlddetails(_xml)
-
-    if int(_worlddetails["season_round"]) > 14 and g.bookable:
-        g.weekend_bookable = True
+        g.weekend_bookable = False
 
     for item in session["teams"]:
         if int(item[0]) == int(session["teamid"]):
@@ -126,7 +122,6 @@ def details():
         weekend_friendly = request.form["match_type"]
 
         sl = helperf.get_series_list(g.flagid, search_level=int(_league_search_depth))
-
 
         print(sl)
 
