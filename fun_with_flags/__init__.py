@@ -1,5 +1,8 @@
+import atexit
+import logging
 import os
 
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -28,6 +31,19 @@ def create_app(test_config=None):
     except OSError:
         pass
 
+    # setup scheduler
+    sched = BackgroundScheduler(daemon=True)
+    # regular job for challenging friendlies
+    sched.add_job(scheduler.sensor, 'cron', day_of_week='thu', hour=8, minute=20)
+    # for testing
+    # sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=23, minute=10)
+    sched.start()
+    atexit.register(lambda: sched.shutdown(wait=False))
+
+    # setup logger for scheduler
+    logging.basicConfig()
+    logging.getLogger('apscheduler').setLevel(logging.INFO)
+
     # entry-point
     @app.route("/", methods=("GET", "POST"))
     @decs.choose_team
@@ -39,8 +55,8 @@ def create_app(test_config=None):
         return send_from_directory(app.static_folder, "favicon.ico")
 
     app.register_blueprint(auth.bp_a)
-    app.register_blueprint(flags.bp_f)
     app.register_blueprint(challenge.bp_c)
+    app.register_blueprint(flags.bp_f)
     app.register_blueprint(scheduler.bp_s)
     app.register_blueprint(settings.bp_s)
 

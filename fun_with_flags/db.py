@@ -70,7 +70,7 @@ def bootstrap_document(_userid, _couch, _settings):
     return db_document
 
 
-def set_match_history(_userid, _couch, _worlddetails, _match_id):
+def set_match_history(_userid, _couch, _league_id, _match_id, _place):
     # Instantiate clone of db-document
     my_document = _couch[_userid]
 
@@ -80,13 +80,13 @@ def set_match_history(_userid, _couch, _worlddetails, _match_id):
         }
 
     if (
-        _worlddetails["league_id"]
+        _league_id
         not in my_document["history"]["friendlies"][session["teamid"]][
             "opponent_country"
         ]
     ):
         my_document["history"]["friendlies"][session["teamid"]]["opponent_country"][
-            _worlddetails["league_id"]
+            _league_id
         ] = {
             "home": [],
             "away": [],
@@ -96,11 +96,11 @@ def set_match_history(_userid, _couch, _worlddetails, _match_id):
         _match_id
         not in my_document["history"]["friendlies"][session["teamid"]][
             "opponent_country"
-        ][_worlddetails["league_id"]][session["place"]]
+        ][_league_id][_place]
     ):
         my_document["history"]["friendlies"][session["teamid"]]["opponent_country"][
-            _worlddetails["league_id"]
-        ][session["place"]].append(_match_id)
+            _league_id
+        ][_place].append(_match_id)
 
         my_document["history"]["meta"]["date_updated"] = str(datetime.utcnow())
 

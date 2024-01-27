@@ -7,6 +7,7 @@
 #   all-features: false
 
 -e file:.
+apscheduler==3.10.4
 beautifulsoup4==4.12.2
 blinker==1.7.0
 bs4==0.0.1
@@ -29,11 +30,14 @@ packaging==23.2
 pycparser==2.21
 pygal==3.0.4
 pygal-maps-world==1.0.2
+pytz==2023.3.post1
 rauth==0.7.3
 requests==2.31.0
+six==1.16.0
 soupsieve==2.5
 types-beautifulsoup4==4.12.0.7
 types-html5lib==1.1.11.15
+tzlocal==5.2
 urllib3==2.1.0
 werkzeug==3.0.1
 zipp==3.17.0

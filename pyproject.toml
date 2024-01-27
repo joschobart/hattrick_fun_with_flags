@@ -12,6 +12,7 @@ dependencies = [
     "CouchDB>=1.2",
     "gunicorn>=21.2.0",
     "pygal_maps_world>=1.0.2",
+    "apscheduler>=3.10.4",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

@@ -1,16 +1,7 @@
 from datetime import datetime
 
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Blueprint, current_app, flash, g, redirect, render_template,
+                   request, session, url_for)
 
 from . import api, db, decs, helperf
 
@@ -26,6 +17,9 @@ def overview():
     _is_agreed = None
     now = datetime.now()
     g.challenges = helperf.get_my_challenges()
+
+
+    print(g.challenges)
 
     if len(g.challenges) != 0:
         for challenge in g.challenges:
@@ -47,23 +41,29 @@ def overview():
                 message = "Match booked!"
 
                 _xml = api.ht_get_data(
-                    "worlddetails", countryID=challenge[0]["country_id"]
+                    "worlddetails", countryID=challenge[0]["country_id"], leagueID=""
                 )
                 _worlddetails = api.ht_get_worlddetails(_xml)
 
-                if "place" in session:
-                    g.db_settings = current_app.config["DB__SETTINGS_DICT"]
-                    g.my_document = db.bootstrap_document(
-                        g.user_id, g.couch, g.db_settings
-                    )
-                    g.my_document = db.set_match_history(
-                        g.user_id, g.couch, _worlddetails, challenge[0]["match_id"]
-                    )
-                    # Write changements on the history-object to db
-                    g.couch[g.user_id] = g.my_document
+                _xml_data = api.ht_get_data(
+                            "matchdetails", matchID=challenge[0]["match_id"]
+                        )
+                _my_match = api.ht_get_matchdetails(_xml_data)
 
-                    session.pop("challengeable", None)
-                    session.pop("place", None)
+                if session["teamid"] == _my_match["home_team_id"]:
+                    _place = "home"
+                else:
+                    _place = "away"
+
+                g.db_settings = current_app.config["DB__SETTINGS_DICT"]
+                g.my_document = db.bootstrap_document(
+                    g.user_id, g.couch, g.db_settings
+                )
+                g.my_document = db.set_match_history(
+                    g.user_id, g.couch, _worlddetails["league_id"], challenge[0]["match_id"], _place
+                )
+                # Write changements on the history-object to db
+                g.couch[g.user_id] = g.my_document
 
         if _is_agreed == None:
             message = "Teams are challenged but not agreed yet."

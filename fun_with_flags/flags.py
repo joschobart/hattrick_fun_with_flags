@@ -36,7 +36,7 @@ def details():
 
     g.flagid = request.args.get("flagid")
 
-    session["place"] = request.args.get("place")
+    g.place = request.args.get("place")
 
     g.l_home, g.l_away, *_ = helperf.compose_flag_matrix(session["teamid"])
 
@@ -58,7 +58,7 @@ def details():
             g.team = item[1]
             break
 
-    if session["place"] == "home":
+    if g.place == "home":
         func = g.l_home[:]
     else:
         func = g.l_away[:]
@@ -106,7 +106,7 @@ def details():
                 ):
                     for _match in _my_document["history"]["friendlies"][
                         session["teamid"]
-                    ]["opponent_country"][g.flagid][session["place"]]:
+                    ]["opponent_country"][g.flagid][g.place]:
                         _xml_data = api.ht_get_data(
                             "matchdetails", teamID=session["teamid"], matchID=_match
                         )
@@ -127,8 +127,11 @@ def details():
 
         sl = helperf.get_series_list(g.flagid, search_level=int(_league_search_depth))
 
+
+        print(sl)
+
         ctl = helperf.get_challengeable_teams_list(
-            session["teamid"], sl, weekend_friendly
+            session["teamid"], g.place, sl, weekend_friendly
         )
 
         for team in ctl:
@@ -155,7 +158,5 @@ def details():
                         g.challengeable.append(_team)
                     else:
                         break
-
-        session["challengeable"] = g.challengeable
 
     return render_template("flags/details.html")

@@ -147,7 +147,7 @@ def get_series_list(flagid, search_level=2):
     return series_list
 
 
-def get_challengeable_teams_list(teamid, series_list, weekend_friendly):
+def get_challengeable_teams_list(_teamid, _place, series_list, weekend_friendly):
     for series in series_list:
         teams_in_series = api.ht_get_data("teams_in_series", leagueLevelUnitID=series)
         teams_in_series = api.ht_get_teams_in_series(teams_in_series)
@@ -155,8 +155,8 @@ def get_challengeable_teams_list(teamid, series_list, weekend_friendly):
 
         challengeable_teams = api.ht_get_data(
             "challengeable_teams",
-            teamId=teamid,
-            matchPlace=session["place"],
+            teamId=_teamid,
+            matchPlace=_place,
             suggestedTeamIds=teams_in_series,
             isWeekendFriendly=weekend_friendly,
         )

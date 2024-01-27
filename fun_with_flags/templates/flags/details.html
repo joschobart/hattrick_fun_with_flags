@@ -6,17 +6,17 @@
 
 {% block content %}
 
-  {% if g.team is defined and session['place'] is defined and g.nation is defined %}
+  {% if g.team is defined and g.place is defined and g.nation is defined %}
     <h3>
       {{ g.nation }} 
       <img src="{{ g.flagurl }}" alt="{{ g.nation }}" title="{{ g.nation }}">
     </h3>
     {% if g.missing_flag is false %}
-      <p>The '{{ session['place'] }}'-flag of <b>{{ g.nation }}</b> for your team <b>{{ g.team }}</b> is in your collection already. Doesn't it look amazing?!:)</p>
+      <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> for your team <b>{{ g.team }}</b> is in your collection already. Doesn't it look amazing?!:)</p>
 
       {% if g.played_matches %}
         <p>
-        <h4>Played '{{ session['place'] }}'-matches</h4>
+        <h4>Played '{{ g.place }}'-matches</h4>
         <table width="100%">
           {% for played_match in g.played_matches %}
           <tr>
@@ -28,8 +28,8 @@
                 {{ played_match["home_team_name"] }} - {{ played_match["away_team_name"] }}
               </a>
             </td>
-            {% if (played_match["home_team_goals"] | int > played_match["away_team_goals"] | int and session['place'] == 'home') or
-                  (played_match["home_team_goals"] | int < played_match["away_team_goals"] | int and session['place'] == 'away') %}
+            {% if (played_match["home_team_goals"] | int > played_match["away_team_goals"] | int and g.place == 'home') or
+                  (played_match["home_team_goals"] | int < played_match["away_team_goals"] | int and g.place == 'away') %}
               <td style="text-align:left; with: 100px; color: seagreen;">
                 {{ played_match["home_team_goals"] }} - {{ played_match["away_team_goals"] }}
               </td>
@@ -46,7 +46,7 @@
       {% endif %}
 
     {% else %}
-        <p>The '{{ session['place'] }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
+        <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
       {% if g.bookable %}
         <p>Do you want to search for opponents to challenge? <b>This may take up to five minutes on level 5 depth!</b></p>
         <form method="post" style="width: 200px;">
