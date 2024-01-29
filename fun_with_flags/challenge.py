@@ -91,6 +91,9 @@ def challenge():
         _place = session["place"]
         session.pop("place", None)
 
+        _weekend_friendly = session["weekend_friendly"]
+        session.pop("weekend_friendly", None)
+
         # Set match_rules for match from config and overwrite if custom config is available in db.
         _db_settings = current_app.config["DB__SETTINGS_DICT"]
         _match_rules = _db_settings["defaults"]["settings"]["friendly"]["match_rules"]
@@ -113,9 +116,9 @@ def challenge():
 
         try:
             api.ht_do_challenge(
-                session["teamid"], _challengeable, _match_rules, _place
+                session["teamid"], _challengeable, _match_rules, _place, _weekend_friendly
             )
-            # print(f"Would do challenge here { _challengeable }")
+            print(f"Would do challenge here { _challengeable }")
 
         except Exception as e:
             flash(f"Var '{e}' is missing.")

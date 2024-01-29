@@ -152,6 +152,7 @@ def details():
                     else:
                         break
 
+        session["weekend_friendly"] = weekend_friendly
         session["place"] = g.place
         session["challengeable"] = g.challengeable
 
