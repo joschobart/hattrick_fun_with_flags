@@ -9,42 +9,6 @@ from pygal import maps, style
 from . import api
 
 
-def crypto_string(_input, _op="encrypt"):
-    output = ""
-
-    fernet = Fernet(os.environb[b"FERNET_SECRET"])
-
-    if _op == "encrypt":
-        output = fernet.encrypt(_input.encode())
-
-    elif _op == "decrypt":
-        output = fernet.decrypt(_input).decode()
-
-    return output
-
-
-def get_my_teams():
-    teams = []
-
-    for _entry in list(session["my_team"]):
-        if _entry != "user":
-            team = (
-                _entry,
-                session["my_team"][_entry]["team_name"],
-                session["my_team"][_entry]["team_primary"],
-            )
-
-            teams.append(team)
-
-    # first sort after 'team_primary', then team_id
-    session["teams"] = sorted(
-        teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True
-    )
-
-    if "teamid" not in session:
-        session["teamid"] = session["teams"][0][0]
-
-
 def compose_flag_matrix(teamid):
     xml_data = api.ht_get_data("teamdetails", teamID=teamid, includeFlags="true")
 
@@ -90,61 +54,18 @@ def compose_flag_matrix(teamid):
     return l_home, l_away, nbr_flags_home, nbr_flags_away, worldmap_chart
 
 
-def get_series_list(flagid, search_level=2):
-    probe_list = []
-    series_list = []
+def crypto_string(_input, _op="encrypt"):
+    output = ""
 
-    league_table = [
-        (2, "ii", 4),
-        (3, "iii", 16),
-        (4, "iv", 64),  # <------ default (search_level=2)
-        (
-            5,
-            "v",
-            256,
-        ),  # <------ 340 series, max. 2720 teams (deep-search)
-        (6, "vi", 1024),
-    ]
+    fernet = Fernet(os.environb[b"FERNET_SECRET"])
 
-    league_depth = api.ht_get_data("worlddetails", countryID=flagid)
-    league_depth = api.ht_get_worlddetails(league_depth)
+    if _op == "encrypt":
+        output = fernet.encrypt(_input.encode())
 
-    def get_series_id(search_string, flagid):
-        api_response = api.ht_get_data(
-            "search_series", searchString=search_string, searchLeagueID=flagid
-        )
+    elif _op == "decrypt":
+        output = fernet.decrypt(_input).decode()
 
-        probe_list.append(api.ht_get_series(api_response)["series_id"])
-
-        return probe_list
-
-    # Here the depth of
-    # the loop is adjustable
-    for l_tuple in league_table[0:search_level]:
-        if l_tuple[0] > int(league_depth["league_depth"]):
-            break
-
-        l_numbers = 1, l_tuple[2]
-
-        for l_number in l_numbers:
-            get_series_id(f"{l_tuple[1]}.{l_number}", flagid)
-
-        lid_difference = int(probe_list[1]) - int(probe_list[0])
-        l_difference = l_tuple[2] - 1
-
-        if lid_difference != l_difference:
-            print(
-                "WARNING: anomaly in leagueID numbering found. do pricy loops as fallback."
-            )
-            # not integrated yet
-
-        else:
-            for i in range(int(probe_list[0]), int(probe_list[1]) + 1):
-                series_list.append(i)
-
-        probe_list.clear()
-
-    return series_list
+    return output
 
 
 def get_challengeable_teams_list(_teamid, _place, series_list, weekend_friendly):
@@ -203,25 +124,20 @@ def get_my_challenges():
         _xml = api.ht_get_data("get_challenges", teamId=_teamid, isWeekendFriendly=i)
         _challenges = api.ht_get_challenges(_xml)
 
-        if 0 < len(_challenges["challenges"]) < 25:
-            if weekend_bookable:
+        if _challenges["challenges"] != []:
+            if len(_challenges["challenges"]) < 25:
                 if (
-                    1 <= len(_challenges["challenges"]) <= 2
+                    is_weekend_match
+                    and _challenges["challenges"][0]["is_agreed"] == "True"
+                ):
+                    weekend_bookable = False
+
+                elif (
+                    not is_weekend_match
                     and _challenges["challenges"][0]["is_agreed"] == "True"
                 ):
                     bookable = False
 
-                    if (
-                        len(_challenges["challenges"]) == 2
-                        and _challenges["challenges"][1]["is_agreed"] == "True"
-                    ):
-                        weekend_bookable = False
-
-            else:
-                if _challenges["challenges"][0]["is_agreed"] == "True":
-                    bookable = False
-
-        if _challenges["challenges"] != []:
             match_time = _challenges["challenges"][0]["match_time"]
             match_time = datetime.strptime(match_time, "%Y-%m-%d %H:%M:%S")
 
@@ -245,6 +161,83 @@ def get_my_challenges():
     return challenges
 
 
+def get_my_teams():
+    teams = []
+
+    for _entry in list(session["my_team"]):
+        if _entry != "user":
+            team = (
+                _entry,
+                session["my_team"][_entry]["team_name"],
+                session["my_team"][_entry]["team_primary"],
+            )
+
+            teams.append(team)
+
+    # first sort after 'team_primary', then team_id
+    session["teams"] = sorted(
+        teams, key=lambda _entry: (_entry[2], _entry[0]), reverse=True
+    )
+
+    if "teamid" not in session:
+        session["teamid"] = session["teams"][0][0]
+
+
+def get_series_list(flagid, search_level=2):
+    def get_series_id(search_string, flagid):
+        api_response = api.ht_get_data(
+            "search_series", searchString=search_string, searchLeagueID=flagid
+        )
+
+        probe_list.append(api.ht_get_series(api_response)["series_id"])
+
+        return probe_list
+
+    probe_list = []
+    series_list = []
+
+    # fmt: off
+    league_table = [
+        (2, "ii",    4),
+        (3, "iii",  16),
+        (4, "iv",   64),  # <------ default (search_level=2)
+        (5, "v",   256),  # <------ 340 series, max. 2720 teams (deep-search)
+        (6, "vi", 1024),
+    ]
+    # fmt: on
+
+    league_depth = api.ht_get_data("worlddetails", countryID=flagid)
+    league_depth = api.ht_get_worlddetails(league_depth)
+
+    # Here the depth of
+    # the loop is adjustable
+    for l_tuple in league_table[0:search_level]:
+        if l_tuple[0] > int(league_depth["league_depth"]):
+            break
+
+        l_numbers = 1, l_tuple[2]
+
+        for l_number in l_numbers:
+            get_series_id(f"{l_tuple[1]}.{l_number}", flagid)
+
+        lid_difference = int(probe_list[1]) - int(probe_list[0])
+        l_difference = l_tuple[2] - 1
+
+        if lid_difference != l_difference:
+            print(
+                "WARNING: anomaly in leagueID numbering found. do pricy loops as fallback."
+            )
+            # not integrated yet
+
+        else:
+            for i in range(int(probe_list[0]), int(probe_list[1]) + 1):
+                series_list.append(i)
+
+        probe_list.clear()
+
+    return series_list
+
+
 def random_quotes(_quotes):
     for _key in _quotes.keys():
         random_quote_index = randrange(0, len(_quotes[_key]))
@@ -257,10 +250,7 @@ def random_quotes(_quotes):
     return quote_ante, quote_post
 
 
-def render_worldmap(flaglist, teamid):
-    my_flags = flaglist
-    teamid = teamid
-
+def render_worldmap(my_flags, teamid):
     map_flags_home = []
     map_flags_away = []
     map_flags_both = []

@@ -42,12 +42,15 @@ def details():
 
     gmc = helperf.get_my_challenges()
 
-    if gmc != []:
-        g.bookable = gmc[0][-2]
-        g.weekend_bookable = gmc[0][-1]
-    else:
+    if gmc:
+        g.weekend_bookable = True
         g.bookable = True
-        g.weekend_bookable = False
+        for challenge in gmc:
+            if not challenge[-1]:
+                g.weekend_bookable = False
+
+            if not challenge[-2]:
+                g.bookable = False
 
     for item in session["teams"]:
         if int(item[0]) == int(session["teamid"]):

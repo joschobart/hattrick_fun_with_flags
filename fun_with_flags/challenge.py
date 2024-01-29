@@ -1,7 +1,16 @@
 from datetime import datetime
 
-from flask import (Blueprint, current_app, flash, g, redirect, render_template,
-                   request, session, url_for)
+from flask import (
+    Blueprint,
+    current_app,
+    flash,
+    g,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
 from . import api, db, decs, helperf
 
@@ -19,33 +28,33 @@ def overview():
     g.challenges = helperf.get_my_challenges()
 
     if len(g.challenges) != 0:
-        for challenge in g.challenges:
-            is_weekend_match = challenge[-3]
-            tdelta_hours = challenge[-4]
+        for _challenge in g.challenges:
+            is_weekend_match = _challenge[-3]
+            tdelta_hours = _challenge[-4]
 
             if (
                 now.weekday() in range(0, 3)
                 and tdelta_hours > 100
                 and not is_weekend_match
             ) or (
-                now.weekday() in range(5, 6) 
-                and tdelta_hours > 100 
+                now.weekday() in range(5, 6)
+                and tdelta_hours > 100
                 and is_weekend_match
             ):
                 message = "Match is running.\
                             Come back Thursday after 7 o'clock UTC to book a new match."
 
-            if challenge[0]["is_agreed"] == "True":
+            if _challenge[0]["is_agreed"] == "True":
                 _is_agreed = True
                 message = "Match booked!"
 
                 _xml = api.ht_get_data(
-                    "worlddetails", countryID=challenge[0]["country_id"], leagueID=""
+                    "worlddetails", countryID=_challenge[0]["country_id"], leagueID=""
                 )
                 _worlddetails = api.ht_get_worlddetails(_xml)
 
                 _xml_data = api.ht_get_data(
-                    "matchdetails", matchID=challenge[0]["match_id"]
+                    "matchdetails", matchID=_challenge[0]["match_id"]
                 )
                 _my_match = api.ht_get_matchdetails(_xml_data)
 
@@ -60,13 +69,13 @@ def overview():
                     g.user_id,
                     g.couch,
                     _worlddetails["league_id"],
-                    challenge[0]["match_id"],
+                    _challenge[0]["match_id"],
                     _place,
                 )
                 # Write changements on the history-object to db
                 g.couch[g.user_id] = g.my_document
 
-        if _is_agreed == None:
+        if _is_agreed is None:
             message = "Teams are challenged but not agreed yet."
 
     else:
@@ -81,7 +90,7 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-#@decs.error_check
+# @decs.error_check
 def challenge():
     if request.method == "POST":
         _challengeable = session["challengeable"]
@@ -116,7 +125,11 @@ def challenge():
 
         try:
             api.ht_do_challenge(
-                session["teamid"], _challengeable, _match_rules, _place, _weekend_friendly
+                session["teamid"],
+                _challengeable,
+                _match_rules,
+                _place,
+                _weekend_friendly,
             )
             print(f"Would do challenge here { _challengeable }")
 

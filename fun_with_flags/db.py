@@ -5,18 +5,6 @@ import couchdb
 from flask import g, session
 
 
-def get_db():
-    if "couch" not in g:
-        couch = couchdb.Server(os.environ["COUCHDB_CONNECTION_STRING"])
-
-        try:
-            couch = couch["fwf_db"]  # existing
-        except Exception as e:
-            print(f"CouchDB server not available: {e}")
-
-    return couch
-
-
 def bootstrap_document(_userid, _couch, _settings):
     # Bootstrap db-document if it doesn't exist
     if _userid not in _couch:
@@ -68,6 +56,18 @@ def bootstrap_document(_userid, _couch, _settings):
                 ]
 
     return db_document
+
+
+def get_db():
+    if "couch" not in g:
+        couch = couchdb.Server(os.environ["COUCHDB_CONNECTION_STRING"])
+
+        try:
+            couch = couch["fwf_db"]  # existing
+        except Exception as e:
+            print(f"CouchDB server not available: {e}")
+
+    return couch
 
 
 def set_match_history(_userid, _couch, _league_id, _match_id, _place):
