@@ -18,7 +18,7 @@ def authorize():
             access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
 
         except Exception as e:
-            error = f"Pin {g.pin} was not accepted: {e}"
+            error = f"Pin {g.pin} was not accepted."
             flash(error)
 
         else:
