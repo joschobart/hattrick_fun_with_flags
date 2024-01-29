@@ -15,9 +15,9 @@
       <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> for your team <b>{{ g.team }}</b> is in your collection already. Doesn't it look amazing?!:)</p>
 
       <hr style="width:100%;text-align:left;margin-left:0">
-      {% if g.played_matches %}
         <p>
         <h4>Played '{{ g.place }}'-matches</h4>
+      {% if g.played_matches %}
         <table width="100%">
           {% for played_match in g.played_matches %}
           <tr>
