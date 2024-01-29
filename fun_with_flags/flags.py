@@ -123,8 +123,6 @@ def details():
 
         sl = helperf.get_series_list(g.flagid, search_level=int(_league_search_depth))
 
-        print(sl)
-
         ctl = helperf.get_challengeable_teams_list(
             session["teamid"], g.place, sl, weekend_friendly
         )
@@ -153,5 +151,8 @@ def details():
                         g.challengeable.append(_team)
                     else:
                         break
+
+        session["place"] = g.place
+        session["challengeable"] = g.challengeable
 
     return render_template("flags/details.html")

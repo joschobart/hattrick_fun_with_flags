@@ -81,9 +81,16 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-@decs.error_check
+#@decs.error_check
 def challenge():
     if request.method == "POST":
+        _challengeable = session["challengeable"]
+        _challengeable = list(zip(*_challengeable))[0]
+        session.pop("challengeable", None)
+
+        _place = session["place"]
+        session.pop("place", None)
+
         # Set match_rules for match from config and overwrite if custom config is available in db.
         _db_settings = current_app.config["DB__SETTINGS_DICT"]
         _match_rules = _db_settings["defaults"]["settings"]["friendly"]["match_rules"]
@@ -93,9 +100,6 @@ def challenge():
 
             if "settings" in _my_document:
                 _match_rules = _my_document["settings"]["friendly"]["match_rules"]
-
-        g.challengeable = list(zip(*session.get("challengeable", None)))[0]
-        _place = session.get("place", None)
 
         if _place == "home":
             _place = "0"
@@ -109,9 +113,9 @@ def challenge():
 
         try:
             api.ht_do_challenge(
-                session["teamid"], g.challengeable, _match_rules, _place
+                session["teamid"], _challengeable, _match_rules, _place
             )
-            print(f"Would do challenge here { g.challengeable }")
+            # print(f"Would do challenge here { _challengeable }")
 
         except Exception as e:
             flash(f"Var '{e}' is missing.")

@@ -212,7 +212,7 @@ def get_my_challenges():
                     bookable = False
 
                     if (
-                        _challenges["challenges"][1]
+                        len(_challenges["challenges"]) == 2
                         and _challenges["challenges"][1]["is_agreed"] == "True"
                     ):
                         weekend_bookable = False
