@@ -91,14 +91,13 @@ def get_challengeable_teams_list(_teamid, _place, series_list, weekend_friendly)
 def get_my_challenges():
     now = datetime.now()
     utc = datetime.utcnow()
-
     challenges = []
     bookable = False
     weekend_bookable = False
 
     _teamid = session.get("teamid", None)
 
-    _xml = api.ht_get_data("worlddetails")
+    _xml = api.ht_get_data("worlddetails", countryID="", leagueID="")
     _worlddetails = api.ht_get_worlddetails(_xml)
 
     if int(_worlddetails["season_round"]) > 14:
@@ -206,8 +205,8 @@ def get_series_list(flagid, search_level=2):
     ]
     # fmt: on
 
-    league_depth = api.ht_get_data("worlddetails", countryID=flagid)
-    league_depth = api.ht_get_worlddetails(league_depth)
+    _xml = api.ht_get_data("worlddetails", leagueID=flagid)
+    league_depth = api.ht_get_worlddetails(_xml)
 
     # Here the depth of
     # the loop is adjustable
