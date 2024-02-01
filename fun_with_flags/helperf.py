@@ -100,19 +100,19 @@ def get_my_challenges():
     _xml = api.ht_get_data("worlddetails", countryID="", leagueID="")
     _worlddetails = api.ht_get_worlddetails(_xml)
 
-    if int(_worlddetails["season_round"]) > 14:
-        if (utc.weekday() == 0 and utc.hour >= 6) or (
-            utc.weekday() >= 1 and utc.weekday() < 5
-        ):
+    if (utc.weekday() == 0 and utc.hour >= 6) or (
+        utc.weekday() >= 1 and utc.weekday() < 5
+    ):
+        if int(_worlddetails["season_round"]) > 14:
             weekend_bookable = True
-    else:
-        if (
-            utc.weekday() == 3
-            and utc.hour >= 7
-            or utc.weekday() >= 4
-            or utc.weekday() == 0
-        ):
-            bookable = True
+
+    if (
+        utc.weekday() == 3
+        and utc.hour >= 7
+        or utc.weekday() >= 4
+        or utc.weekday() == 0
+    ):
+        bookable = True
 
     for i in "0", "1":
         if i == "1":
