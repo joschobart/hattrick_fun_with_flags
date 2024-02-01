@@ -94,11 +94,29 @@ def get_my_challenges():
     challenges = []
     bookable = False
     weekend_bookable = False
+    _in_cup = False
 
     _teamid = session.get("teamid", None)
 
     _xml = api.ht_get_data("worlddetails", countryID="", leagueID="")
     _worlddetails = api.ht_get_worlddetails(_xml)
+
+    _xml = api.ht_get_data("get_matches", teamID=_teamid)
+
+    # check if team is in cup
+    _matches = api.ht_get_matches(_xml)
+    for _match in _matches["matches"]:
+        if "3" in _match["match_type"]:
+            cup_match_time = _match["match_date"]
+            cup_match_time = datetime.strptime(cup_match_time, "%Y-%m-%d %H:%M:%S")
+
+            cup_tdelta = cup_match_time - now
+            cup_tdelta = cup_tdelta.total_seconds()
+
+            cup_tdelta_hours = round(cup_tdelta / 3600, 1)
+
+            if cup_tdelta_hours >= -48:
+                _in_cup = True
 
     if (utc.weekday() == 0 and utc.hour >= 6) or (
         utc.weekday() >= 1 and utc.weekday() < 5
@@ -112,7 +130,8 @@ def get_my_challenges():
         or utc.weekday() >= 4
         or utc.weekday() == 0
     ):
-        bookable = True
+        if not _in_cup:
+            bookable = True
 
     for i in "0", "1":
         if i == "1":

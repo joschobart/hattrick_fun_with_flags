@@ -4,6 +4,7 @@ from ht_libs import (
     do_hattrick_request,
     get_flags,
     get_matchdetails,
+    get_matches,
     get_series,
     get_teamdetails,
     get_trainer_avatar,
@@ -69,6 +70,11 @@ API_PARAMS = {
         "matchID": "",  # id of match to get
         "sourceSystem": "hattrick",
     },
+    "get_matches": {
+        "file": "matches",
+        "version": "2.9",
+        "teamID": "",
+    },
 }
 
 
@@ -130,6 +136,12 @@ def ht_get_matchdetails(matchdetails_xml):
     matchdetails = get_matchdetails.get_matchdetails(matchdetails_xml)
 
     return matchdetails
+
+
+def ht_get_matches(matches_xml):
+    matches = get_matches.get_matches(matches_xml)
+
+    return matches
 
 
 def ht_get_missing_flags(teamdetails_xml):
