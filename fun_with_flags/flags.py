@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import (Blueprint, current_app, flash, g, render_template, request,
                    session)
 
-from . import api, decs, helperf
+from . import api, db, decs, helperf
 
 bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 
@@ -131,14 +131,46 @@ def details():
             )
             try:
                 _my_match = api.ht_get_matchdetails(_xml_data)
+
             except AttributeError:
                 flash("Match not found.")
-            else:
-                if (_my_match["home_team_id"] == session["teamid"] or _my_match["away_team_id"] == session["teamid"]):
-                    flash(f"match added {_my_match}")
-                else:
-                    flash("Not one of your past matches.")
 
+            else:
+                for home_away in ["home_team_id", "away_team_id"]:
+                    if _my_match[home_away] == session["teamid"]:
+                        if _my_match["home_team_id"] == session["teamid"]:
+                            _opponent_teamid = _my_match["away_team_id"]
+                            _place = "home"
+                        else:
+                            _opponent_teamid = _my_match["home_team_id"]
+                            _place = "away"
+
+                        _xml = api.ht_get_data("teamdetails", teamID=_opponent_teamid, includeFlags="false")
+                        _opponent = api.ht_get_team(_xml)
+                        _match_country = _opponent[_opponent_teamid]["team_country_id"]
+
+                        if _match_country == g.flagid:
+                            flash(f"{_place}-match added.")
+                            g.db_settings = current_app.config["DB__SETTINGS_DICT"]
+                            g.my_document = db.bootstrap_document(g.user_id, g.couch, g.db_settings)
+                            g.my_document = db.set_match_history(
+                                g.user_id,
+                                g.couch,
+                                _match_country,
+                                _user_added_friendly,
+                                _place,
+                            )
+                            # Write changements on the history-object to db
+                            g.couch[g.user_id] = g.my_document
+                        
+                        else:
+                            flash("Not one of your past friendly-matches for that flag.")
+                        break
+
+                    else:
+                        continue
+
+                flash("Not one of your past friendly-matches.")
 
         elif request.form["match_type"]:
             weekend_friendly = request.form["match_type"]
