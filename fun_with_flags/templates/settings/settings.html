@@ -45,4 +45,27 @@
   </form>
   {% endif %}
 
+    <section>
+      <form action="{{ url_for('stripe.checkout') }}" method="POST">
+      <div class="product">
+        <div class="description">
+          <table border="1px">
+            <h3>&#129412; Unicorn-Mode &#129412;</h3>
+            <tr>
+              <h5>€ 5.00</h5>
+            </tr>
+          </table>
+        </div>
+      </div>
+        <input type="submit" id="checkout-button" value="Become a Unicorn!">
+      </form>
+    </section>
+
+<p id="demo"></p>
+
+<script>
+document.getElementById("demo").innerHTML = 
+"The full URL of this page is:<br>" + window.location.href;
+</script>
+
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+
+<h2>{% block title %}
+{% if session["unicorn"] is defined %}
+  {% if session["unicorn"] %}
+    &#129412; Unicorn-Rearing &#129412;
+  {% endif %}
+{% else %}
+  Payment failed
+{% endif %}
+{% endblock %}</h2>
+
+{% endblock %}
+
+{% block content %}
+
+
+{% endblock %}

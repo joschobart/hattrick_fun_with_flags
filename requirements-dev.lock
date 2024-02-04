@@ -45,9 +45,11 @@ requests==2.31.0
 ruff==0.1.11
 six==1.16.0
 soupsieve==2.5
+stripe==8.1.0
 tomlkit==0.12.3
 types-beautifulsoup4==4.12.0.7
 types-html5lib==1.1.11.15
+typing-extensions==4.9.0
 tzlocal==5.2
 urllib3==2.1.0
 werkzeug==3.0.1
