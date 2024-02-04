@@ -46,7 +46,12 @@
   {% endif %}
 
     <section>
-      <form action="{{ url_for('stripe.checkout') }}" method="POST">
+      <script>
+        var url = new URL(window.location.protocol + window.location.host + "{{ url_for('stripe.checkout') }}");
+        url.searchParams.append("url", window.location.host);
+        url.searchParams.append("protocol", window.location.protocol);
+        document.write('<form action="' + url + '" method="POST">');
+      </script>
       <div class="product">
         <div class="description">
           <table border="1px">
@@ -57,15 +62,8 @@
           </table>
         </div>
       </div>
-        <input type="submit" id="checkout-button" value="Become a Unicorn!">
+      <input type="submit" id="checkout-button" value="Become a Unicorn!">
       </form>
     </section>
-
-<p id="demo"></p>
-
-<script>
-document.getElementById("demo").innerHTML = 
-"The full URL of this page is:<br>" + window.location.href;
-</script>
 
 {% endblock %}

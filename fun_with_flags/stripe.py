@@ -18,10 +18,12 @@ bp_s = Blueprint("stripe", __name__, url_prefix="/stripe")
 @decs.choose_team
 #@decs.error_check
 def checkout():
-    YOUR_DOMAIN = "http://127.0.0.1:5000/stripe"
-    stripe.api_key = os.environ["STRIPE_TOKEN"]
     _uuid = uuid.uuid4()
+    _url = request.args.get("url")
+    _protocol = request.args.get("protocol")
+    _domain = f"{_protocol}//{_url}/stripe"
 
+    stripe.api_key = os.environ["STRIPE_TOKEN"]
     try:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
@@ -31,10 +33,11 @@ def checkout():
                 },
             ],
             mode = 'payment',
-            success_url = f"{YOUR_DOMAIN}/success?uuid={_uuid}",
-            cancel_url = f"{YOUR_DOMAIN}/fail?uuid={_uuid}",
+            success_url = f"{_domain}/success?uuid={_uuid}",
+            cancel_url = f"{_domain}/fail?uuid={_uuid}",
             automatic_tax={'enabled': True},
         )
+
     except Exception as e:
         return str(e)
 
