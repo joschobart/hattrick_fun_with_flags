@@ -78,9 +78,9 @@ def checkout():
 @bp_s.route('/hook', methods=["POST"])
 def hook():
     stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET"]
-    endpoint_secret = os.environ["STRIPE_ENDPOINT_SECRET"]
+    webhook_secret = os.environ["STRIPE_WEBHOOK_SECRET"]
     # stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET_TEST"]
-    # endpoint_secret = os.environ["STRIPE_ENDPOINT_SECRET_TEST"]
+    # webhook_secret = os.environ["STRIPE_WEBHOOK_SECRET_TEST"]
 
     event = None
     payload = request.data
@@ -95,7 +95,7 @@ def hook():
         
     try:
         event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
+            payload, sig_header, webhook_secret
         )
     except stripe.error.SignatureVerificationError as e:
         print('Webhook signature verification failed.' + str(e))
