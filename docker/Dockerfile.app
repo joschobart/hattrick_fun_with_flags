@@ -5,7 +5,7 @@
 #																			 --bulid-arg fls=FLS
 #																			 --bulid-arg fes=FES
 #																			 --build-arg cdbcs=CDBCS 
-#                                                                            --build-arg stt=STT
+#                                                                            --build-arg stest=STEST
 #                                                                            --build-arg stes=STES
 #                                                                            --build-arg stpi=STPI ."
 
@@ -23,7 +23,7 @@ ARG cs
 ARG fls
 ARG fes
 ARG cdbcs
-ARG stt
+ARG stest
 ARG stes
 ARG stpi
 
