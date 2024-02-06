@@ -64,5 +64,5 @@ jobs:
               fes=${{ secrets.FERNET_SECRET }}
               cdbcs=${{ secrets.COUCHDB_CONNECTION_STRING }}
               stt=${{ secrets.STRIPE_TOKEN }}
-              stes=£{{ secrets.STRIPE_ENDPOINT_SECRET }}
+              stes=${{ secrets.STRIPE_ENDPOINT_SECRET }}
               stpi=${{ secrets.STRIPE_PRICE_ITEM }}
