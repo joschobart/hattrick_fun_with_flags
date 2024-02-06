@@ -24,8 +24,10 @@ def checkout():
     _url = request.args.get("url")
     _protocol = request.args.get("protocol")
     _domain = f"{_protocol}//{_url}/stripe"
+    
+    # _price = os.environ["STRIPE_PRICE_ITEM"]
+    _price = os.environ["STRIPE_PRICE_ITEM_TEST"]
 
-    _price = os.environ["STRIPE_PRICE_ITEM"]
     # stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET"]
     stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET_TEST"]
 
