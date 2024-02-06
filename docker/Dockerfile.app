@@ -9,6 +9,7 @@
 #                                                                            --build-arg stwhs=STWHS
 #                                                                            --build-arg stest=STEST
 #                                                                            --build-arg stes=STES
+#                                                                            --build-arg stpit=STPIT
 #                                                                            --build-arg stpi=STPI ."
 
 
@@ -38,6 +39,7 @@ ENV STRIPE_WEBHOOK_SECRET_TEST $stwhst
 ENV STRIPE_WEBHOOK_SECRET $stwhs
 ENV STRIPE_ENDPOINT_SECRET_TEST $stest
 ENV STRIPE_ENDPOINT_SECRET $stes
+ENV STRIPE_PRICE_ITEM_TEST $stpit
 ENV STRIPE_PRICE_ITEM $stpi
 
 
