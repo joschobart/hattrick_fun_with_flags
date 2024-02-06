@@ -10,7 +10,7 @@ bp_s = Blueprint("scheduler", __name__, url_prefix="/scheduler")
 
 
 def sensor():
-    """ Function for regular job execution. """
+    """Function for regular job execution."""
     print("Scheduler is alive-er!")
 
 

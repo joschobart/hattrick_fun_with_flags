@@ -124,12 +124,7 @@ def get_my_challenges():
         if int(_worlddetails["season_round"]) > 14:
             weekend_bookable = True
 
-    if (
-        utc.weekday() == 3
-        and utc.hour >= 7
-        or utc.weekday() >= 4
-        or utc.weekday() == 0
-    ):
+    if utc.weekday() == 3 and utc.hour >= 7 or utc.weekday() >= 4 or utc.weekday() == 0:
         if not _in_cup:
             bookable = True
 

@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from flask import (Blueprint, current_app, flash, g, render_template, request,
-                   session)
+from flask import Blueprint, current_app, flash, g, render_template, request, session
 
 from . import api, db, decs, helperf
 
@@ -145,14 +144,18 @@ def details():
                             _opponent_teamid = _my_match["home_team_id"]
                             _place = "away"
 
-                        _xml = api.ht_get_data("teamdetails", teamID=_opponent_teamid, includeFlags="false")
+                        _xml = api.ht_get_data(
+                            "teamdetails", teamID=_opponent_teamid, includeFlags="false"
+                        )
                         _opponent = api.ht_get_team(_xml)
                         _match_country = _opponent[_opponent_teamid]["team_country_id"]
 
                         if _match_country == g.flagid:
                             flash(f"{_place}-match added.")
                             g.db_settings = current_app.config["DB__SETTINGS_DICT"]
-                            g.my_document = db.bootstrap_document(g.user_id, g.couch, g.db_settings)
+                            g.my_document = db.bootstrap_document(
+                                g.user_id, g.couch, g.db_settings
+                            )
                             g.my_document = db.set_match_history(
                                 g.user_id,
                                 g.couch,
@@ -162,9 +165,11 @@ def details():
                             )
                             # Write changements on the history-object to db
                             g.couch[g.user_id] = g.my_document
-                        
+
                         else:
-                            flash("Not one of your past friendly-matches for that flag.")
+                            flash(
+                                "Not one of your past friendly-matches for that flag."
+                            )
                         break
 
                     else:
@@ -175,7 +180,9 @@ def details():
         elif request.form["match_type"]:
             weekend_friendly = request.form["match_type"]
 
-            sl = helperf.get_series_list(g.flagid, search_level=int(_league_search_depth))
+            sl = helperf.get_series_list(
+                g.flagid, search_level=int(_league_search_depth)
+            )
 
             ctl = helperf.get_challengeable_teams_list(
                 session["teamid"], g.place, sl, weekend_friendly

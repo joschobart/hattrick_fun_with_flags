@@ -129,9 +129,9 @@ def init_stripe_session(_userid, _couch, _stripe_user, _session_id, _transaction
         my_document["unicorn"]["stripe"]["sessions"] = {}
 
     my_document["unicorn"]["stripe"]["sessions"][_session_id] = {
-        "date_initialized" : str(datetime.utcnow()),
-        "initialisation_id" : _transaction_id,
-        }
+        "date_initialized": str(datetime.utcnow()),
+        "initialisation_id": _transaction_id,
+    }
 
     my_document["unicorn"]["meta"]["date_updated"] = str(datetime.utcnow())
 
@@ -146,18 +146,21 @@ def close_stripe_session(_userid, _couch, _session_id):
     _cache_couch = get_db("fwf_cache")
 
     if _stripe_user in _cache_couch:
-        
         my_cache_document = _cache_couch[_stripe_user]
 
         for _key in my_cache_document["payload"]:
-            my_document["unicorn"]["stripe"]["sessions"][_session_id][f"receipt_{_key}"] = my_cache_document["payload"][_key]
+            my_document["unicorn"]["stripe"]["sessions"][_session_id][
+                f"receipt_{_key}"
+            ] = my_cache_document["payload"][_key]
 
         my_document["unicorn"]["unicorn"] = "True"
 
         _cache_couch.delete(my_cache_document)
-    
+
     else:
-        my_document["unicorn"]["stripe"]["sessions"][_session_id]["cancel_timestamp"] = str(datetime.utcnow())
+        my_document["unicorn"]["stripe"]["sessions"][_session_id][
+            "cancel_timestamp"
+        ] = str(datetime.utcnow())
 
         if not my_document["unicorn"]["unicorn"] == "True":
             my_document["unicorn"]["unicorn"] = "False"
