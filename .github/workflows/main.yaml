@@ -64,5 +64,7 @@ jobs:
               fes=${{ secrets.FERNET_SECRET }}
               cdbcs=${{ secrets.COUCHDB_CONNECTION_STRING }}
               stest=${{ secrets.STRIPE_ENDPOINT_SECRET_TEST }}
+              stwhst=${{ secrets.STRIPE_WEBHOOK_SECRET_TEST }}
               stes=${{ secrets.STRIPE_ENDPOINT_SECRET }}
+              stwhs=${{ secrets.STRIPE_WEBHOOK_SECRET }}
               stpi=${{ secrets.STRIPE_PRICE_ITEM }}

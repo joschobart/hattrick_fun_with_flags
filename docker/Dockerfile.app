@@ -5,6 +5,8 @@
 #																			 --bulid-arg fls=FLS
 #																			 --bulid-arg fes=FES
 #																			 --build-arg cdbcs=CDBCS 
+#                                                                            --build-arg stwhst=STWHST
+#                                                                            --build-arg stwhs=STWHS
 #                                                                            --build-arg stest=STEST
 #                                                                            --build-arg stes=STES
 #                                                                            --build-arg stpi=STPI ."
@@ -32,6 +34,8 @@ ENV HATTRICK_OAUTH_CONSUMER_SECRET $cs
 ENV FLASK_SECRET $fls
 ENV FERNET_SECRET $fes
 ENV COUCHDB_CONNECTION_STRING $cdbcs
+ENV STRIPE_WEBHOOK_SECRET_TEST $stwhst
+ENV STRIPE_WEBHOOK_SECRET $stwhs
 ENV STRIPE_ENDPOINT_SECRET_TEST $stest
 ENV STRIPE_ENDPOINT_SECRET $stes
 ENV STRIPE_PRICE_ITEM $stpi
