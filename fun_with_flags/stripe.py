@@ -25,11 +25,11 @@ def checkout():
     _protocol = request.args.get("protocol")
     _domain = f"{_protocol}//{_url}/stripe"
     
-    # _price = os.environ["STRIPE_PRICE_ITEM"]
-    _price = os.environ["STRIPE_PRICE_ITEM_TEST"]
+    _price = os.environ["STRIPE_PRICE_ITEM"]
+    # _price = os.environ["STRIPE_PRICE_ITEM_TEST"]
 
-    # stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET"]
-    stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET_TEST"]
+    stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET"]
+    # stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET_TEST"]
 
     try:
         _stripe_user = stripe.Customer.search(
@@ -79,10 +79,10 @@ def checkout():
 
 @bp_s.route('/hook', methods=["POST"])
 def hook():
-    # stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET"]
-    # webhook_secret = os.environ["STRIPE_WEBHOOK_SECRET"]
-    stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET_TEST"]
-    webhook_secret = os.environ["STRIPE_WEBHOOK_SECRET_TEST"]
+    stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET"]
+    webhook_secret = os.environ["STRIPE_WEBHOOK_SECRET"]
+    # stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET_TEST"]
+    # webhook_secret = os.environ["STRIPE_WEBHOOK_SECRET_TEST"]
 
     event = None
     payload = request.data
