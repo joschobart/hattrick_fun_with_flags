@@ -26,8 +26,11 @@ ARG cs
 ARG fls
 ARG fes
 ARG cdbcs
+ARG stwhst
+ARG stwhs
 ARG stest
 ARG stes
+ARG stpit
 ARG stpi
 
 ENV HATTRICK_OAUTH_CONSUMER_KEY $ck
