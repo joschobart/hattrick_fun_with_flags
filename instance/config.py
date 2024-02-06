@@ -1,7 +1,7 @@
 DB__SETTINGS_DICT = {
     "defaults": {
         "meta": {
-            "schema_version": 1.1,
+            "schema_version": 1.2,
             "date_initialized": "",
             "date_updated": "",
         },
@@ -14,6 +14,10 @@ DB__SETTINGS_DICT = {
                 "match_rules": "cup",
                 "opponent_type": "all",
             },
+        },
+        "unicorn": {
+            "stripe": {},
+            "unicorn": {},
         },
     },
     "history": {
@@ -51,6 +55,18 @@ DB__SETTINGS_DICT = {
                 ),
             },
         },
+    },
+    "unicorn": {
+        "meta": {
+            "schema_version": 1.0,
+            "date_initialized": "",
+            "date_updated": "",
+        },
+        "stripe": {
+            "username": "",
+            "sessions": {},
+        },
+        "unicorn": "",
     },
 }
 

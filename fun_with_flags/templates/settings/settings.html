@@ -46,23 +46,21 @@
   {% endif %}
 
     <section>
-      <script>
-        var url = new URL(window.location.protocol + window.location.host + "{{ url_for('stripe.checkout') }}");
-        url.searchParams.append("url", window.location.host);
-        url.searchParams.append("protocol", window.location.protocol);
-        document.write('<form action="' + url + '" method="POST">');
-      </script>
-      <div class="product">
-        <div class="description">
-          <table border="1px">
-            <h3>&#129412; Unicorn-Mode &#129412;</h3>
-            <tr>
-              <h5>€ 5.00</h5>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <input type="submit" id="checkout-button" value="Become a Unicorn!">
+      <h3>&#129412; Unicorn-Club &#129412;</h3>
+      <table border="1px" width="100%">
+        <tr>
+          <td style="text-align:left" width="100%">
+            <script>
+              var url = new URL(window.location.protocol + window.location.host + "{{ url_for('stripe.checkout') }}");
+              url.searchParams.append("url", window.location.host);
+              url.searchParams.append("protocol", window.location.protocol);
+              document.write('<form action="' + url + '" method="POST">');
+            </script>
+            <h5>€ 5.00</h5>
+          </td>
+        </tr>
+      </table>
+      <p><input type="submit" id="checkout-button" value="Become a Unicorn!"></p>
       </form>
     </section>
 

@@ -1,14 +1,15 @@
 """ View to handle payments with stripe for FwF. """
 
+import binascii
 import json
 import os
-import uuid
+from datetime import datetime
 
 import stripe
-from flask import (Blueprint, flash, jsonify, redirect, render_template,
-                   request, session)
+from flask import (Blueprint, current_app, flash, g, jsonify, redirect,
+                   render_template, request, session)
 
-from . import decs
+from . import db, decs
 
 bp_s = Blueprint("stripe", __name__, url_prefix="/stripe")
 
@@ -16,32 +17,61 @@ bp_s = Blueprint("stripe", __name__, url_prefix="/stripe")
 @bp_s.route('/checkout', methods=["POST"])
 @decs.login_required
 @decs.choose_team
+@decs.use_db
 #@decs.error_check
 def checkout():
-    _uuid = uuid.uuid4()
+    _session_token = binascii.hexlify(os.urandom(20)).decode()
     _url = request.args.get("url")
     _protocol = request.args.get("protocol")
     _domain = f"{_protocol}//{_url}/stripe"
 
+    _price = os.environ["STRIPE_PRICE_ITEM"]
     stripe.api_key = os.environ["STRIPE_TOKEN"]
+
     try:
-        checkout_session = stripe.checkout.Session.create(
+        _stripe_user = stripe.Customer.search(
+            query=f"name: '{session["username"]}'"
+        )
+    except Exception as e:
+        print(e)
+        return str(e)
+
+    if len(_stripe_user["data"]) == 0:
+        try:
+            _stripe_user = stripe.Customer.create(
+                name=session["username"]
+                )
+        except Exception as e:
+            return str(e)
+
+    _stripe_user = _stripe_user["data"][0]["id"]
+
+    try:
+        _checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
-                    'price': 'price_1OfnlcGBvDAda5rUfbE5PrRl',
+                    'price': _price,
                     'quantity': 1,
                 },
             ],
             mode = 'payment',
-            success_url = f"{_domain}/success?uuid={_uuid}",
-            cancel_url = f"{_domain}/fail?uuid={_uuid}",
+            customer = _stripe_user,
+            success_url = f"{_domain}/success?token={_session_token}",
+            cancel_url = f"{_domain}/fail?token={_session_token}",
             automatic_tax={'enabled': True},
+            customer_update={'address': 'auto'},
         )
 
     except Exception as e:
         return str(e)
 
-    return redirect(checkout_session.url, code=303)
+    _db_settings = current_app.config["DB__SETTINGS_DICT"]
+    _my_document = db.bootstrap_document(g.user_id, g.couch, _db_settings)
+    _my_document = db.init_stripe_session(g.user_id, g.couch, _stripe_user, _session_token, _checkout_session["id"])
+    # Write new session-object to db
+    g.couch[g.user_id] = _my_document
+
+    return redirect(_checkout_session.url, code=303)
 
 
 @bp_s.route('/hook', methods=["POST"])
@@ -68,10 +98,28 @@ def hook():
         print('Webhook signature verification failed.' + str(e))
         return jsonify(success=False)
 
-    # Handle the event
+    # Handle the succeeded event
     if event and event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']
-        session["unicorn"] = (payment_intent["created"], payment_intent['amount'])
+        _payment_intent = event['data']['object']
+
+        _couch = db.get_db("fwf_cache")
+
+        _object =  {
+            "id": _payment_intent["id"],
+            "timestamp": str(datetime.utcnow()),
+            "factor": "0.01",
+            "amount_received": _payment_intent["amount_received"],
+            "currency": _payment_intent["currency"],
+            }
+
+        try:
+            _cache_document = db.bootstrap_cache_document(_payment_intent["customer"], _couch, _object)
+        except TypeError:
+            _payment_intent["customer"] = "1234_dummy"
+            _cache_document = db.bootstrap_cache_document(_payment_intent["customer"], _couch, _object)
+
+        # Write success-object to cache-db
+        _couch[_payment_intent["customer"]] = _cache_document
 
     return jsonify(success=True)
 
@@ -79,9 +127,16 @@ def hook():
 @bp_s.route('/success', methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
+@decs.use_db
 #@decs.error_check
 def success():
-    session["unicorn"] = True
+    _session_token = request.args.get("token")
+    
+    _my_document = db.close_stripe_session(g.user_id, g.couch, _session_token)
+
+    # Write success-object to cache-db
+    g.couch[g.user_id] = _my_document
+
     flash("Payment accepted. You're a FwF Unicorn now!")
 
     return render_template("stripe/hook.html")
@@ -90,11 +145,16 @@ def success():
 @bp_s.route('/fail', methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
+@decs.use_db
 #@decs.error_check
 def fail():
-    _uuid = request.args.get("uuid")
-    print(_uuid)
-    session["unicorn"] = False
+    _session_token = request.args.get("token")
+
+    _my_document = db.close_stripe_session(g.user_id, g.couch, _session_token)
+
+    # Write success-object to cache-db
+    g.couch[g.user_id] = _my_document
+
     flash("No payment received.")
 
     return render_template("stripe/hook.html")

@@ -4,7 +4,10 @@
 #																			 --build-arg cs=CS
 #																			 --bulid-arg fls=FLS
 #																			 --bulid-arg fes=FES
-#																			 --build-arg cdbcs=CDBCS ."
+#																			 --build-arg cdbcs=CDBCS 
+#                                                                            --build-arg stt=STT
+#                                                                            --build-arg stes=STES
+#                                                                            --build-arg stpi=STPI ."
 
 
 FROM python:3.12.1-bookworm
@@ -20,12 +23,18 @@ ARG cs
 ARG fls
 ARG fes
 ARG cdbcs
+ARG stt
+ARG stes
+ARG stpi
 
 ENV HATTRICK_OAUTH_CONSUMER_KEY $ck
 ENV HATTRICK_OAUTH_CONSUMER_SECRET $cs
 ENV FLASK_SECRET $fls
 ENV FERNET_SECRET $fes
 ENV COUCHDB_CONNECTION_STRING $cdbcs
+ENV STRIPE_TOKEN $stt
+ENV STRIPE_ENDPOINT_SECRET $stes
+ENV STRIPE_PRICE_ITEM $stpi
 
 
 RUN python -m pip install --upgrade pip && pip install .

@@ -5,6 +5,19 @@ import couchdb
 from flask import g, session
 
 
+def bootstrap_cache_document(_id, _couch, _object):
+    # Bootstrap db-document if it doesn't exist
+    if _id not in _couch:
+        _couch.save({"_id": _id})
+
+    # Instantiate clone of db-document
+    db_document = _couch[_id]
+
+    db_document["payload"] = _object
+
+    return db_document
+
+
 def bootstrap_document(_userid, _couch, _settings):
     # Bootstrap db-document if it doesn't exist
     if _userid not in _couch:
@@ -58,12 +71,12 @@ def bootstrap_document(_userid, _couch, _settings):
     return db_document
 
 
-def get_db():
-    if "couch" not in g:
+def get_db(_couch="fwf_db"):
+    if "couch" not in g or _couch == "fwf_cache":
         couch = couchdb.Server(os.environ["COUCHDB_CONNECTION_STRING"])
 
         try:
-            couch = couch["fwf_db"]  # existing
+            couch = couch[_couch]  # existing
         except Exception as e:
             print(f"CouchDB server not available: {e}")
 
@@ -103,5 +116,52 @@ def set_match_history(_userid, _couch, _league_id, _match_id, _place):
         ][_place].append(_match_id)
 
         my_document["history"]["meta"]["date_updated"] = str(datetime.utcnow())
+
+    return my_document
+
+
+def init_stripe_session(_userid, _couch, _stripe_user, _session_id, _transaction_id):
+    # Instantiate clone of db-document
+    my_document = _couch[_userid]
+
+    if "stripe_user" not in my_document["unicorn"]["stripe"]:
+        my_document["unicorn"]["stripe"]["stripe_user"] = _stripe_user
+        my_document["unicorn"]["stripe"]["sessions"] = {}
+
+    my_document["unicorn"]["stripe"]["sessions"][_session_id] = {
+        "date_initialized" : str(datetime.utcnow()),
+        "initialisation_id" : _transaction_id,
+        }
+
+    my_document["unicorn"]["meta"]["date_updated"] = str(datetime.utcnow())
+
+    return my_document
+
+
+def close_stripe_session(_userid, _couch, _session_id):
+    # Instantiate clone of db-document
+    my_document = _couch[_userid]
+
+    _stripe_user = my_document["unicorn"]["stripe"]["stripe_user"]
+    _cache_couch = get_db("fwf_cache")
+
+    if _stripe_user in _cache_couch:
+        
+        my_cache_document = _cache_couch[_stripe_user]
+
+        for _key in my_cache_document["payload"]:
+            my_document["unicorn"]["stripe"]["sessions"][_session_id][f"receipt_{_key}"] = my_cache_document["payload"][_key]
+
+        my_document["unicorn"]["unicorn"] = "True"
+
+        _cache_couch.delete(my_cache_document)
+    
+    else:
+        my_document["unicorn"]["stripe"]["sessions"][_session_id]["cancel_timestamp"] = str(datetime.utcnow())
+
+        if not my_document["unicorn"]["unicorn"] == "True":
+            my_document["unicorn"]["unicorn"] = "False"
+
+    my_document["unicorn"]["meta"]["date_updated"] = str(datetime.utcnow())
 
     return my_document
