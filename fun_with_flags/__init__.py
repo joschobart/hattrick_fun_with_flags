@@ -47,6 +47,7 @@ def create_app(test_config=None):
     # entry-point
     @app.route("/", methods=("GET", "POST"))
     @decs.choose_team
+    @decs.set_unicorn
     def index():
         return render_template("index.html")
 

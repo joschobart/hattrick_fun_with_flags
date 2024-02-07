@@ -133,6 +133,7 @@ def hook():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
+@decs.set_unicorn
 #@decs.error_check
 def success():
     _session_token = request.args.get("token")
@@ -151,6 +152,7 @@ def success():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
+@decs.set_unicorn
 #@decs.error_check
 def fail():
     _session_token = request.args.get("token")

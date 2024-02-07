@@ -74,3 +74,18 @@ def use_db(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
+def set_unicorn(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if "username" in session:
+            is_unicorn = db.get_unicorn_state()
+            if is_unicorn:
+                session["unicorn"] = True
+            else:
+                session["unicorn"] = False
+
+        return view(**kwargs)
+
+    return wrapped_view

@@ -13,6 +13,7 @@ bp_s = Blueprint("settings", __name__, url_prefix="/settings")
 @decs.login_required
 @decs.choose_team
 @decs.use_db
+@decs.set_unicorn
 # @decs.error_check
 def settings():
     g.db_settings = current_app.config["DB__SETTINGS_DICT"]

@@ -1,16 +1,7 @@
 from datetime import datetime
 
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Blueprint, current_app, flash, g, redirect, render_template,
+                   request, session, url_for)
 
 from . import api, db, decs, helperf
 
@@ -21,6 +12,7 @@ bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 @decs.login_required
 @decs.choose_team
 @decs.use_db
+@decs.set_unicorn
 # @decs.error_check
 def overview():
     _is_agreed = None
@@ -88,6 +80,7 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
+@decs.set_unicorn
 # @decs.error_check
 def challenge():
     if request.method == "POST":

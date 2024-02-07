@@ -72,15 +72,48 @@ def bootstrap_document(_userid, _couch, _settings):
 
 
 def get_db(_couch="fwf_db"):
+
+
     if "couch" not in g or _couch == "fwf_cache":
         couch = couchdb.Server(os.environ["COUCHDB_CONNECTION_STRING"])
 
+
         try:
             couch = couch[_couch]  # existing
+
+
         except Exception as e:
             print(f"CouchDB server not available: {e}")
 
+
     return couch
+
+
+def get_unicorn_state():
+    if "user_id" in g:
+        _userid = g.user_id
+        _couch = g.couch
+    else:
+        _userid = session["my_team"]["user"]["user_id"]
+        _couch = get_db()
+
+    _my_document = _couch[_userid]
+
+    if "unicorn" in _my_document:
+        try:
+            is_unicorn = _my_document["unicorn"]["unicorn"]
+        except Exception:
+            is_unicorn = False
+        else:
+            if is_unicorn == "True":
+                is_unicorn = True
+            else:
+                is_unicorn = False
+
+    else:
+        is_unicorn = False
+
+    return is_unicorn
 
 
 def set_match_history(_userid, _couch, _league_id, _match_id, _place):
