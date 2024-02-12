@@ -1,9 +1,8 @@
 """ View to customize schedules for FwF. """
 
-import json
 from datetime import datetime, timedelta
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify
 
 from . import db, decs, helperf
 
@@ -48,9 +47,7 @@ def sensor():
     return
 
 
-@bp_s.route("/scheduler", methods=["POST"])
-@decs.login_required
-def scheduler():
+def schedule(_event):
     # find date of next schedule run (thursday, 8utc)
     utc = datetime.utcnow()
     t = timedelta((7 + 3 - utc.weekday()) % 7)
@@ -61,15 +58,6 @@ def scheduler():
     _scheduler_date = (utc + t).strftime("%Y%m%d")
 
     _couch = db.get_db("fwf_schedules")
-    _event = None
-    _payload = request.data
-
-    try:
-        _event = json.loads(_payload)
-
-    except json.decoder.JSONDecodeError as e:
-        print("  Api error while parsing basic request." + str(e))
-        return jsonify(success=False)
 
     # Handle the succeeded event
     if _event and _event["type"] == "add_schedule":

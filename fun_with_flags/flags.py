@@ -1,8 +1,9 @@
 from datetime import datetime
 
-from flask import Blueprint, current_app, flash, g, render_template, request, session
+from flask import (Blueprint, current_app, flash, g, redirect, render_template,
+                   request, session)
 
-from . import api, db, decs, helperf
+from . import api, db, decs, helperf, scheduler
 
 bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 
@@ -124,7 +125,7 @@ def details():
                             g.played_matches.append(_my_match)
 
     if request.method == "POST":
-        if request.form["user_added_friendly"]:
+        if "user_added_friendly" in request.form:
             _user_added_friendly = request.form["user_added_friendly"]
 
             _xml_data = api.ht_get_data(
@@ -179,7 +180,7 @@ def details():
 
                 flash("Not one of your past friendly-matches.")
 
-        elif request.form["match_type"]:
+        elif "match_type" in request.form:
             weekend_friendly = request.form["match_type"]
 
             sl = helperf.get_series_list(
@@ -193,5 +194,26 @@ def details():
             session["weekend_friendly"] = weekend_friendly
             session["place"] = g.place
             session["challengeable"] = challengeable
+
+        # WIP
+        elif "schedule_friendly" in request.form:
+            _object = {
+                "type": "add_schedule",
+                "data": {
+                    "object": {
+                        "team_id": "628463",
+                        "fernet_token": "gAAAAABlygaJ4tbvKINkWXGrsCp-LmEtSKKgnafTutvlN1Z8cq5e169eP6rYzeNRRcau7Hc5QlDvSdO6_f7G4pL2Jfpuv7VDNY1GkwPqFHuNZp9Itr-He96uQ22Pq1_b_HJRYsvwfuW9",
+                        "country_id": "127",
+                        "match_place": "0",
+                        "match_rules": "0",
+                        "opponent_type": "supporter",
+                        "search_depth": "3",
+                        "weekend_friendly": "0"
+                        },
+                    },
+                }
+
+            res = scheduler.schedule(_object)
+            flash(str(res))
 
     return render_template("flags/details.html")
