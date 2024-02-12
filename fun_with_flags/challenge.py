@@ -54,7 +54,7 @@ def overview():
                     _place = "away"
 
                 g.db_settings = current_app.config["DB__SETTINGS_DICT"]
-                g.my_document = db.bootstrap_document(g.user_id, g.couch, g.db_settings)
+                g.my_document = db.bootstrap_user_document(g.user_id, g.couch, g.db_settings)
                 g.my_document = db.set_match_history(
                     g.user_id,
                     g.couch,

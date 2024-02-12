@@ -107,8 +107,14 @@ def ht_get_challenges(challenges_xml):
     return challenges
 
 
-def ht_get_data(name, api_url=API_URL, **kwargs):
-    ht_session = oauth_open_session()
+def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
+    if fernet_token == "":
+        try:
+            fernet_token = session["encrypted_access_token"]
+        except Exception as e:
+            print(f"{e}: No Session context and fernet token.")
+
+    ht_session = oauth_open_session(fernet_token)
 
     params = API_PARAMS[name]
     params.update(kwargs)
@@ -203,8 +209,11 @@ def oauth_get_url(scope="manage_challenges"):
     return authorize_url
 
 
-def oauth_open_session():
-    creds = helperf.crypto_string(session["encrypted_access_token"], "decrypt")
+def oauth_open_session(fernet_token=""):
+    try:
+        creds = helperf.crypto_string(fernet_token, "decrypt")
+    except Exception as e:
+        print(f"{e}: Fernet token missing or invalid.")
 
     access_token_key = creds.split(" ", 1)[0]
     access_token_secret = creds.split(" ", 1)[1]

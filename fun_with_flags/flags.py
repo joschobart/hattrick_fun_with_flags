@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from flask import (Blueprint, current_app, flash, g, render_template, request,
-                   session)
+from flask import Blueprint, current_app, flash, g, render_template, request, session
 
 from . import api, db, decs, helperf
 
@@ -35,7 +34,7 @@ def overview():
 @decs.set_unicorn
 # @decs.error_check
 def details():
-    g.challengeable = []
+    challengeable = []
 
     g.flagid = request.args.get("flagid")
 
@@ -156,7 +155,7 @@ def details():
                         if _match_country == g.flagid:
                             flash(f"{_place}-match added.")
                             g.db_settings = current_app.config["DB__SETTINGS_DICT"]
-                            g.my_document = db.bootstrap_document(
+                            g.my_document = db.bootstrap_user_document(
                                 g.user_id, g.couch, g.db_settings
                             )
                             g.my_document = db.set_match_history(
@@ -187,37 +186,12 @@ def details():
                 g.flagid, search_level=int(_league_search_depth)
             )
 
-            ctl = helperf.get_challengeable_teams_list(
-                session["teamid"], g.place, sl, weekend_friendly
+            challengeable = helperf.get_challengeable_teams_list(
+                session["teamid"], g.place, sl, weekend_friendly, _opponent_type
             )
-
-            for team in ctl:
-                _xml = api.ht_get_data("teamdetails", teamID=team, includeFlags="false")
-                _team = api.ht_get_team(_xml)
-
-                if _opponent_type == "all":
-                    if len(g.challengeable) < 25:
-                        _team = (team, _team[team]["team_name"])
-                        g.challengeable.append(_team)
-                    else:
-                        break
-
-                else:
-                    signup_year = _team["user"]["signup_date"].split("-", 1)[0]
-                    actual_year = datetime.now().year
-
-                    if (
-                        _team["user"]["supporter_tier"] != "none"
-                        and int(actual_year) - int(signup_year) > 0
-                    ):
-                        if len(g.challengeable) < 25:
-                            _team = (team, _team[team]["team_name"])
-                            g.challengeable.append(_team)
-                        else:
-                            break
 
             session["weekend_friendly"] = weekend_friendly
             session["place"] = g.place
-            session["challengeable"] = g.challengeable
+            session["challengeable"] = challengeable
 
     return render_template("flags/details.html")

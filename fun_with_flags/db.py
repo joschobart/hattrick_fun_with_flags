@@ -5,7 +5,7 @@ import couchdb
 from flask import g, session
 
 
-def bootstrap_cache_document(_id, _couch, _object):
+def bootstrap_generic_document(_id, _couch, _object, _namespace="payload"):
     # Bootstrap db-document if it doesn't exist
     if _id not in _couch:
         _couch.save({"_id": _id})
@@ -13,12 +13,12 @@ def bootstrap_cache_document(_id, _couch, _object):
     # Instantiate clone of db-document
     db_document = _couch[_id]
 
-    db_document["payload"] = _object
+    db_document[_namespace] = _object
 
     return db_document
 
 
-def bootstrap_document(_userid, _couch, _settings):
+def bootstrap_user_document(_userid, _couch, _settings):
     # Bootstrap db-document if it doesn't exist
     if _userid not in _couch:
         _couch.save({"_id": _userid})
@@ -72,19 +72,13 @@ def bootstrap_document(_userid, _couch, _settings):
 
 
 def get_db(_couch="fwf_db"):
+    couch = couchdb.Server(os.environ["COUCHDB_CONNECTION_STRING"])
 
+    try:
+        couch = couch[_couch]  # existing
 
-    if "couch" not in g or _couch == "fwf_cache":
-        couch = couchdb.Server(os.environ["COUCHDB_CONNECTION_STRING"])
-
-
-        try:
-            couch = couch[_couch]  # existing
-
-
-        except Exception as e:
-            print(f"CouchDB server not available: {e}")
-
+    except Exception as e:
+        print(f"CouchDB server not available: {e}")
 
     return couch
 

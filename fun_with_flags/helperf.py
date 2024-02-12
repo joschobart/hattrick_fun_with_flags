@@ -9,8 +9,10 @@ from pygal import maps, style
 from . import api
 
 
-def compose_flag_matrix(teamid):
-    xml_data = api.ht_get_data("teamdetails", teamID=teamid, includeFlags="true")
+def compose_flag_matrix(teamid, fernet_token=""):
+    xml_data = api.ht_get_data(
+        "teamdetails", fernet_token=fernet_token, teamID=teamid, includeFlags="true"
+    )
 
     my_flags = api.ht_get_flags(xml_data)
     my_missing_flags = api.ht_get_missing_flags(xml_data)
@@ -56,11 +58,10 @@ def compose_flag_matrix(teamid):
 
 def crypto_string(_input, _op="encrypt"):
     output = ""
-
     fernet = Fernet(os.environb[b"FERNET_SECRET"])
 
     if _op == "encrypt":
-        output = fernet.encrypt(_input.encode())
+        output = fernet.encrypt(_input.encode()).decode()
 
     elif _op == "decrypt":
         output = fernet.decrypt(_input).decode()
@@ -68,14 +69,20 @@ def crypto_string(_input, _op="encrypt"):
     return output
 
 
-def get_challengeable_teams_list(_teamid, _place, series_list, weekend_friendly):
+def get_challengeable_teams_list(
+    _teamid, _place, series_list, weekend_friendly, opponent_type, fernet_token=""
+):
     for series in series_list:
-        teams_in_series = api.ht_get_data("teams_in_series", leagueLevelUnitID=series)
+        teams = []
+        teams_in_series = api.ht_get_data(
+            "teams_in_series", fernet_token=fernet_token, leagueLevelUnitID=series
+        )
         teams_in_series = api.ht_get_teams_in_series(teams_in_series)
         teams_in_series = ", ".join(teams_in_series["series_teams"])
 
         challengeable_teams = api.ht_get_data(
             "challengeable_teams",
+            fernet_token=fernet_token,
             teamId=_teamid,
             matchPlace=_place,
             suggestedTeamIds=teams_in_series,
@@ -85,7 +92,36 @@ def get_challengeable_teams_list(_teamid, _place, series_list, weekend_friendly)
         challengeable_teams = api.ht_get_challengeable_teams(challengeable_teams)
 
         for team in challengeable_teams:
-            yield team
+            _xml = api.ht_get_data(
+                "teamdetails",
+                teamID=team,
+                includeFlags="false",
+                fernet_token=fernet_token,
+            )
+            _team = api.ht_get_team(_xml)
+
+            if opponent_type == "all":
+                if len(challengeable_teams) < 25:
+                    _team = (team, _team[team]["team_name"])
+                    teams.append(_team)
+                else:
+                    break
+
+            else:
+                signup_year = _team["user"]["signup_date"].split("-", 1)[0]
+                actual_year = datetime.now().year
+
+                if (
+                    _team["user"]["supporter_tier"] != "none"
+                    and int(actual_year) - int(signup_year) > 0
+                ):
+                    if len(challengeable_teams) < 25:
+                        _team = (team, _team[team]["team_name"])
+                        teams.append(_team)
+                    else:
+                        break
+
+    return teams
 
 
 def get_my_challenges():
@@ -196,10 +232,13 @@ def get_my_teams():
         session["teamid"] = session["teams"][0][0]
 
 
-def get_series_list(flagid, search_level=2):
+def get_series_list(flagid, search_level=2, fernet_token=""):
     def get_series_id(search_string, flagid):
         api_response = api.ht_get_data(
-            "search_series", searchString=search_string, searchLeagueID=flagid
+            "search_series",
+            searchString=search_string,
+            searchLeagueID=flagid,
+            fernet_token=fernet_token,
         )
 
         probe_list.append(api.ht_get_series(api_response)["series_id"])
@@ -219,7 +258,7 @@ def get_series_list(flagid, search_level=2):
     ]
     # fmt: on
 
-    _xml = api.ht_get_data("worlddetails", leagueID=flagid)
+    _xml = api.ht_get_data("worlddetails", leagueID=flagid, fernet_token=fernet_token)
     league_depth = api.ht_get_worlddetails(_xml)
 
     # Here the depth of

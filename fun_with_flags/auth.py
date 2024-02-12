@@ -1,13 +1,5 @@
-from flask import (
-    Blueprint,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Blueprint, flash, g, redirect, render_template, request,
+                   session, url_for)
 
 from . import api, decs, helperf
 
@@ -26,7 +18,7 @@ def authorize():
             access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
 
         except Exception as e:
-            error = f"Pin {g.pin} was not accepted."
+            error = f"{e}: Pin {g.pin} was not accepted."
             flash(error)
 
         else:
@@ -41,8 +33,10 @@ def authorize():
 
 @bp_a.route("/login", methods=("GET", "POST"))
 @decs.choose_team
-@decs.error_check
+#@decs.error_check
 def login():
+    xml_response = api.ht_get_data("teamdetails", includeFlags="false")
+
     try:
         xml_response = api.ht_get_data("teamdetails", includeFlags="false")
 

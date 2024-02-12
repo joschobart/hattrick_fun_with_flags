@@ -69,7 +69,7 @@ def checkout():
         return str(e)
 
     _db_settings = current_app.config["DB__SETTINGS_DICT"]
-    _my_document = db.bootstrap_document(g.user_id, g.couch, _db_settings)
+    _my_document = db.bootstrap_user_document(g.user_id, g.couch, _db_settings)
     _my_document = db.init_stripe_session(g.user_id, g.couch, _stripe_user, _session_token, _checkout_session["id"])
     # Write new session-object to db
     g.couch[g.user_id] = _my_document
@@ -118,10 +118,10 @@ def hook():
             }
 
         try:
-            _cache_document = db.bootstrap_cache_document(_payment_intent["customer"], _couch, _object)
+            _cache_document = db.bootstrap_generic_document(_payment_intent["customer"], _couch, _object)
         except TypeError:
             _payment_intent["customer"] = "1234_dummy"
-            _cache_document = db.bootstrap_cache_document(_payment_intent["customer"], _couch, _object)
+            _cache_document = db.bootstrap_generic_document(_payment_intent["customer"], _couch, _object)
 
         # Write success-object to cache-db
         _couch[_payment_intent["customer"]] = _cache_document
