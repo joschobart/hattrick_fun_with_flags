@@ -23,47 +23,50 @@ def sensor():
             _challengeable = []
             team_id = _key
 
-            opponent_type = _my_document[team_id]["opponent_type"]
-            fernet_token = _my_document[team_id]["fernet_token"]
-            country_id = _my_document[team_id]["country_id"]
-            search_depth = _my_document[team_id]["search_depth"]
-            match_place = _my_document[team_id]["match_place"]
-            match_rules = _my_document[team_id]["match_rules"]
-            weekend_friendly = "0"
-
-            if match_place == "home":
-                match_place = "0"
+            if _my_document[team_id]["fernet_token"] == "":
+                continue
             else:
-                match_place = "1"
+                opponent_type = _my_document[team_id]["opponent_type"]
+                fernet_token = _my_document[team_id]["fernet_token"]
+                country_id = _my_document[team_id]["country_id"]
+                search_depth = _my_document[team_id]["search_depth"]
+                match_place = _my_document[team_id]["match_place"]
+                match_rules = _my_document[team_id]["match_rules"]
+                weekend_friendly = "0"
 
-            if match_rules == "normal":
-                match_rules = "0"
-            else:
-                match_rules = "1"
+                if match_place == "home":
+                    match_place = "0"
+                else:
+                    match_place = "1"
 
-            series_list = helperf.get_series_list(
-                country_id, search_level=int(search_depth), fernet_token=fernet_token
-            )
+                if match_rules == "normal":
+                    match_rules = "0"
+                else:
+                    match_rules = "1"
 
-            _challengeable = helperf.get_challengeable_teams_list(
-                team_id,
-                match_place,
-                series_list,
-                weekend_friendly,
-                opponent_type,
-                fernet_token=fernet_token,
-            )
+                series_list = helperf.get_series_list(
+                    country_id, search_level=int(search_depth), fernet_token=fernet_token
+                )
+
+                _challengeable = helperf.get_challengeable_teams_list(
+                    team_id,
+                    match_place,
+                    series_list,
+                    weekend_friendly,
+                    opponent_type,
+                    fernet_token=fernet_token,
+                )
 
 
 
-            # WIP : challenge logic is still missing here
+                # WIP : challenge logic is still missing here
 
 
 
-            # Finally delete fernet-token from DB 
-            # to mark a successful transaction.
-            _my_document[team_id]["fernet_token"] = ""
-            _couch[_my_doc_name] = _my_document
+                # Finally delete fernet-token from DB 
+                # to mark a successful transaction.
+                _my_document[team_id]["fernet_token"] = ""
+                _couch[_my_doc_name] = _my_document
 
             print(f"challengeable teams: {_challengeable}")
 
