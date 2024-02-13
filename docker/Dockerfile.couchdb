@@ -11,6 +11,6 @@ ENV PW $pw
 
 COPY docker/local.ini /opt/couchdb/etc/local.ini
 
-RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Etc/GMT+1 /etc/localtime
+RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
 RUN echo "dbadmin = $PW" >> /opt/couchdb/etc/local.ini

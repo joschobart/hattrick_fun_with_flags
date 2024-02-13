@@ -36,7 +36,7 @@ def create_app(test_config=None):
     # regular job for challenging friendlies
     sched.add_job(scheduler.sensor, "cron", day_of_week="thu", hour=8, minute=20)
     # for testing
-    sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=22, minute=30)
+    sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=22, minute=37)
     
 
     sched.start()

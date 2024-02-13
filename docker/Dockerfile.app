@@ -16,11 +16,6 @@
 FROM python:3.12.1-bookworm
 
 
-COPY . /opt/app
-
-WORKDIR /opt/app
-
-
 ARG ck
 ARG cs
 ARG fls
@@ -46,9 +41,16 @@ ENV STRIPE_PRICE_ITEM_TEST $stpit
 ENV STRIPE_PRICE_ITEM $stpi
 
 
+COPY . /opt/app
+
+WORKDIR /opt/app
+
+
+RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
+
 RUN python -m pip install --upgrade pip && pip install .
 
-
 EXPOSE 8000
+
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "--threads", "4", "-t", "120", "fun_with_flags:create_app()"]
