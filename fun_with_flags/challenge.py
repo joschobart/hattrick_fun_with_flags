@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import (Blueprint, current_app, flash, g, redirect, render_template,
                    request, session, url_for)
 
-from . import api, db, decs, helperf
+from . import api, db, decs, helperf, scheduler
 
 bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 
@@ -18,6 +18,28 @@ def overview():
     _is_agreed = None
     now = datetime.now()
     g.challenges = helperf.get_my_challenges()
+
+    _scheduler_object = {
+        "type": "get_schedule",
+        "data": {
+            "object": {
+                "team_id": session["teamid"],
+                },
+            },
+        }
+    _scheduler_response = scheduler.schedule(_scheduler_object)
+
+    if isinstance(_scheduler_response, dict):
+        flash("You have a scheduled challenge request.")
+        g.scheduler_country_id = _scheduler_response["country_id"]
+        g.scheduler_run_date = _scheduler_response["date"]
+        g.schedule = _scheduler_response
+        _xml = api.ht_get_data("worlddetails", countryID="", leagueID=g.scheduler_country_id)
+        _worlddetails = api.ht_get_worlddetails(_xml)
+        g.scheduler_country_name = _worlddetails["league_name"]
+        g.scheduler_date = datetime.strptime(g.schedule["date"], "%Y%m%d")
+        g.scheduler_date = g.scheduler_date.strftime("%d-%B-%Y")
+
 
     if len(g.challenges) != 0:
         for _challenge in g.challenges:
@@ -53,9 +75,9 @@ def overview():
                 else:
                     _place = "away"
 
-                g.db_settings = current_app.config["DB__SETTINGS_DICT"]
-                g.my_document = db.bootstrap_user_document(g.user_id, g.couch, g.db_settings)
-                g.my_document = db.set_match_history(
+                _db_settings = current_app.config["DB__SETTINGS_DICT"]
+                _my_document = db.bootstrap_user_document(g.user_id, g.couch, _db_settings)
+                _my_document = db.set_match_history(
                     g.user_id,
                     g.couch,
                     _worlddetails["league_id"],
@@ -63,7 +85,7 @@ def overview():
                     _place,
                 )
                 # Write changements on the history-object to db
-                g.couch[g.user_id] = g.my_document
+                g.couch[g.user_id] = _my_document
 
         if _is_agreed is None:
             message = "Teams are challenged but not agreed yet."

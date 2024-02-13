@@ -2,11 +2,9 @@
 
 from datetime import datetime, timedelta
 
-from flask import Blueprint, jsonify
+from flask import g, jsonify
 
-from . import db, decs, helperf
-
-bp_s = Blueprint("scheduler", __name__, url_prefix="/scheduler")
+from . import db, helperf
 
 
 def sensor():
@@ -24,23 +22,48 @@ def sensor():
         if _key != "_id" and _key != "_rev":
             _challengeable = []
             team_id = _key
+
             opponent_type = _my_document[team_id]["opponent_type"]
             fernet_token = _my_document[team_id]["fernet_token"]
             country_id = _my_document[team_id]["country_id"]
             search_depth = _my_document[team_id]["search_depth"]
+            match_place = _my_document[team_id]["match_place"]
+            match_rules = _my_document[team_id]["match_rules"]
+            weekend_friendly = "0"
 
-            sl = helperf.get_series_list(
+            if match_place == "home":
+                match_place = "0"
+            else:
+                match_place = "1"
+
+            if match_rules == "normal":
+                match_rules = "0"
+            else:
+                match_rules = "1"
+
+            series_list = helperf.get_series_list(
                 country_id, search_level=int(search_depth), fernet_token=fernet_token
             )
 
             _challengeable = helperf.get_challengeable_teams_list(
                 team_id,
-                _my_document[_key]["match_place"],
-                sl,
-                "0",
+                match_place,
+                series_list,
+                weekend_friendly,
                 opponent_type,
                 fernet_token=fernet_token,
             )
+
+
+
+            # WIP : challenge logic is still missing here
+
+
+
+            # Finally delete fernet-token from DB 
+            # to mark a successful transaction.
+            _my_document[team_id]["fernet_token"] = ""
+            _couch[_my_doc_name] = _my_document
 
             print(f"challengeable teams: {_challengeable}")
 
@@ -84,5 +107,38 @@ def schedule(_event):
 
         # Write success-object to cache-db
         _couch[_scheduler_date] = _cache_document
+
+    if _event and _event["type"] == "get_schedule":
+        _team_id = _event["data"]["object"]["team_id"]
+
+        if _scheduler_date in _couch:
+            _my_document = _couch[_scheduler_date]
+
+            if _team_id in _my_document:
+                if _my_document[_team_id]["fernet_token"] != "":
+                    g.scheduler_return_object = {
+                        "date": _scheduler_date,
+                        "timestamp": _my_document[_team_id]["timestamp"],
+                        "country_id": _my_document[_team_id]["country_id"],
+                        "match_place": _my_document[_team_id]["match_place"],
+                        "match_rules": _my_document[_team_id]["match_rules"],
+                        "opponent_type": _my_document[_team_id]["opponent_type"],
+                        "search_depth": _my_document[_team_id]["search_depth"],
+                        "weekend_friendly": _my_document[_team_id]["weekend_friendly"],
+                        }
+
+                    return g.scheduler_return_object
+
+    if _event and _event["type"] == "delete_schedule":
+        _team_id = _event["data"]["object"]["team_id"]
+        _fernet_token = _event["data"]["object"]["fernet_token"]
+
+        if _scheduler_date in _couch:
+            _my_document = _couch[_scheduler_date]
+
+            if _team_id in _my_document:
+                if _my_document[_team_id]["fernet_token"] == _fernet_token:
+                    _my_document.pop(_team_id)
+                    _couch[_scheduler_date] = _my_document
 
     return jsonify(success=True)

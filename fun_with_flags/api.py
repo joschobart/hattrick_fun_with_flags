@@ -1,15 +1,7 @@
 from flask import session
-from ht_libs import (
-    do_challenge,
-    do_hattrick_request,
-    get_flags,
-    get_matchdetails,
-    get_matches,
-    get_series,
-    get_teamdetails,
-    get_trainer_avatar,
-    get_worlddetails,
-)
+from ht_libs import (do_challenge, do_hattrick_request, get_flags,
+                     get_matchdetails, get_matches, get_series,
+                     get_teamdetails, get_trainer_avatar, get_worlddetails)
 
 from . import helperf
 
@@ -46,7 +38,7 @@ API_PARAMS = {
         "version": "1.6",
         "actionType": "challengeable",
         "teamId": "",  # id of team to manage
-        "matchType": "1",  # 0 = normal, 1 = cup-rules
+        "matchType": "",  # 0 = normal, 1 = cup-rules
         "matchPlace": "",  # 0 = home, 1 = away
         "suggestedTeamIds": "",  # CSV list of TeamIds
         "isWeekendFriendly": "",  # 0 = normal, 1 = weekend

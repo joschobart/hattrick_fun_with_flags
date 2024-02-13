@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from flask import (Blueprint, current_app, flash, g, redirect, render_template,
-                   request, session)
+from flask import (Blueprint, current_app, flash, g, render_template, request,
+                   session)
 
 from . import api, db, decs, helperf, scheduler
 
@@ -76,25 +76,43 @@ def details():
                 g.missing_flag = False
             break
 
+    _scheduler_object = {
+        "type": "get_schedule",
+        "data": {
+            "object": {
+                "team_id": session["teamid"],
+                },
+            },
+        }
+    _scheduler_response = scheduler.schedule(_scheduler_object)
+    if isinstance(_scheduler_response, dict):
+        g.schedule = _scheduler_response
+        _xml = api.ht_get_data("worlddetails", countryID="", leagueID=g.schedule["country_id"])
+        _worlddetails = api.ht_get_worlddetails(_xml)
+        g.scheduler_country_name = _worlddetails["league_name"]
+
     if g.user_id in g.couch:
         _my_document = g.couch[g.user_id]
 
-        if g.missing_flag:
-            # Set opponent_type for match and league_search_depth
-            # from config and overwrite if custom config is available in db.
-            _db_settings = current_app.config["DB__SETTINGS_DICT"]
-            _opponent_type = _db_settings["defaults"]["settings"]["friendly"][
-                "opponent_type"
-            ]
-            _league_search_depth = _db_settings["defaults"]["settings"]["friendly"][
+        # Set opponent_type for match and league_search_depth
+        # from config and overwrite if custom config is available in db.
+        _db_settings = current_app.config["DB__SETTINGS_DICT"]
+        _opponent_type = _db_settings["defaults"]["settings"]["friendly"][
+            "opponent_type"
+        ]
+        _league_search_depth = _db_settings["defaults"]["settings"]["friendly"][
+            "league_search_depth"
+        ]
+        _match_rules = _db_settings["defaults"]["settings"]["friendly"][
+            "match_rules"
+        ]
+
+        if "settings" in _my_document:
+            _opponent_type = _my_document["settings"]["friendly"]["opponent_type"]
+            _match_rules = _my_document["settings"]["friendly"]["match_rules"]
+            _league_search_depth = _my_document["settings"]["friendly"][
                 "league_search_depth"
             ]
-
-            if "settings" in _my_document:
-                _opponent_type = _my_document["settings"]["friendly"]["opponent_type"]
-                _league_search_depth = _my_document["settings"]["friendly"][
-                    "league_search_depth"
-                ]
 
         if "history" in _my_document:
             g.played_matches = []
@@ -195,25 +213,38 @@ def details():
             session["place"] = g.place
             session["challengeable"] = challengeable
 
-        # WIP
         elif "schedule_friendly" in request.form:
             _object = {
                 "type": "add_schedule",
                 "data": {
                     "object": {
-                        "team_id": "628463",
-                        "fernet_token": "gAAAAABlygaJ4tbvKINkWXGrsCp-LmEtSKKgnafTutvlN1Z8cq5e169eP6rYzeNRRcau7Hc5QlDvSdO6_f7G4pL2Jfpuv7VDNY1GkwPqFHuNZp9Itr-He96uQ22Pq1_b_HJRYsvwfuW9",
-                        "country_id": "127",
-                        "match_place": "0",
-                        "match_rules": "0",
-                        "opponent_type": "supporter",
-                        "search_depth": "3",
+                        "team_id": session["teamid"],
+                        "fernet_token": session["encrypted_access_token"],
+                        "country_id": g.flagid,
+                        "match_place": g.place,
+                        "match_rules": _match_rules,
+                        "opponent_type": _opponent_type,
+                        "search_depth": _league_search_depth,
                         "weekend_friendly": "0"
                         },
                     },
                 }
 
-            res = scheduler.schedule(_object)
-            flash(str(res))
+            scheduler.schedule(_object)
+            flash("Schedule for challenge is booked. You find it under 'Challenges'.")
+
+        elif "delete_schedule" in request.form:
+            _object = {
+                "type": "delete_schedule",
+                "data": {
+                    "object": {
+                        "team_id": session["teamid"],
+                        "fernet_token": session["encrypted_access_token"],
+                        },
+                    },
+                }
+
+            scheduler.schedule(_object)
+            flash("Schedule for challenge is deleted successfully.")
 
     return render_template("flags/details.html")

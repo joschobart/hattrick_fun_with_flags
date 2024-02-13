@@ -36,7 +36,7 @@ def create_app(test_config=None):
     # regular job for challenging friendlies
     sched.add_job(scheduler.sensor, "cron", day_of_week="thu", hour=8, minute=20)
     # for testing
-    # sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=20, minute=16)
+    # sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=18, minute=30)
     
 
     sched.start()
@@ -60,7 +60,6 @@ def create_app(test_config=None):
     app.register_blueprint(auth.bp_a)
     app.register_blueprint(challenge.bp_c)
     app.register_blueprint(flags.bp_f)
-    app.register_blueprint(scheduler.bp_s)
     app.register_blueprint(settings.bp_s)
     app.register_blueprint(stripe.bp_s)
 

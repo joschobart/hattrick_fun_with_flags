@@ -83,11 +83,46 @@
       {% else %}
 
         {% if session["unicorn"] %}
-          <h4>&#129412; Schedule '{{ g.place }}'-match &#129412;</h4>
-          <p>As a member of the unicorn-club you are even entitled to schedule a match in advance! Let's do it!;)</p>
-          <form method="post" style="width: 200px;">
-            <input type="submit" value="Schedule Friendly" name="schedule_friendly" id="schedule_friendly">
-          </form>
+          {% if g.schedule is defined %}
+            {% if g.schedule["country_id"] == g.flagid %}
+              {% if g.schedule["match_place"] == g.place %}
+                <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
+                <p>
+                  There is a schedule for a '{{ g.place }}'-match for {{ g.nation }} already.
+                  You can resubmit it in case you have changed the attributes in settings. This will update the schedule.
+                  Also you can delete it completely to start over from scratch or to cancel it from here.
+                </p>
+                <form method="post" style="width: 200px;">
+                  <input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">
+                  <input type="submit" value="Delete Schedule" name="delete_schedule" id="delete_schedule">                 
+                </form>
+              {% else %}
+                <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
+                <p>
+                  There is a schedule for a '{{ g.schedule["match_place"] }}'-match for {{ g.nation }} already.
+                  You can resubmit it as a '{{ g.place }}'-match instead. This will overwrite the schedule.
+                </p>
+                <form method="post" style="width: 200px;">
+                  <input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">
+                </form>
+              {% endif %}
+            {% else %}
+              <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
+                <p>
+                  There is a schedule for a '{{ g.schedule["match_place"] }}'-match for {{ g.scheduler_country_name }} already.
+                  You can resubmit it as a '{{ g.place }}'-match for {{ g.nation }} instead. This will overwrite the existing schedule.
+                </p>
+                <form method="post" style="width: 200px;">
+                  <input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">
+                </form>
+            {% endif %}
+          {% else %}
+            <h4>&#129412; Schedule '{{ g.place }}'-match &#129412;</h4>
+            <p>As a member of the unicorn-club you are even entitled to schedule a match in advance! Let's do it!;)</p>
+            <form method="post" style="width: 200px;">
+              <input type="submit" value="Add Schedule" name="schedule_friendly" id="schedule_friendly">
+            </form>
+          {% endif %}          
         {% else %}
           <p><b>...but:</b> first you will have to wait until Thursday after 7 a.m. UTC (or even longer if still in cup)!:/</p>
         {% endif %}

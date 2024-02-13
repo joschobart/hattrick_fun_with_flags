@@ -10,6 +10,88 @@
   {% if session['teamid'] is defined and session['teamid'] == session['teams'][t][0] %}
       <h3>{{ session['teams'][t][1] }}</h3>
 
+    {% if g.schedule is defined %}
+      <h4>&#129412; Scheduled Challenge &#129412;</h4>
+         <table class="challenges_table">
+          <tr>
+            <th>
+              <strong>
+                <p>
+                  Next scheduler-run:
+                </p>
+              </strong>
+            </th>
+            <td>
+              <strong>
+                <p>
+                  {{ g.scheduler_date }} (approx. 7 a.m. UTC)
+                </p>
+              </strong>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <strong>
+                <p>
+                  Opponent country:
+                </p>
+              </strong>
+            </th>
+            <td>
+              <strong>
+                <p>
+                  <a href="{{url_for('flags.overview')}}">
+                    {{ g.scheduler_country_name }} ({{ g.schedule["country_id"] }})
+                  </a>
+                </p>
+              </strong>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <strong>
+                <p>
+                  Match place:
+                </p>
+              </strong>
+            </th>
+            <td>
+              <strong>
+                <p>
+                  <a href="{{url_for('flags.details')}}?flagid={{ g.schedule['country_id'] }}&place={{ g.schedule['match_place'] }}">
+                    {{ g.schedule["match_place"] }}
+                  </a>
+                </p>
+              </strong>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <strong>
+                <p>
+                  Match attributes:
+                </p>
+              </strong>
+            </th>
+            <td>
+              <strong>
+                <p>
+                  <a href="{{url_for('settings.settings')}}">
+                      Opponents for this match are {{ g.schedule["opponent_type"] }}. It's played with {{ g.schedule["match_rules"] }} rules.
+                    
+                    {% if g.schedule["weekend_friendly"] == "1" %}
+                      It is a weekend-friendly and search-depth is {{ g.schedule["search_depth"] }}.
+                    
+                    {% else %}
+                      It is not a weekend-friendly and search-depth is {{ g.schedule["search_depth"] }}.
+                    {% endif %}
+                  </a>
+                </p>
+              </strong>
+            </td>
+          </tr>
+        </table>
+    {% endif %}
 
     {% if g.challenges is defined and g.challenges != [] %}
       <h4>Challenges ({{  g.challenges | length }})</h4>
