@@ -2,8 +2,6 @@
 
 from datetime import datetime, timedelta
 
-from flask import g, jsonify
-
 from . import db, helperf
 
 
@@ -21,49 +19,73 @@ def sensor():
     for _key in _my_document.keys():
         if _key != "_id" and _key != "_rev":
             _challengeable = []
-            team_id = _key
+            _team_id = _key
 
-            if _my_document[team_id]["fernet_token"] == "":
+            if _my_document[_team_id]["fernet_token"] == "":
                 continue
+
             else:
-                opponent_type = _my_document[team_id]["opponent_type"]
-                fernet_token = _my_document[team_id]["fernet_token"]
-                country_id = _my_document[team_id]["country_id"]
-                search_depth = _my_document[team_id]["search_depth"]
-                match_place = _my_document[team_id]["match_place"]
-                match_rules = _my_document[team_id]["match_rules"]
-                weekend_friendly = "0"
+                _opponent_type = _my_document[_team_id]["opponent_type"]
+                _fernet_token = _my_document[_team_id]["fernet_token"]
+                _country_id = _my_document[_team_id]["country_id"]
+                _search_depth = _my_document[_team_id]["search_depth"]
+                _match_place = _my_document[_team_id]["match_place"]
+                _match_rules = _my_document[_team_id]["match_rules"]
+                _weekend_friendly = "0"
 
-                if match_place == "home":
-                    match_place = "0"
+                if _match_place == "home":
+                    _mp = "0"
                 else:
-                    match_place = "1"
+                    _mp = "1"
 
-                if match_rules == "normal":
-                    match_rules = "0"
+                if _match_rules == "normal":
+                    _mr = "0"
                 else:
-                    match_rules = "1"
+                    _mr = "1"
 
-                series_list = helperf.get_series_list(
-                    country_id,
-                    search_level=int(search_depth),
-                    fernet_token=fernet_token,
+                _series_list = helperf.get_series_list(
+                    _country_id,
+                    search_level=int(_search_depth),
+                    fernet_token=_fernet_token,
                 )
 
                 _challengeable = helperf.get_challengeable_teams_list(
-                    team_id,
-                    match_place,
-                    series_list,
-                    weekend_friendly,
-                    opponent_type,
-                    fernet_token=fernet_token,
+                    _team_id,
+                    _mp,
+                    _series_list,
+                    _weekend_friendly,
+                    _opponent_type,
+                    fernet_token=_fernet_token,
                 )
 
-                # WIP : challenge logic is still missing here
+                if len(_challengeable) == 0:
+                    # re-schedule in a week if no opponent present
+                    _object = {
+                        "type": "add_schedule",
+                        "data": {
+                            "object": {
+                                "team_id": _team_id,
+                                "fernet_token": _fernet_token,
+                                "country_id": _country_id,
+                                "match_place": _match_place,
+                                "match_rules": _match_rules,
+                                "opponent_type": _opponent_type,
+                                "search_depth": _search_depth,
+                                "weekend_friendly": _weekend_friendly,
+                            },
+                        },
+                    }
+                    schedule(_object)
+                
+                else:
+                    # challenge opponents if present
+
+                    # WIP : challenge logic is still missing here
+                    print(_mr)
 
                 # Finally delete fernet-token from DB
-                # to mark a successful transaction.
-                _my_document[team_id]["fernet_token"] = ""
+                # to mark a done transaction.
+                _my_document[_team_id]["fernet_token"] = ""
                 _couch[_my_doc_name] = _my_document
 
             print(f"challengeable teams: {_challengeable}")
@@ -104,7 +126,7 @@ def schedule(_event):
             )
         except Exception as e:
             print("  Api error while calling couchdb." + str(e))
-            return jsonify(success=False)
+            return e
 
         # Write success-object to cache-db
         _couch[_scheduler_date] = _cache_document
@@ -117,7 +139,7 @@ def schedule(_event):
 
             if _team_id in _my_document:
                 if _my_document[_team_id]["fernet_token"] != "":
-                    g.scheduler_return_object = {
+                    _scheduler_return_object = {
                         "date": _scheduler_date,
                         "timestamp": _my_document[_team_id]["timestamp"],
                         "country_id": _my_document[_team_id]["country_id"],
@@ -128,7 +150,7 @@ def schedule(_event):
                         "weekend_friendly": _my_document[_team_id]["weekend_friendly"],
                     }
 
-                    return g.scheduler_return_object
+                    return _scheduler_return_object
 
     if _event and _event["type"] == "delete_schedule":
         _team_id = _event["data"]["object"]["team_id"]
@@ -142,4 +164,4 @@ def schedule(_event):
                     _my_document.pop(_team_id)
                     _couch[_scheduler_date] = _my_document
 
-    return jsonify(success=True)
+    return
