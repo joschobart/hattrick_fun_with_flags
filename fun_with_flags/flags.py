@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from flask import (Blueprint, current_app, flash, g, render_template, request,
                    session)
 
@@ -81,66 +79,24 @@ def details():
         "data": {
             "object": {
                 "team_id": session["teamid"],
-                },
             },
-        }
+        },
+    }
     _scheduler_response = scheduler.schedule(_scheduler_object)
     if isinstance(_scheduler_response, dict):
         g.schedule = _scheduler_response
-        _xml = api.ht_get_data("worlddetails", countryID="", leagueID=g.schedule["country_id"])
+        _xml = api.ht_get_data(
+            "worlddetails", countryID="", leagueID=g.schedule["country_id"]
+        )
         _worlddetails = api.ht_get_worlddetails(_xml)
         g.scheduler_country_name = _worlddetails["league_name"]
 
     if g.user_id in g.couch:
-        _my_document = g.couch[g.user_id]
-
-        # Set opponent_type for match and league_search_depth
-        # from config and overwrite if custom config is available in db.
-        _db_settings = current_app.config["DB__SETTINGS_DICT"]
-        _opponent_type = _db_settings["defaults"]["settings"]["friendly"][
-            "opponent_type"
-        ]
-        _league_search_depth = _db_settings["defaults"]["settings"]["friendly"][
-            "league_search_depth"
-        ]
-        _match_rules = _db_settings["defaults"]["settings"]["friendly"][
-            "match_rules"
-        ]
-
-        if "settings" in _my_document:
-            _opponent_type = _my_document["settings"]["friendly"]["opponent_type"]
-            _match_rules = _my_document["settings"]["friendly"]["match_rules"]
-            _league_search_depth = _my_document["settings"]["friendly"][
-                "league_search_depth"
-            ]
-
-        if "history" in _my_document:
-            g.played_matches = []
-
-            if session["teamid"] in _my_document["history"]["friendlies"]:
-                if (
-                    g.flagid
-                    in _my_document["history"]["friendlies"][session["teamid"]][
-                        "opponent_country"
-                    ]
-                ):
-                    for _match in _my_document["history"]["friendlies"][
-                        session["teamid"]
-                    ]["opponent_country"][g.flagid][g.place]:
-                        _xml_data = api.ht_get_data(
-                            "matchdetails", teamID=session["teamid"], matchID=_match
-                        )
-                        _my_match = api.ht_get_matchdetails(_xml_data)
-                        _match_date = datetime.strptime(
-                            _my_match["match_date"], "%Y-%m-%d %H:%M:%S"
-                        )
-                        _timedelta = datetime.now() - _match_date
-                        _timedelta = _timedelta.total_seconds()
-
-                        if _timedelta > 0:
-                            _match_date = _match_date.strftime("%d.%m.%Y %H:%M")
-                            _my_match["match_date"] = _match_date
-                            g.played_matches.append(_my_match)
+        _settings = current_app.config["DB__SETTINGS_DICT"]
+        _opponent_type, _match_rules, _league_search_depth = db.get_settings(
+            g.couch, g.user_id, _settings
+        )
+        g.played_matches = db.get_match_history(g.user_id, g.couch, g.flagid, g.place)
 
     if request.method == "POST":
         if "user_added_friendly" in request.form:
@@ -225,10 +181,10 @@ def details():
                         "match_rules": _match_rules,
                         "opponent_type": _opponent_type,
                         "search_depth": _league_search_depth,
-                        "weekend_friendly": "0"
-                        },
+                        "weekend_friendly": "0",
                     },
-                }
+                },
+            }
 
             scheduler.schedule(_object)
             flash("Schedule for challenge is booked. You find it under 'Challenges'.")
@@ -240,9 +196,9 @@ def details():
                     "object": {
                         "team_id": session["teamid"],
                         "fernet_token": session["encrypted_access_token"],
-                        },
                     },
-                }
+                },
+            }
 
             scheduler.schedule(_object)
             flash("Schedule for challenge is deleted successfully.")

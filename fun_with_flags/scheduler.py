@@ -45,7 +45,9 @@ def sensor():
                     match_rules = "1"
 
                 series_list = helperf.get_series_list(
-                    country_id, search_level=int(search_depth), fernet_token=fernet_token
+                    country_id,
+                    search_level=int(search_depth),
+                    fernet_token=fernet_token,
                 )
 
                 _challengeable = helperf.get_challengeable_teams_list(
@@ -57,13 +59,9 @@ def sensor():
                     fernet_token=fernet_token,
                 )
 
-
-
                 # WIP : challenge logic is still missing here
 
-
-
-                # Finally delete fernet-token from DB 
+                # Finally delete fernet-token from DB
                 # to mark a successful transaction.
                 _my_document[team_id]["fernet_token"] = ""
                 _couch[_my_doc_name] = _my_document
@@ -128,7 +126,7 @@ def schedule(_event):
                         "opponent_type": _my_document[_team_id]["opponent_type"],
                         "search_depth": _my_document[_team_id]["search_depth"],
                         "weekend_friendly": _my_document[_team_id]["weekend_friendly"],
-                        }
+                    }
 
                     return g.scheduler_return_object
 

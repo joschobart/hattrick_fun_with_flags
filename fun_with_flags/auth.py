@@ -33,7 +33,7 @@ def authorize():
 
 @bp_a.route("/login", methods=("GET", "POST"))
 @decs.choose_team
-#@decs.error_check
+# @decs.error_check
 def login():
     xml_response = api.ht_get_data("teamdetails", includeFlags="false")
 

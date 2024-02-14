@@ -4,6 +4,8 @@ from datetime import datetime
 import couchdb
 from flask import g, session
 
+from . import api
+
 
 def bootstrap_generic_document(_id, _couch, _object, _namespace="payload"):
     # Bootstrap db-document if it doesn't exist
@@ -108,6 +110,61 @@ def get_unicorn_state():
         is_unicorn = False
 
     return is_unicorn
+
+
+def get_settings(_userid, _couch, _settings):
+    _my_document = g.couch[g.user_id]
+
+    # Set opponent_type for match and league_search_depth
+    # from config and overwrite if custom config is available in db.
+
+    _opponent_type = _settings["defaults"]["settings"]["friendly"]["opponent_type"]
+    _league_search_depth = _settings["defaults"]["settings"]["friendly"][
+        "league_search_depth"
+    ]
+    _match_rules = _settings["defaults"]["settings"]["friendly"]["match_rules"]
+
+    if "settings" in _my_document:
+        _opponent_type = _my_document["settings"]["friendly"]["opponent_type"]
+        _match_rules = _my_document["settings"]["friendly"]["match_rules"]
+        _league_search_depth = _my_document["settings"]["friendly"][
+            "league_search_depth"
+        ]
+    return (_opponent_type, _match_rules, _league_search_depth)
+
+
+def get_match_history(_userid, _couch, _flagid, _place):
+    _my_document = _couch[_userid]
+
+    if "history" in _my_document:
+        _played_matches = []
+
+        if session["teamid"] in _my_document["history"]["friendlies"]:
+            if (
+                _flagid
+                in _my_document["history"]["friendlies"][session["teamid"]][
+                    "opponent_country"
+                ]
+            ):
+                for _match in _my_document["history"]["friendlies"][session["teamid"]][
+                    "opponent_country"
+                ][_flagid][_place]:
+                    _xml_data = api.ht_get_data(
+                        "matchdetails", teamID=session["teamid"], matchID=_match
+                    )
+                    _my_match = api.ht_get_matchdetails(_xml_data)
+                    _match_date = datetime.strptime(
+                        _my_match["match_date"], "%Y-%m-%d %H:%M:%S"
+                    )
+                    _timedelta = datetime.now() - _match_date
+                    _timedelta = _timedelta.total_seconds()
+
+                    if _timedelta > 0:
+                        _match_date = _match_date.strftime("%d.%m.%Y %H:%M")
+                        _my_match["match_date"] = _match_date
+                        _played_matches.append(_my_match)
+
+        return _played_matches
 
 
 def set_match_history(_userid, _couch, _league_id, _match_id, _place):
