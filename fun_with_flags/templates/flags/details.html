@@ -88,7 +88,7 @@
               {% if g.schedule["match_place"] == g.place %}
                 <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
                 <p>
-                  There is a schedule for a '{{ g.place }}'-match for {{ g.nation }} already.
+                  There is a schedule for a(n) '{{ g.place }}'-match for {{ g.nation }} already.
                   You can resubmit it in case you have changed the attributes in settings. This will update the schedule.
                   Also you can delete it completely to start over from scratch or to cancel it from here.
                 </p>
@@ -99,8 +99,8 @@
               {% else %}
                 <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
                 <p>
-                  There is a schedule for a '{{ g.schedule["match_place"] }}'-match for {{ g.nation }} already.
-                  You can resubmit it as a '{{ g.place }}'-match instead. This will overwrite the schedule.
+                  There is a schedule for a(n) '{{ g.schedule["match_place"] }}'-match for {{ g.nation }} already.
+                  You can resubmit it as a(n) '{{ g.place }}'-match instead. This will overwrite the schedule.
                 </p>
                 <form method="post" style="width: 200px;">
                   <input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">
@@ -109,8 +109,8 @@
             {% else %}
               <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
                 <p>
-                  There is a schedule for a '{{ g.schedule["match_place"] }}'-match for {{ g.scheduler_country_name }} already.
-                  You can resubmit it as a '{{ g.place }}'-match for {{ g.nation }} instead. This will overwrite the existing schedule.
+                  There is a schedule for a(n) '{{ g.schedule["match_place"] }}'-match for {{ g.scheduler_country_name }} already.
+                  You can resubmit it as a(n) '{{ g.place }}'-match for {{ g.nation }} instead. This will overwrite the existing schedule.
                 </p>
                 <form method="post" style="width: 200px;">
                   <input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">
