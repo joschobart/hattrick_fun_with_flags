@@ -57,26 +57,30 @@
           <td style="text-align: justify; vertical-align: top;">
             {% if session['unicorn'] %}
               You are a hattrick fun with flags unicorn for the rest of your life, ueeeh! <b>Thank you!</b>
-              Perks of being a fwf unicorn are getting infinte love from my side and of course: having access
+              Perks of being a fwf unicorn are getting infinite love from the folks behind FwF and of course: having access
               to the scheduler to be first in line to automatically get the max. of 25 challenges on thursdays
-              in the morning. Also there might be additional features in the future that require being a unicorn or they
+              in the morning hopefully. Also there might be additional features in the future that require being a fwf unicorn or they
               might be available for you first. TL:DR: Quite good spent money here!;) If you are a fan of FwF, please spread
-              the word and: your additional donation is always welcome and helps me going. <b>Have fun!</b>:)
+              the word and: your additional donation is always welcome and helps to get going. <b>Have fun!</b>:)
             {% else %}
-              Hattrick fun with flags is - and will be - fully available free of charge (and ad-free btw) with all main functions available
-              forever. (or at least as long as I have the energy, time and funding to get it going) However: I'm always thankful for support.
-              To setup a web-service is not only time-consuming, it implies also costs. That's one of the reasons I've created the
-              unicorn club for you. It's the easiest way to give props for FwF, if you like it. <b>For only 5€ you can get a life-time subscription
-              to the unicorn club!</b> <b>Perks</b> of being in the club are <b>much love</b> for your support, the <b>unicorn-badge</b>
+              Hattrick fun with flags is - and will be - fully available free of charge (and ad-free) with all main functions available
+              forever. (or at least as long as we have the energy, time and funding to get it going) However: We are always thankful for support.
+              To setup a web-service is not only time-consuming, it implies also costs. That's one of the reasons We've created the
+              unicorn club for you. It's the easiest way to give props to FwF, if you like it. <b>For only 5€ you can get a life-time subscription</b>
+              to the unicorn club! <b>Perks</b> of being in the club are <b>much love</b> for your support, the <b>unicorn-badge</b>
               next to your name and access to the <b>scheduler</b> that allows you to even challenge in advance, i.e. challenges to teams for the wanted
-              flag are sent automatically on thursday morning right at 8 a.m. utc. This will leverage your advantage even more and also reduce your burden
+              flag are sent automatically on thursday morning right after 8 a.m. utc. This will leverage your advantage even more and also reduce your burden
               as you can pre-define the flag of next week when ever you want in the week before. In the future there might be other nice-to-have extras included.
-              <b>Thank you for considering becoming a supporter and for using fun with flags!</b>
+              <b>Thank you for considering becoming a fwf unicorn and, generally speaking, for using fun with flags!</b>
             {% endif %}
           </td>
         </tr>
       </table>
-      <p><input type="submit" id="checkout-button" value="Enter the Club!"></p>
+      {% if session['unicorn'] %}
+        <p><input type="submit" id="checkout-button" value="Make a donation"></p>
+      {% else %}
+        <p><input type="submit" id="checkout-button" value="Enter the Club!"></p>
+      {% endif %}
       </form>
 
 {% endblock %}
