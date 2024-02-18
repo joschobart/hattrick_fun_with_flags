@@ -56,10 +56,10 @@ EXPOSE 8000
 
 
 # CMD ["gunicorn", "-b", "0.0.0.0:8000", \
-                 "--threads", "4", \
-                 "-t", "120", \
-                 "--log-level", "info", \
-                 "fun_with_flags:create_app()"]
+#                 "--threads", "4", \
+#                 "-t", "120", \
+#                 "--log-level", "info", \
+#                 "fun_with_flags:create_app()"]
 
 
 # //!\\ for debugging only //!\\
