@@ -164,6 +164,11 @@ def get_match_history(_userid, _couch, _flagid, _place):
                         _my_match["match_date"] = _match_date
                         _played_matches.append(_my_match)
 
+                    if _my_match["match_type"] == "4" or _my_match["match_type"] == "8":
+                        _my_match["match_type"] = "Friendly (normal rules)"
+                    elif _my_match["match_type"] == "5" or _my_match["match_type"] == "9":
+                        _my_match["match_type"] = "Friendly (cup rules)"
+
             _played_matches = sorted(
                 _played_matches, key=lambda x: x["match_id"], reverse=True
             )
