@@ -49,17 +49,18 @@ WORKDIR /opt/app
 
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
-RUN touch gunicorn.log && chmod 666 gunicorn.log
-
 RUN python -m pip install --upgrade pip && pip install .
 
 
 EXPOSE 8000
 
 
-CMD ["gunicorn", "-b", "0.0.0.0:8000", \
+# CMD ["gunicorn", "-b", "0.0.0.0:8000", \
                  "--threads", "4", \
                  "-t", "120", \
                  "--log-level", "info", \
-                 "--error-logfile", "gunicorn.log", \
                  "fun_with_flags:create_app()"]
+
+
+# //!\\ for debugging only //!\\
+CMD ["flask", "--app", "fun_with_flags", "run", "--debug"]
