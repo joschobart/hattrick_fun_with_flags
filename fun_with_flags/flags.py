@@ -31,7 +31,7 @@ def overview():
 @decs.choose_team
 @decs.use_db
 @decs.set_unicorn
-# @decs.error_check
+@decs.error_check
 def details():
     challengeable = []
 

@@ -14,7 +14,7 @@ bp_s = Blueprint("settings", __name__, url_prefix="/settings")
 @decs.choose_team
 @decs.use_db
 @decs.set_unicorn
-# @decs.error_check
+@decs.error_check
 def settings():
     g.db_settings = current_app.config["DB__SETTINGS_DICT"]
     g.my_document = db.bootstrap_user_document(g.user_id, g.couch, g.db_settings)

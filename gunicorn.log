@@ -1,7 +1,0 @@
-[2024-02-18 16:09:31 +0100] [12390] [INFO] Starting gunicorn 21.2.0
-[2024-02-18 16:09:31 +0100] [12390] [INFO] Listening at: http://127.0.0.1:8000 (12390)
-[2024-02-18 16:09:31 +0100] [12390] [INFO] Using worker: gthread
-[2024-02-18 16:09:31 +0100] [12391] [INFO] Booting worker with pid: 12391
-[2024-02-18 16:11:08 +0100] [12390] [INFO] Handling signal: int
-[2024-02-18 16:11:08 +0100] [12391] [INFO] Worker exiting (pid: 12391)
-[2024-02-18 16:11:08 +0100] [12390] [INFO] Shutting down: Master

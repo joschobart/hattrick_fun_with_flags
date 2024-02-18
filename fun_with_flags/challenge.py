@@ -13,7 +13,7 @@ bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 @decs.choose_team
 @decs.use_db
 @decs.set_unicorn
-# @decs.error_check
+@decs.error_check
 def overview():
     _is_agreed = None
     now = datetime.now()
@@ -108,7 +108,7 @@ def overview():
 @decs.choose_team
 @decs.use_db
 @decs.set_unicorn
-# @decs.error_check
+@decs.error_check
 def challenge():
     if request.method == "POST":
         _challengeable = session["challengeable"]

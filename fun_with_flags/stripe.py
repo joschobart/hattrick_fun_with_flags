@@ -18,7 +18,7 @@ bp_s = Blueprint("stripe", __name__, url_prefix="/stripe")
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-#@decs.error_check
+@decs.error_check
 def checkout():
     _session_token = binascii.hexlify(os.urandom(20)).decode()
     _url = request.args.get("url")
@@ -134,7 +134,7 @@ def hook():
 @decs.choose_team
 @decs.use_db
 @decs.set_unicorn
-#@decs.error_check
+@decs.error_check
 def success():
     _session_token = request.args.get("token")
     
@@ -153,7 +153,7 @@ def success():
 @decs.choose_team
 @decs.use_db
 @decs.set_unicorn
-#@decs.error_check
+@decs.error_check
 def fail():
     _session_token = request.args.get("token")
 
