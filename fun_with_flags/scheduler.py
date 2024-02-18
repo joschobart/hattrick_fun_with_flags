@@ -1,12 +1,12 @@
-""" View to customize schedules for FwF. """
+""" Functions to handle schedules for FwF. """
 
 from datetime import datetime, timedelta
 
-from . import db, helperf
+from . import api, db, helperf
 
 
 def sensor():
-    """Function for regular job execution."""
+    """Function for scheduler-job execution."""
 
     utc = datetime.utcnow()
 
@@ -79,21 +79,29 @@ def sensor():
                 
                 else:
                     # challenge opponents if present
+                    _challenged = api.ht_do_challenge(
+                        _team_id,
+                        _challengeable,
+                        _mr,
+                        _mp,
+                        _weekend_friendly,
+                        fernet_token=_fernet_token
+                        )
 
-                    # WIP : challenge logic is still missing here
-                    print(_mr)
+                    print(f"challengeable teams: {_challengeable}")
+                    print(f"Challenged response: {_challenged}")
 
                 # Finally delete fernet-token from DB
                 # to mark a done transaction.
                 _my_document[_team_id]["fernet_token"] = ""
                 _couch[_my_doc_name] = _my_document
 
-            print(f"challengeable teams: {_challengeable}")
-
     return
 
 
 def schedule(_event):
+    """Function to life-cycle schedules in db."""
+
     # find date of next schedule run (thursday, 8utc)
     utc = datetime.utcnow()
     t = timedelta((7 + 3 - utc.weekday()) % 7)

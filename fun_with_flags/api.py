@@ -1,15 +1,7 @@
 from flask import session
-from ht_libs import (
-    do_challenge,
-    do_hattrick_request,
-    get_flags,
-    get_matchdetails,
-    get_matches,
-    get_series,
-    get_teamdetails,
-    get_trainer_avatar,
-    get_worlddetails,
-)
+from ht_libs import (do_challenge, do_hattrick_request, get_flags,
+                     get_matchdetails, get_matches, get_series,
+                     get_teamdetails, get_trainer_avatar, get_worlddetails)
 
 from . import helperf
 
@@ -79,9 +71,20 @@ API_PARAMS = {
 
 
 def ht_do_challenge(
-    teamid, challengeable_teams_list, match_type, match_place, weekend_friendly
+    teamid,
+    challengeable_teams_list,
+    match_type,
+    match_place,
+    weekend_friendly,
+    fernet_token="",
 ):
-    ht_session = oauth_open_session()
+    if fernet_token == "":
+        try:
+            fernet_token = session["encrypted_access_token"]
+        except Exception as e:
+            print(f"{e}: No Session context and fernet token.")
+
+    ht_session = oauth_open_session(fernet_token)
 
     my_challenges = do_challenge.do_challenge(
         teamid,
