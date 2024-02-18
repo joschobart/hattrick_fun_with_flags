@@ -1,3 +1,6 @@
+""" FwF authentication views """
+
+
 from flask import (Blueprint, flash, g, redirect, render_template, request,
                    session, url_for)
 
@@ -8,6 +11,7 @@ bp_a = Blueprint("auth", __name__, url_prefix="/auth")
 
 @bp_a.route("/authorize", methods=("GET", "POST"))
 def authorize():
+    """ """
     if request.method == "GET":
         g.authorize_url = api.oauth_get_url()
 
@@ -35,6 +39,7 @@ def authorize():
 @decs.choose_team
 @decs.error_check
 def login():
+    """ """
     xml_response = api.ht_get_data("teamdetails", includeFlags="false")
 
     try:
@@ -55,6 +60,7 @@ def login():
 @bp_a.route("/logout")
 @decs.error_check
 def logout():
+    """ """
     g.username = session.get("username", None)
     error = None
 

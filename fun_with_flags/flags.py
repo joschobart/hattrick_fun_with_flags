@@ -1,3 +1,6 @@
+""" FwF app related core views """
+
+
 from flask import (Blueprint, current_app, flash, g, render_template, request,
                    session)
 
@@ -12,6 +15,7 @@ bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 @decs.set_unicorn
 @decs.error_check
 def overview():
+    """ """
     (
         g.l_home,
         g.l_away,
@@ -33,6 +37,7 @@ def overview():
 @decs.set_unicorn
 @decs.error_check
 def details():
+    """ """
     challengeable = []
 
     g.flagid = request.args.get("flagid")

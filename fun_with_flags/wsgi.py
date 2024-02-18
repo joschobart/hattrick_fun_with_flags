@@ -1,4 +1,5 @@
-# from hattrick-fwf import create_app
+""" WSGI instantiation """
+
 
 from . import create_app
 

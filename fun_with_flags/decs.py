@@ -1,3 +1,6 @@
+""" FwF decorator functions """
+
+
 import functools
 
 from flask import current_app, flash, g, redirect, request, session, url_for
@@ -6,8 +9,18 @@ from . import api, db, helperf
 
 
 def choose_team(view):
+    """
+
+    :param view: 
+
+    """
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        """
+
+        :param **kwargs: 
+
+        """
         if "username" in session:
             helperf.get_my_teams()
 
@@ -34,8 +47,18 @@ def choose_team(view):
 
 
 def error_check(view):
+    """
+
+    :param view: 
+
+    """
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        """
+
+        :param **kwargs: 
+
+        """
         error = None
 
         try:
@@ -52,8 +75,18 @@ def error_check(view):
 
 
 def login_required(view):
+    """
+
+    :param view: 
+
+    """
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        """
+
+        :param **kwargs: 
+
+        """
         username = session.get("username")
 
         if not username:
@@ -65,8 +98,18 @@ def login_required(view):
 
 
 def use_db(view):
+    """
+
+    :param view: 
+
+    """
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        """
+
+        :param **kwargs: 
+
+        """
         if "my_team" in session:
             g.couch = db.get_db()
             g.user_id = session["my_team"]["user"]["user_id"]
@@ -77,8 +120,18 @@ def use_db(view):
 
 
 def set_unicorn(view):
+    """
+
+    :param view: 
+
+    """
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        """
+
+        :param **kwargs: 
+
+        """
         if "username" in session:
             is_unicorn = db.get_unicorn_state()
             if is_unicorn:

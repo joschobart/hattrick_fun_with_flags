@@ -1,3 +1,6 @@
+""" FwF Flask-Factory """
+
+
 import atexit
 import logging
 import os
@@ -10,7 +13,12 @@ from . import auth, challenge, decs, flags, scheduler, settings, stripe
 
 
 def create_app(test_config=None):
-    # create and configure the app
+    """Creates and configures the app.
+
+    :param test_config: Default value = None)
+
+    """
+
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY=os.environ["FLASK_SECRET"],
@@ -49,10 +57,14 @@ def create_app(test_config=None):
     @decs.choose_team
     @decs.set_unicorn
     def index():
+        """index.html view."""
+        
         return render_template("index.html")
 
     @app.route("/favicon.ico")
     def fav():
+        """Hack to make favicon available."""
+
         return send_from_directory(app.static_folder, "favicon.ico")
 
     app.register_blueprint(auth.bp_a)

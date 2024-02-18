@@ -1,3 +1,6 @@
+""" hattrick-libs api-client functions """
+
+
 from flask import session
 from ht_libs import (do_challenge, do_hattrick_request, get_flags,
                      get_matchdetails, get_matches, get_series,
@@ -78,6 +81,18 @@ def ht_do_challenge(
     weekend_friendly,
     fernet_token="",
 ):
+    """Function to challenge opponents.
+
+    :param teamid: ht-teamid of challenging team.
+    :param challengeable_teams_list: dict with teams to challenge.
+    :param match_type: normal=0, cup=1.
+    :param match_place: home=0, away=1.
+    :param weekend_friendly: false=0, true=1.
+    :param fernet_token: Default value = "")
+    :returns: list of challenged teams.
+    :raises keyError: missing creds.
+
+    """
     if fernet_token == "":
         try:
             fernet_token = session["encrypted_access_token"]
@@ -99,18 +114,36 @@ def ht_do_challenge(
 
 
 def ht_get_challengeable_teams(challengeable_xml):
+    """
+
+    :param challengeable_xml: 
+
+    """
     challengeable_teams_list = do_challenge.is_challengeable(challengeable_xml)
 
     return challengeable_teams_list
 
 
 def ht_get_challenges(challenges_xml):
+    """
+
+    :param challenges_xml: 
+
+    """
     challenges = do_challenge.get_challenges(challenges_xml)
 
     return challenges
 
 
 def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
+    """
+
+    :param name: param api_url:  (Default value = API_URL)
+    :param fernet_token: Default value = "")
+    :param api_url: Default value = API_URL)
+    :param **kwargs: 
+
+    """
     if fernet_token == "":
         try:
             fernet_token = session["encrypted_access_token"]
@@ -136,60 +169,110 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
 
 
 def ht_get_flags(teamdetails_xml):
+    """
+
+    :param teamdetails_xml: 
+
+    """
     flags_dict = get_flags.get_my_flags(teamdetails_xml)
 
     return flags_dict
 
 
 def ht_get_matchdetails(matchdetails_xml):
+    """
+
+    :param matchdetails_xml: 
+
+    """
     matchdetails = get_matchdetails.get_matchdetails(matchdetails_xml)
 
     return matchdetails
 
 
 def ht_get_matches(matches_xml):
+    """
+
+    :param matches_xml: 
+
+    """
     matches = get_matches.get_matches(matches_xml)
 
     return matches
 
 
 def ht_get_missing_flags(teamdetails_xml):
+    """
+
+    :param teamdetails_xml: 
+
+    """
     missing_flags_dict = get_flags.get_missing_flags(teamdetails_xml)
 
     return missing_flags_dict
 
 
 def ht_get_series(search_series_xml):
+    """
+
+    :param search_series_xml: 
+
+    """
     series_dict = get_series.get_my_series(search_series_xml)
 
     return series_dict
 
 
 def ht_get_team(xml_data):
+    """
+
+    :param xml_data: 
+
+    """
     team_dict = get_teamdetails.get_teamdetails(xml_data)
 
     return team_dict
 
 
 def ht_get_teams_in_series(teams_in_series_xml):
+    """
+
+    :param teams_in_series_xml: 
+
+    """
     teams_dict = get_series.get_teams_in_series(teams_in_series_xml)
 
     return teams_dict
 
 
 def ht_get_trainer_avatar(staffavatars_xml):
+    """
+
+    :param staffavatars_xml: 
+
+    """
     trainer_avatar = get_trainer_avatar.get_trainer_avatar(staffavatars_xml)
 
     return trainer_avatar
 
 
 def ht_get_worlddetails(worlddetails_xml):
+    """
+
+    :param worlddetails_xml: 
+
+    """
     worlddetails_dict = get_worlddetails.get_my_worlddetails(worlddetails_xml)
 
     return worlddetails_dict
 
 
 def oauth_get_access_token(pin):
+    """
+
+    :param pin: 
+
+    """
     access_token_key, access_token_secret = do_hattrick_request.get_access_token(
         session["request_token"],
         session["request_token_secret"],
@@ -203,6 +286,11 @@ def oauth_get_access_token(pin):
 
 
 def oauth_get_url(scope="manage_challenges"):
+    """
+
+    :param scope: Default value = "manage_challenges")
+
+    """
     (
         session["request_token"],
         session["request_token_secret"],
@@ -213,6 +301,11 @@ def oauth_get_url(scope="manage_challenges"):
 
 
 def oauth_open_session(fernet_token=""):
+    """
+
+    :param fernet_token: Default value = "")
+
+    """
     try:
         creds = helperf.crypto_string(fernet_token, "decrypt")
     except Exception as e:

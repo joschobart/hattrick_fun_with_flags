@@ -1,3 +1,6 @@
+""" couch-db related functions """
+
+
 import os
 from datetime import datetime
 
@@ -8,6 +11,14 @@ from . import api
 
 
 def bootstrap_generic_document(_id, _couch, _object, _namespace="payload"):
+    """
+
+    :param _id: 
+    :param _couch: 
+    :param _object: 
+    :param _namespace:  (Default value = "payload")
+
+    """
     # Bootstrap db-document if it doesn't exist
     if _id not in _couch:
         _couch.save({"_id": _id})
@@ -21,6 +32,13 @@ def bootstrap_generic_document(_id, _couch, _object, _namespace="payload"):
 
 
 def bootstrap_user_document(_userid, _couch, _settings):
+    """
+
+    :param _userid: 
+    :param _couch: 
+    :param _settings: 
+
+    """
     # Bootstrap db-document if it doesn't exist
     if _userid not in _couch:
         _couch.save({"_id": _userid})
@@ -74,6 +92,11 @@ def bootstrap_user_document(_userid, _couch, _settings):
 
 
 def get_db(_couch="fwf_db"):
+    """
+
+    :param _couch:  (Default value = "fwf_db")
+
+    """
     couch = couchdb.Server(os.environ["COUCHDB_CONNECTION_STRING"])
 
     try:
@@ -86,6 +109,7 @@ def get_db(_couch="fwf_db"):
 
 
 def get_unicorn_state():
+    """ """
     if "user_id" in g:
         _userid = g.user_id
         _couch = g.couch
@@ -113,6 +137,13 @@ def get_unicorn_state():
 
 
 def get_settings(_userid, _couch, _settings):
+    """
+
+    :param _userid: 
+    :param _couch: 
+    :param _settings: 
+
+    """
     _my_document = g.couch[g.user_id]
 
     # Set opponent_type for match and league_search_depth
@@ -134,6 +165,14 @@ def get_settings(_userid, _couch, _settings):
 
 
 def get_match_history(_userid, _couch, _flagid, _place):
+    """
+
+    :param _userid: 
+    :param _couch: 
+    :param _flagid: 
+    :param _place: 
+
+    """
     _my_document = _couch[_userid]
 
     if "history" in _my_document:
@@ -177,6 +216,15 @@ def get_match_history(_userid, _couch, _flagid, _place):
 
 
 def set_match_history(_userid, _couch, _league_id, _match_id, _place):
+    """
+
+    :param _userid: 
+    :param _couch: 
+    :param _league_id: 
+    :param _match_id: 
+    :param _place: 
+
+    """
     # Instantiate clone of db-document
     my_document = _couch[_userid]
 
@@ -214,6 +262,15 @@ def set_match_history(_userid, _couch, _league_id, _match_id, _place):
 
 
 def init_stripe_session(_userid, _couch, _stripe_user, _session_id, _transaction_id):
+    """
+
+    :param _userid: 
+    :param _couch: 
+    :param _stripe_user: 
+    :param _session_id: 
+    :param _transaction_id: 
+
+    """
     # Instantiate clone of db-document
     my_document = _couch[_userid]
 
@@ -232,6 +289,13 @@ def init_stripe_session(_userid, _couch, _stripe_user, _session_id, _transaction
 
 
 def close_stripe_session(_userid, _couch, _session_id):
+    """
+
+    :param _userid: 
+    :param _couch: 
+    :param _session_id: 
+
+    """
     # Instantiate clone of db-document
     my_document = _couch[_userid]
 

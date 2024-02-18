@@ -1,3 +1,6 @@
+""" FwF challenge related views """
+
+
 from datetime import datetime
 
 from flask import (Blueprint, current_app, flash, g, redirect, render_template,
@@ -15,6 +18,7 @@ bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 @decs.set_unicorn
 @decs.error_check
 def overview():
+    """ """
     _is_agreed = None
     now = datetime.now()
     g.challenges = helperf.get_my_challenges()
@@ -110,6 +114,7 @@ def overview():
 @decs.set_unicorn
 @decs.error_check
 def challenge():
+    """ """
     if request.method == "POST":
         _challengeable = session["challengeable"]
         _challengeable = list(zip(*_challengeable))[0]

@@ -1,4 +1,5 @@
-""" Functions to handle schedules for FwF. """
+""" FwF-scheduler related functions """
+
 
 from datetime import datetime, timedelta
 
@@ -102,7 +103,11 @@ def sensor():
 
 
 def schedule(_event):
-    """Function to life-cycle schedules in db."""
+    """Function to life-cycle schedules in db.
+
+    :param _event: 
+
+    """
 
     # find date of next schedule run (thursday, 8utc)
     utc = datetime.utcnow()

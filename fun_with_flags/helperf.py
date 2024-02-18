@@ -1,3 +1,6 @@
+""" various helper-functions """
+
+
 import os
 from datetime import datetime
 from random import randrange
@@ -10,6 +13,12 @@ from . import api
 
 
 def compose_flag_matrix(teamid, fernet_token=""):
+    """
+
+    :param teamid: 
+    :param fernet_token:  (Default value = "")
+
+    """
     xml_data = api.ht_get_data(
         "teamdetails", fernet_token=fernet_token, teamID=teamid, includeFlags="true"
     )
@@ -57,6 +66,12 @@ def compose_flag_matrix(teamid, fernet_token=""):
 
 
 def crypto_string(_input, _op="encrypt"):
+    """
+
+    :param _input: 
+    :param _op:  (Default value = "encrypt")
+
+    """
     output = ""
     fernet = Fernet(os.environb[b"FERNET_SECRET"])
 
@@ -72,6 +87,16 @@ def crypto_string(_input, _op="encrypt"):
 def get_challengeable_teams_list(
     _teamid, _place, series_list, weekend_friendly, opponent_type, fernet_token=""
 ):
+    """
+
+    :param _teamid: 
+    :param _place: 
+    :param series_list: 
+    :param weekend_friendly: 
+    :param opponent_type: 
+    :param fernet_token:  (Default value = "")
+
+    """
     for series in series_list:
         teams = []
         teams_in_series = api.ht_get_data(
@@ -125,6 +150,7 @@ def get_challengeable_teams_list(
 
 
 def get_my_challenges():
+    """ """
     now = datetime.now()
     utc = datetime.utcnow()
     challenges = []
@@ -211,6 +237,7 @@ def get_my_challenges():
 
 
 def get_my_teams():
+    """ """
     teams = []
 
     for _entry in list(session["my_team"]):
@@ -233,7 +260,20 @@ def get_my_teams():
 
 
 def get_series_list(flagid, search_level=2, fernet_token=""):
+    """
+
+    :param flagid: 
+    :param search_level:  (Default value = 2)
+    :param fernet_token:  (Default value = "")
+
+    """
     def get_series_id(search_string, flagid):
+        """
+
+        :param search_string: 
+        :param flagid: 
+
+        """
         api_response = api.ht_get_data(
             "search_series",
             searchString=search_string,
@@ -291,6 +331,11 @@ def get_series_list(flagid, search_level=2, fernet_token=""):
 
 
 def random_quotes(_quotes):
+    """
+
+    :param _quotes: 
+
+    """
     for _key in _quotes.keys():
         random_quote_index = randrange(0, len(_quotes[_key]))
 
@@ -303,6 +348,12 @@ def random_quotes(_quotes):
 
 
 def render_worldmap(my_flags, teamid):
+    """
+
+    :param my_flags: 
+    :param teamid: 
+
+    """
     map_flags_home = []
     map_flags_away = []
     map_flags_both = []

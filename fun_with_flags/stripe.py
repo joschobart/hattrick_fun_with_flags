@@ -20,6 +20,7 @@ bp_s = Blueprint("stripe", __name__, url_prefix="/stripe")
 @decs.use_db
 @decs.error_check
 def checkout():
+    """ """
     _session_token = binascii.hexlify(os.urandom(20)).decode()
     _url = request.args.get("url")
     _protocol = request.args.get("protocol")
@@ -79,6 +80,7 @@ def checkout():
 
 @bp_s.route('/hook', methods=["POST"])
 def hook():
+    """ """
     stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET"]
     webhook_secret = os.environ["STRIPE_WEBHOOK_SECRET"]
     # stripe.api_key = os.environ["STRIPE_ENDPOINT_SECRET_TEST"]
@@ -136,6 +138,7 @@ def hook():
 @decs.set_unicorn
 @decs.error_check
 def success():
+    """ """
     _session_token = request.args.get("token")
     
     _my_document = db.close_stripe_session(g.user_id, g.couch, _session_token)
@@ -155,6 +158,7 @@ def success():
 @decs.set_unicorn
 @decs.error_check
 def fail():
+    """ """
     _session_token = request.args.get("token")
 
     _my_document = db.close_stripe_session(g.user_id, g.couch, _session_token)
