@@ -52,7 +52,7 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 RUN python -m pip install --upgrade pip && pip install .
 
 
-EXPOSE 5000
+EXPOSE 8000
 
 
 # CMD ["gunicorn", "-b", "0.0.0.0:8000", \
@@ -63,4 +63,4 @@ EXPOSE 5000
 
 
 # //!\\ for debugging only //!\\
-CMD ["flask", "--app", "fun_with_flags", "run", "--debug"]
+CMD ["flask", "--app", "fun_with_flags", "run", "--debug", "--port", "8000"]
