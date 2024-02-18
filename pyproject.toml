@@ -16,7 +16,7 @@ dependencies = [
     "stripe>=8.1.0",
 ]
 readme = "README.rst"
-requires-python = ">= 3.8"
+requires-python = ">= 3.12"
 
 [build-system]
 requires = ["hatchling"]

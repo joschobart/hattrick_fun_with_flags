@@ -2,6 +2,8 @@
 
 from datetime import datetime, timedelta
 
+from flask import flash
+
 from . import db, helperf
 
 
@@ -128,8 +130,8 @@ def schedule(_event):
             print("  Api error while calling couchdb." + str(e))
             return e
 
-        print(_scheduler_date)
-        print(_cache_document, type(_cache_document))
+        flash(type(_scheduler_date))
+        flash(_cache_document, type(_cache_document))
 
         # Write success-object to cache-db
         _couch[_scheduler_date] = _cache_document
