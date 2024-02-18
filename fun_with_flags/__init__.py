@@ -34,9 +34,9 @@ def create_app(test_config=None):
     # setup scheduler
     sched = BackgroundScheduler(daemon=True)
     # regular job for challenging friendlies
-    sched.add_job(scheduler.sensor, "cron", day_of_week="thu", hour=8, minute=20)
+    sched.add_job(scheduler.sensor, "cron", day_of_week="thu", hour=8, minute=15)
     # for testing
-    sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=20, minute=35)
+    # sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=20, minute=35)
     sched.start()
     atexit.register(lambda: sched.shutdown(wait=False))
 

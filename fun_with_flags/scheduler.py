@@ -78,7 +78,9 @@ def sensor():
                     schedule(_object)
                 
                 else:
-                    # challenge opponents if present
+                    # challenge opponents if len(_challengeable) > 0
+                    _challengeable = list(zip(*_challengeable))[0]
+
                     _challenged = api.ht_do_challenge(
                         _team_id,
                         _challengeable,
