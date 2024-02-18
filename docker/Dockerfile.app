@@ -52,7 +52,7 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 RUN python -m pip install --upgrade pip && pip install .
 
 
-EXPOSE 8000
+EXPOSE 5000
 
 
 # CMD ["gunicorn", "-b", "0.0.0.0:8000", \
