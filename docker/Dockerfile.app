@@ -55,12 +55,10 @@ RUN python -m pip install --upgrade pip && pip install .
 EXPOSE 8000
 
 
-# CMD ["gunicorn", "-b", "0.0.0.0:8000", \
-#                 "--threads", "4", \
-#                 "-t", "120", \
-#                 "--log-level", "info", \
-#                 "fun_with_flags:create_app()"]
-
-
-# //!\\ for debugging only //!\\
-CMD ["flask", "--app", "fun_with_flags", "run", "--debug", "--port", "8000"]
+CMD ["gunicorn", "-b", "0.0.0.0:8000", \
+                "--threads", "4", \
+                "-t", "120", \
+                "--log-level", "info", \
+                "--access-logfile" "-", \
+                "--error-logfile" "-", \
+                "fun_with_flags:create_app()"]
