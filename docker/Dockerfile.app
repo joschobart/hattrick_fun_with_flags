@@ -59,5 +59,5 @@ CMD ["gunicorn", "-b", "0.0.0.0:8000", \
                  "-t", "120", \
                  "--capture-output", \
                  "--log-level", "debug", \
-                 "--error-logfile", "/var/log/gunicorn.error.log", \
+                 "--error-logfile", "gunicorn.error.log", \
                  "fun_with_flags:create_app()"]
