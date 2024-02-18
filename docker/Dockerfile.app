@@ -49,7 +49,10 @@ WORKDIR /opt/app
 
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
+RUN touch gunicorn.error.log && chmod 666 gunicorn.error.log
+
 RUN python -m pip install --upgrade pip && pip install .
+
 
 EXPOSE 8000
 
