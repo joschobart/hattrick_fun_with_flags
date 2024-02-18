@@ -164,6 +164,10 @@ def get_match_history(_userid, _couch, _flagid, _place):
                         _my_match["match_date"] = _match_date
                         _played_matches.append(_my_match)
 
+            _played_matches = sorted(
+                _played_matches, key=lambda x: x["match_id"], reverse=True
+            )
+
         return _played_matches
 
 
