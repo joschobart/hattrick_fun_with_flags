@@ -37,8 +37,6 @@ def create_app(test_config=None):
     sched.add_job(scheduler.sensor, "cron", day_of_week="thu", hour=8, minute=20)
     # for testing
     # sched.add_job(scheduler.sensor, 'cron', day_of_week='mon-sun', hour=21, minute=22)
-    
-
     sched.start()
     atexit.register(lambda: sched.shutdown(wait=False))
 
