@@ -54,5 +54,10 @@ RUN python -m pip install --upgrade pip && pip install .
 EXPOSE 8000
 
 
-CMD ["gunicorn", "-b", "0.0.0.0:8000", "--threads", "4", "-t", "120", "--capture-output", "--log-level", "debug", "fun_with_flags:create_app()"]
-# CMD ["gunicorn", "-b", "0.0.0.0:8000", "--threads", "4", "-t", "120", "fun_with_flags:create_app()"]
+CMD ["gunicorn", "-b", "0.0.0.0:8000", \
+                 "--threads", "4", \
+                 "-t", "120", \
+                 "--capture-output", \
+                 "--log-level", "debug", \
+                 "--error-logfile", "/var/log/gunicorn.error.log", \
+                 "fun_with_flags:create_app()"]
