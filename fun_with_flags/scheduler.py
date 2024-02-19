@@ -77,7 +77,7 @@ def sensor():
                         },
                     }
                     schedule(_object)
-                
+
                 else:
                     # challenge opponents if len(_challengeable) > 0
                     _challengeable = list(zip(*_challengeable))[0]
@@ -88,8 +88,8 @@ def sensor():
                         _mr,
                         _mp,
                         _weekend_friendly,
-                        fernet_token=_fernet_token
-                        )
+                        fernet_token=_fernet_token,
+                    )
 
                     print(f"challengeable teams: {_challengeable}")
                     print(f"Challenged response: {_challenged}")
@@ -105,7 +105,7 @@ def sensor():
 def schedule(_event):
     """Function to life-cycle schedules in db.
 
-    :param _event: 
+    :param _event:
 
     """
 
@@ -175,7 +175,14 @@ def schedule(_event):
             _my_document = _couch[_scheduler_date]
 
             if _team_id in _my_document:
-                if _my_document[_team_id]["fernet_token"] == _fernet_token:
+                _request_fernet_decrypted = helperf.crypto_string(
+                    _fernet_token, _op="decrypt"
+                )
+                _db_fernet_decrypted = helperf.crypto_string(
+                    _my_document[_team_id]["fernet_token"], _op="decrypt"
+                )
+
+                if _request_fernet_decrypted == _db_fernet_decrypted:
                     _my_document.pop(_team_id)
                     _couch[_scheduler_date] = _my_document
 

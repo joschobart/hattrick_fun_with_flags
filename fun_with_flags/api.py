@@ -116,7 +116,7 @@ def ht_do_challenge(
 def ht_get_challengeable_teams(challengeable_xml):
     """
 
-    :param challengeable_xml: 
+    :param challengeable_xml:
 
     """
     challengeable_teams_list = do_challenge.is_challengeable(challengeable_xml)
@@ -127,7 +127,7 @@ def ht_get_challengeable_teams(challengeable_xml):
 def ht_get_challenges(challenges_xml):
     """
 
-    :param challenges_xml: 
+    :param challenges_xml:
 
     """
     challenges = do_challenge.get_challenges(challenges_xml)
@@ -141,7 +141,7 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
     :param name: param api_url:  (Default value = API_URL)
     :param fernet_token: Default value = "")
     :param api_url: Default value = API_URL)
-    :param **kwargs: 
+    :param **kwargs:
 
     """
     if fernet_token == "":
@@ -171,7 +171,7 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
 def ht_get_flags(teamdetails_xml):
     """
 
-    :param teamdetails_xml: 
+    :param teamdetails_xml:
 
     """
     flags_dict = get_flags.get_my_flags(teamdetails_xml)
@@ -182,7 +182,7 @@ def ht_get_flags(teamdetails_xml):
 def ht_get_matchdetails(matchdetails_xml):
     """
 
-    :param matchdetails_xml: 
+    :param matchdetails_xml:
 
     """
     matchdetails = get_matchdetails.get_matchdetails(matchdetails_xml)
@@ -193,7 +193,7 @@ def ht_get_matchdetails(matchdetails_xml):
 def ht_get_matches(matches_xml):
     """
 
-    :param matches_xml: 
+    :param matches_xml:
 
     """
     matches = get_matches.get_matches(matches_xml)
@@ -204,7 +204,7 @@ def ht_get_matches(matches_xml):
 def ht_get_missing_flags(teamdetails_xml):
     """
 
-    :param teamdetails_xml: 
+    :param teamdetails_xml:
 
     """
     missing_flags_dict = get_flags.get_missing_flags(teamdetails_xml)
@@ -215,7 +215,7 @@ def ht_get_missing_flags(teamdetails_xml):
 def ht_get_series(search_series_xml):
     """
 
-    :param search_series_xml: 
+    :param search_series_xml:
 
     """
     series_dict = get_series.get_my_series(search_series_xml)
@@ -226,7 +226,7 @@ def ht_get_series(search_series_xml):
 def ht_get_team(xml_data):
     """
 
-    :param xml_data: 
+    :param xml_data:
 
     """
     team_dict = get_teamdetails.get_teamdetails(xml_data)
@@ -237,7 +237,7 @@ def ht_get_team(xml_data):
 def ht_get_teams_in_series(teams_in_series_xml):
     """
 
-    :param teams_in_series_xml: 
+    :param teams_in_series_xml:
 
     """
     teams_dict = get_series.get_teams_in_series(teams_in_series_xml)
@@ -248,7 +248,7 @@ def ht_get_teams_in_series(teams_in_series_xml):
 def ht_get_trainer_avatar(staffavatars_xml):
     """
 
-    :param staffavatars_xml: 
+    :param staffavatars_xml:
 
     """
     trainer_avatar = get_trainer_avatar.get_trainer_avatar(staffavatars_xml)
@@ -259,7 +259,7 @@ def ht_get_trainer_avatar(staffavatars_xml):
 def ht_get_worlddetails(worlddetails_xml):
     """
 
-    :param worlddetails_xml: 
+    :param worlddetails_xml:
 
     """
     worlddetails_dict = get_worlddetails.get_my_worlddetails(worlddetails_xml)
@@ -270,7 +270,7 @@ def ht_get_worlddetails(worlddetails_xml):
 def oauth_get_access_token(pin):
     """
 
-    :param pin: 
+    :param pin:
 
     """
     access_token_key, access_token_secret = do_hattrick_request.get_access_token(
