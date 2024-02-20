@@ -5,13 +5,15 @@
   <title>{% block title %}{% endblock %} - Fun with Flags</title>
   <link rel="favicon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="description" content="Officially accredited CHPP-page for managing hattrick.org friendly matches.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 </head>
 
 <body>
 <div id="loader" class="loader"  style="display: none"></div>
 
   <nav class="deg45">
-    <h1><a href="{{url_for('index')}}"><img src="{{ url_for('static', filename='globe.png') }}" alt="Fun with Flags" height="90px"></a></h1>
+    <h1><a href="{{url_for('index')}}"><img src="{{ url_for('static', filename='globe.png') }}" alt="Hattrick Fun with Flags" height="90px"></a></h1>
     <ul>
       <table class="nav_table" border="5px">
         <tr>
