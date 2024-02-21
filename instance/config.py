@@ -1,3 +1,9 @@
+COSTS = {
+    "costs_per_month": 60,
+    "factor_to_euro": 1.0,
+}
+
+
 DB__SETTINGS_DICT = {
     "defaults": {
         "meta": {
