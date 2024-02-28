@@ -3,6 +3,7 @@
 
 import os
 from datetime import datetime
+from time import sleep
 
 import couchdb
 from flask import g, session
@@ -296,7 +297,10 @@ def close_stripe_session(_userid, _couch, _session_id):
     :param _session_id: 
 
     """
-    # Instantiate clone of db-document
+    # sleep 3 secs as stripe sometimes needs time to submit to the webook
+    sleep(3)
+
+    # instantiate clone of db-document
     my_document = _couch[_userid]
 
     _stripe_user = my_document["unicorn"]["stripe"]["stripe_user"]
