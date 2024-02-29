@@ -38,6 +38,9 @@ def overview():
 #@decs.error_check
 def details():
     """ """
+    if "challengeable" in session:
+        session.pop("challengeable", None)
+
     challengeable = []
 
     g.bookable = True
