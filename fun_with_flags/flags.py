@@ -35,10 +35,12 @@ def overview():
 @decs.choose_team
 @decs.use_db
 @decs.set_unicorn
-@decs.error_check
+#@decs.error_check
 def details():
     """ """
     challengeable = []
+
+    g.bookable = True
 
     g.flagid = request.args.get("flagid")
 
@@ -50,7 +52,6 @@ def details():
 
     if gmc:
         g.weekend_bookable = True
-        g.bookable = True
         for challenge in gmc:
             if not challenge[-1]:
                 g.weekend_bookable = False

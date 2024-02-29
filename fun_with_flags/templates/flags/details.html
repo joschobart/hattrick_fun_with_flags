@@ -65,6 +65,8 @@
     {% else %}
         <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
         <hr style="width:100%;text-align:left;margin-left:0">
+
+        <p>{{ g.bookable }}{{ g.weekend_bookable }}</p>
     {% endif %}
 
       {% if g.bookable or g.weekend_bookable %}
