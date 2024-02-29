@@ -115,6 +115,7 @@ def get_challengeable_teams_list(
             isWeekendFriendly=weekend_friendly,
         )
 
+        print(challengeable_teams)
         challengeable_teams = api.ht_get_challengeable_teams(challengeable_teams)
 
         for team in challengeable_teams:
