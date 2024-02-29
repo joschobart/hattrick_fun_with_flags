@@ -97,8 +97,9 @@ def get_challengeable_teams_list(
     :param fernet_token:  (Default value = "")
 
     """
+    teams = []
+
     for series in series_list:
-        teams = []
         teams_in_series = api.ht_get_data(
             "teams_in_series", fernet_token=fernet_token, leagueLevelUnitID=series
         )
@@ -126,7 +127,7 @@ def get_challengeable_teams_list(
             _team = api.ht_get_team(_xml)
 
             if opponent_type == "all":
-                if len(challengeable_teams) < 25:
+                if len(teams) < 25:
                     _team = (team, _team[team]["team_name"])
                     teams.append(_team)
                 else:
@@ -140,7 +141,7 @@ def get_challengeable_teams_list(
                     _team["user"]["supporter_tier"] != "none"
                     and int(actual_year) - int(signup_year) > 0
                 ):
-                    if len(challengeable_teams) < 25:
+                    if len(teams) < 25:
                         _team = (team, _team[team]["team_name"])
                         teams.append(_team)
                     else:
