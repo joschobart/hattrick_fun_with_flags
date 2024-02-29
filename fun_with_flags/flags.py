@@ -53,6 +53,8 @@ def details():
 
     gmc = helperf.get_my_challenges()
 
+    print(gmc)
+
     if gmc:
         g.weekend_bookable = True
         for challenge in gmc:
