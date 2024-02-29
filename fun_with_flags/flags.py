@@ -170,7 +170,6 @@ def details():
             challengeable = helperf.get_challengeable_teams_list(
                 session["teamid"], g.place, sl, weekend_friendly, _opponent_type
             )
-
             session["weekend_friendly"] = weekend_friendly
             session["place"] = g.place
             session["challengeable"] = challengeable

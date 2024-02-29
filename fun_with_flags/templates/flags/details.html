@@ -65,8 +65,6 @@
     {% else %}
         <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
         <hr style="width:100%;text-align:left;margin-left:0">
-
-        <p>{{ g.bookable }}{{ g.weekend_bookable }}</p>
     {% endif %}
 
       {% if g.bookable or g.weekend_bookable %}
@@ -134,15 +132,15 @@
       
       {% endif %}
 
-      {% if g.challengeable | length > 0 %}
+      {% if session["challengeable"] | length > 0 %}
       <hr style="width:100%;text-align:left;margin-left:0">
-      <p>There are <b>{{ g.challengeable | length }}</b> teams challengeable in <b>{{ g.nation }}</b> at the moment with your settings.</p>
+      <p>There are <b>{{ session["challengeable"] | length }}</b> teams challengeable in <b>{{ g.nation }}</b> at the moment with your settings.</p>
       <form method="post">
         <input type="submit" value="Challenge Opponents" name="challenge_opponents" formaction="{{ url_for('challenge.challenge') }}" onclick="loadSpinner()">
       </form>
       <div id='list_0'>
         <div class="list_0">
-          {% for item in g.challengeable %}
+          {% for item in session["challengeable"] %}
             <p><a href="https://hattrick.org/goto.ashx?path=/Club/?TeamID={{ item[0] }}" target="_blank">{{ item[1] }}</a></p>
           {% endfor %}
         </div>
