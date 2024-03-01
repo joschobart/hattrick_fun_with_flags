@@ -140,10 +140,11 @@ def ht_get_challenges(challenges_xml):
 def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
     """Function to return XML documents from hattrick-api.
 
-    :param name: param api_url:  (Default value = API_URL)
-    :param fernet_token: Default value = "")
-    :param api_url: Default value = API_URL)
+    :param name: Name of the requested xml document
+    :param api_url: (Default value = API_URL)
+    :param fernet_token: (Default value = "")
     :param **kwargs:
+    :returns: xml_data: An xml document
     :raises: keyError, typeError
     """
     if fernet_token == "":

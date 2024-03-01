@@ -43,8 +43,8 @@ def overview():
         g.scheduler_run_date = _scheduler_response["date"]
         g.schedule = _scheduler_response
         g.scheduler_country_name = _worlddetails["league_name"]
-        g.scheduler_date = datetime.strptime(g.schedule["date"], "%Y%m%d")
-        g.scheduler_date = g.scheduler_date.strftime("%d-%B-%Y")
+        g.scheduler_date = datetime.strptime(g.schedule["date"], "%Y%m%d").date()
+        g.scheduler_date = g.scheduler_date.strftime("%Y-%m-%d")
 
         flash("You have a scheduled challenge request.")
 
