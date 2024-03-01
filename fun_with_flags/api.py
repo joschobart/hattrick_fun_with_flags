@@ -114,10 +114,11 @@ def ht_do_challenge(
 
 
 def ht_get_challengeable_teams(challengeable_xml):
-    """
+    """Function to find potential opponents.
 
     :param challengeable_xml:
-
+    :returns: list of tuples of challengeable teams.
+    :raises:
     """
     challengeable_teams_list = do_challenge.is_challengeable(challengeable_xml)
 
@@ -125,10 +126,11 @@ def ht_get_challengeable_teams(challengeable_xml):
 
 
 def ht_get_challenges(challenges_xml):
-    """
+    """Function to return booked friendlies.
 
     :param challenges_xml:
-
+    :returns: list of booked friendlies. (agreed/ not agreed)
+    :raises:
     """
     challenges = do_challenge.get_challenges(challenges_xml)
 
@@ -136,13 +138,13 @@ def ht_get_challenges(challenges_xml):
 
 
 def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
-    """
+    """Function to return XML documents from hattrick-api.
 
     :param name: param api_url:  (Default value = API_URL)
     :param fernet_token: Default value = "")
     :param api_url: Default value = API_URL)
     :param **kwargs:
-
+    :raises: keyError, typeError
     """
     if fernet_token == "":
         try:
