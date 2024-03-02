@@ -3,7 +3,7 @@
 
 import os
 from datetime import datetime
-from random import randrange
+from random import randrange, shuffle
 
 from cryptography.fernet import Fernet
 from flask import session
@@ -327,6 +327,10 @@ def get_series_list(flagid, search_level=2, fernet_token=""):
                 series_list.append(i)
 
         probe_list.clear()
+
+    # shuffle series list to
+    # load-balance requests
+    shuffle(series_list)
 
     return series_list
 
