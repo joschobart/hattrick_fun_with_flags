@@ -62,7 +62,7 @@ def details():
             if not challenge[-2]:
                 g.bookable = False
 
-    if not gmc and not bookable_slot:
+    if not bookable_slot:
         g.bookable = False
 
     for item in session["teams"]:
