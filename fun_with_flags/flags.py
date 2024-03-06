@@ -51,7 +51,7 @@ def details():
 
     g.l_home, g.l_away, *_ = helperf.compose_flag_matrix(session["teamid"])
 
-    gmc = helperf.get_my_challenges()
+    gmc, bookable_slot = helperf.get_my_challenges()
 
     if gmc:
         g.weekend_bookable = True
@@ -61,6 +61,9 @@ def details():
 
             if not challenge[-2]:
                 g.bookable = False
+
+    if not gmc and not bookable_slot:
+        g.bookable = False
 
     for item in session["teams"]:
         if int(item[0]) == int(session["teamid"]):

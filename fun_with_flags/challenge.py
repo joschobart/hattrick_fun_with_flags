@@ -21,7 +21,7 @@ def overview():
     """ """
     _is_agreed = None
     now = datetime.now()
-    g.challenges = helperf.get_my_challenges()
+    g.challenges, *_ = helperf.get_my_challenges()
 
     _scheduler_object = {
         "type": "get_schedule",

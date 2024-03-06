@@ -157,6 +157,7 @@ def get_my_challenges():
     challenges = []
     bookable = False
     weekend_bookable = False
+    bookable_slot = False
     _in_cup = False
 
     _teamid = session.get("teamid", None)
@@ -190,6 +191,7 @@ def get_my_challenges():
     if utc.weekday() == 3 and utc.hour >= 7 or utc.weekday() >= 4 or utc.weekday() == 0:
         if not _in_cup:
             bookable = True
+            bookable_slot = True
 
     for i in "0", "1":
         if i == "1":
@@ -234,7 +236,7 @@ def get_my_challenges():
                     )
                 )
 
-    return challenges
+    return challenges, bookable_slot
 
 
 def get_my_teams():
