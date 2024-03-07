@@ -160,13 +160,20 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
     print(params)
 
     xml_data = ht_session.get(api_url, params=params)
-    xml_data = (
-        str(xml_data.text)
-        .encode("latin1")
-        .decode("unicode_escape")
-        .encode("latin1")
-        .decode("utf8")
-    )
+    try:
+        xml_data = (
+            str(xml_data.text)
+            .encode("latin1")
+            .decode("unicode_escape")
+            .encode("latin1")
+            .decode("utf8")
+        )
+    except Exception:
+        xml_data = (
+            str(xml_data.text)
+            .encode("latin1")
+            .decode("utf8")
+        )
 
     return xml_data
 
