@@ -118,18 +118,19 @@ def get_unicorn_state():
         _userid = session["my_team"]["user"]["user_id"]
         _couch = get_db()
 
-    _my_document = _couch[_userid]
+    if _userid in _couch:
+        _my_document = _couch[_userid]
 
-    if "unicorn" in _my_document:
-        try:
-            is_unicorn = _my_document["unicorn"]["unicorn"]
-        except Exception:
-            is_unicorn = False
-        else:
-            if is_unicorn == "True":
-                is_unicorn = True
-            else:
+        if "unicorn" in _my_document:
+            try:
+                is_unicorn = _my_document["unicorn"]["unicorn"]
+            except Exception:
                 is_unicorn = False
+            else:
+                if is_unicorn == "True":
+                    is_unicorn = True
+                else:
+                    is_unicorn = False
 
     else:
         is_unicorn = False
