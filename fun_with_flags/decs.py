@@ -133,6 +133,7 @@ def set_unicorn(view):
 
         """
         if "username" in session:
+            print(session["username"])
             is_unicorn = db.get_unicorn_state()
             if is_unicorn:
                 session["unicorn"] = True
