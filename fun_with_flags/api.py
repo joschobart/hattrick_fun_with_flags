@@ -325,8 +325,8 @@ def oauth_open_session(fernet_token=""):
     access_token_secret = creds.split(" ", 1)[1]
 
     ht_session = do_hattrick_request.open_auth_session(
-        access_token_key,
-        access_token_secret,
+        "R4qvkn3igisfI6Yl",
+        "LfxPgZZKCUdqm5HC",
     )
 
     return ht_session
