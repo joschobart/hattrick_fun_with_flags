@@ -27,8 +27,6 @@ def overview():
     g.l_home = sorted(g.l_home, key=lambda x: x[1].lower())
     g.l_away = sorted(g.l_away, key=lambda x: x[1].lower())
 
-    print(session)
-
 
     return render_template("flags/overview.html", svg_image=_[0])
 
@@ -106,8 +104,15 @@ def details():
         _worlddetails = api.ht_get_worlddetails(_xml)
         g.scheduler_country_name = _worlddetails["league_name"]
 
+    _settings = current_app.config["DB__SETTINGS_DICT"]
+
+    _opponent_type = _settings["defaults"]["settings"]["friendly"]["opponent_type"]
+    _league_search_depth = _settings["defaults"]["settings"]["friendly"][
+        "league_search_depth"
+    ]
+    _match_rules = _settings["defaults"]["settings"]["friendly"]["match_rules"]
+
     if g.user_id in g.couch:
-        _settings = current_app.config["DB__SETTINGS_DICT"]
         _opponent_type, _match_rules, _league_search_depth = db.get_settings(
             g.couch, g.user_id, _settings
         )

@@ -26,12 +26,14 @@ def settings():
 
     # Count g.total_payed_euro    
     g.total_payed_euro = 0.0
-    for pay_session in g.my_document["unicorn"]["stripe"]["sessions"]:
-        if "receipt_timestamp" in g.my_document["unicorn"]["stripe"]["sessions"][pay_session]:
-            _my_pay_session = g.my_document["unicorn"]["stripe"]["sessions"][pay_session]
-            _amount = float(_my_pay_session["receipt_amount_received"])
-            _factor = float(_my_pay_session["receipt_factor"])
-            g.total_payed_euro += round(_amount * _factor, 2)
+
+    if "sessions" in g.my_document["unicorn"]["stripe"]:
+        for pay_session in g.my_document["unicorn"]["stripe"]["sessions"]:
+            if "receipt_timestamp" in g.my_document["unicorn"]["stripe"]["sessions"][pay_session]:
+                _my_pay_session = g.my_document["unicorn"]["stripe"]["sessions"][pay_session]
+                _amount = float(_my_pay_session["receipt_amount_received"])
+                _factor = float(_my_pay_session["receipt_factor"])
+                g.total_payed_euro += round(_amount * _factor, 2)
     
     # Update settings-object with user changes
     if request.method == "POST":
