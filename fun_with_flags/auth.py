@@ -40,8 +40,6 @@ def authorize():
 @decs.error_check
 def login():
     """ """
-    xml_response = api.ht_get_data("teamdetails", includeFlags="false")
-
     try:
         xml_response = api.ht_get_data("teamdetails", includeFlags="false")
 
