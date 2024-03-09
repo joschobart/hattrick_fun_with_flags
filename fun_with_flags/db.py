@@ -131,7 +131,8 @@ def get_unicorn_state():
                     is_unicorn = True
                 else:
                     is_unicorn = False
-
+        else:
+            is_unicorn = False
     else:
         is_unicorn = False
 
