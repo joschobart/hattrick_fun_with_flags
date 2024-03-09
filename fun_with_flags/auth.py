@@ -41,9 +41,10 @@ def authorize():
 def login():
     """ """
     xml_response = api.ht_get_data("teamdetails", includeFlags="false")
+
     print(session)
     print(xml_response)
-    
+
     try:
         xml_response = api.ht_get_data("teamdetails", includeFlags="false")
 
