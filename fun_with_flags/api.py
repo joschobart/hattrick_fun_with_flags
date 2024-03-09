@@ -110,6 +110,8 @@ def ht_do_challenge(
         weekend_friendly,
     )
 
+    ht_session.close()
+
     return my_challenges
 
 
@@ -174,6 +176,8 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
             .encode("latin1")
             .decode("utf8")
         )
+
+    ht_session.close()
 
     return xml_data
 
@@ -325,8 +329,8 @@ def oauth_open_session(fernet_token=""):
     access_token_secret = creds.split(" ", 1)[1]
 
     ht_session = do_hattrick_request.open_auth_session(
-        "R4qvkn3igisfI6Yl",
-        "LfxPgZZKCUdqm5HC",
+        access_token_key,
+        access_token_secret
     )
 
     return ht_session
