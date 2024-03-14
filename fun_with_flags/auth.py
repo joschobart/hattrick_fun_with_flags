@@ -46,7 +46,10 @@ def login():
         )
 
         xml_response = api.ht_get_data(
-            "teamdetails", userID=token_status["user_id"][0], includeFlags="false"
+            "teamdetails",
+            teamID="",
+            userID=token_status["user_id"][0],
+            includeFlags="false",
         )
     except Exception as e:
         flash(f"Session initialization failed: {e}")
