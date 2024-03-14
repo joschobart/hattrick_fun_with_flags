@@ -13,7 +13,7 @@ bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 @decs.login_required
 @decs.choose_team
 @decs.set_unicorn
-#@decs.error_check
+@decs.error_check
 def overview():
     """ """
     (
