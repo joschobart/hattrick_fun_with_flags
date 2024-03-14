@@ -265,12 +265,8 @@ def ht_get_teams_in_series(teams_in_series_xml):
 def ht_get_token_status(fernet_token=""):
     """Function to return token-status.
 
-    :param name: Name of the requested xml document
-    :param api_url: (Default value = API_URL)
     :param fernet_token: (Default value = "")
-    :param **kwargs:
-    :returns: xml_data: An xml document
-    :raises: keyError, typeError
+    :returns: token_dict
     """
     if fernet_token == "":
         try:
