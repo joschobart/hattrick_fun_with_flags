@@ -27,6 +27,8 @@ def overview():
     g.l_home = sorted(g.l_home, key=lambda x: x[1].lower())
     g.l_away = sorted(g.l_away, key=lambda x: x[1].lower())
 
+    print(g.l_home)
+    print(g.l_away)
 
     return render_template("flags/overview.html", svg_image=_[0])
 
