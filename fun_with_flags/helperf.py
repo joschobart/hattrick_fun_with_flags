@@ -99,6 +99,11 @@ def get_challengeable_teams_list(
     """
     teams = []
 
+    if _place == "home":
+        _place = "0"
+    else:
+        _place = "1"
+
     for series in series_list:
         teams_in_series = api.ht_get_data(
             "teams_in_series", fernet_token=fernet_token, leagueLevelUnitID=series
