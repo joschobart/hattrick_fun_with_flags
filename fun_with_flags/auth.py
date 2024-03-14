@@ -37,12 +37,17 @@ def authorize():
 
 @bp_a.route("/login", methods=("GET", "POST"))
 @decs.choose_team
-@decs.error_check
+# @decs.error_check
 def login():
     """ """
     try:
-        xml_response = api.ht_get_data("teamdetails", includeFlags="false")
+        token_status = api.ht_get_token_status(
+            fernet_token=session["encrypted_access_token"]
+        )
 
+        xml_response = api.ht_get_data(
+            "teamdetails", userID=token_status["user_id"][0], includeFlags="false"
+        )
     except Exception as e:
         flash(f"Session initialization failed: {e}")
 

@@ -4,17 +4,20 @@
 from flask import session
 from ht_libs import (do_challenge, do_hattrick_request, get_flags,
                      get_matchdetails, get_matches, get_series,
-                     get_teamdetails, get_trainer_avatar, get_worlddetails)
+                     get_teamdetails, get_trainer_avatar, get_worlddetails,
+                     request_token_status)
 
 from . import helperf
 
 API_URL = "https://chpp.hattrick.org/chppxml.ashx"
+TOKEN_STATUS_URL = "https://chpp.hattrick.org/oauth/check_token.ashx"
 
 API_PARAMS = {
     "teamdetails": {
         "file": "teamdetails",
         "version": "3.6",
         "teamID": "",
+        "userID": "",
         "includeFlags": "",
     },
     "search_series": {
@@ -257,6 +260,33 @@ def ht_get_teams_in_series(teams_in_series_xml):
     teams_dict = get_series.get_teams_in_series(teams_in_series_xml)
 
     return teams_dict
+
+
+def ht_get_token_status(fernet_token=""):
+    """Function to return token-status.
+
+    :param name: Name of the requested xml document
+    :param api_url: (Default value = API_URL)
+    :param fernet_token: (Default value = "")
+    :param **kwargs:
+    :returns: xml_data: An xml document
+    :raises: keyError, typeError
+    """
+    if fernet_token == "":
+        try:
+            fernet_token = session["encrypted_access_token"]
+        except Exception as e:
+            print(f"{e}: No Session context and fernet token.")
+
+    ht_session = oauth_open_session(fernet_token)
+
+    xml_data = ht_session.get(TOKEN_STATUS_URL)
+
+    token_dict = request_token_status.request_token_status(xml_data.text)
+
+    ht_session.close()
+
+    return token_dict
 
 
 def ht_get_trainer_avatar(staffavatars_xml):
