@@ -6,7 +6,7 @@ authors = [
     { name = "joe", email = "github@schicker.guru" }
 ]
 dependencies = [
-    "hattrick-libs==0.16.1",
+    "hattrick-libs==0.16.2",
     "flask>=3.0.0",
     "cryptography>=41.0.7",
     "CouchDB>=1.2",
