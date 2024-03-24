@@ -131,6 +131,15 @@ def get_challengeable_teams_list(
             )
             _team = api.ht_get_team(_xml)
 
+            _login_date = _team["user"]["last_login_date"]
+            _login_date = datetime.strptime(_login_date, "%Y-%m-%d %H:%M:%S")
+            _tdelta = datetime.now() - _login_date
+            _tdelta = _tdelta.total_seconds()
+            _tdelta_days = round(_tdelta / 86400, 1)
+
+            if _tdelta_days > 10:
+                continue
+
             if opponent_type == "all":
                 if len(teams) < 25:
                     _team = (team, _team[team]["team_name"])
@@ -193,7 +202,7 @@ def get_my_challenges():
         if int(_worlddetails["season_round"]) > 14:
             weekend_bookable = True
 
-    if utc.weekday() == 3 and utc.hour >= 7 or utc.weekday() >= 4 or utc.weekday() == 0:
+    if utc.weekday() == 3 and utc.hour >= 8 or utc.weekday() >= 4 or utc.weekday() == 0:
         if not _in_cup:
             bookable = True
             bookable_slot = True
