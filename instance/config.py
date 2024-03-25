@@ -1,5 +1,5 @@
 COSTS = {
-    "costs_per_month": 60,
+    "costs_per_month": 30,
     "factor_to_euro": 1.0,
 }
 
