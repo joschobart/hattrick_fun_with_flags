@@ -48,6 +48,11 @@ def checkout():
         except Exception as e:
             return str(e)
 
+        else:
+            _stripe_user = stripe.Customer.search(
+                query=f"name: '{session["username"]}'"
+            )
+
     _stripe_user = _stripe_user["data"][0]["id"]
 
     try:
