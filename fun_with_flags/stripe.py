@@ -47,10 +47,14 @@ def checkout():
                 )
         except Exception as e:
             return str(e)
+        else:
+            _stripe_user = _stripe_user["id"]
+
+    else:
+        _stripe_user = _stripe_user["data"][0]["id"]
 
     print(_stripe_user)
 
-    _stripe_user = _stripe_user["data"][0]["id"]
 
     try:
         _checkout_session = stripe.checkout.Session.create(
