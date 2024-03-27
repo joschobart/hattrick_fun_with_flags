@@ -18,7 +18,7 @@ bp_s = Blueprint("stripe", __name__, url_prefix="/stripe")
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-#@decs.error_check
+@decs.error_check
 def checkout():
     """ """
     _session_token = binascii.hexlify(os.urandom(20)).decode()
@@ -52,8 +52,6 @@ def checkout():
 
     else:
         _stripe_user = _stripe_user["data"][0]["id"]
-
-    print(_stripe_user)
 
 
     try:
