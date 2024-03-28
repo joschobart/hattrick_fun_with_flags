@@ -1,7 +1,25 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Bazinga!{% endblock %}</h1>
+  <table style="width: 100%;">
+    <tr>
+      <td style="width:60%; text-align: left;">
+        <h2>
+            {% block title %}
+              Bazinga!
+            {% endblock %}
+        </h2>
+      </td>
+      {% if not session['username'] %}
+      <td style="text-align: right;">
+        <a href="{{ url_for('auth.authorize') }}">
+          <img src="https://hattrick.org/goto.ashx?path=/Images/logotypes/chpp.png" 
+            title="[Authorize CHPP]" alt="[Authorize CHPP]" height="35px">
+        </a>
+      </td>
+      {% endif %}
+    </tr>
+  </table>
 {% endblock %}
 
 {% block content %}
@@ -13,11 +31,18 @@
 
   <p>The project was created out of frustration about having to click around for a total of hours only to challenge the available maximum of 25 opponents for the friendlies every single week.</p>
   
-  <p>Fun with Flags takes that frustration of having to click through league after league off you and lets you use your time for more valuable things. It's easy to use:</p>
+  <p>FwF takes that burden of having to click through league after league of you and lets you use your time for more valuable things.</p>
   
+  {% if session['username'] %}
+  <p><b>Change-log:</b>
+  <ul type="1">
+    <li><b>2024-03-28: </b>Re-designed login- and index-page.
+  </ul>
+  </p>
+  {% else %}
   <p><b>How-to:</b>
   <ol type="1">
-    <li>Log-in with CHPP (top-right)</li>
+    <li><a href="{{ url_for('auth.authorize') }}">Log-in with CHPP</a></li>
     <li>Follow the authorization process</li>
     <li>Authorize Fun with Flags</li>
     <li>Back on FwF click the flag you want to grab</li>
@@ -25,6 +50,8 @@
     <li>That's it! The rest is done by Fun with flags for you!:)</li>
   </ol>
   </p>
+
+  {% endif %}
   
   <p><b>Limitations/ features:</b> For now only mass-booking Friendlies is possible. In the future features like pattern-based flag-capturing (e.g.: all flags of Latin America), missions, achievements and scheduled complete auto-pilot capturing are planned. Stay tuned!;)</p>
 
