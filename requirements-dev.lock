@@ -6,6 +6,7 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
 
 -e file:.
 apscheduler==3.10.4
@@ -38,7 +39,7 @@ flask==3.0.0
     # via hattrick-fwf
 gunicorn==21.2.0
     # via hattrick-fwf
-hattrick-libs==0.16.2
+hattrick-libs==0.16.3
     # via hattrick-fwf
 idna==3.6
     # via requests
