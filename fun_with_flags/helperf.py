@@ -15,7 +15,7 @@ from . import api
 def compose_flag_matrix(teamid, fernet_token=""):
     """
 
-    :param teamid: 
+    :param teamid:
     :param fernet_token:  (Default value = "")
 
     """
@@ -68,7 +68,7 @@ def compose_flag_matrix(teamid, fernet_token=""):
 def crypto_string(_input, _op="encrypt"):
     """
 
-    :param _input: 
+    :param _input:
     :param _op:  (Default value = "encrypt")
 
     """
@@ -89,11 +89,11 @@ def get_challengeable_teams_list(
 ):
     """
 
-    :param _teamid: 
-    :param _place: 
-    :param series_list: 
-    :param weekend_friendly: 
-    :param opponent_type: 
+    :param _teamid:
+    :param _place:
+    :param series_list:
+    :param weekend_friendly:
+    :param opponent_type:
     :param fernet_token:  (Default value = "")
 
     """
@@ -179,22 +179,11 @@ def get_my_challenges():
     _xml = api.ht_get_data("worlddetails", countryID="", leagueID="")
     _worlddetails = api.ht_get_worlddetails(_xml)
 
-    _xml = api.ht_get_data("get_matches", teamID=_teamid)
+    _xml = api.ht_get_data("teamdetails", teamID=_teamid, includeFlags="false")
+    _teamdetails = api.ht_get_team(_xml)
 
-    # check if team is in cup
-    _matches = api.ht_get_matches(_xml)
-    for _match in _matches["matches"]:
-        if "3" in _match["match_type"]:
-            cup_match_time = _match["match_date"]
-            cup_match_time = datetime.strptime(cup_match_time, "%Y-%m-%d %H:%M:%S")
-
-            cup_tdelta = cup_match_time - now
-            cup_tdelta = cup_tdelta.total_seconds()
-
-            cup_tdelta_hours = round(cup_tdelta / 3600, 1)
-
-            if cup_tdelta_hours >= -48:
-                _in_cup = True
+    if bool(_teamdetails[_teamid]["team_in_cup"]):
+        _in_cup = True
 
     if (utc.weekday() == 0 and utc.hour >= 6) or (
         utc.weekday() >= 1 and utc.weekday() < 5
@@ -279,16 +268,17 @@ def get_my_teams():
 def get_series_list(flagid, search_level=2, fernet_token=""):
     """
 
-    :param flagid: 
+    :param flagid:
     :param search_level:  (Default value = 2)
     :param fernet_token:  (Default value = "")
 
     """
+
     def get_series_id(search_string, flagid):
         """
 
-        :param search_string: 
-        :param flagid: 
+        :param search_string:
+        :param flagid:
 
         """
         api_response = api.ht_get_data(
@@ -354,7 +344,7 @@ def get_series_list(flagid, search_level=2, fernet_token=""):
 def random_quotes(_quotes):
     """
 
-    :param _quotes: 
+    :param _quotes:
 
     """
     for _key in _quotes.keys():
@@ -371,8 +361,8 @@ def random_quotes(_quotes):
 def render_worldmap(my_flags, teamid):
     """
 
-    :param my_flags: 
-    :param teamid: 
+    :param my_flags:
+    :param teamid:
 
     """
     map_flags_home = []
