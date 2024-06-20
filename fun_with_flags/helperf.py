@@ -185,8 +185,6 @@ def get_my_challenges():
     if _teamdetails[_teamid]["team_in_cup"] == "True":
         _in_cup = True
 
-    print(_in_cup)
-
     if (utc.weekday() == 0 and utc.hour >= 6) or (
         utc.weekday() >= 1 and utc.weekday() < 5
     ):
@@ -197,7 +195,6 @@ def get_my_challenges():
         if not _in_cup:
             bookable = True
             bookable_slot = True
-            print("is bookable")
 
     for i in "0", "1":
         if i == "1":
