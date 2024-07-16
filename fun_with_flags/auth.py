@@ -9,14 +9,31 @@ from . import api, decs, helperf
 bp_a = Blueprint("auth", __name__, url_prefix="/auth")
 
 
-@bp_a.route("/authorize")
+@bp_a.route("/authorize", methods=("GET", "POST"))
 def authorize():
     """ """
     _protocol = request.args.get("protocol")
     _url = request.args.get("url")
 
-    if _protocol and _url:
-        g.authorize_url = api.oauth_get_url(oauth_url=f"{_protocol}//{_url}/auth/callback")
+    if request.method == "GET":
+        if _protocol and _url:
+            g.authorize_url = api.oauth_get_url(oauth_url=f"{_protocol}//{_url}/auth/callback")
+            g.oob = False
+        else:
+            g.authorize_url = api.oauth_get_url()
+            g.oob = True
+
+    if request.method == "POST":
+        g.pin = request.form["pin"]
+        try:
+            access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
+        except Exception as e:
+            error = f"{e}: Pin {g.pin} was not accepted."
+            flash(error)
+        else:
+            creds = f"{access_token_key} {access_token_secret}"
+            session["encrypted_access_token"] = helperf.crypto_string(creds, "encrypt")
+            return redirect(url_for("auth.login"))
 
     return render_template("auth/authorize.html")
 
@@ -35,9 +52,7 @@ def callback():
 
     else:
         creds = f"{access_token_key} {access_token_secret}"
-
         session["encrypted_access_token"] = helperf.crypto_string(creds, "encrypt")
-
         return redirect(url_for("auth.login"))
 
     return render_template("auth/authorize.html")

@@ -325,7 +325,7 @@ def oauth_get_access_token(pin):
     return access_token_key, access_token_secret
 
 
-def oauth_get_url(oauth_url="oop", scope="manage_challenges"):
+def oauth_get_url(oauth_url="oob", scope="manage_challenges"):
     """
 
     :param scope: Default value = "manage_challenges")
