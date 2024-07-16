@@ -1,6 +1,6 @@
 [project]
 name = "hattrick-fwf"
-version = "0.2.3"
+version = "0.3.0"
 description = "Hattrick Fun with Flags"
 authors = [
     { name = "joe", email = "github@schicker.guru" }

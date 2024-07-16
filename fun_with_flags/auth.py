@@ -9,28 +9,36 @@ from . import api, decs, helperf
 bp_a = Blueprint("auth", __name__, url_prefix="/auth")
 
 
-@bp_a.route("/authorize", methods=("GET", "POST"))
+@bp_a.route("/authorize")
 def authorize():
     """ """
-    if request.method == "GET":
-        g.authorize_url = api.oauth_get_url()
+    _protocol = request.args.get("protocol")
+    _url = request.args.get("url")
 
-    elif request.method == "POST":
-        g.pin = request.form["pin"]
+    if _protocol and _url:
+        g.authorize_url = api.oauth_get_url(oauth_url=f"{_protocol}//{_url}/auth/callback")
 
-        try:
-            access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
+    return render_template("auth/authorize.html")
 
-        except Exception as e:
-            error = f"{e}: Pin {g.pin} was not accepted."
-            flash(error)
 
-        else:
-            creds = f"{access_token_key} {access_token_secret}"
+@bp_a.route("/callback")
+def callback():
+    """ """
+    g.pin = request.args.get("oauth_verifier")
 
-            session["encrypted_access_token"] = helperf.crypto_string(creds, "encrypt")
+    try:
+        access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
 
-            return redirect(url_for("auth.login"))
+    except Exception as e:
+        error = f"{e}: Pin {g.pin} was not accepted."
+        flash(error)
+
+    else:
+        creds = f"{access_token_key} {access_token_secret}"
+
+        session["encrypted_access_token"] = helperf.crypto_string(creds, "encrypt")
+
+        return redirect(url_for("auth.login"))
 
     return render_template("auth/authorize.html")
 

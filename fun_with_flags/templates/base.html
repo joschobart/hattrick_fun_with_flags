@@ -76,7 +76,14 @@
           <td  style="width:20%">
             <li>
               <span>
-                <a href="{{ url_for('auth.authorize') }}">[Authorize CHPP]</a>
+                <script>
+                  var url = new URL(window.location.protocol + window.location.host + "{{ url_for('auth.authorize') }}");
+                  url.searchParams.append("url", window.location.host);
+                  url.searchParams.append("protocol", window.location.protocol);
+                  document.write('<a href="' + url + '">');
+                </script>
+                  [Authorize CHPP]
+                </a>
               </span>
             </li>
           </td>

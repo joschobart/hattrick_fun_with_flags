@@ -325,7 +325,7 @@ def oauth_get_access_token(pin):
     return access_token_key, access_token_secret
 
 
-def oauth_get_url(scope="manage_challenges"):
+def oauth_get_url(oauth_url="oop", scope="manage_challenges"):
     """
 
     :param scope: Default value = "manage_challenges")
@@ -335,7 +335,7 @@ def oauth_get_url(scope="manage_challenges"):
         session["request_token"],
         session["request_token_secret"],
         authorize_url,
-    ) = do_hattrick_request.fetch_authorize_url(scope=scope)
+    ) = do_hattrick_request.fetch_authorize_url(oauth_url=oauth_url, scope=scope)
 
     return authorize_url
 

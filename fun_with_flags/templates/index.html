@@ -12,8 +12,13 @@
       </td>
       {% if not session['username'] %}
       <td style="text-align: right;">
-        <a href="{{ url_for('auth.authorize') }}">
-          <img src="https://hattrick.org/goto.ashx?path=/Images/logotypes/chpp.png" 
+        <script>
+          var url = new URL(window.location.protocol + window.location.host + "{{ url_for('auth.authorize') }}");
+          url.searchParams.append("url", window.location.host);
+          url.searchParams.append("protocol", window.location.protocol);
+          document.write('<a href="' + url + '">');
+        </script>
+        <img src="https://hattrick.org/goto.ashx?path=/Images/logotypes/chpp.png" 
             title="[Authorize CHPP]" alt="[Authorize CHPP]" height="35px">
         </a>
       </td>
@@ -36,6 +41,7 @@
   {% if session['username'] %}
   <p><b>Change-log:</b>
   <ul type="1">
+    <li><b>2024-07-16: </b>Implemented simplified login-process.
     <li><b>2024-06-14: </b>Fixed first week after cup challenging.
     <li><b>2024-06-06: </b>Added new league "Guinea".
     <li><b>2024-05-02: </b>Fixed opening hours for challenging on flag-details-page.
@@ -45,7 +51,7 @@
   {% else %}
   <p><b>How-to:</b>
   <ol type="1">
-    <li><a href="{{ url_for('auth.authorize') }}">Log-in with CHPP</a></li>
+    <li>Log-in with CHPP</li>
     <li>Follow the authorization process</li>
     <li>Authorize Fun with Flags</li>
     <li>Back on FwF click the flag you want to grab</li>
