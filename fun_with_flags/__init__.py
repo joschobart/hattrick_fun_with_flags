@@ -6,7 +6,8 @@ import logging
 import os
 
 from apscheduler.schedulers.background import BackgroundScheduler
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, session
+from flask_babel import Babel
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from . import auth, challenge, decs, flags, scheduler, settings, stripe
@@ -51,6 +52,16 @@ def create_app(test_config=None):
     # setup logger for scheduler
     logging.basicConfig()
     logging.getLogger("apscheduler").setLevel(logging.INFO)
+
+    # Babel l10n
+    def get_locale():
+        if request.args.get("lang"):
+            session["lang"] = request.args.get("lang")
+        return session.get("lang", "en")
+
+    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
+    babel = Babel()
+    babel.init_app(app, locale_selector=get_locale)
 
     # entry-point
     @app.route("/", methods=("GET", "POST"))

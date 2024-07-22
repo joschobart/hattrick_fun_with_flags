@@ -1,8 +1,8 @@
 """ FwF authentication views """
 
-
 from flask import (Blueprint, flash, g, redirect, render_template, request,
                    session, url_for)
+from flask_babel import gettext
 
 from . import api, decs, helperf
 
@@ -12,6 +12,10 @@ bp_a = Blueprint("auth", __name__, url_prefix="/auth")
 @bp_a.route("/authorize", methods=("GET", "POST"))
 def authorize():
     """ """
+    
+    success_message = gettext("Hello Translation!")
+    print(success_message)
+
     _protocol = request.args.get("protocol")
     _url = request.args.get("url")
 
@@ -29,6 +33,7 @@ def authorize():
             access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
         except Exception as e:
             error = f"{e}: Pin {g.pin} was not accepted."
+
             flash(error)
         else:
             creds = f"{access_token_key} {access_token_secret}"
@@ -48,6 +53,7 @@ def callback():
 
     except Exception as e:
         error = f"{e}: Pin {g.pin} was not accepted."
+
         flash(error)
 
     else:

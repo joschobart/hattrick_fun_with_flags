@@ -11,6 +11,8 @@
 -e file:.
 apscheduler==3.10.4
     # via hattrick-fwf
+babel==2.15.0
+    # via flask-babel
 beautifulsoup4==4.12.2
     # via bs4
 blinker==1.7.0
@@ -30,6 +32,9 @@ couchdb==1.2
 cryptography==41.0.7
     # via hattrick-fwf
 flask==3.0.0
+    # via flask-babel
+    # via hattrick-fwf
+flask-babel==4.0.0
     # via hattrick-fwf
 gunicorn==21.2.0
     # via hattrick-fwf
@@ -41,8 +46,10 @@ importlib-metadata==7.0.1
     # via pygal
 itsdangerous==2.1.2
     # via flask
-jinja2==3.1.2
+jinja2==3.1.4
     # via flask
+    # via flask-babel
+    # via hattrick-fwf
 lxml==4.9.3
     # via hattrick-libs
 markupsafe==2.1.3
@@ -58,6 +65,7 @@ pygal-maps-world==1.0.2
     # via hattrick-fwf
 pytz==2023.3.post1
     # via apscheduler
+    # via flask-babel
 rauth==0.7.3
     # via hattrick-libs
 requests==2.31.0
