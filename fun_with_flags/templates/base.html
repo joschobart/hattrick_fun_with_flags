@@ -48,19 +48,19 @@
                   {% endif %}
                 {% endfor %}
               </select>
-              <input type="submit" value="Select" onclick="loadSpinner()">
+              {% trans %}<input type="submit" value="Select" onclick="loadSpinner()">{% endtrans %}
             </form>
           </th>
           <td>
             <li>
               <span>
-                <a href="{{url_for('challenge.overview')}}" onclick="loadSpinner()">[Challenges]</a>
+                <a href="{{url_for('challenge.overview')}}" onclick="loadSpinner()">{% trans %}[Challenges]{% endtrans %}</a>
               </span>
           </td>
           <td>
             <li>
               <span>
-                <a href="{{url_for('auth.logout')}}">[Log Out]</a>
+                <a href="{{url_for('auth.logout')}}">{% trans %}[Log Out]{% endtrans %}</a>
               </span>
             </li>
           </td>
@@ -82,7 +82,7 @@
                   url.searchParams.append("protocol", window.location.protocol);
                   document.write('<a href="' + url + '">');
                 </script>
-                  [Authorize CHPP]
+                  {% trans %}[Authorize CHPP]{% endtrans %}
                 </a>
               </span>
             </li>

@@ -33,13 +33,14 @@
 
   {% trans %}
   <p><b>Purpose:</b> Fun with Flags allows you to automate capturing flags on <a href="http://hattrick.org" target="_blank">hattrick.org</a> if you are a nerdy supporter of the infamous online-game like myself.</p>
-  {% endtrans %}
 
   <p>The project was created out of frustration about having to click around for a total of hours only to challenge the available maximum of 25 opponents for the friendlies every single week.</p>
   
   <p>FwF takes that burden of having to click through league after league of you and lets you use your time for more valuable things.</p>
-  
+  {% endtrans %}
+
   {% if session['username'] %}
+  {% trans %}
   <p><b>Change-log:</b>
   <ul type="1">
     <li><b>2024-07-16: </b>Implemented simplified login-process.
@@ -49,7 +50,10 @@
     <li><b>2024-03-28: </b>Re-designed login- and index-page.
   </ul>
   </p>
+  {% endtrans %}
+
   {% else %}
+  {% trans %}
   <p><b>How-to:</b>
   <ol type="1">
     <li>Log-in with CHPP</li>
@@ -60,24 +64,34 @@
     <li>That's it! The rest is done by Fun with flags for you!:)</li>
   </ol>
   </p>
-
+  {% endtrans %}
   {% endif %}
   
+  {% trans %}
   <p><b>Limitations/ features:</b> For now only mass-booking Friendlies is possible. In the future features like pattern-based flag-capturing (e.g.: all flags of Latin America), missions, achievements and scheduled complete auto-pilot capturing are planned. Stay tuned!;)</p>
+  {% endtrans %}
 
+  {% trans %}
   <p><b>Contributing:</b> This project is in beta-phase as of 2023-12-22 (my Christmas-Project! :)) If you want to sponsor me a coffee, contribute (ui/code/translation) or have questions, then please get in touch!</p>
+  {% endtrans %}
 
+  {% trans %}
   <p><b>Under the hood:</b> This project will be released as free software (free as in freedom) under the GPLv3 license once it's out of beta. It was realized based on python and flask.</p>
+  {% endtrans %}
 
+  {% trans %}
   <p><b>Data disclaimer:</b>This websites content is based on information obtained from hattrick.org. The owner of this website is not responsible for the correctness of any content. Content collected from hattrick.org
   is not stored by the website permanently. Instead it is cached for later-use convenience on the users computer in the form of cookies where applicable. Deleting all cookie-content is possible at any time by clicking "Log-out".
   This website makes use of database-technologies to save profile information about the logged in user that are necessary for the website to operate. No data is exposed to 3th parties in the owners best knowledge. No data is sold.
   No data is used any other than for use in relation to the services provided on the FwF website. Where appropriate data is stored encrypted. No personal password is stored by the website. The services provided by this website are available for free
   (as in free beer) private use at best effort. If you have any question or concern regarding your data in relation with FwF that is not listed in this section, please get in touch.</p>
+  {% endtrans %}
 
+  {% trans %}
   <p><b>License & copyright disclaimer:</b>The software-code that constitutes this website is published on github.org under the GPLv3 License and uses ht-libs, a back end-library written in python and published under the Apache v2.0 License. 
   You find a copy of the GPLv3 license here: <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">https://www.gnu.org/licenses/gpl-3.0.en.html.</a> You find a copy of the Apache v2.0 license here: 
   <a href="https://apache.org/licenses/LICENSE-2.0" target="_blank">https://apache.org/licenses/LICENSE-2.0.</a> All other content on this website, including content provided under license by hattrick.org, is either in the public domain or was 
   published with a right to use by the websites owner in his best knowledge. Should you happen to be the holder of the copyright of content published on this website and see a violation of your copyright, please get in touch.</p>
+  {% endtrans %}
 
 {% endblock %}
