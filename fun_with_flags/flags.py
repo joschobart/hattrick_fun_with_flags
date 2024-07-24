@@ -1,10 +1,12 @@
 """ FwF app related core views """
 
 
-from flask import (Blueprint, current_app, flash, g, render_template, request,
-                   session)
+from flask import Blueprint, current_app, flash, g, render_template, request, session
 
 from . import api, db, decs, helperf, scheduler
+
+from flask_babel import gettext
+
 
 bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 
@@ -128,7 +130,7 @@ def details():
                 _my_match = api.ht_get_matchdetails(_xml_data)
 
             except AttributeError:
-                flash("Match not found.")
+                flash(gettext("Match not found."))
 
             else:
                 for home_away in ["home_team_id", "away_team_id"]:
@@ -147,7 +149,9 @@ def details():
                         _match_country = _opponent[_opponent_teamid]["team_country_id"]
 
                         if _match_country == g.flagid:
-                            flash(f"{_place}-match added.")
+                            flash(
+                                gettext("{_place}-match added.".format(_place=_place))
+                            )
                             g.db_settings = current_app.config["DB__SETTINGS_DICT"]
                             g.my_document = db.bootstrap_user_document(
                                 g.user_id, g.couch, g.db_settings
@@ -164,7 +168,9 @@ def details():
 
                         else:
                             flash(
-                                "Not one of your past friendly-matches for that flag."
+                                gettext(
+                                    "Not one of your past friendly-matches for that flag."
+                                )
                             )
                         break
 
@@ -205,7 +211,11 @@ def details():
             }
 
             scheduler.schedule(_object)
-            flash("Schedule for challenge is booked. You find it under 'Challenges'.")
+            flash(
+                gettext(
+                    "Schedule for challenge is booked. You find it under 'Challenges'."
+                )
+            )
 
         elif "delete_schedule" in request.form:
             _object = {
@@ -219,6 +229,6 @@ def details():
             }
 
             scheduler.schedule(_object)
-            flash("Schedule for challenge is deleted successfully.")
+            flash(gettext("Schedule for challenge is deleted successfully."))
 
     return render_template("flags/details.html")

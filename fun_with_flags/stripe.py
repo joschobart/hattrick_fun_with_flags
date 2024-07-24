@@ -9,6 +9,9 @@ import stripe
 from flask import (Blueprint, current_app, flash, g, jsonify, redirect,
                    render_template, request, session)
 
+from flask_babel import gettext
+
+
 from . import db, decs
 
 bp_s = Blueprint("stripe", __name__, url_prefix="/stripe")
@@ -53,7 +56,6 @@ def checkout():
     else:
         _stripe_user = _stripe_user["data"][0]["id"]
 
-
     try:
         _checkout_session = stripe.checkout.Session.create(
             line_items=[
@@ -62,10 +64,10 @@ def checkout():
                     'quantity': 1,
                 },
             ],
-            mode = 'payment',
-            customer = _stripe_user,
-            success_url = f"{_domain}/success?token={_session_token}",
-            cancel_url = f"{_domain}/fail?token={_session_token}",
+            mode='payment',
+            customer=_stripe_user,
+            success_url=f"{_domain}/success?token={_session_token}",
+            cancel_url=f"{_domain}/fail?token={_session_token}",
             automatic_tax={'enabled': True},
             customer_update={'address': 'auto'},
         )
@@ -115,7 +117,7 @@ def hook():
 
         _couch = db.get_db("fwf_cache")
 
-        _object =  {
+        _object = {
             "id": _payment_intent["id"],
             "timestamp": str(datetime.utcnow()),
             "factor": "0.01",
@@ -150,7 +152,7 @@ def success():
     # Write success-object to cache-db
     g.couch[g.user_id] = _my_document
 
-    flash("Payment accepted. You're a FwF Unicorn now!")
+    flash(gettext("Payment accepted. You're a FwF Unicorn now!"))
 
     return render_template("stripe/hook.html")
 
@@ -170,6 +172,6 @@ def fail():
     # Write success-object to cache-db
     g.couch[g.user_id] = _my_document
 
-    flash("No payment received.")
+    flash(gettext("No payment received."))
 
     return render_template("stripe/hook.html")

@@ -3,10 +3,20 @@
 
 from datetime import datetime
 
-from flask import (Blueprint, current_app, flash, g, redirect, render_template,
-                   request, session, url_for)
+from flask import (
+    Blueprint,
+    current_app,
+    flash,
+    g,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
 from . import api, db, decs, helperf, scheduler
+from flask_babel import gettext
 
 bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 
@@ -46,7 +56,7 @@ def overview():
         g.scheduler_date = datetime.strptime(g.schedule["date"], "%Y%m%d").date()
         g.scheduler_date = g.scheduler_date.strftime("%Y-%m-%d")
 
-        flash("You have a scheduled challenge request.")
+        flash(gettext("You have a scheduled challenge request."))
 
     if len(g.challenges) != 0:
         for _challenge in g.challenges:
@@ -100,7 +110,7 @@ def overview():
             message = "Teams are challenged but not agreed yet."
 
     else:
-        message = "No challenges to show."
+        message = gettext("No challenges to show.")
 
     flash(message)
 
@@ -157,10 +167,10 @@ def challenge():
             print(f"Would do challenge here { _challengeable }")
 
         except Exception as e:
-            flash(f"Var '{e}' is missing.")
+            flash(gettext("Var '{e}' is missing.".format(e=e)))
 
         else:
-            flash("Challenges booked!")
+            flash(gettext("Challenges booked!"))
             return redirect(url_for("challenge.overview"))
 
     return render_template("challenge/challenge.html")

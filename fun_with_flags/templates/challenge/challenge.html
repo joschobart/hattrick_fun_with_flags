@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Challenges{% endblock %}</h2>
+  <h2>{% block title %}{% trans %}Challenges{% endtrans %}{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
 
   {% if session['challengeable'] | length > 0 %}
     <h3>
-      {{ g.nation }} Challenges
+      {{ g.nation }} {% trans %}Challenges{% endtrans %}
       <img src="{{ g.flagurl }}" alt="{{ g.nation }}" title="{{ g.nation }}">
     </h3>
   {% endif %}

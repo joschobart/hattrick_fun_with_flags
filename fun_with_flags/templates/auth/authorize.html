@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Authorize{% endblock %}</h2>
+  <h2>{% block title %}{% trans %}Authorize{% endtrans %}{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
   {% if g.oob %}
-    <p>1. Click the button to open a new tab for the hattrick-authorization.</p>
+    {% trans %}<p>1. Click the button to open a new tab for the hattrick-authorization.</p>{% endtrans %}
     <p><img src="{{ url_for('static', filename='ht_auth_screenshot.png') }}" alt="HT auth" title="HT auth"></p>
       <a href="{{ g.authorize_url }}" target="_blank">
-        <input type="button" class="button" value="Hattrick-Authorization" />
+        {% trans %}<input type="button" class="button" value="Hattrick-Authorization" />{% endtrans %}
       </a>
-    <p>2. Come back here after the authorization and enter the received token in the box below</p>
+    {% trans %}<p>2. Come back here after the authorization and enter the received token in the box below</p>{% endtrans %}
     <form method="post">
       <label for="pin">Token</label>
-      <input type="text" name="pin" id="pin" required placeholder="Token e.g.: ZzJuAjDgZNDmis8l">
-      <input type="submit" value="Start Session">
+      {% trans %}<input type="text" name="pin" id="pin" required placeholder="Token e.g.: ZzJuAjDgZNDmis8l">{% endtrans %}
+      {% trans %}<input type="submit" value="Start Session">{% endtrans %}
     </form>
   {% else %}
-    <p>Click the button to open the hattrick CHPP authorization page and allow Fun with flags.</p>
+    {% trans %}<p>Click the button to open the hattrick CHPP authorization page and allow Fun with flags.</p>{% endtrans %}
     <p><img src="{{ url_for('static', filename='ht_auth_screenshot.png') }}" alt="HT auth" title="HT auth"></p>
     <a href="{{ g.authorize_url }}">
-      <input type="button" class="button" value="Hattrick-Authorization" />
+      {% trans %}<input type="button" class="button" value="Hattrick-Authorization" />{% endtrans %}
     </a>
   {% endif %}
 {% endblock %}

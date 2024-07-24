@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Log Out{% endblock %}</h2>
+  <h2>{% block title %}{% trans %}Log Out{% endtrans %}{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
-  <p>See you soon!</p>
+  {% trans %}<p>See you soon!</p>{% endtrans %}
 {% endblock %}

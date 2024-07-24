@@ -4,21 +4,22 @@
 import functools
 
 from flask import current_app, flash, g, redirect, request, session, url_for
-
 from . import api, db, helperf
+from flask_babel import gettext
 
 
 def choose_team(view):
     """
 
-    :param view: 
+    :param view:
 
     """
+
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         """
 
-        :param **kwargs: 
+        :param **kwargs:
 
         """
         if "username" in session:
@@ -49,14 +50,15 @@ def choose_team(view):
 def error_check(view):
     """
 
-    :param view: 
+    :param view:
 
     """
+
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         """
 
-        :param **kwargs: 
+        :param **kwargs:
 
         """
         error = None
@@ -65,8 +67,10 @@ def error_check(view):
             return view(**kwargs)
 
         except Exception as e:
-            error = f"Something went wrong on page '{view.__name__}'. \
+            error = gettext(
+                f"Something went wrong on page '{view.__name__}'. \
                     Please try again or report an error to joschobart on hattrick.org. ({e})"
+            )
 
             flash(error)
             return redirect(url_for("index"))
@@ -77,14 +81,15 @@ def error_check(view):
 def login_required(view):
     """
 
-    :param view: 
+    :param view:
 
     """
+
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         """
 
-        :param **kwargs: 
+        :param **kwargs:
 
         """
         username = session.get("username")
@@ -100,14 +105,15 @@ def login_required(view):
 def use_db(view):
     """
 
-    :param view: 
+    :param view:
 
     """
+
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         """
 
-        :param **kwargs: 
+        :param **kwargs:
 
         """
         if "my_team" in session:
@@ -122,14 +128,15 @@ def use_db(view):
 def set_unicorn(view):
     """
 
-    :param view: 
+    :param view:
 
     """
+
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         """
 
-        :param **kwargs: 
+        :param **kwargs:
 
         """
         if "username" in session:

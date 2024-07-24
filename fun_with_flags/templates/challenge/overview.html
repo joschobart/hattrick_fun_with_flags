@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
-
 {% block header %}
-  <h2>{% block title %}Challenges Overview{% endblock %}</h2>
+  <h2>{% block title %}{% trans %}Challenges Overview{% endtrans %}{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -18,7 +17,7 @@
 
        {% if g.challenges[_index][-3] %}
           {% if g.challenges[_index][0]["is_agreed"] == 'True' %}
-            <p><h4>Weekend-Friendly:</h4></p>
+            {% trans %}<p><h4>Weekend-Friendly:</h4></p>{% endtrans %}
           {% endif %}
         {% endif %}
         
@@ -28,14 +27,14 @@
             <th>
               <strong>
                 <p>
-                  Next Friendly date:
+                  {% trans %}Next Friendly date:{% endtrans %}
                 </p>
               </strong>
             </th>
             <td>
               <strong>
                 <p>
-                  {{ g.challenges[_index][0]['match_time'] }} LT (in {{ g.challenges[_index][-4] }} hours)
+                  {{ g.challenges[_index][0]['match_time'] }} HT (in {{ g.challenges[_index][-4] }} {% trans %}hours{% endtrans %})
                 </p>
               </strong>
             </td>
@@ -45,7 +44,7 @@
             <th>
               <strong>
                 <p>
-                  Opponent Name:
+                  {% trans %}Opponent Name:{% endtrans %}
                 </p>
               </strong>
             </th>
@@ -66,7 +65,7 @@
             <th>
               <strong>
                 <p>
-                  Arena Name:
+                  {% trans %}Arena Name:{% endtrans %}
                 </p>
               </strong>
             </th>
@@ -93,14 +92,14 @@
             <th>
               <strong>
                 <p>
-                  Next scheduler-run:
+                  {% trans %}Next scheduler-run:{% endtrans %}
                 </p>
               </strong>
             </th>
             <td>
               <strong>
                 <p>
-                  {{ g.scheduler_date }} 07:15:00 ZT (approx.)
+                  {{ g.scheduler_date }} 08:15:00 HT {% trans %}(approx.){% endtrans %}
                 </p>
               </strong>
             </td>
@@ -109,7 +108,7 @@
             <th>
               <strong>
                 <p>
-                  Opponent country:
+                  {% trans %}Opponent country:{% endtrans %}
                 </p>
               </strong>
             </th>
@@ -127,7 +126,7 @@
             <th>
               <strong>
                 <p>
-                  Match place:
+                  {% trans %}Match place:{% endtrans %}
                 </p>
               </strong>
             </th>
@@ -145,7 +144,7 @@
             <th>
               <strong>
                 <p>
-                  Match attributes:
+                  {% trans %}Match attributes:{% endtrans %}
                 </p>
               </strong>
             </th>
@@ -153,13 +152,13 @@
               <strong>
                 <p>
                   <a href="{{url_for('settings.settings')}}">
-                      Opponents for this match are {{ g.schedule["opponent_type"] }}. It's played with {{ g.schedule["match_rules"] }} rules.
+                      {% trans %}Opponents for this match are {% endtrans %}{{ g.schedule["opponent_type"] }}. {% trans %}It's played with{% endtrans %} {{ g.schedule["match_rules"] }} {% trans %}rules.{% endtrans %}
                     
                     {% if g.schedule["weekend_friendly"] == "1" %}
-                      It is a weekend-friendly and search-depth is {{ g.schedule["search_depth"] }}.
+                      {% trans %}It is a weekend-friendly and search-depth is{% endtrans %} {{ g.schedule["search_depth"] }}.
                     
                     {% else %}
-                      It is not a weekend-friendly and search-depth is {{ g.schedule["search_depth"] }}.
+                      {% trans %}It is not a weekend-friendly and search-depth is{% endtrans %} {{ g.schedule["search_depth"] }}.
                     {% endif %}
                   </a>
                 </p>

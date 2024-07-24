@@ -1,7 +1,15 @@
 """ FwF authentication views """
 
-from flask import (Blueprint, flash, g, redirect, render_template, request,
-                   session, url_for)
+from flask import (
+    Blueprint,
+    flash,
+    g,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from flask_babel import gettext
 
 from . import api, decs, helperf
@@ -12,16 +20,14 @@ bp_a = Blueprint("auth", __name__, url_prefix="/auth")
 @bp_a.route("/authorize", methods=("GET", "POST"))
 def authorize():
     """ """
-    
-    success_message = gettext("Hello Translation!")
-    print(success_message)
-
     _protocol = request.args.get("protocol")
     _url = request.args.get("url")
 
     if request.method == "GET":
         if _protocol and _url:
-            g.authorize_url = api.oauth_get_url(oauth_url=f"{_protocol}//{_url}/auth/callback")
+            g.authorize_url = api.oauth_get_url(
+                oauth_url=f"{_protocol}//{_url}/auth/callback"
+            )
             g.oob = False
         else:
             g.authorize_url = api.oauth_get_url()
@@ -32,8 +38,7 @@ def authorize():
         try:
             access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
         except Exception as e:
-            error = f"{e}: Pin {g.pin} was not accepted."
-
+            error = gettext("{e}: Pin {pin} was not accepted.".format(e=e, pin=g.pin))
             flash(error)
         else:
             creds = f"{access_token_key} {access_token_secret}"
@@ -52,7 +57,7 @@ def callback():
         access_token_key, access_token_secret = api.oauth_get_access_token(g.pin)
 
     except Exception as e:
-        error = f"{e}: Pin {g.pin} was not accepted."
+        error = gettext("{e}: Pin {pin} was not accepted.".format(e=e, pin=g.pin))
 
         flash(error)
 
@@ -81,13 +86,13 @@ def login():
             includeFlags="false",
         )
     except Exception as e:
-        flash(f"Session initialization failed: {e}")
+        flash(gettext("Session initialization failed: {e}".format(e=e)))
 
     else:
         session["my_team"] = api.ht_get_team(xml_response)
         session["username"] = session["my_team"]["user"]["login_name"]
 
-        flash("login successful")
+        flash(gettext("login successful"))
 
     return render_template("auth/login.html")
 
@@ -106,10 +111,10 @@ def logout():
         try:
             session.clear()
         except Exception as e:
-            error = f"Session logout failed: {e}"
+            error = gettext("Session logout failed: {e}".format(e=e))
 
         else:
-            flash("logout successful")
+            flash(gettext("logout successful"))
 
     if error is not None:
         flash(error)

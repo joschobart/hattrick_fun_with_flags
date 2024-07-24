@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h2>{% block title %}Flag Details{% endblock %}</h2>
+  <h2>{% block title %}{% trans %}Flag Details{% endtrans %}{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -12,17 +12,18 @@
       <img src="{{ g.flagurl }}" alt="{{ g.nation }}" title="{{ g.nation }}">
     </h3>
     {% if g.missing_flag is false %}
-      <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> for your team <b>{{ g.team }}</b> is in your collection already. Doesn't it look amazing?!:)</p>
+      {% trans %}<p>The {% endtrans %}'{{ g.place }}'{% trans %}-flag of {% endtrans %}<b>{{ g.nation }}</b> {% trans %}for your team{% endtrans %} <b>{{ g.team }}
+        </b> {% trans %}is in your collection already. Doesn't it look amazing?!:)</p>{% endtrans %}
 
       <hr style="width:100%;text-align:left;margin-left:0">
         <p>
-        <h4>Played '{{ g.place }}'-matches</h4>
+        {% trans %}<h4>Played {% endtrans %}'{{ g.place }}'{% trans %}-matches</h4>{% endtrans %}
       {% if g.played_matches %}
         <table width="100%">
           {% for played_match in g.played_matches %}
           <tr>
             <td style="text-align:left" width="200px">
-              {{ played_match["match_date"] }} (LT)
+              {{ played_match["match_date"] }} (HT)
             </td>
             <td style="text-align:left" width="30px">
               <img src="https://hattrick.org/goto.ashx?path=/Img/Svgs/match-types/friendly.svg?v=1" title="{{ played_match['match_type'] }}" alt="{{ played_match['match_type'] }}" height="20px">
@@ -46,42 +47,46 @@
           {% endfor %}
         </table>
       {% endif %}
-        <p>*Only matches booked over (or added later to) Fun with Flags appear here</p>
+        {% trans %}<p>*Only matches booked over (or added later to) Fun with Flags appear here</p>{% endtrans %}
         <hr style="width:100%;text-align:left;margin-left:0">
-        <h4>Add past friendly for {{ g.nation }}</h4>
+        {% trans %}<h4>Add past friendly for{% endtrans %} {{ g.nation }}</h4>
         <p>
+          {% trans %}
           <form method="post">
             <input type="text" name="user_added_friendly" id="user_added_friendly" required 
             pattern="[0-9]{1,}" placeholder="Match-ID e.g.: 32779645" title="Only Numbers, at least 1.">
             <input type="submit" value="Add Past Friendly">
           </form>
+          {% endtrans %}
         </p>
         <hr style="width:100%;text-align:left;margin-left:0">
 
         {% if not session["unicorn"] %}
-          <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is in your collection already. But let's challenge over and over!;)</p>
+          {% trans %}<p>The{% endtrans %} '{{ g.place }}'{% trans %}-flag of{% endtrans %} <b>{{ g.nation }}
+            </b> {% trans %}is in your collection already. But let's challenge over and over!;)</p>{% endtrans %}
         {% endif %}
 
     {% else %}
-        <p>The '{{ g.place }}'-flag of <b>{{ g.nation }}</b> is missing for your team <b>{{ g.team }}</b>. Let's grab that flag!;)</p>
+        {% trans %}<p>The{% endtrans %} '{{ g.place }}'{% trans %}-flag of{% endtrans %} <b>{{ g.nation }}
+          </b> {% trans %}is missing for your team{% endtrans %} <b>{{ g.team }}</b>. {% trans %}Let's grab that flag!;)</p>{% endtrans %}
         <hr style="width:100%;text-align:left;margin-left:0">
     {% endif %}
 
       {% if g.bookable or g.weekend_bookable %}
-        <p>Do you want to search for opponents to challenge? <b>This may take up to five minutes on level 5 depth!</b></p>
+        {% trans %}<p>Do you want to search for opponents to challenge? <b>This may take up to five minutes on level 5 depth!</b></p>{% endtrans %}
         <form method="post" style="width: 200px;">
           <p>
             <select name="match_type" id="match_type">
               {% if g.bookable %}
-                <option value="0" selected>Midweek friendly</option>
+                {% trans %}<option value="0" selected>Midweek friendly</option>{% endtrans %}
               {% endif %}
               {% if g.weekend_bookable %}
-                <option value="1">Weekend friendly</option>
+                {% trans %}<option value="1">Weekend friendly</option>{% endtrans %}
               {% endif %}
                 
             </select>
            </p>
-          <input type="submit" value="Search Opponents" name="search_opponents" id="search_opponents" onclick="loadSpinner()">
+          {% trans %}<input type="submit" value="Search Opponents" name="search_opponents" id="search_opponents" onclick="loadSpinner()">{% endtrans %}
         </form>
       {% else %}
 
@@ -89,56 +94,61 @@
           {% if g.schedule is defined %}
             {% if g.schedule["country_id"] == g.flagid %}
               {% if g.schedule["match_place"] == g.place %}
-                <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
+                {% trans %}<h4>&#129412; Update schedule for{% endtrans %} '{{ g.place }}'{% trans %}-match &#129412;</h4>{% endtrans %}
                 <p>
-                  There is a schedule for a(n) '{{ g.place }}'-match for {{ g.nation }} already.
+                  {% trans %}There is a schedule for a(n){% endtrans %} '{{ g.place }}'{% trans %}-match for{% endtrans %} {{ g.nation }} {% trans %}already.
                   You can resubmit it in case you have changed the attributes in settings. This will update the schedule.
-                  Also you can delete it completely to start over from scratch or to cancel it from here.
+                  Also you can delete it completely to start over from scratch or to cancel it from here.{% endtrans %}
                 </p>
+                {% trans %}
                 <form method="post" style="width: 200px;">
                   <input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">
                   <input type="submit" value="Delete Schedule" name="delete_schedule" id="delete_schedule">                 
                 </form>
+                {% endtrans %}
               {% else %}
-                <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
+                {% trans %}<h4>&#129412; Update schedule for {% endtrans %}'{{ g.place }}'{% trans %}-match &#129412;</h4>{% endtrans %}
                 <p>
-                  There is a schedule for a(n) '{{ g.schedule["match_place"] }}'-match for {{ g.nation }} already.
-                  You can resubmit it as a(n) '{{ g.place }}'-match instead. This will overwrite the schedule.
+                  {% trans %}There is a schedule for a(n){% endtrans %} '{{ g.schedule["match_place"] }}'{% trans %}-match for{% endtrans %} {{ g.nation }} {% trans %}already.
+                  You can resubmit it as a(n){% endtrans %} '{{ g.place }}'{% trans %}-match instead. This will overwrite the schedule.{% endtrans %}
                 </p>
                 <form method="post" style="width: 200px;">
-                  <input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">
+                  {% trans %}<input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">{% endtrans %}
                 </form>
               {% endif %}
             {% else %}
-              <h4>&#129412; Update schedule for '{{ g.place }}'-match &#129412;</h4>
+              {% trans %}<h4>&#129412; Update schedule for{% endtrans %} '{{ g.place }}'{% trans %}-match &#129412;</h4>{% endtrans %}
                 <p>
-                  There is a schedule for a(n) '{{ g.schedule["match_place"] }}'-match for {{ g.scheduler_country_name }} already.
-                  You can resubmit it as a(n) '{{ g.place }}'-match for {{ g.nation }} instead. This will overwrite the existing schedule.
+                  {% trans %}There is a schedule for a(n){% endtrans %} '{{ g.schedule["match_place"] }}'{% trans %}-match for{% endtrans %} {{ g.scheduler_country_name }} {% trans %}already.
+                  You can resubmit it as a(n){% endtrans %} '{{ g.place }}'{% trans %}-match for{% endtrans %} {{ g.nation }} {% trans %}instead. This will overwrite the existing schedule.{% endtrans %}
                 </p>
                 <form method="post" style="width: 200px;">
-                  <input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">
+                  {% trans %}<input type="submit" value="Update Schedule" name="schedule_friendly" id="schedule_friendly">{% endtrans %}
                 </form>
             {% endif %}
           {% else %}
-            <h4>&#129412; Schedule '{{ g.place }}'-match &#129412;</h4>
-            <p>As a member of the unicorn-club you are even entitled to schedule a match in advance! Let's do it!;)</p>
+            {% trans %}<h4>&#129412; Schedule{% endtrans %} '{{ g.place }}'{% trans %}-match &#129412;</h4>{% endtrans %}
+            {% trans %}<p>As a member of the unicorn-club you are even entitled to schedule a match in advance! Let's do it!;)</p>{% endtrans %}
             <form method="post" style="width: 200px;">
-              <input type="submit" value="Add Schedule" name="schedule_friendly" id="schedule_friendly">
+              {% trans %}<input type="submit" value="Add Schedule" name="schedule_friendly" id="schedule_friendly">{% endtrans %}
             </form>
           {% endif %}          
         {% else %}
+          {% trans %}
           <p><b>...but:</b> first you will have to wait until Thursday after 9 a.m. HT (or even longer if still in cup)!:/
-          <b>P.S.: </b>As a member of the &#129412; unicorn-club &#129412; auto-scheduling starts earlier, i.e. 8.15 a.m. HT. Become a member here: 
-          <a href="{{url_for('settings.settings')}}">Settings</a></p>
+          <b>P.S.: </b>As a member of the &#129412; unicorn-club &#129412; auto-scheduling starts earlier, i.e. 8.15 a.m. HT. Become a member here:{% endtrans %} 
+          <a href="{{url_for('settings.settings')}}">{% trans %}Settings</a></p>
+          {% endtrans %}
         {% endif %}
       
       {% endif %}
 
       {% if session["challengeable"] | length > 0 %}
       <hr style="width:100%;text-align:left;margin-left:0">
-      <p>There are <b>{{ session["challengeable"] | length }}</b> teams challengeable in <b>{{ g.nation }}</b> at the moment with your settings.</p>
+      {% trans %}<p>There are{% endtrans %} <b>{{ session["challengeable"] | length }}</b> {% trans %}teams challengeable in{% endtrans %} 
+          <b>{{ g.nation }}</b> {% trans %}at the moment with your settings.</p>{% endtrans %}
       <form method="post">
-        <input type="submit" value="Challenge Opponents" name="challenge_opponents" formaction="{{ url_for('challenge.challenge') }}" onclick="loadSpinner()">
+        <input type="submit" value="{% trans %}Challenge Opponents{% endtrans %}" name="challenge_opponents" formaction="{{ url_for('challenge.challenge') }}" onclick="loadSpinner()">
       </form>
       <div id='list_0'>
         <div class="list_0">
