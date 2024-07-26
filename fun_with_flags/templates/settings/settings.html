@@ -9,36 +9,41 @@
 
   {% if g.my_document is defined and g.db_settings is defined %}
   <form method="POST">
-    {% for object in g.db_settings['settings'].items() %}
-      {% if object[0] != "meta" %}
-      <h3>{{ object[1]['name'] }}</h3>
-      <table border="1px">
-        {% for key, value in object[1]['schema'].items() %}
-        <tr>
-          <td style="text-align:left" width="500px">
-            {{ value[0] }}: 
-          </td>
-          <td style="text-align:left" width="30px">
-            <div id="hideMe" tabindex="0" title="{{ value[1] }}">
-              <img src="{{ url_for('static', filename='info.png') }}" alt="Info" height="20px">
-            </div>
-          </td>
-          <td style="text-align:left">
-            <select name="{{ object[0] }}.{{ key }}" id="{{ object[0] }}.{{ key }}">
-              {% for item in value[2] %}
-                {% if g.my_document['settings'][object[0]][key] is defined %}
-                  {% if g.my_document['settings'][object[0]][key] == item %}
-                    <option value="{{ item }}" selected>{{ item }}</option>
-                  {% else %}
-                    <option value="{{ item }}">{{ item }}</option>
-                  {% endif%}
-                {% endif%}
+    {% for key, value in g.db_settings['settings'].items() %}
+      {% if key != "meta" %}
+        {% for lang_key, values_dict in value.items() %}
+          {% if lang_key == session.get("lang", "en") %}
+            <h3>{{ values_dict['name'] }}</h3>
+            <table border="1px">
+              {% for sub_key, sub_value in values_dict['schema'].items() %}
+              <tr>
+                <td style="text-align:left" width="500px">
+                  {{ sub_value[0] }}: 
+                </td>
+                <td style="text-align:left" width="30px">
+                  <div id="hideMe" tabindex="0" title="{{ sub_value[1] }}">
+                    <img src="{{ url_for('static', filename='info.png') }}" alt="Info" height="20px">
+                  </div>
+                </td>
+                <td style="text-align:left">
+                  <select name="{{ key }}.{{ sub_key }}" id="{{ key }}.{{ sub_key }}">
+                    {% for item in sub_value[2] %}
+                      {% if g.my_document['settings'][key][sub_key] is defined %}
+                        {% if g.my_document['settings'][key][sub_key] == item %}
+                          <option value="{{ item }}" selected>{{ item }}</option>
+                        {% else %}
+                          <option value="{{ item }}">{{ item }}</option>
+                        {% endif%}
+                      {% endif%}
+                    {% endfor %}
+                  </select>
+                </td>
+              </tr>
               {% endfor %}
-            </select>
-          </td>
-        </tr>
+            </table>
+
+          {% endif %}
         {% endfor %}
-      </table>
       {% endif %}
     {% endfor %}
     {% trans %}<p><input type="submit" value="Update Settings" id="update_settings"></p>{% endtrans %}

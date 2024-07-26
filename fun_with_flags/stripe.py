@@ -141,7 +141,7 @@ def hook():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-@decs.set_unicorn
+@decs.set_config_from_db
 @decs.error_check
 def success():
     """ """
@@ -161,7 +161,7 @@ def success():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-@decs.set_unicorn
+@decs.set_config_from_db
 @decs.error_check
 def fail():
     """ """

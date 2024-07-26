@@ -125,7 +125,7 @@ def use_db(view):
     return wrapped_view
 
 
-def set_unicorn(view):
+def set_config_from_db(view):
     """
 
     :param view:
@@ -145,6 +145,17 @@ def set_unicorn(view):
                 session["unicorn"] = True
             else:
                 session["unicorn"] = False
+
+            lang = db.get_language()
+            if (
+                session.get("lang")
+                and session["lang"] != lang
+                and lang is not None
+                and lang != "None"
+            ):
+                session["lang"] = lang
+
+                return redirect(request.url)
 
         return view(**kwargs)
 

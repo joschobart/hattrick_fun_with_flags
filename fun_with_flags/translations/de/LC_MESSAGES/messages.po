@@ -21,72 +21,71 @@ msgstr ""
 
 #: fun_with_flags/auth.py:41 fun_with_flags/auth.py:60
 msgid "{e}: Pin {pin} was not accepted."
-msgstr ""
+msgstr "{e}: Pin {pin} wurde nicht akzeptiert."
 
 #: fun_with_flags/auth.py:89
 msgid "Session initialization failed: {e}"
-msgstr ""
+msgstr "Sitzung konnte nicht initialisiert werden: {e}"
 
 #: fun_with_flags/auth.py:95
 msgid "login successful"
-msgstr ""
+msgstr "Anmeldung erfolgreich"
 
 #: fun_with_flags/auth.py:114
 msgid "Session logout failed: {e}"
-msgstr ""
+msgstr "Abmeldung fehlgeschlagen: {e}"
 
 #: fun_with_flags/auth.py:117
 msgid "logout successful"
-msgstr ""
+msgstr "Abmeldung erfolgreich"
 
 #: fun_with_flags/challenge.py:59
 msgid "You have a scheduled challenge request."
-msgstr ""
+msgstr "Es gibt eine geplante Forderung."
 
 #: fun_with_flags/challenge.py:113
 msgid "No challenges to show."
-msgstr ""
+msgstr "Keine Forderungen vorhanden."
 
 #: fun_with_flags/challenge.py:170
 msgid "Var '{e}' is missing."
-msgstr ""
+msgstr "Variable '{e}' fehlt."
 
 #: fun_with_flags/challenge.py:173
-#, fuzzy
 msgid "Challenges booked!"
-msgstr "[Forderungen]"
+msgstr "Forderungen hinzugefügt."
 
 #: fun_with_flags/flags.py:133
 msgid "Match not found."
-msgstr ""
+msgstr "Spiel nicht gefunden."
 
 #: fun_with_flags/flags.py:153
 msgid "{_place}-match added."
-msgstr ""
+msgstr "{_place}-Spiel hinzugefügt."
 
 #: fun_with_flags/flags.py:171
 msgid "Not one of your past friendly-matches for that flag."
-msgstr ""
+msgstr "Nicht eines deiner vergangenen Freundschaftsspiele für diese Flagge."
 
 #: fun_with_flags/flags.py:215
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
-msgstr ""
+msgstr "Automatisches Fordern ist geplant. Du findest es unter 'Forderungen'."
 
 #: fun_with_flags/flags.py:232
 msgid "Schedule for challenge is deleted successfully."
-msgstr ""
+msgstr "Automatisches Fordern wurde erfolgreich gelöscht."
 
 #: fun_with_flags/settings.py:58
 msgid "Settings updated."
-msgstr ""
+msgstr "Einstellungen aktualisiert."
 
 #: fun_with_flags/stripe.py:155
 msgid "Payment accepted. You're a FwF Unicorn now!"
-msgstr ""
+msgstr "Zahlung akzeptiert. Du bist jetzt ein FwF-Einhorn!"
 
 #: fun_with_flags/stripe.py:175
 msgid "No payment received."
-msgstr ""
+msgstr "Keine Zahlung erhalten."
 
 #: fun_with_flags/templates/base.html:51
 msgid "<input type=\"submit\" value=\"Select\" onclick=\"loadSpinner()\">"
@@ -261,6 +260,29 @@ msgid ""
 " this section, please get in touch.</p>\n"
 "  "
 msgstr ""
+"\n"
+"  <p><b>Daten-Haftungsausschluss:</b> Der Inhalt dieser Website basiert "
+"auf Informationen, die von hattrick.org stammen. Der Eigentümer dieser "
+"Website ist nicht verantwortlich für die Richtigkeit des Inhalts. Der "
+"Inhalt, der von hattrick.org gesammelt wird, wird nicht dauerhaft von der"
+" Website gespeichert. Stattdessen wird er für die spätere Verwendung auf "
+"dem Computer des Benutzers in Form von Cookies zwischengespeichert, wo "
+"zutreffend. Das Löschen aller Cookie-Inhalte ist jederzeit möglich, indem"
+" Du auf \"Abmelden\" klickst.\n"
+"  Diese Website verwendet Datenbanktechnologien, um Profilinformationen "
+"über den angemeldeten Benutzer zu speichern, die für den Betrieb der "
+"Website erforderlich sind. Nach bestem Wissen des Eigentümers werden keine"
+" Daten an Dritte weitergegeben. Es werden keine Daten verkauft.\n"
+"  Es werden keine Daten für andere Zwecke als für die Nutzung im Rahmen "
+"der auf der FwF-Website bereitgestellten Dienste verwendet. Wenn "
+"angemessen, werden Daten verschlüsselt gespeichert. Es wird kein "
+"persönliches Passwort von der Website gespeichert. Die von dieser Website"
+" bereitgestellten Dienste sind frei\n"
+"  (wie in Freibier) für den privaten Gebrauch nach bestem Wissen und "
+"Gewissen verfügbar. Wenn Du Fragen oder Bedenken bezüglich Deiner Daten "
+"in Bezug auf FwF hast, die nicht in diesem Abschnitt aufgeführt sind, "
+"dann nimm bitte Kontakt mit mir auf.</p>\n"
+"  "
 
 #: fun_with_flags/templates/index.html:90
 msgid ""
@@ -283,17 +305,37 @@ msgid ""
 "get in touch.</p>\n"
 "  "
 msgstr ""
+"\n"
+"  <p><b>Lizenz- und Urheberrechtshinweis:</b> Der Software-Code, der diese"
+" Website ausmacht, ist auf github.org unter der GPLv3-Lizenz veröffentlicht"
+" und verwendet ht-libs, eine Backend-Bibliothek, die in Python geschrieben"
+" und unter der Apache v2.0-Lizenz veröffentlicht wurde.\n"
+"  Eine Kopie der GPLv3-Lizenz findest du hier: <a "
+"href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\" "
+"target=\"_blank\">https://www.gnu.org/licenses/gpl-3.0.en.html.</a> Eine "
+"Kopie der Apache v2.0-Lizenz findest du hier:\n"
+"  <a href=\"https://apache.org/licenses/LICENSE-2.0\" "
+"target=\"_blank\">https://apache.org/licenses/LICENSE-2.0.</a> Alle "
+"anderen Inhalte auf dieser Website, einschließlich Inhalte, die von "
+"hattrick.org unter Lizenz bereitgestellt werden, sind entweder gemeinfrei"
+" oder wurden\n"
+"  nach bestem Wissen des Eigentümers der Website mit einem Nutzungsrecht "
+"veröffentlicht. Solltest du der Inhaber des Urheberrechts an Inhalten sein,"
+" die auf dieser Website veröffentlicht wurden und eine Verletzung deines "
+"Urheberrechts feststellen, dann nimm bitte Kontakt mit mir auf.</p>\n"
+"  "
 
 #: fun_with_flags/templates/auth/authorize.html:4
-#, fuzzy
 msgid "Authorize"
-msgstr "[CHPP autorisieren]"
+msgstr "Autorisieren"
 
 #: fun_with_flags/templates/auth/authorize.html:9
 msgid ""
 "<p>1. Click the button to open a new tab for the hattrick-"
 "authorization.</p>"
 msgstr ""
+"<p>1. Klicke auf den Button, um eine neue Registerkarte für die "
+"hattrick-Autorisierung zu öffnen.</p>"
 
 #: fun_with_flags/templates/auth/authorize.html:12
 #: fun_with_flags/templates/auth/authorize.html:24
@@ -301,151 +343,157 @@ msgid ""
 "<input type=\"button\" class=\"button\" value=\"Hattrick-Authorization\" "
 "/>"
 msgstr ""
+"<input type=\"button\" class=\"button\" value=\"Hattrick-Autorisierung\" "
+"/>"
 
 #: fun_with_flags/templates/auth/authorize.html:14
 msgid ""
 "<p>2. Come back here after the authorization and enter the received token"
 " in the box below</p>"
 msgstr ""
+"<p>2. Kehre nach der Autorisierung hierher zurück und gib den erhaltenen"
+" Token in das Feld unten ein</p>"
 
 #: fun_with_flags/templates/auth/authorize.html:17
 msgid ""
 "<input type=\"text\" name=\"pin\" id=\"pin\" required placeholder=\"Token"
 " e.g.: ZzJuAjDgZNDmis8l\">"
 msgstr ""
+"<input type=\"text\" name=\"pin\" id=\"pin\" required placeholder=\"Token "
+"z.B.: ZzJuAjDgZNDmis8l\">"
 
 #: fun_with_flags/templates/auth/authorize.html:18
-#, fuzzy
 msgid "<input type=\"submit\" value=\"Start Session\">"
-msgstr "<input type=\"submit\" value=\"Wählen\" onclick=\"loadSpinner()\">"
+msgstr "<input type=\"submit\" value=\"Sitzung starten\">"
 
 #: fun_with_flags/templates/auth/authorize.html:21
 msgid ""
 "<p>Click the button to open the hattrick CHPP authorization page and "
 "allow Fun with flags.</p>"
 msgstr ""
+"<p>Klicke auf den Button, um die hattrick CHPP-Autorisierungsseite zu "
+"öffnen und Fun with Flags zu erlauben.</p>"
 
 #: fun_with_flags/templates/auth/login.html:4
 msgid "Log In"
-msgstr ""
+msgstr "Anmelden"
 
 #: fun_with_flags/templates/auth/logout.html:4
-#, fuzzy
 msgid "Log Out"
-msgstr "[Abmelden]"
+msgstr "Abmelden"
 
 #: fun_with_flags/templates/auth/logout.html:8
 msgid "<p>See you soon!</p>"
-msgstr ""
+msgstr "<p>Bis bald!</p>"
 
 #: fun_with_flags/templates/challenge/challenge.html:4
 #: fun_with_flags/templates/challenge/challenge.html:12
-#, fuzzy
 msgid "Challenges"
-msgstr "[Forderungen]"
+msgstr "Forderungen"
 
 #: fun_with_flags/templates/challenge/overview.html:3
-#, fuzzy
 msgid "Challenges Overview"
-msgstr "[Forderungen]"
+msgstr "Forderungen"
 
 #: fun_with_flags/templates/challenge/overview.html:20
 msgid "<p><h4>Weekend-Friendly:</h4></p>"
-msgstr ""
+msgstr "<p><h4>Wochenend-Freundschaftsspiel:</h4></p>"
 
 #: fun_with_flags/templates/challenge/overview.html:30
 msgid "Next Friendly date:"
-msgstr ""
+msgstr "Nächstes Freundschaftsspiel:"
 
 #: fun_with_flags/templates/challenge/overview.html:37
 msgid "hours"
-msgstr ""
+msgstr "Stunden"
 
 #: fun_with_flags/templates/challenge/overview.html:47
 msgid "Opponent Name:"
-msgstr ""
+msgstr "Gegnername:"
 
 #: fun_with_flags/templates/challenge/overview.html:68
 msgid "Arena Name:"
-msgstr ""
+msgstr "Stadionname:"
 
 #: fun_with_flags/templates/challenge/overview.html:95
 msgid "Next scheduler-run:"
-msgstr ""
+msgstr "Nächster Scheduler-Lauf:"
 
 #: fun_with_flags/templates/challenge/overview.html:102
 msgid "(approx.)"
-msgstr ""
+msgstr "(ungefähr)"
 
 #: fun_with_flags/templates/challenge/overview.html:111
 msgid "Opponent country:"
-msgstr ""
+msgstr "Gegnerland:"
 
 #: fun_with_flags/templates/challenge/overview.html:129
 msgid "Match place:"
-msgstr ""
+msgstr "Spielort:"
 
 #: fun_with_flags/templates/challenge/overview.html:147
 msgid "Match attributes:"
-msgstr ""
+msgstr "Spielattribute:"
 
 #: fun_with_flags/templates/challenge/overview.html:155
 msgid "Opponents for this match are "
-msgstr ""
+msgstr "Gegner für dieses Spiel sind "
 
 #: fun_with_flags/templates/challenge/overview.html:155
 msgid "It's played with"
-msgstr ""
+msgstr "Es wird gespielt mit"
 
 #: fun_with_flags/templates/challenge/overview.html:155
 msgid "rules."
-msgstr ""
+msgstr "Regeln."
 
 #: fun_with_flags/templates/challenge/overview.html:158
 msgid "It is a weekend-friendly and search-depth is"
-msgstr ""
+msgstr "Es ist ein Wochenend-Freundschaftsspiel und die Suchtiefe beträgt"
 
 #: fun_with_flags/templates/challenge/overview.html:161
 msgid "It is not a weekend-friendly and search-depth is"
-msgstr ""
+msgstr "Es ist kein Wochenend-Freundschaftsspiel und die Suchtiefe beträgt"
 
 #: fun_with_flags/templates/flags/details.html:4
 msgid "Flag Details"
-msgstr ""
+msgstr "Flaggen"
 
 #: fun_with_flags/templates/flags/details.html:15
 msgid "<p>The "
-msgstr ""
+msgstr "<p>Die "
 
 #: fun_with_flags/templates/flags/details.html:15
 msgid "-flag of "
-msgstr ""
+msgstr "-Flagge von "
 
 #: fun_with_flags/templates/flags/details.html:15
 msgid "for your team"
-msgstr ""
+msgstr "für dein Team"
 
 #: fun_with_flags/templates/flags/details.html:16
 msgid "is in your collection already. Doesn't it look amazing?!:)</p>"
-msgstr ""
+msgstr "ist bereits in deiner Sammlung. Sieht das nicht toll aus?!:)</p>"
 
 #: fun_with_flags/templates/flags/details.html:20
 msgid "<h4>Played "
-msgstr ""
+msgstr "<h4>Gespielte "
 
 #: fun_with_flags/templates/flags/details.html:20
 msgid "-matches</h4>"
-msgstr ""
+msgstr "-Spiele</h4>"
 
 #: fun_with_flags/templates/flags/details.html:50
 msgid ""
 "<p>*Only matches booked over (or added later to) Fun with Flags appear "
 "here</p>"
 msgstr ""
+"<p>*Nur über Fun with Flags gebuchte (oder später hinzugefügte) Spiele "
+"erscheinen hier</p>"
 
 #: fun_with_flags/templates/flags/details.html:52
 msgid "<h4>Add past friendly for"
-msgstr ""
+msgstr "<h4>Vergangenes Freundschaftsspiel hinzufügen für"
 
 #: fun_with_flags/templates/flags/details.html:54
 msgid ""
@@ -459,75 +507,90 @@ msgid ""
 "          </form>\n"
 "          "
 msgstr ""
+"\n"
+"          <form method=\"post\">\n"
+"            <input type=\"text\" name=\"user_added_friendly\" "
+"id=\"user_added_friendly\" required \n"
+"            pattern=\"[0-9]{1,}\" placeholder=\"Spiel-ID z.B.: 32779645\" "
+"title=\"Nur Zahlen, mindestens 1.\">\n"
+"            <input type=\"submit\" value=\"Vergangenes Freundschaftsspiel "
+"hinzufügen\">\n"
+"          </form>\n"
+"          "
 
 #: fun_with_flags/templates/flags/details.html:65
 #: fun_with_flags/templates/flags/details.html:70
 msgid "<p>The"
-msgstr ""
+msgstr "<p>Die"
 
 #: fun_with_flags/templates/flags/details.html:65
 #: fun_with_flags/templates/flags/details.html:70
 msgid "-flag of"
-msgstr ""
+msgstr "-Flagge von"
 
 #: fun_with_flags/templates/flags/details.html:66
 msgid "is in your collection already. But let's challenge over and over!;)</p>"
-msgstr ""
+msgstr "ist bereits in deiner Sammlung. Aber lass uns immer wieder fordern!;)</p>"
 
 #: fun_with_flags/templates/flags/details.html:71
 msgid "is missing for your team"
-msgstr ""
+msgstr "fehlt deinem Team"
 
 #: fun_with_flags/templates/flags/details.html:71
 msgid "Let's grab that flag!;)</p>"
-msgstr ""
+msgstr "Lass uns diese Flagge holen!;)</p>"
 
 #: fun_with_flags/templates/flags/details.html:76
 msgid ""
 "<p>Do you want to search for opponents to challenge? <b>This may take up "
 "to five minutes on level 5 depth!</b></p>"
 msgstr ""
+"<p>Möchtest du nach Gegnern suchen, um sie herauszufordern? <b>Dies kann "
+"bis zu fünf Minuten dauern bei einer Suchtiefe von 5!</b></p>"
 
 #: fun_with_flags/templates/flags/details.html:81
 msgid "<option value=\"0\" selected>Midweek friendly</option>"
-msgstr ""
+msgstr "<option value=\"0\" selected>Wochentags-Freundschaftsspiel</option>"
 
 #: fun_with_flags/templates/flags/details.html:84
 msgid "<option value=\"1\">Weekend friendly</option>"
-msgstr ""
+msgstr "<option value=\"1\">Wochenend-Freundschaftsspiel</option>"
 
 #: fun_with_flags/templates/flags/details.html:89
-#, fuzzy
 msgid ""
 "<input type=\"submit\" value=\"Search Opponents\" "
 "name=\"search_opponents\" id=\"search_opponents\" "
 "onclick=\"loadSpinner()\">"
-msgstr "<input type=\"submit\" value=\"Wählen\" onclick=\"loadSpinner()\">"
+msgstr ""
+"<input type=\"submit\" value=\"Gegner suchen\" "
+"name=\"search_opponents\" id=\"search_opponents\" "
+"onclick=\"loadSpinner()\">"
 
 #: fun_with_flags/templates/flags/details.html:97
 #: fun_with_flags/templates/flags/details.html:120
 msgid "<h4>&#129412; Update schedule for"
-msgstr ""
+msgstr "<h4>&#129412; Zeitplan aktualisieren für"
+
 
 #: fun_with_flags/templates/flags/details.html:97
 #: fun_with_flags/templates/flags/details.html:110
 #: fun_with_flags/templates/flags/details.html:120
 #: fun_with_flags/templates/flags/details.html:130
 msgid "-match &#129412;</h4>"
-msgstr ""
+msgstr "-Spiel &#129412;</h4>"
 
 #: fun_with_flags/templates/flags/details.html:99
 #: fun_with_flags/templates/flags/details.html:112
 #: fun_with_flags/templates/flags/details.html:122
 msgid "There is a schedule for a(n)"
-msgstr ""
+msgstr "Es gibt einen Zeitplan für ein"
 
 #: fun_with_flags/templates/flags/details.html:99
 #: fun_with_flags/templates/flags/details.html:112
 #: fun_with_flags/templates/flags/details.html:122
 #: fun_with_flags/templates/flags/details.html:123
 msgid "-match for"
-msgstr ""
+msgstr "-Spiel für"
 
 #: fun_with_flags/templates/flags/details.html:99
 msgid ""
@@ -537,6 +600,10 @@ msgid ""
 "                  Also you can delete it completely to start over from "
 "scratch or to cancel it from here."
 msgstr ""
+"bereits.\n"
+"                  Du kannst ihn erneut einreichen, falls du die Attribute"
+" in den Einstellungen geändert hast. Dies wird den Zeitplan aktualisieren."
+"\n"
 
 #: fun_with_flags/templates/flags/details.html:103
 msgid ""
@@ -549,10 +616,18 @@ msgid ""
 "                </form>\n"
 "                "
 msgstr ""
+"\n"
+"                <form method=\"post\" style=\"width: 200px;\">\n"
+"                  <input type=\"submit\" value=\"Zeitplan aktualisieren\" "
+"name=\"schedule_friendly\" id=\"schedule_friendly\">\n"
+"                  <input type=\"submit\" value=\"Zeitplan löschen\" "
+"name=\"delete_schedule\" id=\"delete_schedule\">                 \n"
+"                </form>\n"
+"                "
 
 #: fun_with_flags/templates/flags/details.html:110
 msgid "<h4>&#129412; Update schedule for "
-msgstr ""
+msgstr "<h4>&#129412; Zeitplan aktualisieren für "
 
 #: fun_with_flags/templates/flags/details.html:112
 #: fun_with_flags/templates/flags/details.html:122
@@ -560,10 +635,12 @@ msgid ""
 "already.\n"
 "                  You can resubmit it as a(n)"
 msgstr ""
+"bereits.\n"
+"                  Du kannst ihn erneut einreichen als ein"
 
 #: fun_with_flags/templates/flags/details.html:113
 msgid "-match instead. This will overwrite the schedule."
-msgstr ""
+msgstr "-Spiel stattdessen. Dies wird den Zeitplan überschreiben."
 
 #: fun_with_flags/templates/flags/details.html:116
 #: fun_with_flags/templates/flags/details.html:126
@@ -571,26 +648,34 @@ msgid ""
 "<input type=\"submit\" value=\"Update Schedule\" "
 "name=\"schedule_friendly\" id=\"schedule_friendly\">"
 msgstr ""
+"<input type=\"submit\" value=\"Zeitplan aktualisieren\" "
+"name=\"schedule_friendly\" id=\"schedule_friendly\">"
+
 
 #: fun_with_flags/templates/flags/details.html:123
 msgid "instead. This will overwrite the existing schedule."
-msgstr ""
+msgstr "stattdessen. Dies wird den bestehenden Zeitplan überschreiben."
 
 #: fun_with_flags/templates/flags/details.html:130
 msgid "<h4>&#129412; Schedule"
-msgstr ""
+msgstr "<h4>&#129412; Zeitplan"
 
 #: fun_with_flags/templates/flags/details.html:131
 msgid ""
 "<p>As a member of the unicorn-club you are even entitled to schedule a "
 "match in advance! Let's do it!;)</p>"
 msgstr ""
+"<p>Als Mitglied des Einhorn-Clubs hast du sogar das Recht, ein Spiel im "
+"Voraus zu planen! Lass uns das machen!;)</p>"
 
 #: fun_with_flags/templates/flags/details.html:133
 msgid ""
 "<input type=\"submit\" value=\"Add Schedule\" name=\"schedule_friendly\" "
 "id=\"schedule_friendly\">"
 msgstr ""
+"<input type=\"submit\" value=\"Zeitplan hinzufügen\" "
+"name=\"schedule_friendly\" id=\"schedule_friendly\">"
+
 
 #: fun_with_flags/templates/flags/details.html:137
 msgid ""
@@ -601,56 +686,64 @@ msgid ""
 "&#129412; auto-scheduling starts earlier, i.e. 8.15 a.m. HT. Become a "
 "member here:"
 msgstr ""
+"\n"
+"          <p><b>...aber:</b> zuerst musst du bis Donnerstag nach 9 Uhr HT "
+"warten (oder noch länger, wenn du noch im Cup bist)!:/\n"
+"          <b>P.S.: </b>Als Mitglied des &#129412; Einhorn-Clubs "
+"&#129412; beginnt das automatische Planen früher, d.h. um 8.15 Uhr HT. "
+"Werde Mitglied hier:"
 
 #: fun_with_flags/templates/flags/details.html:140
 msgid ""
 "Settings</a></p>\n"
 "          "
 msgstr ""
+"Einstellungen</a></p>\n"
+"          "
 
 #: fun_with_flags/templates/flags/details.html:148
 msgid "<p>There are"
-msgstr ""
+msgstr "<p>Es gibt"
 
 #: fun_with_flags/templates/flags/details.html:148
 msgid "teams challengeable in"
-msgstr ""
+msgstr "herausforderbare Teams in"
 
 #: fun_with_flags/templates/flags/details.html:149
 msgid "at the moment with your settings.</p>"
-msgstr ""
+msgstr "im Moment mit deinen Einstellungen.</p>"
 
 #: fun_with_flags/templates/flags/details.html:151
-#, fuzzy
 msgid "Challenge Opponents"
-msgstr "[Forderungen]"
+msgstr "Gegner fordern"
 
 #: fun_with_flags/templates/flags/overview.html:4
 msgid "Flag Overview"
-msgstr ""
+msgstr "Flaggen"
 
 #: fun_with_flags/templates/flags/overview.html:17
 msgid "<h4>Home Flags"
-msgstr ""
+msgstr "<h4>Heimflaggen"
 
 #: fun_with_flags/templates/flags/overview.html:43
 msgid "<h4>Away Flags"
-msgstr ""
+msgstr "<h4>Auswärtsflaggen"
 
 #: fun_with_flags/templates/flags/overview.html:72
 msgid "<h4>Worldmap</h4>"
-msgstr ""
+msgstr "<h4>Weltkarte</h4>"
 
 #: fun_with_flags/templates/settings/settings.html:5
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: fun_with_flags/templates/settings/settings.html:44
-#, fuzzy
 msgid ""
 "<p><input type=\"submit\" value=\"Update Settings\" "
 "id=\"update_settings\"></p>"
-msgstr "<input type=\"submit\" value=\"Wählen\" onclick=\"loadSpinner()\">"
+msgstr ""
+"<p><input type=\"submit\" value=\"Einstellungen aktualisieren\" "
+"id=\"update_settings\"></p>"
 
 #: fun_with_flags/templates/settings/settings.html:59
 msgid ""
@@ -668,14 +761,28 @@ msgid ""
 "              the word and: your additional donation is always welcome "
 "and helps to keep going. So far you've invested <b>"
 msgstr ""
+"\n"
+"              Du bist ein Fun with Flags Einhorn für den Rest deines "
+"Lebens, ueeeh! <b>Danke!</b>\n"
+"              Vorteile eines FwF-Einhorns sind unendliche Liebe von den "
+"Leuten hinter FwF und natürlich: Zugang zum\n"
+"              Scheduler, um automatisch das Maximum von 25 Forderungen am "
+"Donnerstagmorgen zu erhalten\n"
+"              hoffentlich. Außerdem könnten in der Zukunft zusätzliche "
+"Funktionen verfügbar sein, die ein FwF-Einhorn\n"
+"              erfordern oder sie könnten für dich zuerst verfügbar sein. "
+"TL:DR: Ziemlich gut investiertes Geld!;) Wenn du ein Fan von FwF bist, "
+"bitte\n"
+"              rede über FwF und: deine zusätzliche Spende ist immer "
+"willkommen und hilft, weiterzumachen. Bisher hast du investiert:<b>"
 
 #: fun_with_flags/templates/settings/settings.html:66
 msgid "€</b> btw. That's the equivalent of"
-msgstr ""
+msgstr "€</b>. Das entspricht"
 
 #: fun_with_flags/templates/settings/settings.html:67
 msgid "days</b> of operation. <b>Never stop to have fun!</b>:)"
-msgstr ""
+msgstr "Tagen</b> Betrieb. <b>Viel Spaß weiterhin!</b>:)"
 
 #: fun_with_flags/templates/settings/settings.html:69
 msgid ""
@@ -688,6 +795,15 @@ msgid ""
 "              To setup a web-service is not only time-consuming, it "
 "implies also costs. At the moment costs for FwF amount to  about <b>"
 msgstr ""
+"\n"
+"              Hattrick Fun with Flags ist - und wird es auch bleiben - "
+"kostenlos (und werbefrei) mit allen Hauptfunktionen für immer verfügbar. "
+"(oder zumindest so lange, wie wir die Energie, Zeit und Mittel haben, um "
+"es am Laufen zu halten) Allerdings: Wir sind immer dankbar für "
+"Unterstützung.\n"
+"              Die Einrichtung eines Webdienstes ist nicht nur "
+"zeitintensiv, sondern verursacht auch Kosten. Die Kosten für FwF belaufen "
+"sich derzeit auf etwa <b>"
 
 #: fun_with_flags/templates/settings/settings.html:73
 msgid ""
@@ -712,15 +828,39 @@ msgid ""
 "speaking, for using fun with flags!</b>\n"
 "              "
 msgstr ""
+"\n"
+"              € pro Tag</b>. Sharing is caring. Das ist einer der Gründe"
+", warum wir den Einhorn-Club für dich geschaffen haben.\n"
+"              Es ist der einfachste Weg, FwF Props zu geben, wenn du es "
+"magst. <b>Für nur 5,00 € kannst du ein lebenslanges Abonnement</b> für "
+"den Einhorn\n"
+"              Club erhalten! <b>Vorteile</b> des Clubs sind <b>viel "
+"Liebe</b> für deine Unterstützung, das <b>Einhorn-Abzeichen</b> neben "
+"deinem Namen und Zugang\n"
+"              zum <b>Scheduler</b>, der es dir ermöglicht, sogar im "
+"Voraus zu fordern, d.h. Forderungen an Teams für die gewünschte Flagge "
+"werden automatisch\n"
+"              am Donnerstagmorgen direkt nach 7 Uhr utc gesendet. Dies "
+"wird deinen Vorteil noch mehr steigern und auch deine Belastung verringern"
+", da du\n"
+"              die Flagge der nächsten Woche bereits in der Woche davor "
+"vorfestlegen kannst. In der Zukunft könnten andere nette Extras "
+"enthalten sein. <b>Danke\n"
+"              für die Überlegung, ein FwF-Einhorn zu werden und "
+"allgemein für die Nutzung von Fun with Flags!</b>\n"
+"              "
 
 #: fun_with_flags/templates/settings/settings.html:86
 msgid ""
 "<p><input type=\"submit\" id=\"checkout-button\" value=\"Make a "
 "donation\"></p>"
 msgstr ""
+"<p><input type=\"submit\" id=\"checkout-button\" value=\"Spenden\"></p>"
 
 #: fun_with_flags/templates/settings/settings.html:88
 msgid ""
 "<p><input type=\"submit\" id=\"checkout-button\" value=\"Enter the "
 "Club!\"></p>"
 msgstr ""
+"<p><input type=\"submit\" id=\"checkout-button\" value=\"Dem Club "
+"beitreten!\"></p>"

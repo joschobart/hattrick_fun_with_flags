@@ -25,7 +25,7 @@ bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-@decs.set_unicorn
+@decs.set_config_from_db
 @decs.error_check
 def overview():
     """ """
@@ -121,7 +121,7 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-@decs.set_unicorn
+@decs.set_config_from_db
 @decs.error_check
 def challenge():
     """ """

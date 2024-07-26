@@ -14,7 +14,7 @@ bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 @bp_f.route("/overview", methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
-@decs.set_unicorn
+@decs.set_config_from_db
 @decs.error_check
 def overview():
     """ """
@@ -36,7 +36,7 @@ def overview():
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-@decs.set_unicorn
+@decs.set_config_from_db
 @decs.error_check
 def details():
     """ """

@@ -16,7 +16,7 @@ bp_s = Blueprint("settings", __name__, url_prefix="/settings")
 @decs.login_required
 @decs.choose_team
 @decs.use_db
-@decs.set_unicorn
+@decs.set_config_from_db
 @decs.error_check
 def settings():
     """ """

@@ -55,21 +55,28 @@ def create_app(test_config=None):
 
     # Babel l10n
     def get_locale():
+        supported_langs = ["en"] + os.listdir(f"{app.root_path}/translations")
+
+        if not session.get("lang", None):
+            if request.accept_languages.best_match(supported_langs):
+                session["lang"] = request.accept_languages.best_match(supported_langs)
+
         if request.args.get("lang"):
-            session["lang"] = request.args.get("lang")
+            if request.args.get("lang") in supported_langs:
+                session["lang"] = request.args.get("lang")
+
         return session.get("lang", "en")
 
-    app.config['BABEL_DEFAULT_LOCALE'] = 'en'
     babel = Babel()
     babel.init_app(app, locale_selector=get_locale)
 
     # entry-point
     @app.route("/", methods=("GET", "POST"))
     @decs.choose_team
-    @decs.set_unicorn
+    # @decs.set_config_from_db
     def index():
         """index.html view."""
-        
+
         return render_template("index.html")
 
     @app.route("/favicon.ico")

@@ -14,9 +14,9 @@ from . import api
 def bootstrap_generic_document(_id, _couch, _object, _namespace="payload"):
     """
 
-    :param _id: 
-    :param _couch: 
-    :param _object: 
+    :param _id:
+    :param _couch:
+    :param _object:
     :param _namespace:  (Default value = "payload")
 
     """
@@ -35,9 +35,9 @@ def bootstrap_generic_document(_id, _couch, _object, _namespace="payload"):
 def bootstrap_user_document(_userid, _couch, _settings):
     """
 
-    :param _userid: 
-    :param _couch: 
-    :param _settings: 
+    :param _userid:
+    :param _couch:
+    :param _settings:
 
     """
     # Bootstrap db-document if it doesn't exist
@@ -139,12 +139,33 @@ def get_unicorn_state():
     return is_unicorn
 
 
+def get_language():
+    """ """
+    if "user_id" in g:
+        _userid = g.user_id
+        _couch = g.couch
+    else:
+        _userid = session["my_team"]["user"]["user_id"]
+        _couch = get_db()
+
+    if _userid in _couch:
+        _my_document = _couch[_userid]
+
+        if "settings" in _my_document:
+            try:
+                language = _my_document["settings"]["locale"]["language"]
+            except Exception:
+                language = None
+
+    return language
+
+
 def get_settings(_userid, _couch, _settings):
     """
 
-    :param _userid: 
-    :param _couch: 
-    :param _settings: 
+    :param _userid:
+    :param _couch:
+    :param _settings:
 
     """
     _my_document = g.couch[g.user_id]
@@ -170,10 +191,10 @@ def get_settings(_userid, _couch, _settings):
 def get_match_history(_userid, _couch, _flagid, _place):
     """
 
-    :param _userid: 
-    :param _couch: 
-    :param _flagid: 
-    :param _place: 
+    :param _userid:
+    :param _couch:
+    :param _flagid:
+    :param _place:
 
     """
     _my_document = _couch[_userid]
@@ -208,7 +229,9 @@ def get_match_history(_userid, _couch, _flagid, _place):
 
                     if _my_match["match_type"] == "4" or _my_match["match_type"] == "8":
                         _my_match["match_type"] = "Friendly (normal rules)"
-                    elif _my_match["match_type"] == "5" or _my_match["match_type"] == "9":
+                    elif (
+                        _my_match["match_type"] == "5" or _my_match["match_type"] == "9"
+                    ):
                         _my_match["match_type"] = "Friendly (cup rules)"
 
             _played_matches = sorted(
@@ -221,11 +244,11 @@ def get_match_history(_userid, _couch, _flagid, _place):
 def set_match_history(_userid, _couch, _league_id, _match_id, _place):
     """
 
-    :param _userid: 
-    :param _couch: 
-    :param _league_id: 
-    :param _match_id: 
-    :param _place: 
+    :param _userid:
+    :param _couch:
+    :param _league_id:
+    :param _match_id:
+    :param _place:
 
     """
     # Instantiate clone of db-document
@@ -267,11 +290,11 @@ def set_match_history(_userid, _couch, _league_id, _match_id, _place):
 def init_stripe_session(_userid, _couch, _stripe_user, _session_id, _transaction_id):
     """
 
-    :param _userid: 
-    :param _couch: 
-    :param _stripe_user: 
-    :param _session_id: 
-    :param _transaction_id: 
+    :param _userid:
+    :param _couch:
+    :param _stripe_user:
+    :param _session_id:
+    :param _transaction_id:
 
     """
     # Instantiate clone of db-document
@@ -294,9 +317,9 @@ def init_stripe_session(_userid, _couch, _stripe_user, _session_id, _transaction
 def close_stripe_session(_userid, _couch, _session_id):
     """
 
-    :param _userid: 
-    :param _couch: 
-    :param _session_id: 
+    :param _userid:
+    :param _couch:
+    :param _session_id:
 
     """
     # sleep 3 secs as stripe sometimes needs time to submit to the webhook
