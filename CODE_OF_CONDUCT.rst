@@ -65,10 +65,9 @@ Enforcement
 ===========
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the Code of Conduct Committee at
-<conduct@kernel.org>. All complaints will be reviewed and investigated
+reported by contacting joschobart. All complaints will be reviewed and investigated
 and will result in a response that is deemed necessary and appropriate
-to the circumstances. The Code of Conduct Committee is obligated to
+to the circumstances. joschobart is obligated to
 maintain confidentiality with regard to the reporter of an incident.
 Further details of specific enforcement policies may be posted
 separately.
