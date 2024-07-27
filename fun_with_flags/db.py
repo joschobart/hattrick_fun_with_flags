@@ -155,7 +155,7 @@ def get_language():
             try:
                 language = _my_document["settings"]["locale"]["language"]
             except Exception:
-                language = None
+                language = "None"
 
     return language
 

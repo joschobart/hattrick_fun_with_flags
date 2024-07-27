@@ -73,7 +73,7 @@ def create_app(test_config=None):
     # entry-point
     @app.route("/", methods=("GET", "POST"))
     @decs.choose_team
-    # @decs.set_config_from_db
+    @decs.set_config_from_db
     def index():
         """index.html view."""
 

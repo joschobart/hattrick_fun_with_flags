@@ -147,12 +147,7 @@ def set_config_from_db(view):
                 session["unicorn"] = False
 
             lang = db.get_language()
-            if (
-                session.get("lang")
-                and session["lang"] != lang
-                and lang is not None
-                and lang != "None"
-            ):
+            if session.get("lang") and session["lang"] != lang and lang != "None":
                 session["lang"] = lang
 
                 return redirect(request.url)
