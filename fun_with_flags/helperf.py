@@ -348,7 +348,11 @@ def random_quotes(_quotes):
 
     """
     for _key in _quotes.keys():
-        random_quote_index = randrange(0, len(_quotes[_key][session.get("lang", "en")]))
+        try:
+            random_quote_index = randrange(0, len(_quotes[_key][session.get("lang", "en")]))
+        except KeyError:
+            session.pop("lang", None)
+            random_quote_index = randrange(0, len(_quotes[_key][session.get("lang", "en")]))
 
         if _key == "quotes_ante":
             quote_ante = _quotes[_key][session.get("lang", "en")][random_quote_index]
