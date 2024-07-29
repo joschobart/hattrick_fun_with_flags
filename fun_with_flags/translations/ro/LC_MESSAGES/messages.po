@@ -1,0 +1,41 @@
+# Romanian translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-07-18 00:33+0200\n"
+"PO-Revision-Date: 2024-07-29 21:31+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ro\n"
+"Language-Team: ro <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100"
+" < 20)) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: fun_with_flags/auth.py:16
+msgid "Hello Translation!"
+msgstr ""
+
+#: fun_with_flags/templates/index.html:34
+msgid ""
+"\n"
+"  <p><b>Purpose:</b> Fun with Flags allows you to automate capturing "
+"flags on <a href=\"http://hattrick.org\" "
+"target=\"_blank\">hattrick.org</a> if you are a nerdy supporter of the "
+"infamous online-game like myself.</p>\n"
+"  "
+msgstr ""
+"\n"
+"  <p><b>Zweck:</b> Fun with Flags ermöglicht dir das Sammeln von flaggen "
+"auf <a href=\"http://hattrick.org\" target=\"_blank\">hattrick.org</a> "
+"wenn du ein nerdiger Unterstützer des berühmten Onlinespiels bist, so wie"
+" ich.</p>\n"
+"  "
+

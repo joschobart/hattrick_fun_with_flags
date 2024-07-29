@@ -118,23 +118,15 @@ def get_unicorn_state():
         _userid = session["my_team"]["user"]["user_id"]
         _couch = get_db()
 
-    if _userid in _couch:
+    try:
         _my_document = _couch[_userid]
-
-        if "unicorn" in _my_document:
-            try:
-                is_unicorn = _my_document["unicorn"]["unicorn"]
-            except Exception:
-                is_unicorn = False
-            else:
-                if is_unicorn == "True":
-                    is_unicorn = True
-                else:
-                    is_unicorn = False
-        else:
-            is_unicorn = False
-    else:
+    except Exception:
         is_unicorn = False
+    else:
+        try:
+            is_unicorn = True if _my_document["unicorn"]["unicorn"] == "True" else False
+        except Exception:
+            is_unicorn = False
 
     return is_unicorn
 
@@ -148,18 +140,15 @@ def get_language():
         _userid = session["my_team"]["user"]["user_id"]
         _couch = get_db()
 
-    if _userid in _couch:
+    try:
         _my_document = _couch[_userid]
-
-        if "settings" in _my_document:
-            try:
-                language = _my_document["settings"]["locale"]["language"]
-            except Exception:
-                language = "None"
-        else:
-            language = "None"
-    else:
+    except Exception:
         language = "None"
+    else:
+        try:
+            language = _my_document["settings"]["locale"]["language"]
+        except Exception:
+            language = "None"
 
     return language
 

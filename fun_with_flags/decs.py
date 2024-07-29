@@ -4,8 +4,9 @@
 import functools
 
 from flask import current_app, flash, g, redirect, request, session, url_for
-from . import api, db, helperf
 from flask_babel import gettext
+
+from . import api, db, helperf
 
 
 def choose_team(view):
