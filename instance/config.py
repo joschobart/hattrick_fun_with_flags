@@ -86,6 +86,27 @@ DB__SETTINGS_DICT = {
                     ),
                 },
             },
+            "fr": {
+                "name": "Matchs amicaux",
+                "schema": {
+                    "league_search_depth": (
+                        "Profondeur de la recherche dans la ligue",
+                        "Par défaut : 2; Plus le nombre est élevé, plus la recherche est approfondie, plus il \
+                            faut de temps pour trouver des adversaires potentiels, mais aussi plus il y a d'adversaires potentiels.",
+                        ["1", "2", "3", "4", "5"],
+                    ),
+                    "match_rules": (
+                        "Règles de match",
+                        "Par défaut : cup; Règles du match. Voir le manuel hattrick pour plus de détails.",
+                        ["normal", "cup"],
+                    ),
+                    "opponent_type": (
+                        "Type d'adversaire",
+                        "Par défaut : all ; Accepter soit des matchs contre tous les adversaires potentiels, soit uniquement contre les HT-supporters.",
+                        ["all", "supporters"],
+                    ),
+                },
+            },
         },
         "locale": {
             "en": {
@@ -94,7 +115,7 @@ DB__SETTINGS_DICT = {
                     "language": (
                         "Language",
                         "Default: en; Choose your language. This has priority over your browser settings.",
-                        ["en", "de"],
+                        ["en", "de", "fr"],
                     ),
                 },
             },
@@ -104,7 +125,17 @@ DB__SETTINGS_DICT = {
                     "language": (
                         "Sprache",
                         "Standard: en; Wähle deine Sprache. Dies hat Vorrang vor deinen Browsereinstellungen.",
-                        ["en", "de"],
+                        ["en", "de", "fr"],
+                    ),
+                },
+            },
+            "fr": {
+                "name": "Langue",
+                "schema": {
+                    "language": (
+                        "Langue",
+                        "Par défaut : en; Choisissez votre langue. Ce choix a la priorité sur les paramètres de votre navigateur.",
+                        ["en", "de", "fr"],
                     ),
                 },
             },
@@ -139,6 +170,12 @@ QUOTES = {
             "Das war knapp! Schrecklicher Verkehr heute in der Innenstadt! Wirklich klug, dass du immer den Bus nimmst. Darf ich etwas im Zusammenhang mit unserem Flaggen-Ding ansprechen?",
             "Schau dich an! Du siehst fantastisch aus heute, mein Freund! Wie auch immer, du möchtest vielleicht folgendes wissen:",
         ],
+        "fr": [
+            "Hey Boss ! Je suis sûr que tu es plutôt surpris de me voir ici. Entre nous, je suis assez novice dans le domaine des drapeaux. Mais c'est un plaisir de partager cette passion avec toi ! À présent, changeons de sujet :",
+            "Content de te voir partenaire ! Je souhaite attirer ton attention sur ce point :",
+            "C'était moins une ! La circulation en ville est infernale aujourd'hui ! C'est bien vu de ta part de toujours prendre les transports en commun. Je peux te parler de notre petite affaire de drapeaux ?",
+            "Regardez-moi ça ! T'as l'air fantastique aujourd'hui, l'artiste ! Quoi qu'il en soit, il est bon que tu saches ceci :",
+        ],
     },
     "quotes_post": {
         "en": [
@@ -152,6 +189,12 @@ QUOTES = {
             "Was für ein Tag! Entschuldigung, dass ich dich unterbreche, aber ich muss mich beeilen. Heute bin ich dran, die Kinder abzuholen.",
             "Es ist immer ein Vergnügen, ein Schwätzchen zu halten, mein Freund!",
             "Bring deine Frau und Kinder das nächste Mal!",
+        ],
+        "fr": [
+            "Au fait, t'as pas remarqué un truc différent concernant mon apparence ? Exact ! J'ai rasé ma barbichette.",
+            "Quelle journée ! Désolé ma gueule, mais je dois me dépêcher. C'est mon tour d'aller chercher les mômes aujourd'hui.",
+            "C'est toujours un plaisir de discuter avec toi, camarade !",
+            "Amène ta femme et tes gosses la prochaine fois !",
         ],
     },
 }
