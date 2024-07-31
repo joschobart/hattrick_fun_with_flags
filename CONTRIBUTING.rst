@@ -105,4 +105,4 @@ Follow Steps 1-4 in the chapter "First time contribution" Step 5 requires anothe
 
 .. code-block:: bash
 
-pybabel update -i messages.pot -d fun_with_flags/translations/
+  pybabel update -i messages.pot -d fun_with_flags/translations/
