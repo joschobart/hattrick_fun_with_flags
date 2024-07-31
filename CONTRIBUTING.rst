@@ -69,19 +69,19 @@ First time contribution
 
 .. code-block:: bash
 
-source .venv/bin/activate
+  source .venv/bin/activate
 
 4. Extract a fresh messages.pot file. That file contains all translatable strings and snippets of which FwF consists.
 
 .. code-block:: bash
 
-pybabel extract -F babel.cfg -o messages.pot .
+  pybabel extract -F babel.cfg -o messages.pot .
 
 5. Initialize your new language
 
 .. code-block:: bash
 
-pybabel init -i messages.pot -d fun_with_flags/translations/ -l <ISO 639-1 language code>
+  pybabel init -i messages.pot -d fun_with_flags/translations/ -l <ISO 639-1 language code>
 
 6. Edit the messages.po file under fun_with_flags/translation/<ISO 639-1 language code>/LC_MESSAGES. If you need an example, you can take a look at the German po-file here: fun_with_flags/translation/de/LC_MESSAGES/messages.po.
 
