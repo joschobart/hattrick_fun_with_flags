@@ -30,7 +30,7 @@ couchdb==1.2
     # via hattrick-fwf
 cryptography==41.0.7
     # via hattrick-fwf
-flask==3.0.0
+flask==3.0.3
     # via flask-babel
     # via hattrick-fwf
 flask-babel==4.0.0

@@ -36,7 +36,7 @@ cryptography==41.0.7
     # via hattrick-fwf
 dill==0.3.7
     # via pylint
-flask==3.0.0
+flask==3.0.3
     # via flask-babel
     # via hattrick-fwf
 flask-babel==4.0.0

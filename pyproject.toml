@@ -1,13 +1,13 @@
 [project]
 name = "hattrick-fwf"
-version = "0.4.0"
+version = "1.0.0"
 description = "Hattrick Fun with Flags"
 authors = [
     { name = "joe", email = "github@schicker.guru" }
 ]
 dependencies = [
     "hattrick-libs==0.16.5",
-    "flask>=3.0.0",
+    "flask==3.0.3",
     "cryptography>=41.0.7",
     "CouchDB>=1.2",
     "gunicorn>=21.2.0",
