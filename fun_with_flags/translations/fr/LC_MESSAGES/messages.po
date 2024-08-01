@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.0.1\n"
 "Report-Msgid-Bugs-To: Naka57"
 "POT-Creation-Date: 2024-07-27 11:49+0200\n"
-"PO-Revision-Date: 2024-07-31 07:03+0200\n"
+"PO-Revision-Date: 2024-08-01 08:23+0200\n"
 "Last-Translator: Naka57\n"
 "Language: fr\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr "déconnexion réussie"
 
 #: fun_with_flags/challenge.py:59
 msgid "You have a scheduled challenge request."
-msgstr "Vous avez une demande de défi programmée."
+msgstr "Une demande de défi est programmée."
 
 #: fun_with_flags/challenge.py:113
 msgid "No challenges to show."
@@ -71,8 +71,8 @@ msgstr "Pas un seul de vos matchs amicaux passés pour ce drapeau."
 #: fun_with_flags/flags.py:215
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr ""
-"La programmation du défi est enregistrée. Vous la trouverez dans la "
-"rubrique « Défis »."
+"La programmation du défi est enregistrée. Elle se trouve dans la rubrique « "
+"Défis »."
 
 #: fun_with_flags/flags.py:232
 msgid "Schedule for challenge is deleted successfully."
@@ -123,12 +123,12 @@ msgid ""
 msgstr ""
 "<p><b>Objectif :</b> Fun with Flags vous permet d'automatiser la capture de "
 "drapeaux sur <a href=\"http://hattrick.org\" "
-"target=\"_blank\">hattrick.org</a> ... si, comme moi, vous êtes un geek "
+"target=\"_blank\">hattrick.org</a>... si, comme moi, vous êtes un geek "
 "passioné par le célèbre jeu en ligne.</p>\n"
 "\n"
-"  <p>Le projet est né de la frustration de devoir cliquer pendant des "
-"heures et des heures afin de défier le maximum autorisé de 25 adversaires "
-"pour les matchs amicaux chaque semaine.</p>\n"
+"  <p>Le projet est né de la frustration de devoir cliquer chaque semaine "
+"pendant des heures afin de défier le maximum autorisé de 25 adversaires "
+"pour les matchs amicaux.</p>\n"
 "  \n"
 "  <p>FwF vous débarrasse du fardeau de devoir cliquer sur une ligue après "
 "l'autre et vous permet d'utiliser votre temps pour des choses plus utiles.  "
@@ -190,7 +190,7 @@ msgstr ""
 "    <li>De retour sur FwF, cliquer sur le drapeau que vous voulez "
 "récupérer</li>\n"
 "    <li>Cliquer sur « Défi »</li>\n"
-"    <li>C'est tout ! Le reste est fait par Fun with Flags pour vous ! "
+"    <li>C'est tout ! Le reste est fait pour vous par Fun with Flags ! "
 ":)</li>\n"
 "  </ol>\n"
 "  </p>"
@@ -270,9 +270,9 @@ msgstr ""
 "suppression de tout le contenu des cookies est possible à tout moment en "
 "cliquant sur « Déconnexion ».\n"
 "  Ce site Web utilise des technologies de base de données pour enregistrer "
-"les informations de profil, concernant l'utilisateur connecté, qui sont "
+"les informations de profil concernant l'utilisateur connecté, qui sont "
 "nécessaires au fonctionnement du site Web. Aucune donnée n'est exposée à "
-"des tiers au meilleur des connaissances des propriétaires. Aucune donnée "
+"des tiers, au meilleur des connaissances des propriétaires. Aucune donnée "
 "n'est vendue.\n"
 "  Aucune donnée n'est utilisée autrement que dans le cadre des services "
 "fournis sur le site Web de FwF. Le cas échéant, les données sont stockées "
@@ -280,9 +280,9 @@ msgstr ""
 "services fournis par ce site Web sont disponibles pour un usage privé "
 "gratuit (gratuit comme dans « bière gratuite » ) dans la mesure du "
 "possible.\n"
-"  Si vous avez des questions ou des préoccupations, concernant vos données "
-"en relation avec FwF, qui ne figurent pas dans cette section, veuillez nous "
-"contacter. </p>"
+"  Si vous avez des questions ou des préoccupations en relation avec FwF "
+"concernant vos données qui ne figurent pas dans cette section, veuillez "
+"nous contacter. </p>"
 
 #: fun_with_flags/templates/index.html:91
 msgid ""
@@ -430,11 +430,11 @@ msgstr "Caractéristiques du match :"
 
 #: fun_with_flags/templates/challenge/overview.html:155
 msgid "Opponents for this match are "
-msgstr "Les adversaires pour ce match sont "
+msgstr "Adversaires pour ce match : "
 
 #: fun_with_flags/templates/challenge/overview.html:155
 msgid "It's played with"
-msgstr "Joué avec les règles"
+msgstr "Joué avec les règles "
 
 #: fun_with_flags/templates/challenge/overview.html:155
 msgid "rules."
@@ -456,11 +456,11 @@ msgstr "Détails du drapeau"
 
 #: fun_with_flags/templates/flags/details.html:15
 msgid "<p>The "
-msgstr "<p>Le drapeau"
+msgstr "<p>Le drapeau "
 
 #: fun_with_flags/templates/flags/details.html:15
 msgid "-flag of "
-msgstr "de"
+msgstr " de "
 
 #: fun_with_flags/templates/flags/details.html:15
 msgid "for your team"
@@ -472,7 +472,7 @@ msgstr "fait déjà partie de votre collection. N'est-ce pas incroyable ?! :)</p
 
 #: fun_with_flags/templates/flags/details.html:20
 msgid "<h4>Played "
-msgstr "Match joué"
+msgstr "Match joué "
 
 #: fun_with_flags/templates/flags/details.html:20
 msgid "-matches</h4>"
@@ -505,8 +505,8 @@ msgstr ""
 "<form method=\"post\">\n"
 "            <input type=\"text\" name=\"user_added_friendly\" "
 "id=\"user_added_friendly\" required \n"
-"            pattern=\"[0-9]{1,}\" placeholder=\"Match-ID e.g.: 32779645\" "
-"title=\"Only Numbers, at least 1.\">\n"
+"            pattern=\"[0-9]{1,}\" placeholder=\"Match-ID (par ex. : "
+"32779645)\" title=\"Only Numbers, at least 1.\">\n"
 "            <input type=\"submit\" value=\"Ajouter un match amical passé\">\n"
 "          </form>"
 
@@ -518,7 +518,7 @@ msgstr "<p>Le drapeau"
 #: fun_with_flags/templates/flags/details.html:65
 #: fun_with_flags/templates/flags/details.html:70
 msgid "-flag of"
-msgstr "de"
+msgstr " de"
 
 #: fun_with_flags/templates/flags/details.html:66
 msgid "is in your collection already. But let's challenge over and over!;)</p>"
@@ -579,7 +579,7 @@ msgstr "Il y a déjà un créneau programmé pour un match "
 #: fun_with_flags/templates/flags/details.html:122
 #: fun_with_flags/templates/flags/details.html:123
 msgid "-match for"
-msgstr "pour"
+msgstr " pour"
 
 #: fun_with_flags/templates/flags/details.html:99
 msgid ""
@@ -637,7 +637,7 @@ msgid ""
 "<input type=\"submit\" value=\"Update Schedule\" name=\"schedule_friendly\" "
 "id=\"schedule_friendly\">"
 msgstr ""
-"<input type=\"submit\" value=\"Calendrier mis à jour\" "
+"<input type=\"submit\" value=\"Mise à jour du calendrier\" "
 "name=\"schedule_friendly\" id=\"schedule_friendly\">"
 
 #: fun_with_flags/templates/flags/details.html:123
@@ -653,15 +653,15 @@ msgid ""
 "<p>As a member of the unicorn-club you are even entitled to schedule a "
 "match in advance! Let's do it!;)</p>"
 msgstr ""
-"<p>En tant que membre du club Licorne, vous avez même le droit de "
-"programmer un match à l'avance ! C'est parti ! ;)</p>"
+"<p>En tant que membre du club Licorne, vous avez le droit de programmer un "
+"match à l'avance ! C'est parti ! ;)</p>"
 
 #: fun_with_flags/templates/flags/details.html:133
 msgid ""
 "<input type=\"submit\" value=\"Add Schedule\" name=\"schedule_friendly\" "
 "id=\"schedule_friendly\">"
 msgstr ""
-"<input type=\"submit\" value=\"Ajouter un horaire\" "
+"<input type=\"submit\" value=\"Ajouter un créneau\" "
 "name=\"schedule_friendly\" id=\"schedule_friendly\">"
 
 #: fun_with_flags/templates/flags/details.html:137

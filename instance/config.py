@@ -90,18 +90,18 @@ DB__SETTINGS_DICT = {
                 "name": "Matchs amicaux",
                 "schema": {
                     "league_search_depth": (
-                        "Profondeur de la recherche dans la ligue",
-                        "Par défaut : 2; Plus le nombre est élevé, plus la recherche est approfondie, plus il \
+                        "Profondeur de la recherche dans la ligue ",
+                        "Par défaut : 2 ; Plus le nombre est élevé, plus la recherche est approfondie, plus il \
                             faut de temps pour trouver des adversaires potentiels, mais aussi plus il y a d'adversaires potentiels.",
                         ["1", "2", "3", "4", "5"],
                     ),
                     "match_rules": (
-                        "Règles de match",
-                        "Par défaut : cup; Règles du match. Voir le manuel hattrick pour plus de détails.",
+                        "Règles de match ",
+                        "Par défaut : cup ; Règles du match. Voir le manuel hattrick pour plus de détails.",
                         ["normal", "cup"],
                     ),
                     "opponent_type": (
-                        "Type d'adversaire",
+                        "Type d'adversaire ",
                         "Par défaut : all ; Accepter soit des matchs contre tous les adversaires potentiels, soit uniquement contre les HT-supporters.",
                         ["all", "supporters"],
                     ),
@@ -133,8 +133,8 @@ DB__SETTINGS_DICT = {
                 "name": "Langue",
                 "schema": {
                     "language": (
-                        "Langue",
-                        "Par défaut : en; Choisissez votre langue. Ce choix a la priorité sur les paramètres de votre navigateur.",
+                        "Langue ",
+                        "Par défaut : en ; Choisissez votre langue. Ce choix a la priorité sur les paramètres de votre navigateur.",
                         ["en", "de", "fr"],
                     ),
                 },
