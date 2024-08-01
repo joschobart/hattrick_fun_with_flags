@@ -70,12 +70,13 @@ def overview():
             ) or (
                 now.weekday() in range(5, 6) and tdelta_hours > 100 and is_weekend_match
             ):
-                message = "Match is running.\
-                            Come back Thursday after 7 o'clock UTC to book a new match."
+                message = gettext(
+                    "Match is running. Come back Thursday after 7 o'clock UTC to book a new match."
+                )
 
             if _challenge[0]["is_agreed"] == "True":
                 _is_agreed = True
-                message = "Match booked!"
+                message = gettext("Match booked!")
 
                 _xml = api.ht_get_data(
                     "worlddetails", countryID=_challenge[0]["country_id"], leagueID=""
@@ -107,7 +108,7 @@ def overview():
                 g.couch[g.user_id] = _my_document
 
         if _is_agreed is None:
-            message = "Teams are challenged but not agreed yet."
+            message = gettext("Teams are challenged but not agreed yet.")
 
     else:
         message = gettext("No challenges to show.")

@@ -11,7 +11,7 @@
 
   <section><p>
     {% if g.challenges is defined and g.challenges != [] %}
-      <h4>Challenges ({{  g.challenges | length }})</h4>
+      <h4>{% trans %}Challenges{% endtrans %} ({{  g.challenges | length }})</h4>
 
       {% for _index in range(g.challenges | length) %}
 
@@ -86,7 +86,7 @@
 
   <section><p>
     {% if g.schedule is defined %}
-      <h4>&#129412; Scheduled Request &#129412;</h4>
+      <h4>&#129412; {% trans %}Scheduled Request{% endtrans %} &#129412;</h4>
          <table class="challenges_table">
           <tr>
             <th>

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: joschobart\n"
-"POT-Creation-Date: 2024-07-27 11:49+0200\n"
-"PO-Revision-Date: 2024-07-18 00:34+0200\n"
+"POT-Creation-Date: 2024-08-01 02:40+0200\n"
+"PO-Revision-Date: 2024-08-01 02:50+0200\n"
 "Last-Translator: joschobart\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -43,15 +43,31 @@ msgstr "Abmeldung erfolgreich"
 msgid "You have a scheduled challenge request."
 msgstr "Es gibt eine geplante Forderung."
 
-#: fun_with_flags/challenge.py:113
+#: fun_with_flags/challenge.py:73
+msgid ""
+"Match is running. Come back Thursday after 7 o'clock UTC to book a new "
+"match."
+msgstr ""
+"Spiel läuft. Komm Donnerstag nach 9 Uhr HZ zurück, um ein neues Spiel zu "
+"buchen."
+
+#: fun_with_flags/challenge.py:79
+msgid "Match booked!"
+msgstr "Freundschaftsspiel gebucht."
+
+#: fun_with_flags/challenge.py:111
+msgid "Teams are challenged but not agreed yet."
+msgstr "Teams wurden gefordert, Forderungen aber noch nicht angenommen."
+
+#: fun_with_flags/challenge.py:114
 msgid "No challenges to show."
 msgstr "Keine Forderungen vorhanden."
 
-#: fun_with_flags/challenge.py:170
+#: fun_with_flags/challenge.py:171
 msgid "Var '{e}' is missing."
 msgstr "Variable '{e}' fehlt."
 
-#: fun_with_flags/challenge.py:173
+#: fun_with_flags/challenge.py:174
 msgid "Challenges booked!"
 msgstr "Forderungen hinzugefügt."
 
@@ -392,6 +408,7 @@ msgstr "<p>Bis bald!</p>"
 
 #: fun_with_flags/templates/challenge/challenge.html:4
 #: fun_with_flags/templates/challenge/challenge.html:12
+#: fun_with_flags/templates/challenge/overview.html:14
 msgid "Challenges"
 msgstr "Forderungen"
 
@@ -418,6 +435,10 @@ msgstr "Gegnername:"
 #: fun_with_flags/templates/challenge/overview.html:68
 msgid "Arena Name:"
 msgstr "Stadionname:"
+
+#: fun_with_flags/templates/challenge/overview.html:89
+msgid "Scheduled Request"
+msgstr "Geplante Forderung."
 
 #: fun_with_flags/templates/challenge/overview.html:95
 msgid "Next scheduler-run:"
