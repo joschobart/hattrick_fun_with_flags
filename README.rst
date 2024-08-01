@@ -13,7 +13,7 @@ For now the projects state is "work-in-progress". It's just my this-year hobby p
 
 Project link
 ############
-`Github <https://github.com/joschobart/hattrick_libs>`_
+`Github-Link <https://github.com/joschobart/hattrick_fun_with_flags>`_
 
 
 License
