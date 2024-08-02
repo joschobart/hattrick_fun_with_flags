@@ -1,4 +1,4 @@
-""" View to customize settings for FwF. """
+"""View to customize settings for FwF."""
 
 from datetime import datetime
 

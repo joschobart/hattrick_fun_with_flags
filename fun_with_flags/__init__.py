@@ -1,5 +1,4 @@
-""" FwF Flask-Factory """
-
+"""FwF Flask-Factory"""
 
 import atexit
 import logging

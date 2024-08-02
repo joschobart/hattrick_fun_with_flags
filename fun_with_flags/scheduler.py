@@ -1,5 +1,4 @@
-""" FwF-scheduler related functions """
-
+"""FwF-scheduler related functions"""
 
 from datetime import datetime, timedelta
 

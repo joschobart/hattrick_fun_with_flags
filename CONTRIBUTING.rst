@@ -1,18 +1,17 @@
-******************************
 Contributing to Fun with Flags
-******************************
+++++++++++++++++++++++++++++++
 
-Contributions to Fun with Flags are always highly appreciated, thank you! Please notice that by contributing to Fun with Flags 
+Contributions to Fun with Flags are always highly appreciated, thank you! Please note that by contributing to Fun with Flags 
 you confirm to adhere to our `Code of conduct <CODE_OF_CONDUCT.rst>`_.
 
 
 General
-#######
+=======
 
 First time contribution
 -----------------------
 If you're inexperienced working with git then make sure to learn the basics first by doing one of the uncountable web-tutorials addressing
-the topic. Next you'll find a typical git-workflow that might or might not fit your specific usecase. A good git tutorial can be found on the 
+the topic. Next you'll find a typical git-workflow that may or may not fit your specific usecase. A good git tutorial can be found on the 
 website of the `w3c school <https://www.w3schools.com/git/default.asp?remote=github>`_.
 
 1. Clone the FwF repository.
@@ -61,13 +60,13 @@ website of the `w3c school <https://www.w3schools.com/git/default.asp?remote=git
 
 
 Contributing a translation
-##########################
+==========================
 
 First time contribution
 -----------------------
 1. Make sure to have an up-to-date clone of the FWF repo locally and that you are in your feature-branch. (See "General" for further instructions)
 2. To be able to use pybabel, it must be installed in the PATH of your working directory. It is recommended to "install" FwF locally with the help of `rye <https://rye.astral.sh/>`_.
-Then also make sure to use a python `venv <https://docs.python.org/3/library/venv.html>`_. (don't worry: if you manage your local dev-copy of FwF with rye, you have everything you need already set in place)
+Also make sure to use a python `venv <https://docs.python.org/3/library/venv.html>`_. (don't worry: if you manage your local dev-copy of FwF with rye, you have everything you need already set in place)
 3. Activate the venv
 
 .. code-block:: bash
@@ -80,7 +79,7 @@ Then also make sure to use a python `venv <https://docs.python.org/3/library/ven
 
   pybabel extract -F babel.cfg -o messages.pot .
 
-5. Initialize your new language
+5. Initialize your new language.
 
 .. code-block:: bash
 
@@ -112,7 +111,6 @@ Follow Steps 1-4 in the chapter "First time contribution" Step 5 requires anothe
 
 
 I admit it... I'm lost!
-#######################
+=======================
 
-We want FwF to be as welcoming for people of different walks of life as possible. If you'd like to contribute, let's say, a translation but you never worked in software, this sections is for you. We hear you! There need to be
-a plan b if git is something you never heard of, and there is! Get in touch with `joschobart <https://hattrick.org/goto.ashx?path=/Club/Manager/?userId=9034788>`_ on Hattrick and let him know about your endeavor. We'll find a way to make it work. ;)
+We want FwF to be as welcoming for people of different walks of life as possible. If you'd like to contribute, let's say, a translation but you never worked in software, this sections is for you. We hear you! There need to be a plan b if git is something you never heard of, and there is! Get in touch with `joschobart <https://hattrick.org/goto.ashx?path=/Club/Manager/?userId=9034788>`_ on Hattrick and let him know about your endeavor. We'll find a way to make it work. ;)

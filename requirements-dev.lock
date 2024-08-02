@@ -6,6 +6,7 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
 
 -e file:.
 apscheduler==3.10.4
@@ -91,6 +92,7 @@ requests==2.31.0
     # via rauth
     # via stripe
 ruff==0.1.11
+setuptools==71.0.0
 six==1.16.0
     # via apscheduler
 soupsieve==2.5
@@ -113,4 +115,3 @@ werkzeug==3.0.1
     # via flask
 zipp==3.17.0
     # via importlib-metadata
-setuptools==71.0.0

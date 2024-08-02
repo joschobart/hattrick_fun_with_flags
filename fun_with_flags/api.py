@@ -1,11 +1,18 @@
-""" hattrick-libs api-client functions """
-
+"""hattrick-libs api-client functions"""
 
 from flask import session
-from ht_libs import (do_challenge, do_hattrick_request, get_flags,
-                     get_matchdetails, get_matches, get_series,
-                     get_teamdetails, get_trainer_avatar, get_worlddetails,
-                     request_token_status)
+from ht_libs import (
+    do_challenge,
+    do_hattrick_request,
+    get_flags,
+    get_matchdetails,
+    get_matches,
+    get_series,
+    get_teamdetails,
+    get_trainer_avatar,
+    get_worlddetails,
+    request_token_status,
+)
 
 from . import helperf
 
@@ -174,11 +181,7 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
             .decode("utf8")
         )
     except Exception:
-        xml_data = (
-            str(xml_data.text)
-            .encode("latin1")
-            .decode("utf8")
-        )
+        xml_data = str(xml_data.text).encode("latin1").decode("utf8")
 
     ht_session.close()
 
@@ -355,8 +358,7 @@ def oauth_open_session(fernet_token=""):
     access_token_secret = creds.split(" ", 1)[1]
 
     ht_session = do_hattrick_request.open_auth_session(
-        access_token_key,
-        access_token_secret
+        access_token_key, access_token_secret
     )
 
     return ht_session

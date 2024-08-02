@@ -1,5 +1,4 @@
-""" FwF challenge related views """
-
+"""FwF challenge related views"""
 
 from datetime import datetime
 

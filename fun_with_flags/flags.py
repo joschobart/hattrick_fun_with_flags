@@ -1,5 +1,4 @@
-""" FwF app related core views """
-
+"""FwF app related core views"""
 
 from flask import Blueprint, current_app, flash, g, render_template, request, session
 

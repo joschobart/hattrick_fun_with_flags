@@ -1,5 +1,4 @@
-""" couch-db related functions """
-
+"""couch-db related functions"""
 
 import os
 from datetime import datetime

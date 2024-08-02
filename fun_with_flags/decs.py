@@ -1,5 +1,4 @@
-""" FwF decorator functions """
-
+"""FwF decorator functions"""
 
 import functools
 

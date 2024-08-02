@@ -1,4 +1,4 @@
-""" FwF authentication views """
+"""FwF authentication views"""
 
 from flask import (
     Blueprint,
