@@ -1,14 +1,10 @@
 # syntax=docker/dockerfile:1
 
-# build with: "docker build -t "couchdb-image:latest" -f Dockerfile.couchdb --build-arg pw=PW ."
-
 
 FROM apache/couchdb
 
-ARG pw
-
 ENV TZ=CET
-# ENV PW $pw
+
 
 COPY docker/local.ini /opt/couchdb/etc/local.ini
 
@@ -16,3 +12,6 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
 RUN --mount=type=secret,id=couchdb_pw \
 	echo "dbadmin = $(cat /run/secrets/couchdb_pw)" >> /opt/couchdb/etc/local.ini
+
+RUN --mount=type=secret,id=couchdb_pw \
+	DBADMIN = $(cat /run/secrets/couchdb_pw)"
