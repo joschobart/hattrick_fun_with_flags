@@ -66,8 +66,8 @@ DB__SETTINGS_DICT = {
                     ),
                     "opponent_last_login": (
                         "Opponent Last Login",
-                        "Default: 240; Number of minutes since the opponent last logged in. You'll wait \
-                            longer the smaller the number is.",
+                        "Default: 240; Number of hours since the opponent last logged in. You'll wait \
+                            longer for results the smaller the number is.",
                         ["0.5", "1", "24", "240"],
                     ),
                 },
@@ -93,7 +93,7 @@ DB__SETTINGS_DICT = {
                     ),
                     "opponent_last_login": (
                         "Letzer Login des Gegners",
-                        "Standard: 240; Zeitdauer seit dem letzten Login des Gegners in Minuten. Die Suche \
+                        "Standard: 240; Zeitdauer seit dem letzten Login des Gegners in Stunden. Die Suche \
                             wird länger dauern, je kleiner die Zahl ist.",
                         ["0.5", "1", "24", "240"],
                     ),
@@ -120,8 +120,8 @@ DB__SETTINGS_DICT = {
                     ),
                     "opponent_last_login": (
                         "Opponent Last Login",
-                        "Default: 240; Number of minutes since the opponent last logged in. You'll wait \
-                            longer the smaller the number is.",
+                        "Default: 240; Number of hours since the opponent last logged in. You'll wait \
+                            longer for results the smaller the number is.",
                         ["0.5", "1", "24", "240"],
                     ),
                 },
