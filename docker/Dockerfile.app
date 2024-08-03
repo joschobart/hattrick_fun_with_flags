@@ -51,6 +51,10 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
 RUN python -m pip install --upgrade pip && pip install .
 
+RUN pybabel extract -F babel.cfg -o messages.pot . && \
+    pybabel update -i messages.pot -d fun_with_flags/translations/ && \
+    pybabel compile -d fun_with_flags/translations
+
 
 EXPOSE 8000
 

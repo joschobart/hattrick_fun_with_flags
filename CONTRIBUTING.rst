@@ -87,7 +87,7 @@ Also make sure to use a python `venv <https://docs.python.org/3/library/venv.htm
 
 6. Edit the messages.po file under fun_with_flags/translation/<ISO 639-1 language code>/LC_MESSAGES. If you need an example, you can take a look at the German po-file here: fun_with_flags/translation/de/LC_MESSAGES/messages.po.
 
-7. Once finished, compile the strings into bytecode. This will generate the messages.mo-file.
+7. Once finished, compile the strings into bytecode. This will generate the messages.mo-file. (Optional)
 
 .. code-block:: bash
 
