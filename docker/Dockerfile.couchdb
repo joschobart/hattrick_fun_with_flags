@@ -14,4 +14,4 @@ RUN --mount=type=secret,id=couchdb_pw \
 	echo "dbadmin = $(cat /run/secrets/couchdb_pw)" >> /opt/couchdb/etc/local.ini
 
 RUN --mount=type=secret,id=couchdb_pw \
-	DBADMIN = $(cat /run/secrets/couchdb_pw)"
+	DBADMIN = $(cat /run/secrets/couchdb_pw)
