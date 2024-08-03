@@ -166,6 +166,7 @@ def get_settings(_userid, _couch, _settings):
     # from config and overwrite if custom config is available in db.
 
     _opponent_type = _settings["defaults"]["settings"]["friendly"]["opponent_type"]
+    _opponent_last_login = _settings["defaults"]["settings"]["friendly"]["opponent_last_login"]
     _league_search_depth = _settings["defaults"]["settings"]["friendly"][
         "league_search_depth"
     ]
@@ -173,11 +174,12 @@ def get_settings(_userid, _couch, _settings):
 
     if "settings" in _my_document:
         _opponent_type = _my_document["settings"]["friendly"]["opponent_type"]
+        _opponent_last_login = _my_document["settings"]["friendly"]["opponent_last_login"]
         _match_rules = _my_document["settings"]["friendly"]["match_rules"]
         _league_search_depth = _my_document["settings"]["friendly"][
             "league_search_depth"
         ]
-    return (_opponent_type, _match_rules, _league_search_depth)
+    return (_opponent_type, _match_rules, _league_search_depth, _opponent_last_login)
 
 
 def get_match_history(_userid, _couch, _flagid, _place):

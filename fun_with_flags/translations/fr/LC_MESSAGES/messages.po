@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: Naka57POT-Creation-Date: 2024-07-27 11:49+0200\n"
-"POT-Creation-Date: 2024-08-01 02:40+0200\n"
+"POT-Creation-Date: 2024-08-03 11:45+0200\n"
 "PO-Revision-Date: 2024-08-01 08:23+0200\n"
 "Last-Translator: Naka57\n"
 "Language: fr\n"
@@ -39,56 +39,56 @@ msgstr "Échec de la déconnexion de la session : {e}"
 msgid "logout successful"
 msgstr "déconnexion réussie"
 
-#: fun_with_flags/challenge.py:59
+#: fun_with_flags/challenge.py:58
 msgid "You have a scheduled challenge request."
 msgstr "Une demande de défi est programmée."
 
-#: fun_with_flags/challenge.py:73
+#: fun_with_flags/challenge.py:72
 msgid ""
 "Match is running. Come back Thursday after 7 o'clock UTC to book a new "
 "match."
 msgstr ""
 
-#: fun_with_flags/challenge.py:79
+#: fun_with_flags/challenge.py:78
 #, fuzzy
 msgid "Match booked!"
 msgstr "Défis organisés !"
 
-#: fun_with_flags/challenge.py:111
+#: fun_with_flags/challenge.py:110
 msgid "Teams are challenged but not agreed yet."
 msgstr ""
 
-#: fun_with_flags/challenge.py:114
+#: fun_with_flags/challenge.py:113
 msgid "No challenges to show."
 msgstr "Pas de défis à afficher."
 
-#: fun_with_flags/challenge.py:171
+#: fun_with_flags/challenge.py:170
 msgid "Var '{e}' is missing."
 msgstr "La variable '{e}' est manquante."
 
-#: fun_with_flags/challenge.py:174
+#: fun_with_flags/challenge.py:173
 msgid "Challenges booked!"
 msgstr "Défis organisés !"
 
-#: fun_with_flags/flags.py:133
+#: fun_with_flags/flags.py:132
 msgid "Match not found."
 msgstr "Match introuvable."
 
-#: fun_with_flags/flags.py:153
+#: fun_with_flags/flags.py:152
 msgid "{_place}-match added."
 msgstr "{_place}-match ajouté."
 
-#: fun_with_flags/flags.py:171
+#: fun_with_flags/flags.py:170
 msgid "Not one of your past friendly-matches for that flag."
 msgstr "Pas un seul de vos matchs amicaux passés pour ce drapeau."
 
-#: fun_with_flags/flags.py:215
+#: fun_with_flags/flags.py:214
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr ""
 "La programmation du défi est enregistrée. Elle se trouve dans la rubrique"
 " « Défis »."
 
-#: fun_with_flags/flags.py:232
+#: fun_with_flags/flags.py:231
 msgid "Schedule for challenge is deleted successfully."
 msgstr "La programmation du défi est supprimée avec succès."
 
@@ -96,11 +96,11 @@ msgstr "La programmation du défi est supprimée avec succès."
 msgid "Settings updated."
 msgstr "Paramètres mis à jour."
 
-#: fun_with_flags/stripe.py:155
+#: fun_with_flags/stripe.py:164
 msgid "Payment accepted. You're a FwF Unicorn now!"
 msgstr "Paiement accepté. Vous êtes une Licorne FwF à présent !"
 
-#: fun_with_flags/stripe.py:175
+#: fun_with_flags/stripe.py:184
 msgid "No payment received."
 msgstr "Aucun paiement reçu."
 
@@ -151,17 +151,16 @@ msgstr ""
 "  "
 
 #: fun_with_flags/templates/index.html:43
+#, fuzzy
 msgid ""
 "\n"
-"  <p><b>Change-log:</b>\n"
+"  <p><b>Change-log (last 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>2024-08-03: </b>Implemented \"Opponent Last Login\" setting.\n"
 "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
 "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
 "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
 "    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
-"    <li><b>2024-05-02: </b>Fixed opening hours for challenging on flag-"
-"details-page.\n"
-"    <li><b>2024-03-28: </b>Re-designed login- and index-page.\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -182,7 +181,7 @@ msgstr ""
 "  </ul>\n"
 "  </p>"
 
-#: fun_with_flags/templates/index.html:57
+#: fun_with_flags/templates/index.html:56
 msgid ""
 "\n"
 "  <p><b>How-to:</b>\n"
@@ -211,7 +210,7 @@ msgstr ""
 "  </ol>\n"
 "  </p>"
 
-#: fun_with_flags/templates/index.html:71
+#: fun_with_flags/templates/index.html:70
 msgid ""
 "\n"
 "  <p><b>Limitations/ features:</b> For now only mass-booking Friendlies "
@@ -227,7 +226,7 @@ msgstr ""
 "réussites ou encore la capture programée en mode auto-pilote intégral "
 "sont prévues. Restez à l'écoute ! ;) </p>"
 
-#: fun_with_flags/templates/index.html:75
+#: fun_with_flags/templates/index.html:74
 msgid ""
 "\n"
 "  <p><b>Contributing:</b> This project is in beta-phase as of 2023-12-22 "
@@ -240,7 +239,7 @@ msgstr ""
 " un café, contribuer (ui/code/traduction) ou si vous avez des questions, "
 "n'hésitez pas à me contacter !  </p>"
 
-#: fun_with_flags/templates/index.html:79
+#: fun_with_flags/templates/index.html:78
 msgid ""
 "\n"
 "  <p><b>Under the hood:</b> This project will be released as free "
@@ -253,7 +252,7 @@ msgstr ""
 " sera sorti de la version bêta. Il a été réalisé en python et flask.  "
 "</p>"
 
-#: fun_with_flags/templates/index.html:83
+#: fun_with_flags/templates/index.html:82
 msgid ""
 "\n"
 "  <p><b>Data disclaimer:</b>This websites content is based on information"
@@ -302,7 +301,7 @@ msgstr ""
 "concernant vos données qui ne figurent pas dans cette section, veuillez "
 "nous contacter. </p>"
 
-#: fun_with_flags/templates/index.html:91
+#: fun_with_flags/templates/index.html:90
 msgid ""
 "\n"
 "  <p><b>License & copyright disclaimer:</b>The software-code that "

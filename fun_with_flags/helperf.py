@@ -84,7 +84,7 @@ def crypto_string(_input, _op="encrypt"):
 
 
 def get_challengeable_teams_list(
-    _teamid, _place, series_list, weekend_friendly, opponent_type, fernet_token=""
+    _teamid, _place, series_list, weekend_friendly, opponent_type, opponent_last_login="240", fernet_token=""
 ):
     """
 
@@ -134,9 +134,10 @@ def get_challengeable_teams_list(
             _login_date = datetime.strptime(_login_date, "%Y-%m-%d %H:%M:%S")
             _tdelta = datetime.now() - _login_date
             _tdelta = _tdelta.total_seconds()
-            _tdelta_days = round(_tdelta / 86400, 1)
+            _tdelta_hours = round(_tdelta / 3600, 1)
 
-            if _tdelta_days > 10:
+
+            if _tdelta_hours > float(opponent_last_login):
                 continue
 
             if opponent_type == "all":

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-08-01 02:40+0200\n"
+"POT-Creation-Date: 2024-08-03 11:45+0200\n"
 "PO-Revision-Date: 2024-07-29 21:31+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ro\n"
@@ -39,53 +39,53 @@ msgstr ""
 msgid "logout successful"
 msgstr ""
 
-#: fun_with_flags/challenge.py:59
+#: fun_with_flags/challenge.py:58
 msgid "You have a scheduled challenge request."
 msgstr ""
 
-#: fun_with_flags/challenge.py:73
+#: fun_with_flags/challenge.py:72
 msgid ""
 "Match is running. Come back Thursday after 7 o'clock UTC to book a new "
 "match."
 msgstr ""
 
-#: fun_with_flags/challenge.py:79
+#: fun_with_flags/challenge.py:78
 msgid "Match booked!"
 msgstr ""
 
-#: fun_with_flags/challenge.py:111
+#: fun_with_flags/challenge.py:110
 msgid "Teams are challenged but not agreed yet."
 msgstr ""
 
-#: fun_with_flags/challenge.py:114
+#: fun_with_flags/challenge.py:113
 msgid "No challenges to show."
 msgstr ""
 
-#: fun_with_flags/challenge.py:171
+#: fun_with_flags/challenge.py:170
 msgid "Var '{e}' is missing."
 msgstr ""
 
-#: fun_with_flags/challenge.py:174
+#: fun_with_flags/challenge.py:173
 msgid "Challenges booked!"
 msgstr ""
 
-#: fun_with_flags/flags.py:133
+#: fun_with_flags/flags.py:132
 msgid "Match not found."
 msgstr ""
 
-#: fun_with_flags/flags.py:153
+#: fun_with_flags/flags.py:152
 msgid "{_place}-match added."
 msgstr ""
 
-#: fun_with_flags/flags.py:171
+#: fun_with_flags/flags.py:170
 msgid "Not one of your past friendly-matches for that flag."
 msgstr ""
 
-#: fun_with_flags/flags.py:215
+#: fun_with_flags/flags.py:214
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr ""
 
-#: fun_with_flags/flags.py:232
+#: fun_with_flags/flags.py:231
 msgid "Schedule for challenge is deleted successfully."
 msgstr ""
 
@@ -93,11 +93,11 @@ msgstr ""
 msgid "Settings updated."
 msgstr ""
 
-#: fun_with_flags/stripe.py:155
+#: fun_with_flags/stripe.py:164
 msgid "Payment accepted. You're a FwF Unicorn now!"
 msgstr ""
 
-#: fun_with_flags/stripe.py:175
+#: fun_with_flags/stripe.py:184
 msgid "No payment received."
 msgstr ""
 
@@ -137,21 +137,19 @@ msgstr ""
 #: fun_with_flags/templates/index.html:43
 msgid ""
 "\n"
-"  <p><b>Change-log:</b>\n"
+"  <p><b>Change-log (last 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>2024-08-03: </b>Implemented \"Opponent Last Login\" setting.\n"
 "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
 "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
 "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
 "    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
-"    <li><b>2024-05-02: </b>Fixed opening hours for challenging on flag-"
-"details-page.\n"
-"    <li><b>2024-03-28: </b>Re-designed login- and index-page.\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
 msgstr ""
 
-#: fun_with_flags/templates/index.html:57
+#: fun_with_flags/templates/index.html:56
 msgid ""
 "\n"
 "  <p><b>How-to:</b>\n"
@@ -167,7 +165,7 @@ msgid ""
 "  "
 msgstr ""
 
-#: fun_with_flags/templates/index.html:71
+#: fun_with_flags/templates/index.html:70
 msgid ""
 "\n"
 "  <p><b>Limitations/ features:</b> For now only mass-booking Friendlies "
@@ -177,7 +175,7 @@ msgid ""
 "  "
 msgstr ""
 
-#: fun_with_flags/templates/index.html:75
+#: fun_with_flags/templates/index.html:74
 msgid ""
 "\n"
 "  <p><b>Contributing:</b> This project is in beta-phase as of 2023-12-22 "
@@ -186,7 +184,7 @@ msgid ""
 "  "
 msgstr ""
 
-#: fun_with_flags/templates/index.html:79
+#: fun_with_flags/templates/index.html:78
 msgid ""
 "\n"
 "  <p><b>Under the hood:</b> This project will be released as free "
@@ -195,7 +193,7 @@ msgid ""
 "  "
 msgstr ""
 
-#: fun_with_flags/templates/index.html:83
+#: fun_with_flags/templates/index.html:82
 msgid ""
 "\n"
 "  <p><b>Data disclaimer:</b>This websites content is based on information"
@@ -220,7 +218,7 @@ msgid ""
 "  "
 msgstr ""
 
-#: fun_with_flags/templates/index.html:91
+#: fun_with_flags/templates/index.html:90
 msgid ""
 "\n"
 "  <p><b>License & copyright disclaimer:</b>The software-code that "
@@ -701,4 +699,21 @@ msgstr ""
 #~ "nerdiger Unterstützer des berühmten "
 #~ "Onlinespiels bist, so wie ich.</p>\n"
 #~ "  "
+
+#~ msgid ""
+#~ "\n"
+#~ "  <p><b>Change-log:</b>\n"
+#~ "  <ul type=\"1\">\n"
+#~ "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
+#~ "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
+#~ "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
+#~ "    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
+#~ "    <li><b>2024-05-02: </b>Fixed opening hours"
+#~ " for challenging on flag-details-"
+#~ "page.\n"
+#~ "    <li><b>2024-03-28: </b>Re-designed login- and index-page.\n"
+#~ "  </ul>\n"
+#~ "  </p>\n"
+#~ "  "
+#~ msgstr ""
 

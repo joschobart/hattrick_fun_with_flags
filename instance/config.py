@@ -7,7 +7,7 @@ COSTS = {
 DB__SETTINGS_DICT = {
     "defaults": {
         "meta": {
-            "schema_version": 2.0,
+            "schema_version": 2.2,
             "date_initialized": "",
             "date_updated": "",
         },
@@ -19,6 +19,7 @@ DB__SETTINGS_DICT = {
                 "league_search_depth": "2",
                 "match_rules": "cup",
                 "opponent_type": "all",
+                "opponent_last_login": "240",
             },
             "locale": {
                 "language": "None",
@@ -39,7 +40,7 @@ DB__SETTINGS_DICT = {
     },
     "settings": {
         "meta": {
-            "schema_version": 6.1,
+            "schema_version": 6.3,
             "date_initialized": "",
             "date_updated": "",
         },
@@ -63,6 +64,12 @@ DB__SETTINGS_DICT = {
                         "Default: all; Accept either matches against all potential opponents or only against supporters.",
                         ["all", "supporters"],
                     ),
+                    "opponent_last_login": (
+                        "Opponent Last Login",
+                        "Default: 240; Number of minutes since the opponent last logged in. You'll wait \
+                            longer the smaller the number is.",
+                        ["0.5", "1", "24", "240"],
+                    ),
                 },
             },
             "de": {
@@ -70,8 +77,8 @@ DB__SETTINGS_DICT = {
                 "schema": {
                     "league_search_depth": (
                         "Durchsuchungstiefe",
-                        "Standard: 2; Je höher die Zahl umso tiefer die Suche im Ligabaum. Dadurch verlängert sich die \
-                            Suchzeit, aber es vergrössert sich auch die Chance, einen potentiellen Gegner zu finden.",
+                        "Standard: 2; Je höher die Zahl umso tiefer die Suche im Ligabaum. Dadurch \
+                            verlängert sich die Suchzeit, aber es vergrössert sich auch die Chance, einen potentiellen Gegner zu finden.",
                         ["1", "2", "3", "4", "5"],
                     ),
                     "match_rules": (
@@ -83,6 +90,12 @@ DB__SETTINGS_DICT = {
                         "Art der Gegner",
                         "Standard: all; Akzeptiere entweder Spiele gegen alle potentiellen Gegner (all) oder nur gegen Supporter. (supporters)",
                         ["all", "supporters"],
+                    ),
+                    "opponent_last_login": (
+                        "Letzer Login des Gegners",
+                        "Standard: 240; Zeitdauer seit dem letzten Login des Gegners in Minuten. Die Suche \
+                            wird länger dauern, je kleiner die Zahl ist.",
+                        ["0.5", "1", "24", "240"],
                     ),
                 },
             },
@@ -104,6 +117,12 @@ DB__SETTINGS_DICT = {
                         "Type d'adversaire ",
                         "Par défaut : all ; Accepter soit des matchs contre tous les adversaires potentiels, soit uniquement contre les HT-supporters.",
                         ["all", "supporters"],
+                    ),
+                    "opponent_last_login": (
+                        "Opponent Last Login",
+                        "Default: 240; Number of minutes since the opponent last logged in. You'll wait \
+                            longer the smaller the number is.",
+                        ["0.5", "1", "24", "240"],
                     ),
                 },
             },
