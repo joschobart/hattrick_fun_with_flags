@@ -25,13 +25,13 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       -
         name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest
           file: docker/Dockerfile.couchdb
-          build-args: |
-              pw=${{ secrets.COUCHDB_PW }}
+          secrets: |
+              couchdb_pw=${{ secrets.COUCHDB_PW }}
 
 
   publish-app-container:

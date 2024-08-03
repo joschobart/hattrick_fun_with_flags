@@ -8,10 +8,14 @@ FROM apache/couchdb
 ARG pw
 
 ENV TZ=CET
-ENV PW $pw
+# ENV PW $pw
 
 COPY docker/local.ini /opt/couchdb/etc/local.ini
 
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
-RUN echo "dbadmin = $PW" >> /opt/couchdb/etc/local.ini
+
+RUN --mount=type=secret,id=couchdb_pw \
+  cat /run/secrets/couchdb_pw
+
+RUN echo "dbadmin = $couchdb_pw" >> /opt/couchdb/etc/local.ini
