@@ -1,7 +1,6 @@
 """FwF app related core views"""
 
-from flask import (Blueprint, current_app, flash, g, render_template, request,
-                   session)
+from flask import Blueprint, current_app, flash, g, render_template, request, session
 from flask_babel import gettext
 
 from . import api, db, decs, helperf, scheduler
@@ -104,18 +103,22 @@ def details():
         g.scheduler_country_name = _worlddetails["league_name"]
 
     _settings = current_app.config["DB__SETTINGS_DICT"]
-
     _opponent_type = _settings["defaults"]["settings"]["friendly"]["opponent_type"]
-    _opponent_last_login = _settings["defaults"]["settings"]["friendly"]["opponent_last_login"]
+    _opponent_last_login = _settings["defaults"]["settings"]["friendly"][
+        "opponent_last_login"
+    ]
     _league_search_depth = _settings["defaults"]["settings"]["friendly"][
         "league_search_depth"
     ]
     _match_rules = _settings["defaults"]["settings"]["friendly"]["match_rules"]
 
     if g.user_id in g.couch:
-        _opponent_type, _match_rules, _league_search_depth, _opponent_last_login = db.get_settings(
-            g.couch, g.user_id, _settings
-        )
+        (
+            _opponent_type,
+            _match_rules,
+            _league_search_depth,
+            _opponent_last_login,
+        ) = db.get_settings(g.couch, g.user_id, _settings)
         g.played_matches = db.get_match_history(g.user_id, g.couch, g.flagid, g.place)
 
     if request.method == "POST":
@@ -186,7 +189,12 @@ def details():
             )
 
             challengeable = helperf.get_challengeable_teams_list(
-                session["teamid"], g.place, sl, weekend_friendly, _opponent_type, _opponent_last_login
+                session["teamid"],
+                g.place,
+                sl,
+                weekend_friendly,
+                _opponent_type,
+                _opponent_last_login,
             )
             session["weekend_friendly"] = weekend_friendly
             session["place"] = g.place
