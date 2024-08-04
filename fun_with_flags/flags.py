@@ -1,6 +1,7 @@
 """FwF app related core views"""
 
-from flask import Blueprint, current_app, flash, g, render_template, request, session
+from flask import (Blueprint, current_app, flash, g, render_template, request,
+                   session)
 from flask_babel import gettext
 
 from . import api, db, decs, helperf, scheduler
@@ -37,6 +38,8 @@ def overview():
 @decs.error_check
 def details():
     """ """
+    _settings = current_app.config["DB__SETTINGS_DICT"]
+
     if "challengeable" in session:
         session.pop("challengeable", None)
 
@@ -102,24 +105,13 @@ def details():
         _worlddetails = api.ht_get_worlddetails(_xml)
         g.scheduler_country_name = _worlddetails["league_name"]
 
-    _settings = current_app.config["DB__SETTINGS_DICT"]
-    _opponent_type = _settings["defaults"]["settings"]["friendly"]["opponent_type"]
-    _opponent_last_login = _settings["defaults"]["settings"]["friendly"][
-        "opponent_last_login"
-    ]
-    _league_search_depth = _settings["defaults"]["settings"]["friendly"][
-        "league_search_depth"
-    ]
-    _match_rules = _settings["defaults"]["settings"]["friendly"]["match_rules"]
-
-    if g.user_id in g.couch:
-        (
-            _opponent_type,
-            _match_rules,
-            _league_search_depth,
-            _opponent_last_login,
-        ) = db.get_settings(g.couch, g.user_id, _settings)
-        g.played_matches = db.get_match_history(g.user_id, g.couch, g.flagid, g.place)
+    (
+        _opponent_type,
+        _match_rules,
+        _league_search_depth,
+        _opponent_last_login,
+    ) = db.get_settings(g.user_id, g.couch, _settings)
+    g.played_matches = db.get_match_history(g.user_id, g.couch, g.flagid, g.place)
 
     if request.method == "POST":
         if "user_added_friendly" in request.form:
@@ -154,9 +146,8 @@ def details():
                             flash(
                                 gettext("{_place}-match added.".format(_place=_place))
                             )
-                            g.db_settings = current_app.config["DB__SETTINGS_DICT"]
                             g.my_document = db.bootstrap_user_document(
-                                g.user_id, g.couch, g.db_settings
+                                g.user_id, g.couch, _settings
                             )
                             g.my_document = db.set_match_history(
                                 g.user_id,

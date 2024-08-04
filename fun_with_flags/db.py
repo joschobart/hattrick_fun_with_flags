@@ -160,9 +160,12 @@ def get_settings(_userid, _couch, _settings):
     :param _settings:
 
     """
-    _my_document = g.couch[g.user_id]
+    try:
+        _my_document = _couch[_userid]
+    except couchdb.http.ResourceNotFound:
+        _my_document = {}
 
-    # Set opponent_type for match and league_search_depth
+    # Set opponent_type for match and league_search_depth, etc.
     # from config and overwrite if custom config is available in db.
 
     _opponent_type = _settings["defaults"]["settings"]["friendly"]["opponent_type"]
@@ -207,11 +210,14 @@ def get_match_history(_userid, _couch, _flagid, _place):
     :param _place:
 
     """
-    _my_document = _couch[_userid]
-
-    if "history" in _my_document:
+    try:
+        _my_document = _couch[_userid]
+    except couchdb.http.ResourceNotFound:
+        _my_document = {}
+    finally:
         _played_matches = []
 
+    if "history" in _my_document:
         if session["teamid"] in _my_document["history"]["friendlies"]:
             if (
                 _flagid
