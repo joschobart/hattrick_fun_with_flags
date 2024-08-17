@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-08-03 11:45+0200\n"
+"POT-Creation-Date: 2024-08-18 00:02+0200\n"
 "PO-Revision-Date: 2024-07-29 21:31+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ro\n"
@@ -18,6 +18,25 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
+
+#: fun_with_flags/achievements.py:98
+msgid "Well done!"
+msgstr ""
+
+#: fun_with_flags/achievements.py:100
+msgid "There is still room to improve."
+msgstr ""
+
+#: fun_with_flags/achievements.py:102
+msgid "We can do better!"
+msgstr ""
+
+#: fun_with_flags/achievements.py:104
+#, python-format
+msgid ""
+" Your score puts you on position %(_position)s out of %(_competitors)s "
+"competitors."
+msgstr ""
 
 #: fun_with_flags/auth.py:41 fun_with_flags/auth.py:60
 msgid "{e}: Pin {pin} was not accepted."
@@ -69,27 +88,27 @@ msgstr ""
 msgid "Challenges booked!"
 msgstr ""
 
-#: fun_with_flags/flags.py:132
+#: fun_with_flags/flags.py:127
 msgid "Match not found."
 msgstr ""
 
-#: fun_with_flags/flags.py:152
+#: fun_with_flags/flags.py:147
 msgid "{_place}-match added."
 msgstr ""
 
-#: fun_with_flags/flags.py:170
+#: fun_with_flags/flags.py:164
 msgid "Not one of your past friendly-matches for that flag."
 msgstr ""
 
-#: fun_with_flags/flags.py:214
+#: fun_with_flags/flags.py:213
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr ""
 
-#: fun_with_flags/flags.py:231
+#: fun_with_flags/flags.py:230
 msgid "Schedule for challenge is deleted successfully."
 msgstr ""
 
-#: fun_with_flags/settings.py:58
+#: fun_with_flags/settings.py:56
 msgid "Settings updated."
 msgstr ""
 
@@ -101,19 +120,23 @@ msgstr ""
 msgid "No payment received."
 msgstr ""
 
-#: fun_with_flags/templates/base.html:51
+#: fun_with_flags/templates/base.html:53
 msgid "<input type=\"submit\" value=\"Select\" onclick=\"loadSpinner()\">"
 msgstr ""
 
-#: fun_with_flags/templates/base.html:57
+#: fun_with_flags/templates/base.html:59
+msgid "[Achievements]"
+msgstr ""
+
+#: fun_with_flags/templates/base.html:65
 msgid "[Challenges]"
 msgstr ""
 
-#: fun_with_flags/templates/base.html:63
+#: fun_with_flags/templates/base.html:71
 msgid "[Log Out]"
 msgstr ""
 
-#: fun_with_flags/templates/base.html:85
+#: fun_with_flags/templates/base.html:102
 msgid "[Authorize CHPP]"
 msgstr ""
 
@@ -139,11 +162,11 @@ msgid ""
 "\n"
 "  <p><b>Change-log (last 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>2024-08-17: </b>Implemented Achievements.\n"
 "    <li><b>2024-08-03: </b>Implemented \"Opponent Last Login\" setting.\n"
 "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
 "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
 "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
-"    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -238,6 +261,35 @@ msgid ""
 " published on this website and see a violation of your copyright, please "
 "get in touch.</p>\n"
 "  "
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:4
+msgid "Achievements"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:9
+#: fun_with_flags/templates/achievements/achievements.html:56
+msgid "Fun with Flags Score"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:13
+msgid "Home Flags"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:21
+msgid "Away Flags"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:29
+msgid "Home Matches on FwF"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:37
+msgid "Away Matches on FwF"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:46
+msgid "Unicorn Bonus"
 msgstr ""
 
 #: fun_with_flags/templates/auth/authorize.html:4
@@ -715,5 +767,92 @@ msgstr ""
 #~ "  </ul>\n"
 #~ "  </p>\n"
 #~ "  "
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "  <p><b>Change-log (last 5):</b>\n"
+#~ "  <ul type=\"1\">\n"
+#~ "    <li><b>2024-08-03: </b>Implemented \"Opponent"
+#~ " Last Login\" setting.\n"
+#~ "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
+#~ "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
+#~ "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
+#~ "    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
+#~ "  </ul>\n"
+#~ "  </p>\n"
+#~ "  "
+#~ msgstr ""
+
+#~ msgid "un with Flags Score"
+#~ msgstr ""
+
+#~ msgid "Home Flags:"
+#~ msgstr ""
+
+#~ msgid "Home Flags on FwF:"
+#~ msgstr ""
+
+#~ msgid "Away Flags:"
+#~ msgstr ""
+
+#~ msgid "Away Flags on FwF:"
+#~ msgstr ""
+
+#~ msgid "Unicorn Bonus:"
+#~ msgstr ""
+
+#~ msgid "Fun with Flags Score:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Well done! Your score puts you on"
+#~ " position {_position} out of {_competitors}"
+#~ " competitors."
+#~ msgstr ""
+
+#~ msgid "Well done! Your score puts you on position {} out of {} competitors."
+#~ msgstr ""
+
+#~ msgid "Well done! Your score puts you on position {} out of  competitors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "There is still room to improve. "
+#~ "Your score puts you on position "
+#~ "{_position} out of {_competitors} competitors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "We can do better! Your score puts"
+#~ " you on position {_position} out of"
+#~ " {_competitors} competitors."
+#~ msgstr ""
+
+#~ msgid "short text."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "There is still room to improve. "
+#~ "Your score puts you on position {}"
+#~ " out of {} competitors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "We can do better! Your score puts"
+#~ " you on position {} out of {}"
+#~ " competitors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Well done! Your score puts you on"
+#~ " position %(_position)s out of "
+#~ "%(_competitors)s competitors."
+#~ msgstr ""
+
+#~ msgid "Home Flags on FwF"
+#~ msgstr ""
+
+#~ msgid "Away Flags on FwF"
 #~ msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: Naka57POT-Creation-Date: 2024-07-27 11:49+0200\n"
-"POT-Creation-Date: 2024-08-03 11:45+0200\n"
+"POT-Creation-Date: 2024-08-18 00:02+0200\n"
 "PO-Revision-Date: 2024-08-01 08:23+0200\n"
 "Last-Translator: Naka57\n"
 "Language: fr\n"
@@ -18,6 +18,25 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
+
+#: fun_with_flags/achievements.py:98
+msgid "Well done!"
+msgstr ""
+
+#: fun_with_flags/achievements.py:100
+msgid "There is still room to improve."
+msgstr ""
+
+#: fun_with_flags/achievements.py:102
+msgid "We can do better!"
+msgstr ""
+
+#: fun_with_flags/achievements.py:104
+#, python-format
+msgid ""
+" Your score puts you on position %(_position)s out of %(_competitors)s "
+"competitors."
+msgstr ""
 
 #: fun_with_flags/auth.py:41 fun_with_flags/auth.py:60
 msgid "{e}: Pin {pin} was not accepted."
@@ -70,29 +89,29 @@ msgstr "La variable '{e}' est manquante."
 msgid "Challenges booked!"
 msgstr "Défis organisés !"
 
-#: fun_with_flags/flags.py:132
+#: fun_with_flags/flags.py:127
 msgid "Match not found."
 msgstr "Match introuvable."
 
-#: fun_with_flags/flags.py:152
+#: fun_with_flags/flags.py:147
 msgid "{_place}-match added."
 msgstr "{_place}-match ajouté."
 
-#: fun_with_flags/flags.py:170
+#: fun_with_flags/flags.py:164
 msgid "Not one of your past friendly-matches for that flag."
 msgstr "Pas un seul de vos matchs amicaux passés pour ce drapeau."
 
-#: fun_with_flags/flags.py:214
+#: fun_with_flags/flags.py:213
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr ""
 "La programmation du défi est enregistrée. Elle se trouve dans la rubrique"
 " « Défis »."
 
-#: fun_with_flags/flags.py:231
+#: fun_with_flags/flags.py:230
 msgid "Schedule for challenge is deleted successfully."
 msgstr "La programmation du défi est supprimée avec succès."
 
-#: fun_with_flags/settings.py:58
+#: fun_with_flags/settings.py:56
 msgid "Settings updated."
 msgstr "Paramètres mis à jour."
 
@@ -104,19 +123,23 @@ msgstr "Paiement accepté. Vous êtes une Licorne FwF à présent !"
 msgid "No payment received."
 msgstr "Aucun paiement reçu."
 
-#: fun_with_flags/templates/base.html:51
+#: fun_with_flags/templates/base.html:53
 msgid "<input type=\"submit\" value=\"Select\" onclick=\"loadSpinner()\">"
 msgstr "<input type=\"submit\" value=\"Sélectionner\" onclick=\"loadSpinner()\">"
 
-#: fun_with_flags/templates/base.html:57
+#: fun_with_flags/templates/base.html:59
+msgid "[Achievements]"
+msgstr ""
+
+#: fun_with_flags/templates/base.html:65
 msgid "[Challenges]"
 msgstr "[Défis]"
 
-#: fun_with_flags/templates/base.html:63
+#: fun_with_flags/templates/base.html:71
 msgid "[Log Out]"
 msgstr "[Déconnexion]"
 
-#: fun_with_flags/templates/base.html:85
+#: fun_with_flags/templates/base.html:102
 msgid "[Authorize CHPP]"
 msgstr "[Autoriser le CHPP]"
 
@@ -156,11 +179,11 @@ msgid ""
 "\n"
 "  <p><b>Change-log (last 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>2024-08-17: </b>Implemented Achievements.\n"
 "    <li><b>2024-08-03: </b>Implemented \"Opponent Last Login\" setting.\n"
 "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
 "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
 "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
-"    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -338,6 +361,39 @@ msgstr ""
 "cause. Si vous êtes le détenteur des droits d'auteur d'un contenu publié "
 "sur ce site web et que vous constatez une violation de vos droits "
 "d'auteur, n'hésitez pas à nous contacter.</p>"
+
+#: fun_with_flags/templates/achievements/achievements.html:4
+msgid "Achievements"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:9
+#: fun_with_flags/templates/achievements/achievements.html:56
+msgid "Fun with Flags Score"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:13
+#, fuzzy
+msgid "Home Flags"
+msgstr "<h4>Drapeaux à domicile"
+
+#: fun_with_flags/templates/achievements/achievements.html:21
+#, fuzzy
+msgid "Away Flags"
+msgstr "<h4>Drapeaux à l'extérieur"
+
+#: fun_with_flags/templates/achievements/achievements.html:29
+#, fuzzy
+msgid "Home Matches on FwF"
+msgstr "<h4>Drapeaux à domicile"
+
+#: fun_with_flags/templates/achievements/achievements.html:37
+#, fuzzy
+msgid "Away Matches on FwF"
+msgstr "<h4>Drapeaux à l'extérieur"
+
+#: fun_with_flags/templates/achievements/achievements.html:46
+msgid "Unicorn Bonus"
+msgstr ""
 
 #: fun_with_flags/templates/auth/authorize.html:4
 msgid "Authorize"
@@ -881,4 +937,58 @@ msgid ""
 msgstr ""
 "<p><input type=\"submit\" id=\"checkout-button\" value=\"Entrer dans le "
 "club !\"></p>"
+
+#~ msgid "un with Flags Score"
+#~ msgstr ""
+
+#~ msgid "Unicorn Bonus:"
+#~ msgstr ""
+
+#~ msgid "Fun with Flags Score:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Well done! Your score puts you on"
+#~ " position {_position} out of {_competitors}"
+#~ " competitors."
+#~ msgstr ""
+
+#~ msgid "Well done! Your score puts you on position {} out of {} competitors."
+#~ msgstr ""
+
+#~ msgid "Well done! Your score puts you on position {} out of  competitors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "There is still room to improve. "
+#~ "Your score puts you on position "
+#~ "{_position} out of {_competitors} competitors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "We can do better! Your score puts"
+#~ " you on position {_position} out of"
+#~ " {_competitors} competitors."
+#~ msgstr ""
+
+#~ msgid "short text."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "There is still room to improve. "
+#~ "Your score puts you on position {}"
+#~ " out of {} competitors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "We can do better! Your score puts"
+#~ " you on position {} out of {}"
+#~ " competitors."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Well done! Your score puts you on"
+#~ " position %(_position)s out of "
+#~ "%(_competitors)s competitors."
+#~ msgstr ""
 

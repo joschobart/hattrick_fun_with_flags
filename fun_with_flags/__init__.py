@@ -9,7 +9,8 @@ from flask import Flask, render_template, request, send_from_directory, session
 from flask_babel import Babel
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from . import auth, challenge, decs, flags, scheduler, settings, stripe
+from . import (achievements, auth, challenge, decs, flags, scheduler, settings,
+               stripe)
 
 
 def create_app(test_config=None):
@@ -84,6 +85,7 @@ def create_app(test_config=None):
 
         return send_from_directory(app.static_folder, "favicon.ico")
 
+    app.register_blueprint(achievements.bp_a)
     app.register_blueprint(auth.bp_a)
     app.register_blueprint(challenge.bp_c)
     app.register_blueprint(flags.bp_f)

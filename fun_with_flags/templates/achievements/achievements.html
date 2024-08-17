@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h2>{% block title %}{% trans %}Achievements{% endtrans %}{% endblock %}</h2>
+{% endblock %}
+
+{% block content %}
+
+  <h3>{% trans %}Fun with Flags Score{% endtrans %}</h3>
+  <table border="1px" width="100%">
+    <tr>
+      <td style="text-align:left" width="500px">
+        {% trans %}Home Flags{% endtrans %}:
+      </td>
+      <td style="text-align:right">
+        {{ g.nr_flags_home }}
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left" width="500px">
+        {% trans %}Away Flags{% endtrans %}:
+      </td>
+      <td style="text-align:right">
+        {{ g.nr_flags_away }}
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left" width="500px">
+        {% trans %}Home Matches on FwF{% endtrans %}:
+      </td>
+      <td style="text-align:right">
+        {{ g.fwf_matches_home }}
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align:left" width="500px">
+        {% trans %}Away Matches on FwF{% endtrans %}:
+      </td>
+      <td style="text-align:right">
+        {{ g.fwf_matches_away }}
+      </td>
+    </tr>
+
+    <tr>
+      <td style="text-align:left" width="500px">
+        {% trans %}Unicorn Bonus{% endtrans %}:
+      </td>
+      <td style="text-align:right">
+        {{ g.unicorn_score }}
+      </td>
+    </tr>
+
+    <tr><td></td></tr>
+    <tr>
+      <td style="text-align:left" width="500px">
+        <b>{% trans %}Fun with Flags Score{% endtrans %}:</b> 
+      </td>
+      <td style="text-align:right">
+        <b>
+          {{ g.fun_with_flags_score }}
+        </b>
+      </td>
+    </tr>
+  </table>
+
+{% endblock %}

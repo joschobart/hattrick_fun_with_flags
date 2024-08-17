@@ -79,7 +79,7 @@ p.italic {
 .nav_table {
   border: 1px solid black;
   table-layout: auto;
-  width: 700px;
+  width: 780px;
 }
 
 .nav_table, a, td, th, li {

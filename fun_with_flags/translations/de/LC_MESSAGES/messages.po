@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: joschobart\n"
-"POT-Creation-Date: 2024-08-03 11:45+0200\n"
+"POT-Creation-Date: 2024-08-18 00:02+0200\n"
 "PO-Revision-Date: 2024-08-03 11:46+0200\n"
 "Last-Translator: joschobart\n"
 "Language: de\n"
@@ -18,6 +18,27 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
+
+#: fun_with_flags/achievements.py:98
+msgid "Well done!"
+msgstr "Gut gemacht!"
+
+#: fun_with_flags/achievements.py:100
+msgid "There is still room to improve."
+msgstr "Es gibt noch Luft nach oben."
+
+#: fun_with_flags/achievements.py:102
+msgid "We can do better!"
+msgstr "Das können wir besser!"
+
+#: fun_with_flags/achievements.py:104
+#, python-format
+msgid ""
+" Your score puts you on position %(_position)s out of %(_competitors)s "
+"competitors."
+msgstr ""
+" Deine Punktzahl positioniert dich auf Platz %(_position)s von "
+"%(_competitors)s."
 
 #: fun_with_flags/auth.py:41 fun_with_flags/auth.py:60
 msgid "{e}: Pin {pin} was not accepted."
@@ -71,27 +92,27 @@ msgstr "Variable '{e}' fehlt."
 msgid "Challenges booked!"
 msgstr "Forderungen hinzugefügt."
 
-#: fun_with_flags/flags.py:132
+#: fun_with_flags/flags.py:127
 msgid "Match not found."
 msgstr "Spiel nicht gefunden."
 
-#: fun_with_flags/flags.py:152
+#: fun_with_flags/flags.py:147
 msgid "{_place}-match added."
 msgstr "{_place}-Spiel hinzugefügt."
 
-#: fun_with_flags/flags.py:170
+#: fun_with_flags/flags.py:164
 msgid "Not one of your past friendly-matches for that flag."
 msgstr "Nicht eines deiner vergangenen Freundschaftsspiele für diese Flagge."
 
-#: fun_with_flags/flags.py:214
+#: fun_with_flags/flags.py:213
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr "Automatisches Fordern ist geplant. Du findest es unter 'Forderungen'."
 
-#: fun_with_flags/flags.py:231
+#: fun_with_flags/flags.py:230
 msgid "Schedule for challenge is deleted successfully."
 msgstr "Automatisches Fordern wurde erfolgreich gelöscht."
 
-#: fun_with_flags/settings.py:58
+#: fun_with_flags/settings.py:56
 msgid "Settings updated."
 msgstr "Einstellungen aktualisiert."
 
@@ -103,19 +124,23 @@ msgstr "Zahlung akzeptiert. Du bist jetzt ein FwF-Einhorn!"
 msgid "No payment received."
 msgstr "Keine Zahlung erhalten."
 
-#: fun_with_flags/templates/base.html:51
+#: fun_with_flags/templates/base.html:53
 msgid "<input type=\"submit\" value=\"Select\" onclick=\"loadSpinner()\">"
 msgstr "<input type=\"submit\" value=\"Wählen\" onclick=\"loadSpinner()\">"
 
-#: fun_with_flags/templates/base.html:57
+#: fun_with_flags/templates/base.html:59
+msgid "[Achievements]"
+msgstr "[Erfolge]"
+
+#: fun_with_flags/templates/base.html:65
 msgid "[Challenges]"
 msgstr "[Forderungen]"
 
-#: fun_with_flags/templates/base.html:63
+#: fun_with_flags/templates/base.html:71
 msgid "[Log Out]"
 msgstr "[Abmelden]"
 
-#: fun_with_flags/templates/base.html:85
+#: fun_with_flags/templates/base.html:102
 msgid "[Authorize CHPP]"
 msgstr "[CHPP autorisieren]"
 
@@ -154,11 +179,11 @@ msgid ""
 "\n"
 "  <p><b>Change-log (last 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>2024-08-17: </b>Implemented Achievements.\n"
 "    <li><b>2024-08-03: </b>Implemented \"Opponent Last Login\" setting.\n"
 "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
 "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
 "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
-"    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -166,11 +191,12 @@ msgstr ""
 "\n"
 "  <p><b>Neuerungen (letzte 5):</b>\n"
 "  <ul type=\"1\">\n"
-"    <li><b>03.08.2024: </b>Einstellung \"Letzer Login des Gegners\" eingeführt.\n"
+"    <li><b>17.08.2024: </b>Errungenschaften eingeführt.\n"
+"    <li><b>03.08.2024: </b>Einstellung \"Letzer Login des Gegners\" "
+"eingeführt.\n"
 "    <li><b>26.07.2024: </b>Unterstützung für i18n und l10n hinzugefügt.\n"
 "    <li><b>16.07.2024: </b>Vereinfachter Anmeldeprozess implementiert.\n"
 "    <li><b>14.06.2024: </b>Fehler in der ersten Woche nach Cup behoben.\n"
-"    <li><b>06.06.2024: </b>Neue Liga \"Guinea\" hinzugefügt.\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -340,6 +366,35 @@ msgstr ""
 "deines Urheberrechts feststellen, dann nimm bitte Kontakt mit mir "
 "auf.</p>\n"
 "  "
+
+#: fun_with_flags/templates/achievements/achievements.html:4
+msgid "Achievements"
+msgstr "Errungenschaften"
+
+#: fun_with_flags/templates/achievements/achievements.html:9
+#: fun_with_flags/templates/achievements/achievements.html:56
+msgid "Fun with Flags Score"
+msgstr "Fun with Flags Punktestand"
+
+#: fun_with_flags/templates/achievements/achievements.html:13
+msgid "Home Flags"
+msgstr "Heimflaggen"
+
+#: fun_with_flags/templates/achievements/achievements.html:21
+msgid "Away Flags"
+msgstr "Auswärtsflaggen"
+
+#: fun_with_flags/templates/achievements/achievements.html:29
+msgid "Home Matches on FwF"
+msgstr "Heimspiele auf FwF"
+
+#: fun_with_flags/templates/achievements/achievements.html:37
+msgid "Away Matches on FwF"
+msgstr "Auswärtsspiele auf FwF"
+
+#: fun_with_flags/templates/achievements/achievements.html:46
+msgid "Unicorn Bonus"
+msgstr "Einhornbonus"
 
 #: fun_with_flags/templates/auth/authorize.html:4
 msgid "Authorize"

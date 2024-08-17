@@ -14,14 +14,16 @@
   <nav class="deg45">
     <h1><a href="{{url_for('index')}}"><img src="{{ url_for('static', filename='globe.png') }}" alt="Hattrick Fun with Flags" height="90px"></a></h1>
     <ul>
-      <table class="nav_table" border="5px">
+      <table class="nav_table">
+        {% if session['username'] %}
         <tr>
-          <th style="width:54%">
+          <th style="width:48%">
           </th>
-          <th  style="width:23%">
+          <th  style="width:15%">
           </th>
-          <th class="username" style="width:23%; text-align: right;">
-          {% if session['username'] %}
+          <th style="width:15%">
+          </th>
+          <th class="username" style="width:22%; text-align: right;">
             <a href="{{url_for('settings.settings')}}">
               <img src="{{ url_for('static', filename='cogwheel.png') }}" alt="settings" height="18px">
               {% if session['unicorn'] %}
@@ -33,7 +35,7 @@
           </th>
         </tr>
         <tr>
-          <th style="width:54%; text-align: right;">
+          <th text-align: right;>
             <form method="post">
               <select name="teams" id="teams">
                 {% for t in range(session['teams'] | length) %}
@@ -54,6 +56,12 @@
           <td>
             <li>
               <span>
+                <a href="{{url_for('achievements.achievements')}}" onclick="loadSpinner()">{% trans %}[Achievements]{% endtrans %}</a>
+              </span>
+          </td>
+          <td>
+            <li>
+              <span>
                 <a href="{{url_for('challenge.overview')}}" onclick="loadSpinner()">{% trans %}[Challenges]{% endtrans %}</a>
               </span>
           </td>
@@ -64,16 +72,25 @@
               </span>
             </li>
           </td>
-          {% else %}
+        {% else %}
+        <tr>
+          <th style="width:46%">
+          </th>
+          <th  style="width:16%">
+          </th>
+          <th style="width:16%">
+          </th>
+          <th  style="width:22%">
           </th>
         </tr>
-
         <tr>
-          <th style="width:60%; text-align: left;">
+          <th>
           </th>
-          <th  style="width:20%">
+          <th>
           </th>
-          <td  style="width:20%">
+          <th>
+          </th>
+          <td>
             <li>
               <span>
                 <script>
