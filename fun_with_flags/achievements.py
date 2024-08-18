@@ -58,10 +58,21 @@ def achievements():
     except KeyError:
         pass
 
-    if session["unicorn"]:
-        g.unicorn_score = 5
-    else:
-        g.unicorn_score = 0
+    g.unicorn_score = 0
+    try:
+        for _pay_session in _my_document["unicorn"]["stripe"]["sessions"]:
+            if (
+                "receipt_timestamp"
+                in _my_document["unicorn"]["stripe"]["sessions"][_pay_session]
+            ):
+                _my_pay_session = _my_document["unicorn"]["stripe"]["sessions"][
+                    _pay_session
+                ]
+                _amount = float(_my_pay_session["receipt_amount_received"])
+                _factor = float(_my_pay_session["receipt_factor"])
+                g.unicorn_score += int(round(_amount * _factor))
+    except KeyError:
+        pass
 
     g.fun_with_flags_score = (
         g.nr_flags_home
