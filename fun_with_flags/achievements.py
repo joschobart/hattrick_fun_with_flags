@@ -15,14 +15,13 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-# @decs.error_check
+@decs.error_check
 def achievements():
     """ """
-    g.db_settings = current_app.config["DB__SETTINGS_DICT"]
-    g.my_document = db.bootstrap_user_document(g.user_id, g.couch, g.db_settings)
+    _db_settings = current_app.config["DB__SETTINGS_DICT"]
+    _my_document = db.bootstrap_user_document(g.user_id, g.couch, _db_settings)
     _couch = db.get_db("fwf_db")
     _couchdocs = _couch.view("_all_docs")
-    _my_document = _couch[g.user_id]
 
     g.nr_flags_home = 0
     g.nr_flags_away = 0
