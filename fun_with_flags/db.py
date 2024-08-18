@@ -257,7 +257,7 @@ def get_match_history(_userid, _couch, _flagid, _place):
         return _played_matches
 
 
-def set_match_history(_userid, _couch, _league_id, _match_id, _place):
+def set_match_history(_userid, _couch, _league_id, _match_id, _place, _team_id=""):
     """
 
     :param _userid:
@@ -267,21 +267,24 @@ def set_match_history(_userid, _couch, _league_id, _match_id, _place):
     :param _place:
 
     """
+    if _team_id == "":
+        try:
+            _team_id = session["teamid"]
+        except Exception as e:
+            print(f"{e}: No Session context.")
+            return
+
     # Instantiate clone of db-document
     my_document = _couch[_userid]
 
-    if session["teamid"] not in my_document["history"]["friendlies"]:
-        my_document["history"]["friendlies"][session["teamid"]] = {
-            "opponent_country": {}
-        }
+    if _team_id not in my_document["history"]["friendlies"]:
+        my_document["history"]["friendlies"][_team_id] = {"opponent_country": {}}
 
     if (
         _league_id
-        not in my_document["history"]["friendlies"][session["teamid"]][
-            "opponent_country"
-        ]
+        not in my_document["history"]["friendlies"][_team_id]["opponent_country"]
     ):
-        my_document["history"]["friendlies"][session["teamid"]]["opponent_country"][
+        my_document["history"]["friendlies"][_team_id]["opponent_country"][
             _league_id
         ] = {
             "home": [],
@@ -290,13 +293,13 @@ def set_match_history(_userid, _couch, _league_id, _match_id, _place):
 
     if (
         _match_id
-        not in my_document["history"]["friendlies"][session["teamid"]][
-            "opponent_country"
-        ][_league_id][_place]
-    ):
-        my_document["history"]["friendlies"][session["teamid"]]["opponent_country"][
+        not in my_document["history"]["friendlies"][_team_id]["opponent_country"][
             _league_id
-        ][_place].append(_match_id)
+        ][_place]
+    ):
+        my_document["history"]["friendlies"][_team_id]["opponent_country"][_league_id][
+            _place
+        ].append(_match_id)
 
         my_document["history"]["meta"]["date_updated"] = str(datetime.utcnow())
 

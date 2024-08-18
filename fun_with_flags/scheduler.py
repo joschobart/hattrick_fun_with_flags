@@ -11,6 +11,7 @@ def sensor():
     utc = datetime.utcnow()
 
     _couch = db.get_db("fwf_schedules")
+    _user_couch = db.get_db("fwf_db")
 
     _my_doc_name = utc.strftime("%Y%m%d")
 
@@ -33,33 +34,65 @@ def sensor():
                 _match_rules = _my_document[_team_id]["match_rules"]
                 _weekend_friendly = "0"
 
-                if _match_place == "home":
-                    _mp = "0"
-                else:
-                    _mp = "1"
-
-                if _match_rules == "normal":
-                    _mr = "0"
-                else:
-                    _mr = "1"
-
-                _series_list = helperf.get_series_list(
-                    _country_id,
-                    search_level=int(_search_depth),
+                # here we check if there is a match-booking already for the
+                # weekend. if so that means it must be a schedule for a match
+                # db update.
+                _xml = api.ht_get_data(
+                    "get_challenges",
                     fernet_token=_fernet_token,
+                    teamId=_team_id,
+                    isWeekendFriendly=_weekend_friendly,
                 )
+                _challenges = api.ht_get_challenges(_xml)
 
-                _challengeable = helperf.get_challengeable_teams_list(
-                    _team_id,
-                    _mp,
-                    _series_list,
-                    _weekend_friendly,
-                    _opponent_type,
-                    fernet_token=_fernet_token,
-                )
+                if _challenges["challenges"] != []:
+                    if _challenges["challenges"][0]["is_agreed"] == "True":
+                        _xml = api.ht_get_data(
+                            "teamdetails", fernet_token=_fernet_token, teamID=_team_id
+                        )
+                        _teamdetails = api.ht_get_team(_xml)
 
-                if len(_challengeable) == 0:
-                    # re-schedule in a week if no opponent present
+                        _user_id = _teamdetails["user"]["user_id"]
+                        _match_id = _challenges["challenges"][0]["match_id"]
+
+                        _my_doc = db.set_match_history(
+                            _user_id,
+                            _user_couch,
+                            _country_id,
+                            _match_id,
+                            _match_place,
+                            _team_id,
+                        )
+
+                        # Write changements on the history-object to db
+                        _user_couch[_user_id] = _my_doc
+
+                else:
+                    if _match_place == "home":
+                        _mp = "0"
+                    else:
+                        _mp = "1"
+
+                    if _match_rules == "normal":
+                        _mr = "0"
+                    else:
+                        _mr = "1"
+
+                    _series_list = helperf.get_series_list(
+                        _country_id,
+                        search_level=int(_search_depth),
+                        fernet_token=_fernet_token,
+                    )
+
+                    _challengeable = helperf.get_challengeable_teams_list(
+                        _team_id,
+                        _mp,
+                        _series_list,
+                        _weekend_friendly,
+                        _opponent_type,
+                        fernet_token=_fernet_token,
+                    )
+
                     _object = {
                         "type": "add_schedule",
                         "data": {
@@ -75,23 +108,28 @@ def sensor():
                             },
                         },
                     }
-                    schedule(_object)
 
-                else:
-                    # challenge opponents if len(_challengeable) > 0
-                    _challengeable = list(zip(*_challengeable))[0]
+                    if len(_challengeable) == 0:
+                        # re-schedule in a week if no opponent present
+                        schedule(_object)
 
-                    _challenged = api.ht_do_challenge(
-                        _team_id,
-                        _challengeable,
-                        _mr,
-                        _mp,
-                        _weekend_friendly,
-                        fernet_token=_fernet_token,
-                    )
+                    else:
+                        # challenge opponents if len(_challengeable) > 0
+                        _challengeable = list(zip(*_challengeable))[0]
 
-                    print(f"challengeable teams: {_challengeable}")
-                    print(f"Challenged response: {_challenged}")
+                        _challenged = api.ht_do_challenge(
+                            _team_id,
+                            _challengeable,
+                            _mr,
+                            _mp,
+                            _weekend_friendly,
+                            fernet_token=_fernet_token,
+                        )
+                        print(f"challengeable teams: {_challengeable}")
+                        print(f"Challenged response: {_challenged}")
+
+                        # schedule tuesday object to add booked match to db
+                        schedule(_object, "tuesday")
 
                 # Finally delete fernet-token from DB
                 # to mark a done transaction.
@@ -101,21 +139,28 @@ def sensor():
     return
 
 
-def schedule(_event):
+def schedule(_event, _schedule_type=""):
     """Function to life-cycle schedules in db.
 
     :param _event:
 
     """
+    _now = datetime.now()
 
-    # find date of next schedule run (thursday, 8utc)
-    utc = datetime.utcnow()
-    t = timedelta((7 + 3 - utc.weekday()) % 7)
+    if _schedule_type == "tuesday":
+        _summand = 1
+        _hour = 1
+    else:
+        _summand = 3
+        _hour = 8
 
-    if t == timedelta(0) and utc.hour >= 7:
+    # find date of next schedule run (thursday, 8HT or tuesday, 1HT)
+    t = timedelta((7 + _summand - _now.weekday()) % 7)
+
+    if t == timedelta(0) and _now.hour >= _hour:
         t = timedelta(7)
 
-    _scheduler_date = (utc + t).strftime("%Y%m%d")
+    _scheduler_date = (_now + t).strftime("%Y%m%d")
 
     _couch = db.get_db("fwf_schedules")
 

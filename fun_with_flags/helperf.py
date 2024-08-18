@@ -167,7 +167,6 @@ def get_challengeable_teams_list(
 def get_my_challenges():
     """ """
     now = datetime.now()
-    utc = datetime.utcnow()
     challenges = []
     bookable = False
     weekend_bookable = False
@@ -185,13 +184,13 @@ def get_my_challenges():
     if _teamdetails[_teamid]["team_in_cup"] == "True":
         _in_cup = True
 
-    if (utc.weekday() == 0 and utc.hour >= 6) or (
-        utc.weekday() >= 1 and utc.weekday() < 5
+    if (now.weekday() == 0 and now.hour >= 8) or (
+        now.weekday() >= 1 and now.weekday() < 5
     ):
         if int(_worlddetails["season_round"]) > 14:
             weekend_bookable = True
 
-    if utc.weekday() == 3 and utc.hour >= 7 or utc.weekday() >= 4 or utc.weekday() == 0:
+    if now.weekday() == 3 and now.hour >= 9 or now.weekday() >= 4 or now.weekday() == 0:
         if not _in_cup:
             bookable = True
             bookable_slot = True

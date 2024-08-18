@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: Naka57POT-Creation-Date: 2024-07-27 11:49+0200\n"
-"POT-Creation-Date: 2024-08-18 00:02+0200\n"
+"POT-Creation-Date: 2024-08-18 22:37+0200\n"
 "PO-Revision-Date: 2024-08-01 08:23+0200\n"
 "Last-Translator: Naka57\n"
 "Language: fr\n"
@@ -19,19 +19,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:98
+#: fun_with_flags/achievements.py:119
 msgid "Well done!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:100
+#: fun_with_flags/achievements.py:121
 msgid "There is still room to improve."
 msgstr ""
 
-#: fun_with_flags/achievements.py:102
+#: fun_with_flags/achievements.py:123
 msgid "We can do better!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:104
+#: fun_with_flags/achievements.py:125
 #, python-format
 msgid ""
 " Your score puts you on position %(_position)s out of %(_competitors)s "
@@ -58,56 +58,56 @@ msgstr "Échec de la déconnexion de la session : {e}"
 msgid "logout successful"
 msgstr "déconnexion réussie"
 
-#: fun_with_flags/challenge.py:58
+#: fun_with_flags/challenge.py:49
 msgid "You have a scheduled challenge request."
 msgstr "Une demande de défi est programmée."
 
-#: fun_with_flags/challenge.py:72
+#: fun_with_flags/challenge.py:63
 msgid ""
-"Match is running. Come back Thursday after 7 o'clock UTC to book a new "
+"Match is running. Come back Thursday after 9 o'clock HT to book a new "
 "match."
 msgstr ""
 
-#: fun_with_flags/challenge.py:78
+#: fun_with_flags/challenge.py:69
 #, fuzzy
 msgid "Match booked!"
 msgstr "Défis organisés !"
 
-#: fun_with_flags/challenge.py:110
+#: fun_with_flags/challenge.py:101
 msgid "Teams are challenged but not agreed yet."
 msgstr ""
 
-#: fun_with_flags/challenge.py:113
+#: fun_with_flags/challenge.py:104
 msgid "No challenges to show."
 msgstr "Pas de défis à afficher."
 
-#: fun_with_flags/challenge.py:170
+#: fun_with_flags/challenge.py:165
 msgid "Var '{e}' is missing."
 msgstr "La variable '{e}' est manquante."
 
-#: fun_with_flags/challenge.py:173
+#: fun_with_flags/challenge.py:168
 msgid "Challenges booked!"
 msgstr "Défis organisés !"
 
-#: fun_with_flags/flags.py:127
+#: fun_with_flags/flags.py:126
 msgid "Match not found."
 msgstr "Match introuvable."
 
-#: fun_with_flags/flags.py:147
+#: fun_with_flags/flags.py:146
 msgid "{_place}-match added."
 msgstr "{_place}-match ajouté."
 
-#: fun_with_flags/flags.py:164
+#: fun_with_flags/flags.py:163
 msgid "Not one of your past friendly-matches for that flag."
 msgstr "Pas un seul de vos matchs amicaux passés pour ce drapeau."
 
-#: fun_with_flags/flags.py:213
+#: fun_with_flags/flags.py:227
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr ""
 "La programmation du défi est enregistrée. Elle se trouve dans la rubrique"
 " « Défis »."
 
-#: fun_with_flags/flags.py:230
+#: fun_with_flags/flags.py:244
 msgid "Schedule for challenge is deleted successfully."
 msgstr "La programmation du défi est supprimée avec succès."
 
@@ -367,31 +367,25 @@ msgid "Achievements"
 msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:9
-#: fun_with_flags/templates/achievements/achievements.html:56
+#: fun_with_flags/templates/achievements/achievements.html:48
 msgid "Fun with Flags Score"
 msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:13
-#, fuzzy
-msgid "Home Flags"
-msgstr "<h4>Drapeaux à domicile"
+msgid "Avg. Flag count per Team"
+msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:21
-#, fuzzy
-msgid "Away Flags"
-msgstr "<h4>Drapeaux à l'extérieur"
-
-#: fun_with_flags/templates/achievements/achievements.html:29
 #, fuzzy
 msgid "Home Matches on FwF"
 msgstr "<h4>Drapeaux à domicile"
 
-#: fun_with_flags/templates/achievements/achievements.html:37
+#: fun_with_flags/templates/achievements/achievements.html:29
 #, fuzzy
 msgid "Away Matches on FwF"
 msgstr "<h4>Drapeaux à l'extérieur"
 
-#: fun_with_flags/templates/achievements/achievements.html:46
+#: fun_with_flags/templates/achievements/achievements.html:38
 msgid "Unicorn Bonus"
 msgstr ""
 
@@ -991,4 +985,16 @@ msgstr ""
 #~ " position %(_position)s out of "
 #~ "%(_competitors)s competitors."
 #~ msgstr ""
+
+#~ msgid ""
+#~ "Match is running. Come back Thursday "
+#~ "after 7 o'clock UTC to book a "
+#~ "new match."
+#~ msgstr ""
+
+#~ msgid "Home Flags"
+#~ msgstr "<h4>Drapeaux à domicile"
+
+#~ msgid "Away Flags"
+#~ msgstr "<h4>Drapeaux à l'extérieur"
 

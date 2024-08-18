@@ -1,7 +1,6 @@
 """FwF app related core views"""
 
-from flask import (Blueprint, current_app, flash, g, render_template, request,
-                   session)
+from flask import Blueprint, current_app, flash, g, render_template, request, session
 from flask_babel import gettext
 
 from . import api, db, decs, helperf, scheduler
@@ -190,6 +189,21 @@ def details():
             session["weekend_friendly"] = weekend_friendly
             session["place"] = g.place
             session["challengeable"] = challengeable
+            session["object"] = {
+                "type": "add_schedule",
+                "data": {
+                    "object": {
+                        "team_id": session["teamid"],
+                        "fernet_token": session["encrypted_access_token"],
+                        "country_id": g.flagid,
+                        "match_place": g.place,
+                        "match_rules": _match_rules,
+                        "opponent_type": _opponent_type,
+                        "search_depth": _league_search_depth,
+                        "weekend_friendly": "0",
+                    },
+                },
+            }
 
         elif "schedule_friendly" in request.form:
             _object = {

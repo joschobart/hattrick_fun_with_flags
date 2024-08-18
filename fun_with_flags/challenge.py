@@ -2,20 +2,11 @@
 
 from datetime import datetime
 
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    g,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (Blueprint, current_app, flash, g, redirect, render_template,
+                   request, session, url_for)
+from flask_babel import gettext
 
 from . import api, db, decs, helperf, scheduler
-from flask_babel import gettext
 
 bp_c = Blueprint("challenge", __name__, url_prefix="/challenge")
 
@@ -70,7 +61,7 @@ def overview():
                 now.weekday() in range(5, 6) and tdelta_hours > 100 and is_weekend_match
             ):
                 message = gettext(
-                    "Match is running. Come back Thursday after 7 o'clock UTC to book a new match."
+                    "Match is running. Come back Thursday after 9 o'clock HT to book a new match."
                 )
 
             if _challenge[0]["is_agreed"] == "True":
@@ -136,6 +127,9 @@ def challenge():
         _weekend_friendly = session["weekend_friendly"]
         session.pop("weekend_friendly", None)
 
+        _object = session["object"]
+        session.pop("object", None)
+
         # Set match_rules for match from config and overwrite if custom config is available in db.
         _db_settings = current_app.config["DB__SETTINGS_DICT"]
         _match_rules = _db_settings["defaults"]["settings"]["friendly"]["match_rules"]
@@ -165,6 +159,7 @@ def challenge():
                 _weekend_friendly,
             )
             print(f"Would do challenge here { _challengeable }")
+            scheduler.schedule(_object, "tuesday")
 
         except Exception as e:
             flash(gettext("Var '{e}' is missing.".format(e=e)))
