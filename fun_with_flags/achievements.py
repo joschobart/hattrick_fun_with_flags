@@ -23,11 +23,14 @@ def achievements():
     _couch = db.get_db("fwf_db")
     _couchdocs = _couch.view("_all_docs")
 
-    g.nr_flags_home = 0
-    g.nr_flags_away = 0
+
+    _flags_per_team = []
     for _team in session["my_team"].keys():
         if _team == "user":
             continue
+
+        _nr_flags_home = 0
+        _nr_flags_away = 0
         (
             g.l_home,
             g.l_away,
@@ -35,8 +38,17 @@ def achievements():
             nr_flags_away,
             *_,
         ) = helperf.compose_flag_matrix(_team)
-        g.nr_flags_home += nr_flags_home[0]
-        g.nr_flags_away += nr_flags_away[0]
+        _nr_flags_home += nr_flags_home[0]
+        _nr_flags_away += nr_flags_away[0]
+        _total_nr_flags = _nr_flags_home + _nr_flags_away
+        _flags_per_team.append((_team, _total_nr_flags))
+
+    _total_of_flags = 0
+    for _team in _flags_per_team:
+        _total_of_flags += _team[1]
+
+    g.avg_flag_count_per_team = int(round(_total_of_flags / len(_flags_per_team), 0))
+
 
     g.fwf_matches_home = 0
     g.fwf_matches_away = 0
@@ -75,8 +87,7 @@ def achievements():
         pass
 
     g.fun_with_flags_score = (
-        g.nr_flags_home
-        + g.nr_flags_away
+        g.avg_flag_count_per_team
         + g.unicorn_score
         + g.fwf_matches_home
         + g.fwf_matches_away

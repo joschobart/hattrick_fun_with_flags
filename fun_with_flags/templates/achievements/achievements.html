@@ -10,18 +10,10 @@
   <table border="1px" width="100%">
     <tr>
       <td style="text-align:left" width="500px">
-        {% trans %}Home Flags{% endtrans %}:
+        {% trans %}Avg. Flag count per Team{% endtrans %}:
       </td>
       <td style="text-align:right">
-        {{ g.nr_flags_home }}
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left" width="500px">
-        {% trans %}Away Flags{% endtrans %}:
-      </td>
-      <td style="text-align:right">
-        {{ g.nr_flags_away }}
+        {{ g.avg_flag_count_per_team }}
       </td>
     </tr>
     <tr>
