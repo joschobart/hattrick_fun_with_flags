@@ -7,13 +7,12 @@ from . import api, db, helperf
 
 def sensor():
     """Function for scheduler-job execution."""
-
-    utc = datetime.utcnow()
+    _now = datetime.now()
 
     _couch = db.get_db("fwf_schedules")
     _user_couch = db.get_db("fwf_db")
 
-    _my_doc_name = utc.strftime("%Y%m%d")
+    _my_doc_name = _now.strftime("%Y%m%d")
 
     _my_document = _couch[_my_doc_name]
 
