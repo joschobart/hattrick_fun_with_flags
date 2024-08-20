@@ -1,6 +1,7 @@
 """FwF app related core views"""
 
-from flask import Blueprint, current_app, flash, g, render_template, request, session
+from flask import (Blueprint, current_app, flash, g, render_template, request,
+                   session)
 from flask_babel import gettext
 
 from . import api, db, decs, helperf, scheduler
@@ -25,6 +26,8 @@ def overview():
 
     g.l_home = sorted(g.l_home, key=lambda x: x[1].lower())
     g.l_away = sorted(g.l_away, key=lambda x: x[1].lower())
+
+    print(_[0])
 
     return render_template("flags/overview.html", svg_image=_[0])
 

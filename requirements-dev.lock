@@ -7,6 +7,7 @@
 #   all-features: false
 #   with-sources: false
 #   generate-hashes: false
+#   universal: false
 
 -e file:.
 apscheduler==3.10.4
@@ -77,7 +78,8 @@ platformdirs==4.1.0
     # via pylint
 pycparser==2.21
     # via cffi
-pygal==3.0.4
+pygal==3.0.5
+    # via hattrick-fwf
     # via pygal-maps-world
 pygal-maps-world==1.0.2
     # via hattrick-fwf
