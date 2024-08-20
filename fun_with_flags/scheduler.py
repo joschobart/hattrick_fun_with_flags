@@ -34,8 +34,8 @@ def sensor():
                 _weekend_friendly = "0"
 
                 # here we check if there is a match-booking already for the
-                # weekend. if so that means it must be a schedule for a match
-                # db update.
+                # in-week match. if so that means it must be a schedule for 
+                # a match db update.
                 _xml = api.ht_get_data(
                     "get_challenges",
                     fernet_token=_fernet_token,
