@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: Naka57POT-Creation-Date: 2024-07-27 11:49+0200\n"
-"POT-Creation-Date: 2024-08-18 22:37+0200\n"
+"POT-Creation-Date: 2024-08-22 22:02+0200\n"
 "PO-Revision-Date: 2024-08-01 08:23+0200\n"
 "Last-Translator: Naka57\n"
 "Language: fr\n"
@@ -19,19 +19,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:119
+#: fun_with_flags/achievements.py:123
 msgid "Well done!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:121
+#: fun_with_flags/achievements.py:125
 msgid "There is still room to improve."
 msgstr ""
 
-#: fun_with_flags/achievements.py:123
+#: fun_with_flags/achievements.py:127
 msgid "We can do better!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:125
+#: fun_with_flags/achievements.py:129
 #, python-format
 msgid ""
 " Your score puts you on position %(_position)s out of %(_competitors)s "
@@ -89,25 +89,25 @@ msgstr "La variable '{e}' est manquante."
 msgid "Challenges booked!"
 msgstr "Défis organisés !"
 
-#: fun_with_flags/flags.py:126
+#: fun_with_flags/flags.py:127
 msgid "Match not found."
 msgstr "Match introuvable."
 
-#: fun_with_flags/flags.py:146
+#: fun_with_flags/flags.py:147
 msgid "{_place}-match added."
 msgstr "{_place}-match ajouté."
 
-#: fun_with_flags/flags.py:163
+#: fun_with_flags/flags.py:164
 msgid "Not one of your past friendly-matches for that flag."
 msgstr "Pas un seul de vos matchs amicaux passés pour ce drapeau."
 
-#: fun_with_flags/flags.py:227
+#: fun_with_flags/flags.py:228
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr ""
 "La programmation du défi est enregistrée. Elle se trouve dans la rubrique"
 " « Défis »."
 
-#: fun_with_flags/flags.py:244
+#: fun_with_flags/flags.py:245
 msgid "Schedule for challenge is deleted successfully."
 msgstr "La programmation du défi est supprimée avec succès."
 

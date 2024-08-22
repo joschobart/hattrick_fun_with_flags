@@ -7,7 +7,7 @@ COSTS = {
 DB__SETTINGS_DICT = {
     "defaults": {
         "meta": {
-            "schema_version": 4.3,
+            "schema_version": 4.4,
             "date_initialized": "",
             "date_updated": "",
         },
@@ -16,6 +16,7 @@ DB__SETTINGS_DICT = {
         },
         "score": {
             "score": {},
+            "history": {},
         },
         "settings": {
             "friendly": {
@@ -43,11 +44,12 @@ DB__SETTINGS_DICT = {
     },
     "score": {
         "meta": {
-            "schema_version": 1.4,
+            "schema_version": 1.5,
             "date_initialized": "",
             "date_updated": "",
         },
         "score": {},
+        "history": {},
     },
     "settings": {
         "meta": {

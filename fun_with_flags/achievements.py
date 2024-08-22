@@ -1,6 +1,7 @@
 """FwF achievements view"""
 
 from datetime import datetime
+from time import strftime
 
 from flask import Blueprint, current_app, flash, g, render_template, session
 from flask_babel import gettext
@@ -22,7 +23,6 @@ def achievements():
     _my_document = db.bootstrap_user_document(g.user_id, g.couch, _db_settings)
     _couch = db.get_db("fwf_db")
     _couchdocs = _couch.view("_all_docs")
-
 
     _flags_per_team = []
     for _team in session["my_team"].keys():
@@ -48,7 +48,6 @@ def achievements():
         _total_of_flags += _team[1]
 
     g.avg_flag_count_per_team = int(round(_total_of_flags / len(_flags_per_team), 0))
-
 
     g.fwf_matches_home = 0
     g.fwf_matches_away = 0
@@ -92,8 +91,10 @@ def achievements():
         + g.fwf_matches_home
         + g.fwf_matches_away
     )
+    _weeknumber = strftime("%W")
 
     _my_document["score"]["score"] = g.fun_with_flags_score
+    _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
     _my_document["score"]["meta"]["date_updated"] = str(datetime.utcnow())
 
     # Write changements of the score to db
@@ -110,9 +111,10 @@ def achievements():
             pass
         else:
             if isinstance(_score, int):
-                _score_list.append(_score)
+                _score_list.append((_couchdoc["key"], _score))
 
-    _position = sorted(_score_list, reverse=True).index(g.fun_with_flags_score) + 1
+    _score_list = sorted(_score_list, key=lambda x: x[1], reverse=True)
+    _position = [x[1] for x in _score_list].index(g.fun_with_flags_score) + 1
     _competitors = len(_score_list)
 
     if _position <= (_competitors / 3) or _competitors < 3:
