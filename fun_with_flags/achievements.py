@@ -160,18 +160,12 @@ def achievements():
             except Exception:
                 _scores.append(None)
         
-        if _scores[0] is None:
-            try:
-                _scores[-1] = _my_neighbor_doc["score"]["score"]
-                _scores[-2] = _my_neighbor_doc["score"]["score"]
-            except KeyError:
-                continue
-        
+        if not "history" in _my_neighbor_doc["score"].keys():
+            _scores[-1] = _my_neighbor_doc["score"]["score"]
+            _scores[-2] = _my_neighbor_doc["score"]["score"]
+
         if _scores[-1] is None:
-            try:
-                _scores[-1] = _my_neighbor_doc["score"]["score"]
-            except KeyError:
-                continue            
+            _scores[-1] = _my_neighbor_doc["score"]["score"]           
 
         if _neighbor == g.user_id:
             line_chart.add("You", _scores)
