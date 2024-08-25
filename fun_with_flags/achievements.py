@@ -16,7 +16,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-@decs.error_check
+#@decs.error_check
 def achievements():
     """ """
     _db_settings = current_app.config["DB__SETTINGS_DICT"]
@@ -91,7 +91,8 @@ def achievements():
         + g.fwf_matches_home
         + g.fwf_matches_away
     )
-    _weeknumber = strftime("%W")
+    _weeknumber = strftime("%Y%W")
+    print(_weeknumber)
 
     _my_document["score"]["score"] = g.fun_with_flags_score
     _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
@@ -117,6 +118,74 @@ def achievements():
     _position = [x[1] for x in _score_list].index(g.fun_with_flags_score) + 1
     _competitors = len(_score_list)
 
+
+
+    _neighbors = {g.user_id: {}}
+    try:
+        for x in range(_position, (_position + 4)):
+            _neighbors[_score_list[x][0]] = {}
+    except IndexError:
+        pass
+
+    for x in range((_position - 4), _position):
+        if x <= 0:
+            continue
+        _neighbors[_score_list[x][0]] = {}
+
+
+
+    import pygal
+    line_chart = pygal.Line()
+    line_chart.title = 'Your Neighbors FwF Score Evolution'
+
+
+
+    _weeks = set()
+    for _neighbor in _neighbors:
+        _my_neighbor_doc = _couch[_neighbor]
+        try:
+            _neighbors[_neighbor] = _my_neighbor_doc["score"]["history"]
+
+            _weeks.update(_my_neighbor_doc["score"]["history"].keys())
+
+        except KeyError:
+            continue
+
+
+    _weeks = sorted(_weeks)
+
+    print(_weeks)
+    for _neighbor in _neighbors:
+        _scores = []
+        _my_neighbor_doc = _couch[_neighbor]
+
+        for _week in range(int(_weeks[0]), int(_weeks[-1]) + 1):
+            try:
+                _scores.append(_my_neighbor_doc["score"]["history"][str(_week)])
+            except Exception:
+                _scores.append(None)
+        
+        print(_scores)
+        if _scores[0] is None:
+            try:
+                _scores[-1] = _my_neighbor_doc["score"]["score"]
+                _scores[-2] = _my_neighbor_doc["score"]["score"]
+            except KeyError:
+                continue
+
+        if _neighbor == g.user_id:
+            line_chart.add("You", _scores)
+        else:
+            line_chart.add(_neighbor, _scores)
+
+
+    line_chart.x_labels = map(str, range(int(_weeks[0]), int(_weeks[-1])))
+
+    line_chart = line_chart.render_data_uri()
+
+
+
+
     if _position <= (_competitors / 3) or _competitors < 3:
         _message = gettext("Well done!")
     elif _position <= (_competitors / 3 * 2):
@@ -131,4 +200,7 @@ def achievements():
     )
     flash(_message)
 
-    return render_template("achievements/achievements.html")
+
+
+
+    return render_template("achievements/achievements.html", line_chart=line_chart)
