@@ -17,7 +17,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-#@decs.error_check
+@decs.error_check
 def achievements():
     """ """
     _db_settings = current_app.config["DB__SETTINGS_DICT"]
@@ -165,6 +165,8 @@ def achievements():
             _scores[-2] = _my_neighbor_doc["score"]["score"]
         elif len(_my_neighbor_doc["score"]["history"].keys()) < 2:
             _scores[-2] = _my_neighbor_doc["score"]["score"]
+        else:
+            pass
 
         if _scores[-1] is None:
             _scores[-1] = _my_neighbor_doc["score"]["score"]           
