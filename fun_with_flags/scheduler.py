@@ -79,14 +79,17 @@ def sensor():
                             "team_country_id"
                         ]
 
-                        _my_doc = db.set_match_history(
-                            _user_id,
-                            _user_couch,
-                            _country_id,
-                            _match_id,
-                            _match_place,
-                            _team_id,
-                        )
+                        try:
+                            _my_doc = db.set_match_history(
+                                _user_id,
+                                _user_couch,
+                                _country_id,
+                                _match_id,
+                                _match_place,
+                                _team_id,
+                            )
+                        except KeyError:
+                            continue
 
                         # Write changements on the history-object to db
                         _user_couch[_user_id] = _my_doc
@@ -156,7 +159,6 @@ def sensor():
                         schedule(_object, "tuesday")
 
                 else:
-                    _my_document[_team_id]["fernet_token"] = ""
                     continue
 
                 # Finally delete fernet-token from DB
