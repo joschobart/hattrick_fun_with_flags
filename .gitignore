@@ -12,3 +12,6 @@ wheels/
 # babel
 *.pot
 *.mo
+
+# dall e
+.dalle

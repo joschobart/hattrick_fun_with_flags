@@ -91,7 +91,7 @@ def sensor():
                         # Write changements on the history-object to db
                         _user_couch[_user_id] = _my_doc
 
-                else:
+                elif datetime.today().weekday() == 3:
                     if _match_place == "home":
                         _mp = "0"
                     else:
@@ -154,6 +154,9 @@ def sensor():
 
                         # schedule tuesday object to add booked match to db
                         schedule(_object, "tuesday")
+
+                else:
+                    pass
 
                 # Finally delete fernet-token from DB
                 # to mark a done transaction.
