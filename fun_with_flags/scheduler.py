@@ -88,7 +88,9 @@ def sensor():
                                 _match_place,
                                 _team_id,
                             )
-                        except KeyError:
+                        except Exception:
+                            _my_document[_team_id]["fernet_token"] = ""
+                            _couch[_my_doc_name] = _my_document
                             continue
 
                         # Write changements on the history-object to db
@@ -159,6 +161,8 @@ def sensor():
                         schedule(_object, "tuesday")
 
                 else:
+                    _my_document[_team_id]["fernet_token"] = ""
+                    _couch[_my_doc_name] = _my_document
                     continue
 
                 # Finally delete fernet-token from DB
