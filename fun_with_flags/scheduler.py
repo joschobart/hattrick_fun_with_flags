@@ -156,7 +156,7 @@ def sensor():
                         schedule(_object, "tuesday")
 
                 else:
-                    pass
+                    continue
 
                 # Finally delete fernet-token from DB
                 # to mark a done transaction.
