@@ -34,7 +34,7 @@ def sensor():
                 _weekend_friendly = "0"
 
                 # here we check if there is a match-booking already for the
-                # in-week match. if so that means it must be a schedule for 
+                # in-week match. if so that means it must be a schedule for
                 # a match db update.
                 _xml = api.ht_get_data(
                     "get_challenges",
@@ -46,6 +46,10 @@ def sensor():
 
                 if _challenges["challenges"] != []:
                     if _challenges["challenges"][0]["is_agreed"] == "True":
+                        _opponent_team_id = _challenges["challenges"][0][
+                            "opponent_team_id"
+                        ]
+
                         _xml = api.ht_get_data(
                             "teamdetails", fernet_token=_fernet_token, teamID=_team_id
                         )
@@ -53,6 +57,27 @@ def sensor():
 
                         _user_id = _teamdetails["user"]["user_id"]
                         _match_id = _challenges["challenges"][0]["match_id"]
+
+                        _xml = api.ht_get_data(
+                            "matchdetails",
+                            fernet_token=_fernet_token,
+                            matchID=_match_id,
+                        )
+                        _matchdetails = api.ht_get_matchdetails(_xml)
+                        if _matchdetails["home_team_id"] == _team_id:
+                            _match_place = "home"
+                        else:
+                            _match_place = "away"
+
+                        _xml = api.ht_get_data(
+                            "teamdetails",
+                            fernet_token=_fernet_token,
+                            teamID=_opponent_team_id,
+                        )
+                        _opponent_teamdetails = api.ht_get_team(_xml)
+                        _country_id = _opponent_teamdetails[_opponent_team_id][
+                            "team_country_id"
+                        ]
 
                         _my_doc = db.set_match_history(
                             _user_id,

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-08-22 22:02+0200\n"
+"POT-Creation-Date: 2024-08-26 21:47+0200\n"
 "PO-Revision-Date: 2024-07-29 21:31+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ro\n"
@@ -19,19 +19,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:123
+#: fun_with_flags/achievements.py:185
 msgid "Well done!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:125
+#: fun_with_flags/achievements.py:187
 msgid "There is still room to improve."
 msgstr ""
 
-#: fun_with_flags/achievements.py:127
+#: fun_with_flags/achievements.py:189
 msgid "We can do better!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:129
+#: fun_with_flags/achievements.py:191
 #, python-format
 msgid ""
 " Your score puts you on position %(_position)s out of %(_competitors)s "
