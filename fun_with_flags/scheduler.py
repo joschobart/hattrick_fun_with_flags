@@ -156,6 +156,7 @@ def sensor():
                         schedule(_object, "tuesday")
 
                 else:
+                    _my_document[_team_id]["fernet_token"] = ""
                     continue
 
                 # Finally delete fernet-token from DB
