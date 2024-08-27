@@ -45,7 +45,7 @@ def create_app(test_config=None):
     # regular job for challenging friendlies
     sched.add_job(scheduler.sensor, "cron", day_of_week="thu", hour=8, minute=15)
     # regular job for adding matches to user-db
-    sched.add_job(scheduler.sensor, "cron", day_of_week="tue", hour=1, minute=50)
+    sched.add_job(scheduler.sensor, "cron", day_of_week="tue", hour=2, minute=2)
     #  v--- testing ---v
     # sched.add_job(scheduler.sensor, "cron", day_of_week="mon-sun", hour=21, minute=40)
     sched.start()
