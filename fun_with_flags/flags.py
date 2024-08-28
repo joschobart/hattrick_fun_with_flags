@@ -142,7 +142,12 @@ def details():
                         _opponent = api.ht_get_team(_xml)
                         _match_country = _opponent[_opponent_teamid]["team_country_id"]
 
-                        if _match_country == g.flagid:
+                        if _match_country == g.flagid and _my_match["match_type"] in (
+                            "4",
+                            "5",
+                            "8",
+                            "9",
+                        ):
                             flash(
                                 gettext("{_place}-match added.".format(_place=_place))
                             )
