@@ -161,9 +161,7 @@ def sensor():
                         schedule(_object, "tuesday")
 
                 else:
-                    _my_document[_team_id]["fernet_token"] = ""
-                    _couch[_my_doc_name] = _my_document
-                    continue
+                    pass
 
                 # Finally delete fernet-token from DB
                 # to mark a done transaction.
