@@ -1,18 +1,10 @@
 """hattrick-libs api-client functions"""
 
 from flask import session
-from ht_libs import (
-    do_challenge,
-    do_hattrick_request,
-    get_flags,
-    get_matchdetails,
-    get_matches,
-    get_series,
-    get_teamdetails,
-    get_trainer_avatar,
-    get_worlddetails,
-    request_token_status,
-)
+from ht_libs import (do_challenge, do_hattrick_request, get_flags,
+                     get_leaguelevels, get_matchdetails, get_matches,
+                     get_series, get_teamdetails, get_trainer_avatar,
+                     get_worlddetails, request_token_status)
 
 from . import helperf
 
@@ -62,6 +54,11 @@ API_PARAMS = {
         "actionType": "view",
         "teamId": "",  # id of team to manage
         "isWeekendFriendly": "0",
+    },
+    "leaguelevels": {
+        "file": "leaguelevels",
+        "version": "1.0",
+        "LeagueID": "",
     },
     "get_trainer_avatar": {
         "file": "staffavatars",
@@ -197,6 +194,17 @@ def ht_get_flags(teamdetails_xml):
     flags_dict = get_flags.get_my_flags(teamdetails_xml)
 
     return flags_dict
+
+
+def ht_get_leaguelevels(leaguelevels_xml):
+    """
+
+    :param leaguelevels_xml:
+
+    """
+    leaguelevels_dict = get_leaguelevels.get_leaguelevels(leaguelevels_xml)
+
+    return leaguelevels_dict
 
 
 def ht_get_matchdetails(matchdetails_xml):

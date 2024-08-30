@@ -53,7 +53,7 @@ DB__SETTINGS_DICT = {
     },
     "settings": {
         "meta": {
-            "schema_version": 6.3,
+            "schema_version": 6.4,
             "date_initialized": "",
             "date_updated": "",
         },
@@ -65,7 +65,7 @@ DB__SETTINGS_DICT = {
                         "League Search Depth",
                         "Default: 2; The higher the number, the deeper the search, the longer it \
                             takes to find potential opponents but also the more potential opponents there are.",
-                        ["1", "2", "3", "4", "5"],
+                        ["1", "2", "3", "4", "5", "6"],
                     ),
                     "match_rules": (
                         "Match Rules",
@@ -92,7 +92,7 @@ DB__SETTINGS_DICT = {
                         "Durchsuchungstiefe",
                         "Standard: 2; Je höher die Zahl umso tiefer die Suche im Ligabaum. Dadurch \
                             verlängert sich die Suchzeit, aber es vergrössert sich auch die Chance, einen potentiellen Gegner zu finden.",
-                        ["1", "2", "3", "4", "5"],
+                        ["1", "2", "3", "4", "5", "6"],
                     ),
                     "match_rules": (
                         "Matchregeln",
@@ -119,7 +119,7 @@ DB__SETTINGS_DICT = {
                         "Profondeur de la recherche dans la ligue ",
                         "Par défaut : 2 ; Plus le nombre est élevé, plus la recherche est approfondie, plus il \
                             faut de temps pour trouver des adversaires potentiels, mais aussi plus il y a d'adversaires potentiels.",
-                        ["1", "2", "3", "4", "5"],
+                        ["1", "2", "3", "4", "5", "6"],
                     ),
                     "match_rules": (
                         "Règles de match ",

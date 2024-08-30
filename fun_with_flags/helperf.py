@@ -266,72 +266,27 @@ def get_my_teams():
 
 def get_series_list(flagid, search_level=2, fernet_token=""):
     """
-
     :param flagid:
     :param search_level:  (Default value = 2)
     :param fernet_token:  (Default value = "")
 
+    (1, "i",     1),
+    (2, "ii",    4),  # <------ default (search_level=2)
+    (3, "iii",  16),
+    (4, "iv",   64),  
+    (5, "v",   256),  # <------ 341 series, max. 2728 teams (deep-search)
+    (6, "vi", 1024),
     """
 
-    def get_series_id(search_string, flagid):
-        """
+    _xml = api.ht_get_data("leaguelevels", LeagueID=flagid, fernet_token=fernet_token)
+    league_levels = api.ht_get_leaguelevels(_xml)
 
-        :param search_string:
-        :param flagid:
-
-        """
-        api_response = api.ht_get_data(
-            "search_series",
-            searchString=search_string,
-            searchLeagueID=flagid,
-            fernet_token=fernet_token,
-        )
-
-        probe_list.append(api.ht_get_series(api_response)["series_id"])
-
-        return probe_list
-
-    probe_list = []
     series_list = []
-
-    # fmt: off
-    league_table = [
-        (2, "ii",    4),
-        (3, "iii",  16),
-        (4, "iv",   64),  # <------ default (search_level=2)
-        (5, "v",   256),  # <------ 340 series, max. 2720 teams (deep-search)
-        (6, "vi", 1024),
-    ]
-    # fmt: on
-
-    _xml = api.ht_get_data("worlddetails", leagueID=flagid, fernet_token=fernet_token)
-    league_depth = api.ht_get_worlddetails(_xml)
-
-    # Here the depth of
-    # the loop is adjustable
-    for l_tuple in league_table[0:search_level]:
-        if l_tuple[0] > int(league_depth["league_depth"]):
+    for league_level in range(0, int(search_level)):
+        if league_level >= int(league_levels["league_depth"]):
             break
-
-        l_numbers = 1, l_tuple[2]
-
-        for l_number in l_numbers:
-            get_series_id(f"{l_tuple[1]}.{l_number}", flagid)
-
-        lid_difference = int(probe_list[1]) - int(probe_list[0])
-        l_difference = l_tuple[2] - 1
-
-        if lid_difference != l_difference:
-            print(
-                "WARNING: anomaly in leagueID numbering found. do pricy loops as fallback."
-            )
-            # not integrated yet
-
-        else:
-            for i in range(int(probe_list[0]), int(probe_list[1]) + 1):
-                series_list.append(i)
-
-        probe_list.clear()
+        league_level_unit_ids = league_levels["league_levels"][league_level]["lluid_list"]
+        series_list += league_level_unit_ids
 
     # shuffle series list to
     # load-balance requests
