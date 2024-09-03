@@ -111,7 +111,12 @@ def achievements():
                 _score_list.append((_couchdoc["key"], _score))
 
     _score_list = sorted(_score_list, key=lambda x: x[1], reverse=True)
-    _position = [x[1] for x in _score_list].index(g.fun_with_flags_score) + 1
+    try:
+        _position = [x[1] for x in _score_list].index(g.fun_with_flags_score) + 1
+    except ValueError:
+        _position = len(_score_list)
+
+    print(_position, len(_score_list))
     _competitors = len(_score_list)
 
     _simple_score_list = []
