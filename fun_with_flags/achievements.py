@@ -18,7 +18,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-@decs.error_check
+#@decs.error_check
 def achievements():
     """ """
     # FwF score
