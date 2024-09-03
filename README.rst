@@ -47,6 +47,7 @@ translation
 -----------
 - **joschobart** (de)
 - **Naka57** (fr)
+- **Kara_Kartallar** (tr)
 
 
 
