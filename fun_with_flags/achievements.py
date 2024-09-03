@@ -111,40 +111,46 @@ def achievements():
                 _score_list.append((_couchdoc["key"], _score))
 
     _score_list = sorted(_score_list, key=lambda x: x[1], reverse=True)
-    try:
-        _position = [x[1] for x in _score_list].index(g.fun_with_flags_score) + 1
-    except ValueError:
-        _position = len(_score_list)
+    _simple_score_list = sorted([_score_list[n][1] for n in range(0, len(_score_list))], reverse=True)
+    _simple_score_set = sorted(set(_simple_score_list), reverse=True)
 
-    print(_position, len(_score_list))
-    _competitors = len(_score_list)
-
-    _simple_score_list = []
-    _simple_score_list += [_score_list[n][1] for n in range(0, len(_score_list))]
     _mean_score = int(round(sum(_simple_score_list) / len(_simple_score_list), 0))
     _median_score = int(round(median(_simple_score_list), 0))
 
+    _position = [x for x in _simple_score_set].index(g.fun_with_flags_score) + 1
+
+    print(_score_list, _simple_score_set)
+    print(_position, len(_simple_score_set))
+
+
+
+    _competitors = len(_score_list)
+
+
+
     # maange badges
-    _total_nr_badges = 0
     _badges = []
+    _owned_badges = []
     session["badges"] = {}
     g.badge_prevalence = {}
 
     # unicorn badge
-    _total_nr_badges += 1
+    _badges.append("unicorn")
     if session.get("unicorn", False):
-        _badges.append("unicorn")
+        _owned_badges.append("unicorn")
 
     # fwf_score badge
-    _total_nr_badges += 1
+    _badges.append("fwf_score")
     _total_nr_flags = nr_flags_home[1] + nr_flags_away[1]
     if g.fun_with_flags_score >= _total_nr_flags:
-        _badges.append("fwf_score")
+        _owned_badges.append("fwf_score")
 
     # fwf_leader badge
-    _total_nr_badges += 1
+    _badges.append("fwf_leader")
     if _position == 1:
-        _badges.append("fwf_leader")
+        _owned_badges.append("fwf_leader")
+
+    _total_nr_badges = len(_badges)
 
     for _badge in _badges:
         g.badge_prevalence[_badge] = 0
@@ -183,11 +189,11 @@ def achievements():
         try:
             _my_document["score"]["badges"][_badge]
         except KeyError:
-            _my_document["score"]["badges"][_badge] = str(datetime.utcnow())
+            if str(_badge) in _owned_badges:
+                _my_document["score"]["badges"][_badge] = str(datetime.utcnow())
         finally:
-            session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(
-                " ", 1
-            )[0]
+            if (str(_badge) in _owned_badges) or _my_document["score"]["badges"][_badge]:
+                session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(" ", 1)[0]
 
     _my_document["score"]["score"] = g.fun_with_flags_score
     _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
