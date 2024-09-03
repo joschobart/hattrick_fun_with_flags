@@ -280,7 +280,7 @@ def achievements():
         _competitors=_competitors,
         _mean_score=_mean_score,
         _median_score=_median_score,
-        _owned_badges=len(_badges),
+        _owned_badges=len(_owned_badges),
         _total_nr_badges=_total_nr_badges,
     )
     flash(_message)
