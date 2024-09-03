@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-03 20:18+0200\n"
+"POT-Creation-Date: 2024-09-03 22:36+0200\n"
 "PO-Revision-Date: 2024-07-29 21:31+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ro\n"
@@ -19,47 +19,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:162
+#: fun_with_flags/achievements.py:165
 #, python-format
 msgid "Rare: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:167
+#: fun_with_flags/achievements.py:170
 #, python-format
 msgid "Uncommon: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:171
+#: fun_with_flags/achievements.py:174
 #, python-format
 msgid "Common: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:175
+#: fun_with_flags/achievements.py:178
 #, python-format
 msgid "Usual: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:209
+#: fun_with_flags/achievements.py:216
 msgid "Your FwF Neighbors Score Evolution"
 msgstr ""
 
-#: fun_with_flags/achievements.py:243
+#: fun_with_flags/achievements.py:250
 msgid "You"
 msgstr ""
 
-#: fun_with_flags/achievements.py:253
+#: fun_with_flags/achievements.py:260
 msgid "Well done!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:255
+#: fun_with_flags/achievements.py:262
 msgid "There is still room to improve."
 msgstr ""
 
-#: fun_with_flags/achievements.py:257
+#: fun_with_flags/achievements.py:264
 msgid "We can do better!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:268
+#: fun_with_flags/achievements.py:275
 #, python-format
 msgid ""
 " Your score of %(_score)s puts you on position %(_position)s out of "

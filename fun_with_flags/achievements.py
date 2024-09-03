@@ -18,7 +18,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-#@decs.error_check
+@decs.error_check
 def achievements():
     """ """
     # FwF score
@@ -111,22 +111,15 @@ def achievements():
                 _score_list.append((_couchdoc["key"], _score))
 
     _score_list = sorted(_score_list, key=lambda x: x[1], reverse=True)
-    _simple_score_list = sorted([_score_list[n][1] for n in range(0, len(_score_list))], reverse=True)
-    _simple_score_set = sorted(set(_simple_score_list), reverse=True)
+    _simple_score_list = sorted(
+        [_score_list[n][1] for n in range(0, len(_score_list))], reverse=True
+    )
 
     _mean_score = int(round(sum(_simple_score_list) / len(_simple_score_list), 0))
     _median_score = int(round(median(_simple_score_list), 0))
 
     _position = [x for x in _simple_score_list].index(g.fun_with_flags_score) + 1
-
-    print(_simple_score_list)
-    print(_position, len(_simple_score_list))
-
-
-
     _competitors = len(_score_list)
-
-
 
     # maange badges
     _badges = []
@@ -191,10 +184,13 @@ def achievements():
         except KeyError:
             if str(_badge) in _owned_badges:
                 _my_document["score"]["badges"][_badge] = str(datetime.utcnow())
-                session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(" ", 1)[0]
+                session["badges"][_badge] = _my_document["score"]["badges"][
+                    _badge
+                ].split(" ", 1)[0]
         else:
-            session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(" ", 1)[0]
-
+            session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(
+                " ", 1
+            )[0]
 
     _my_document["score"]["score"] = g.fun_with_flags_score
     _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
@@ -215,10 +211,6 @@ def achievements():
         if x <= 0:
             continue
         _neighbors[_score_list[x][0]] = {}
-
-
-    print(_neighbors)
-
 
     line_chart = pygal.Line()
     line_chart.title = gettext("Your FwF Neighbors Score Evolution")
