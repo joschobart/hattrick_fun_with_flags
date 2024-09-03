@@ -7,7 +7,7 @@ COSTS = {
 DB__SETTINGS_DICT = {
     "defaults": {
         "meta": {
-            "schema_version": 4.4,
+            "schema_version": 4.5,
             "date_initialized": "",
             "date_updated": "",
         },
@@ -17,6 +17,7 @@ DB__SETTINGS_DICT = {
         "score": {
             "score": {},
             "history": {},
+            "badges": {},
         },
         "settings": {
             "friendly": {
@@ -44,16 +45,17 @@ DB__SETTINGS_DICT = {
     },
     "score": {
         "meta": {
-            "schema_version": 1.5,
+            "schema_version": 1.7,
             "date_initialized": "",
             "date_updated": "",
         },
         "score": {},
         "history": {},
+        "badges": {},
     },
     "settings": {
         "meta": {
-            "schema_version": 6.4,
+            "schema_version": 7.0,
             "date_initialized": "",
             "date_updated": "",
         },
@@ -139,6 +141,33 @@ DB__SETTINGS_DICT = {
                     ),
                 },
             },
+            "tr": {
+                "name": "Friendlies",
+                "schema": {
+                    "league_search_depth": (
+                        "League Search Depth",
+                        "Default: 2; The higher the number, the deeper the search, the longer it \
+                            takes to find potential opponents but also the more potential opponents there are.",
+                        ["1", "2", "3", "4", "5", "6"],
+                    ),
+                    "match_rules": (
+                        "Match Rules",
+                        "Default: cup; Rules for the match. See hattrick-handbook for details.",
+                        ["normal", "cup"],
+                    ),
+                    "opponent_type": (
+                        "Opponent Type",
+                        "Default: all; Accept either matches against all potential opponents or only against supporters.",
+                        ["all", "supporters"],
+                    ),
+                    "opponent_last_login": (
+                        "Opponent Last Login",
+                        "Default: 240; Number of hours since the opponent last logged in. You'll wait \
+                            longer for results the smaller the number is.",
+                        ["0.5", "1", "24", "240"],
+                    ),
+                },
+            },
         },
         "locale": {
             "en": {
@@ -147,7 +176,7 @@ DB__SETTINGS_DICT = {
                     "language": (
                         "Language",
                         "Default: en; Choose your language. This has priority over your browser settings.",
-                        ["en", "de", "fr"],
+                        ["en", "de", "fr", "tr"],
                     ),
                 },
             },
@@ -157,7 +186,7 @@ DB__SETTINGS_DICT = {
                     "language": (
                         "Sprache",
                         "Standard: en; Wähle deine Sprache. Dies hat Vorrang vor deinen Browsereinstellungen.",
-                        ["en", "de", "fr"],
+                        ["en", "de", "fr", "tr"],
                     ),
                 },
             },
@@ -167,7 +196,17 @@ DB__SETTINGS_DICT = {
                     "language": (
                         "Langue ",
                         "Par défaut : en ; Choisissez votre langue. Ce choix a la priorité sur les paramètres de votre navigateur.",
-                        ["en", "de", "fr"],
+                        ["en", "de", "fr", "tr"],
+                    ),
+                },
+            },
+            "tr": {
+                "name": "Locale",
+                "schema": {
+                    "language": (
+                        "Language",
+                        "Default: en; Choose your language. This has priority over your browser settings.",
+                        ["en", "de", "fr", "tr"],
                     ),
                 },
             },
@@ -208,6 +247,12 @@ QUOTES = {
             "C'était moins une ! La circulation en ville est infernale aujourd'hui ! C'est bien vu de ta part de toujours prendre les transports en commun. Je peux te parler de notre petite affaire de drapeaux ?",
             "Regardez-moi ça ! T'as l'air fantastique aujourd'hui, l'artiste ! Quoi qu'il en soit, il est bon que tu saches ceci :",
         ],
+        "tr": [
+            "Hey Boss! I'm sure you're quite surprised to see me here. Between you and me: I'm quite new in the flags business. Lovely to share this passion with you! Now to something completely different:",
+            "Nice to see you lad! I want to bring this to your attention:",
+            "That was a close call! Awful traffic today downtown! Really clever you always take the bus instead. May I bring something up regarding our flags thingy?",
+            "Look at you! You look fantastic today my maan! Anyways, you might want to know this:",
+        ],
     },
     "quotes_post": {
         "en": [
@@ -227,6 +272,12 @@ QUOTES = {
             "Quelle journée ! Désolé ma gueule, mais je dois me dépêcher. C'est mon tour d'aller chercher les mômes aujourd'hui.",
             "C'est toujours un plaisir de discuter avec toi, camarade !",
             "Amène ta femme et tes gosses la prochaine fois !",
+        ],
+        "tr": [
+            "BTW: Did you notice something different about my appearance? That's right! I've shaved my goatee.",
+            "What a day! Sorry to interrupt you bro, but I have to rush. It's my turn to pick up the kids today.",
+            "It's always a pleasure to have a chat, mate!",
+            "Bring your wife and kids next time around!",
         ],
     },
 }

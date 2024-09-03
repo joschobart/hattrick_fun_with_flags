@@ -184,7 +184,7 @@ def get_my_challenges():
     if _teamdetails[_teamid]["team_in_cup"] == "True":
         _in_cup = True
 
-    if (now.weekday() == 0 and now.hour >= 8) or (
+    if (now.weekday() == 0 and now.hour >= 6) or (
         now.weekday() >= 1 and now.weekday() < 5
     ):
         if int(_worlddetails["season_round"]) > 14:
@@ -262,6 +262,8 @@ def get_my_teams():
 
     if "teamid" not in session:
         session["teamid"] = session["teams"][0][0]
+
+    return
 
 
 def get_series_list(flagid, search_level=2, fernet_token=""):

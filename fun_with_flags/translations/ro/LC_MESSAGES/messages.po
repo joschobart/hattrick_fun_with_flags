@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-08-26 21:47+0200\n"
+"POT-Creation-Date: 2024-09-03 20:18+0200\n"
 "PO-Revision-Date: 2024-07-29 21:31+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ro\n"
@@ -19,23 +19,54 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:185
+#: fun_with_flags/achievements.py:162
+#, python-format
+msgid "Rare: %(_prevalence)s"
+msgstr ""
+
+#: fun_with_flags/achievements.py:167
+#, python-format
+msgid "Uncommon: %(_prevalence)s"
+msgstr ""
+
+#: fun_with_flags/achievements.py:171
+#, python-format
+msgid "Common: %(_prevalence)s"
+msgstr ""
+
+#: fun_with_flags/achievements.py:175
+#, python-format
+msgid "Usual: %(_prevalence)s"
+msgstr ""
+
+#: fun_with_flags/achievements.py:209
+msgid "Your FwF Neighbors Score Evolution"
+msgstr ""
+
+#: fun_with_flags/achievements.py:243
+msgid "You"
+msgstr ""
+
+#: fun_with_flags/achievements.py:253
 msgid "Well done!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:187
+#: fun_with_flags/achievements.py:255
 msgid "There is still room to improve."
 msgstr ""
 
-#: fun_with_flags/achievements.py:189
+#: fun_with_flags/achievements.py:257
 msgid "We can do better!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:191
+#: fun_with_flags/achievements.py:268
 #, python-format
 msgid ""
-" Your score puts you on position %(_position)s out of %(_competitors)s "
-"competitors."
+" Your score of %(_score)s puts you on position %(_position)s out of "
+"%(_competitors)s competitors.             The average score is "
+"%(_mean_score)s and the median score is %(_median_score)s.             "
+"Also you own %(_owned_badges)s out of %(_total_nr_badges)s badges "
+"available."
 msgstr ""
 
 #: fun_with_flags/auth.py:41 fun_with_flags/auth.py:60
@@ -92,19 +123,19 @@ msgstr ""
 msgid "Match not found."
 msgstr ""
 
-#: fun_with_flags/flags.py:147
+#: fun_with_flags/flags.py:152
 msgid "{_place}-match added."
 msgstr ""
 
-#: fun_with_flags/flags.py:164
+#: fun_with_flags/flags.py:169
 msgid "Not one of your past friendly-matches for that flag."
 msgstr ""
 
-#: fun_with_flags/flags.py:228
+#: fun_with_flags/flags.py:233
 msgid "Schedule for challenge is booked. You find it under 'Challenges'."
 msgstr ""
 
-#: fun_with_flags/flags.py:245
+#: fun_with_flags/flags.py:250
 msgid "Schedule for challenge is deleted successfully."
 msgstr ""
 
@@ -162,11 +193,11 @@ msgid ""
 "\n"
 "  <p><b>Change-log (last 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>2024-09-02: </b>Implemented badges in Achievements.\n"
 "    <li><b>2024-08-17: </b>Implemented Achievements.\n"
 "    <li><b>2024-08-03: </b>Implemented \"Opponent Last Login\" setting.\n"
 "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
 "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
-"    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -268,24 +299,70 @@ msgid "Achievements"
 msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:9
-#: fun_with_flags/templates/achievements/achievements.html:48
-msgid "Fun with Flags Score"
+msgid "Badges"
 msgstr ""
 
-#: fun_with_flags/templates/achievements/achievements.html:13
+#: fun_with_flags/templates/achievements/achievements.html:15
+#: fun_with_flags/templates/achievements/achievements.html:19
+msgid "The Club"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:24
+msgid ""
+"\n"
+"        <b>The Club:</b>\n"
+"          You're in the\n"
+"          unicorn club. <br><i>Reiceived"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:36
+#: fun_with_flags/templates/achievements/achievements.html:40
+msgid "FwF Top Scorer"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:45
+msgid ""
+"\n"
+"        <b>FwF Top Scorer:</b>\n"
+"          Your FwF score is higher than the max.\n"
+"          number of collectable flags. <br><i>Reiceived"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:57
+#: fun_with_flags/templates/achievements/achievements.html:61
+msgid "FwF Leader"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:66
+msgid ""
+"\n"
+"        <b>FwF Leader:</b>\n"
+"          You've achieved the highest FwF score of all times. "
+"<br><i>Reiceived"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:76
+msgid "Score"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:80
 msgid "Avg. Flag count per Team"
 msgstr ""
 
-#: fun_with_flags/templates/achievements/achievements.html:21
+#: fun_with_flags/templates/achievements/achievements.html:88
 msgid "Home Matches on FwF"
 msgstr ""
 
-#: fun_with_flags/templates/achievements/achievements.html:29
+#: fun_with_flags/templates/achievements/achievements.html:96
 msgid "Away Matches on FwF"
 msgstr ""
 
-#: fun_with_flags/templates/achievements/achievements.html:38
+#: fun_with_flags/templates/achievements/achievements.html:105
 msgid "Unicorn Bonus"
+msgstr ""
+
+#: fun_with_flags/templates/achievements/achievements.html:115
+msgid "Fun with Flags Score"
 msgstr ""
 
 #: fun_with_flags/templates/auth/authorize.html:4
@@ -726,141 +803,27 @@ msgid ""
 "Club!\"></p>"
 msgstr ""
 
-#~ msgid "Hello Translation!"
+#~ msgid ""
+#~ " Your score puts you on position"
+#~ " %(_position)s out of %(_competitors)s "
+#~ "competitors."
 #~ msgstr ""
 
 #~ msgid ""
-#~ "\n"
-#~ "  <p><b>Purpose:</b> Fun with Flags "
-#~ "allows you to automate capturing flags"
-#~ " on <a href=\"http://hattrick.org\" "
-#~ "target=\"_blank\">hattrick.org</a> if you are "
-#~ "a nerdy supporter of the infamous "
-#~ "online-game like myself.</p>\n"
-#~ "  "
-#~ msgstr ""
-#~ "\n"
-#~ "  <p><b>Zweck:</b> Fun with Flags "
-#~ "ermöglicht dir das Sammeln von flaggen"
-#~ " auf <a href=\"http://hattrick.org\" "
-#~ "target=\"_blank\">hattrick.org</a> wenn du ein "
-#~ "nerdiger Unterstützer des berühmten "
-#~ "Onlinespiels bist, so wie ich.</p>\n"
-#~ "  "
-
-#~ msgid ""
-#~ "\n"
-#~ "  <p><b>Change-log:</b>\n"
-#~ "  <ul type=\"1\">\n"
-#~ "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
-#~ "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
-#~ "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
-#~ "    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
-#~ "    <li><b>2024-05-02: </b>Fixed opening hours"
-#~ " for challenging on flag-details-"
-#~ "page.\n"
-#~ "    <li><b>2024-03-28: </b>Re-designed login- and index-page.\n"
-#~ "  </ul>\n"
-#~ "  </p>\n"
-#~ "  "
+#~ " Your score puts you on position"
+#~ " %(_position)s out of %(_competitors)s "
+#~ "competitors.             Also you own "
+#~ "%(_owned_badges)s out of %(_total_nr_badges)s "
+#~ "badges available."
 #~ msgstr ""
 
 #~ msgid ""
-#~ "\n"
-#~ "  <p><b>Change-log (last 5):</b>\n"
-#~ "  <ul type=\"1\">\n"
-#~ "    <li><b>2024-08-03: </b>Implemented \"Opponent"
-#~ " Last Login\" setting.\n"
-#~ "    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
-#~ "    <li><b>2024-07-16: </b>Implemented simplified login-process.\n"
-#~ "    <li><b>2024-06-14: </b>Fixed first week after cup challenging.\n"
-#~ "    <li><b>2024-06-06: </b>Added new league \"Guinea\".\n"
-#~ "  </ul>\n"
-#~ "  </p>\n"
-#~ "  "
-#~ msgstr ""
-
-#~ msgid "un with Flags Score"
-#~ msgstr ""
-
-#~ msgid "Home Flags:"
-#~ msgstr ""
-
-#~ msgid "Home Flags on FwF:"
-#~ msgstr ""
-
-#~ msgid "Away Flags:"
-#~ msgstr ""
-
-#~ msgid "Away Flags on FwF:"
-#~ msgstr ""
-
-#~ msgid "Unicorn Bonus:"
-#~ msgstr ""
-
-#~ msgid "Fun with Flags Score:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Well done! Your score puts you on"
-#~ " position {_position} out of {_competitors}"
-#~ " competitors."
-#~ msgstr ""
-
-#~ msgid "Well done! Your score puts you on position {} out of {} competitors."
-#~ msgstr ""
-
-#~ msgid "Well done! Your score puts you on position {} out of  competitors."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "There is still room to improve. "
-#~ "Your score puts you on position "
-#~ "{_position} out of {_competitors} competitors."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "We can do better! Your score puts"
-#~ " you on position {_position} out of"
-#~ " {_competitors} competitors."
-#~ msgstr ""
-
-#~ msgid "short text."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "There is still room to improve. "
-#~ "Your score puts you on position {}"
-#~ " out of {} competitors."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "We can do better! Your score puts"
-#~ " you on position {} out of {}"
-#~ " competitors."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Well done! Your score puts you on"
-#~ " position %(_position)s out of "
-#~ "%(_competitors)s competitors."
-#~ msgstr ""
-
-#~ msgid "Home Flags on FwF"
-#~ msgstr ""
-
-#~ msgid "Away Flags on FwF"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Match is running. Come back Thursday "
-#~ "after 7 o'clock UTC to book a "
-#~ "new match."
-#~ msgstr ""
-
-#~ msgid "Home Flags"
-#~ msgstr ""
-
-#~ msgid "Away Flags"
+#~ " Your score puts you on position"
+#~ " %(_position)s out of %(_competitors)s "
+#~ "competitors.             The average score is"
+#~ " %(_mean_score)s and the median score "
+#~ "is %(_median_score)s.             Also you own"
+#~ " %(_owned_badges)s out of %(_total_nr_badges)s"
+#~ " badges available."
 #~ msgstr ""
 

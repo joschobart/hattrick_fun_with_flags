@@ -6,60 +6,74 @@
 
 {% block content %}
 
-<!--   <h3>{% trans %}Fun with Flags Badges{% endtrans %}</h3>
+  <h3>{% trans %}Badges{% endtrans %}</h3>
   <table border="1px" width="100%">
     <tr>
-      <td style="text-align:left" width="110px">
-        {% if session['unicorn'] %}
-          <img src="{{ url_for('static', filename='c32e2826-eb34-4429-92e9-faffbdfe9eeb.jpg') }}" title="The Club" alt="The Club" height="111px">
+      <td style="text-align:center; vertical-align:top;" width="15%">
+        {% if session["badges"]["unicorn"] %}
+          <div class="img_frame_gold">
+            <img src="{{ url_for('static', filename='c32e2826-eb34-4429-92e9-faffbdfe9eeb.jpg') }}" title="{% trans %}The Club{% endtrans %}" alt="{% trans %}The Club{% endtrans %}" height="111px">
+          </div>
         {% else %}
-          <img src="{{ url_for('static', filename='unicorn_gray.jpg') }}" title="The Club" alt="The Club" height="111px">
+          <div class="img_frame_silver">
+            <img src="{{ url_for('static', filename='unicorn_gray.jpg') }}" title="{% trans %}The Club{% endtrans %}" alt="{% trans %}The Club{% endtrans %}" height="111px">
+          </div>
         {% endif %}
       </td>
-      <td style="text-align:left" width="110px">
+      <td style="text-align:left; vertical-align:top;" width="17.2%">
+        {% trans %}
         <b>The Club:</b>
-          You get this badge for being in the
-          unicorn club. (Very rare: 8.4%)
+          You're in the
+          unicorn club. <br><i>Reiceived{% endtrans %}:
+          {% if session["badges"]["unicorn"] %}{{ session["badges"]["unicorn"] }}{% else %}- {% endif %};<be>
+          {{ g.badge_prevalence["unicorn"] }}%</i>
       </td>
-      <td style="text-align:left" width="20px">
+      <td style="text-align:left" width="2.2%">
       </td>
-
-
-      <td style="text-align:left" width="110px">
-        {% if session['unicorn'] %}
-          <img src="{{ url_for('static', filename='c32e2826-eb34-4429-92e9-faffbdfe9eeb.jpg') }}" title="The Club" alt="The Club" height="111px">
+      <td style="text-align:center; vertical-align:top;" width="15%">
+        {% if session["badges"]["fwf_score"] %}
+          <div class="img_frame_gold">
+            <img src="{{ url_for('static', filename='_7f2eb2f9-7429-40af-8019-11a41bfad0c0.jpg') }}" title="{% trans %}FwF Top Scorer{% endtrans %}" alt="{% trans %}FwF Top Scorer{% endtrans %}" height="111px">
+          </div>
         {% else %}
-          <img src="{{ url_for('static', filename='unicorn_gray.jpg') }}" title="The Club" alt="The Club" height="111px">
+          <div class="img_frame_silver">
+            <img src="{{ url_for('static', filename='score_king_gray.jpg') }}" title="{% trans %}FwF Top Scorer{% endtrans %}" alt="{% trans %}FwF Top Scorer{% endtrans %}" height="111px">
+          </div>
         {% endif %}
       </td>
-      <td style="text-align:left" width="110px">
-        <b>The Club:</b>
-          You get this badge for being in the
-          unicorn club. (Very rare: 8.4%)
+      <td style="text-align:left; vertical-align:top;" width="17.2%">
+        {% trans %}
+        <b>FwF Top Scorer:</b>
+          Your FwF score is higher than the max.
+          number of collectable flags. <br><i>Reiceived{% endtrans %}:
+          {% if session["badges"]["fwf_score"] %}{{ session["badges"]["fwf_score"] }}{% else %}- {% endif %};<be>
+          {{ g.badge_prevalence["fwf_score"] }}%</i>
       </td>
-      <td style="text-align:left" width="20px">
+      <td style="text-align:left" width="2.2%">
       </td>
-
-
-      <td style="text-align:left" width="110px">
-        {% if session['unicorn'] %}
-          <img src="{{ url_for('static', filename='c32e2826-eb34-4429-92e9-faffbdfe9eeb.jpg') }}" title="The Club" alt="The Club" height="111px">
+      <td style="text-align:center; vertical-align:top;" width="15%">
+        {% if session["badges"]["fwf_leader"] %}
+          <div class="img_frame_gold">
+            <img src="{{ url_for('static', filename='_0cce7322-a20d-435b-aabb-4b9b4daf1e64.jpg') }}" title="{% trans %}FwF Leader{% endtrans %}" alt="{% trans %}FwF Leader{% endtrans %}" height="111px">
+          </div>
         {% else %}
-          <img src="{{ url_for('static', filename='unicorn_gray.jpg') }}" title="The Club" alt="The Club" height="111px">
+          <div class="img_frame_silver">
+            <img src="{{ url_for('static', filename='fwf_king_gray.jpg') }}" title="{% trans %}FwF Leader{% endtrans %}" alt="{% trans %}FwF Leader{% endtrans %}" height="111px">
+          </div>
         {% endif %}
       </td>
-      <td style="text-align:left" width="110px">
-        <b>The Club:</b>
-          You get this badge for being in the
-          unicorn club. (Very rare: 8.4%)
-      </td>
-      <td style="text-align:left" width="20px">
+      <td style="text-align:left; vertical-align:top;" width="17.2%">
+        {% trans %}
+        <b>FwF Leader:</b>
+          You've achieved the highest FwF score of all times. <br><i>Reiceived{% endtrans %}:
+          {% if session["badges"]["fwf_leader"] %}{{ session["badges"]["fwf_leader"] }}{% else %}- {% endif %};<be>
+          {{ g.badge_prevalence["fwf_leader"] }}%</i>
       </td>
     </tr>
   </table>
-  <br> -->
+  <br>
 
-  <h3>{% trans %}Fun with Flags Score{% endtrans %}</h3>
+  <h3>{% trans %}Score{% endtrans %}</h3>
   <table border="1px" width="100%">
     <tr>
       <td style="text-align:left" width="500px">

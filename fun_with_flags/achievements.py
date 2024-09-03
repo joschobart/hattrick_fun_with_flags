@@ -1,6 +1,7 @@
 """FwF achievements view"""
 
 from datetime import datetime
+from statistics import median
 from time import strftime
 
 import pygal
@@ -20,6 +21,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.error_check
 def achievements():
     """ """
+    # FwF score
     _db_settings = current_app.config["DB__SETTINGS_DICT"]
     _my_document = db.bootstrap_user_document(g.user_id, g.couch, _db_settings)
     _couch = db.get_db("fwf_db")
@@ -92,15 +94,9 @@ def achievements():
         + g.fwf_matches_home
         + g.fwf_matches_away
     )
+
+    # position in high score
     _weeknumber = strftime("%Y%W")
-
-    _my_document["score"]["score"] = g.fun_with_flags_score
-    _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
-    _my_document["score"]["meta"]["date_updated"] = str(datetime.utcnow())
-
-    # Write changements of the score to db
-    _couch[g.user_id] = _my_document
-
     _score_list = []
     for _couchdoc in _couchdocs:
         if not str(_couchdoc["key"]).isdigit():
@@ -118,7 +114,84 @@ def achievements():
     _position = [x[1] for x in _score_list].index(g.fun_with_flags_score) + 1
     _competitors = len(_score_list)
 
+    _simple_score_list = []
+    _simple_score_list += [_score_list[n][1] for n in range(0, len(_score_list))]
+    _mean_score = int(round(sum(_simple_score_list) / len(_simple_score_list), 0))
+    _median_score = int(round(median(_simple_score_list), 0))
 
+    # maange badges
+    _total_nr_badges = 0
+    _badges = []
+    session["badges"] = {}
+    g.badge_prevalence = {}
+
+    # unicorn badge
+    _total_nr_badges += 1
+    if session.get("unicorn", False):
+        _badges.append("unicorn")
+
+    # fwf_score badge
+    _total_nr_badges += 1
+    _total_nr_flags = nr_flags_home[1] + nr_flags_away[1]
+    if g.fun_with_flags_score >= _total_nr_flags:
+        _badges.append("fwf_score")
+
+    # fwf_leader badge
+    _total_nr_badges += 1
+    if _position == 1:
+        _badges.append("fwf_leader")
+
+    for _badge in _badges:
+        g.badge_prevalence[_badge] = 0
+
+        for _couchdoc in _couchdocs:
+            if not str(_couchdoc["key"]).isdigit():
+                continue
+            try:
+                _couch[_couchdoc["key"]]["score"]["badges"][_badge]
+            except KeyError:
+                pass
+            else:
+                g.badge_prevalence[_badge] += 1
+
+        g.badge_prevalence[_badge] = round(
+            (g.badge_prevalence[_badge] / (len(_score_list) / 100)), 2
+        )
+        if g.badge_prevalence[_badge] <= 5:
+            g.badge_prevalence[_badge] = gettext(
+                "Rare: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
+            )
+
+        elif g.badge_prevalence[_badge] <= 25:
+            g.badge_prevalence[_badge] = gettext(
+                "Uncommon: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
+            )
+        elif g.badge_prevalence[_badge] <= 60:
+            g.badge_prevalence[_badge] = gettext(
+                "Common: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
+            )
+        else:
+            g.badge_prevalence[_badge] = gettext(
+                "Usual: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
+            )
+
+        try:
+            _my_document["score"]["badges"][_badge]
+        except KeyError:
+            _my_document["score"]["badges"][_badge] = str(datetime.utcnow())
+        finally:
+            session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(
+                " ", 1
+            )[0]
+
+    _my_document["score"]["score"] = g.fun_with_flags_score
+    _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
+    _my_document["score"]["meta"]["date_updated"] = str(datetime.utcnow())
+
+    # Write changements of the score to db
+    _couch[g.user_id] = _my_document
+
+    # pygal neighbor score plot
     _neighbors = {g.user_id: {}}
     try:
         for x in range(_position, (_position + 4)):
@@ -131,25 +204,19 @@ def achievements():
             continue
         _neighbors[_score_list[x][0]] = {}
 
-
     line_chart = pygal.Line()
-    line_chart.title = 'Your FwF Neighbors Score Evolution'
-
+    line_chart.title = gettext("Your FwF Neighbors Score Evolution")
 
     _weeks = set()
     for _neighbor in _neighbors:
         _my_neighbor_doc = _couch[_neighbor]
         try:
             _neighbors[_neighbor] = _my_neighbor_doc["score"]["history"]
-
             _weeks.update(_my_neighbor_doc["score"]["history"].keys())
-
         except KeyError:
             continue
 
     _weeks = sorted(_weeks)
-
-
     for _neighbor in _neighbors:
         _scores = []
         _my_neighbor_doc = _couch[_neighbor]
@@ -159,7 +226,7 @@ def achievements():
                 _scores.append(_my_neighbor_doc["score"]["history"][str(_week)])
             except Exception:
                 _scores.append(None)
-        
+
         if not "history" in _my_neighbor_doc["score"].keys():
             _scores[-1] = _my_neighbor_doc["score"]["score"]
             _scores[-2] = _my_neighbor_doc["score"]["score"]
@@ -169,31 +236,37 @@ def achievements():
             pass
 
         if _scores[-1] is None:
-            _scores[-1] = _my_neighbor_doc["score"]["score"]           
+            _scores[-1] = _my_neighbor_doc["score"]["score"]
 
         if _neighbor == g.user_id:
-            line_chart.add("You", _scores)
+            line_chart.add(gettext("You"), _scores)
         else:
             line_chart.add(_neighbor, _scores)
-
 
     line_chart.x_labels = map(str, range(int(_weeks[0]), int(_weeks[-1])))
     line_chart = line_chart.render_data_uri()
 
-
-    if _position <= (_competitors / 3) or _competitors < 3:
+    if (_position <= (_competitors / 3) or _competitors < 3) and len(_badges) >= (
+        _total_nr_badges / 2
+    ):
         _message = gettext("Well done!")
-    elif _position <= (_competitors / 3 * 2):
+    elif _position <= (_competitors / 3 * 2) and len(_badges) >= (_total_nr_badges / 3):
         _message = gettext("There is still room to improve.")
     else:
         _message = gettext("We can do better!")
 
     _message = _message + gettext(
-        " Your score puts you on position %(_position)s out of %(_competitors)s competitors.",
+        " Your score of %(_score)s puts you on position %(_position)s out of %(_competitors)s competitors. \
+            The average score is %(_mean_score)s and the median score is %(_median_score)s. \
+            Also you own %(_owned_badges)s out of %(_total_nr_badges)s badges available.",
+        _score=g.fun_with_flags_score,
         _position=_position,
         _competitors=_competitors,
+        _mean_score=_mean_score,
+        _median_score=_median_score,
+        _owned_badges=len(_badges),
+        _total_nr_badges=_total_nr_badges,
     )
     flash(_message)
-
 
     return render_template("achievements/achievements.html", line_chart=line_chart)

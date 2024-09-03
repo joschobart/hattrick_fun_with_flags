@@ -199,6 +199,20 @@ p.italic {
   width: 95%;
 }
 
+.img_frame_silver {
+  border: 3px solid #ccc;
+  background: #eee;
+  margin: auto;
+  padding: 8px 8px;
+}
+
+.img_frame_gold {
+  border: 3px solid #f5c400;
+  background: #ffdc5f;
+  margin: auto;
+  padding: 8px 8px;
+}
+
 .flash {
   margin: 1em 0;
   padding: 1em;
