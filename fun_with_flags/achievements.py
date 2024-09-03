@@ -201,14 +201,14 @@ def achievements():
 
     # pygal neighbor score plot
     _neighbors = {g.user_id: {}}
-    try:
-        for x in range(_position, (_position + 4)):
+    for x in range(_position, (_position + 4)):
+        try:
             _neighbors[_score_list[x][0]] = {}
-    except IndexError:
-        pass
+        except IndexError:
+            continue
 
     for x in range((_position - 4), _position):
-        if x <= 0:
+        if x < 1:
             continue
         _neighbors[_score_list[x][0]] = {}
 
