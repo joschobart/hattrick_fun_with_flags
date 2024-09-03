@@ -139,6 +139,33 @@ DB__SETTINGS_DICT = {
                     ),
                 },
             },
+			"tr": {
+                "name": "Dostluk maçları",
+                "schema": {
+                    "league_search_depth": (
+                        "Lig arama derinliği ",
+                        "Varsayılan: 2; Sayı ne kadar büyük olursa, arama o kadar derin olur, potansiyel rakipleri \
+							bulmak o kadar uzun sürer, ancak aynı zamanda potansiyel rakipler de o kadar fazla olur.",
+                        ["1", "2", "3", "4", "5", "6"],
+                    ),
+                    "match_rules": (
+                        "Maç kuralları ",
+                        "Varsayılan: kupa; Maçın kuralları. Ayrıntılar için hattrick kılavuzuna bakın.",
+                        ["normal", "cup"],
+                    ),
+                    "opponent_type": (
+                        "Rakip türü ",
+                        "Varsayılan: tümü; Tüm potansiyel rakiplere karşı veya yalnızca HT taraftarlarına karşı yapılacak maçları kabul edin.",
+                        ["all", "supporters"],
+                    ),
+                    "opponent_last_login": (
+                        "Rakibin son girişi",
+                        "Varsayılan: 240; Rakibin en son oturum açmasından bu yana geçen saat sayısı. Sayı ne kadar \ 
+							küçük olursa sonuçlar için o kadar uzun süre beklersiniz..",
+                        ["0.5", "1", "24", "240"],
+                    ),
+                },				
+            },         
         },
         "locale": {
             "en": {
@@ -147,7 +174,7 @@ DB__SETTINGS_DICT = {
                     "language": (
                         "Language",
                         "Default: en; Choose your language. This has priority over your browser settings.",
-                        ["en", "de", "fr"],
+                        ["en", "de", "fr", "tr"],
                     ),
                 },
             },
@@ -157,7 +184,7 @@ DB__SETTINGS_DICT = {
                     "language": (
                         "Sprache",
                         "Standard: en; Wähle deine Sprache. Dies hat Vorrang vor deinen Browsereinstellungen.",
-                        ["en", "de", "fr"],
+                        ["en", "de", "fr", "tr"],
                     ),
                 },
             },
@@ -167,7 +194,17 @@ DB__SETTINGS_DICT = {
                     "language": (
                         "Langue ",
                         "Par défaut : en ; Choisissez votre langue. Ce choix a la priorité sur les paramètres de votre navigateur.",
-                        ["en", "de", "fr"],
+                        ["en", "de", "fr", "tr"],
+                    ),
+                },
+            },
+            "tr": {
+                "name": "Dil",
+                "schema": {
+                    "language": (
+                        "Dil ",
+                        "Varsayılan: en ; Dilinizi seçin. Bu seçim tarayıcı ayarlarınıza göre önceliklidir.",
+                        ["en", "de", "fr", "tr"],
                     ),
                 },
             },
@@ -208,6 +245,12 @@ QUOTES = {
             "C'était moins une ! La circulation en ville est infernale aujourd'hui ! C'est bien vu de ta part de toujours prendre les transports en commun. Je peux te parler de notre petite affaire de drapeaux ?",
             "Regardez-moi ça ! T'as l'air fantastique aujourd'hui, l'artiste ! Quoi qu'il en soit, il est bon que tu saches ceci :",
         ],
+		"tr": [
+            "Hey patron! Eminim beni burada gördüğüne çok şaşırmışsındır. Aramızda kalsın, bayraklar konusunda oldukça yeniyim. Ama bu tutkuyu sizinle paylaşmak bir zevk! Şimdi konuyu değiştirelim:",
+            "Seni gördüğüme sevindim dostum! Size şunu tavsiye etmek isterim:",
+            "Yetiştim! Bugün şehir merkezinde trafik berbat! Her zaman otobüse binmen gerçekten akıllıca. Bayraklarımızla ilgili bir şeyden bahsedebilir miyim?",
+            "Şuna bir bak! Bugün harika görünüyorsun dostum! Her neyse, aşağıdakileri bilmek isteyebilirsiniz:",
+        ],        
     },
     "quotes_post": {
         "en": [
@@ -228,5 +271,11 @@ QUOTES = {
             "C'est toujours un plaisir de discuter avec toi, camarade !",
             "Amène ta femme et tes gosses la prochaine fois !",
         ],
+		"tr": [
+            "Bu arada: Görünüşümle ilgili bir şey fark ettin mi? Doğru! Keçi sakalımı tıraş ettim.",
+            "Ne gün! Kardeşim, böldüğüm için özür dilerim ama acele etmem gerekiyor. Bugün çocukları alma sırası bende.",
+            "Sohbet etmek her zaman bir zevktir dostum!",
+            "Bir dahaki sefere eşinizi ve çocuklarınızı getirin!",
+        ],        
     },
 }
