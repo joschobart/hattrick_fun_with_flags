@@ -192,8 +192,11 @@ def achievements():
             if str(_badge) in _owned_badges:
                 _my_document["score"]["badges"][_badge] = str(datetime.utcnow())
         finally:
-            if (str(_badge) in _owned_badges) or _my_document["score"]["badges"][_badge]:
-                session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(" ", 1)[0]
+            try:
+                if (str(_badge) in _owned_badges) or _my_document["score"]["badges"][_badge]:
+                    session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(" ", 1)[0]
+            except KeyError:
+                pass
 
     _my_document["score"]["score"] = g.fun_with_flags_score
     _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
