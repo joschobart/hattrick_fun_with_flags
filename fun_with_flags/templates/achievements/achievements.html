@@ -24,7 +24,7 @@
         {% trans %}
         <b>The Club:</b>
           You're in the
-          unicorn club. <br><i>Reiceived{% endtrans %}:
+          unicorn club. <br><i>Received{% endtrans %}:
           {% if session["badges"]["unicorn"] %}{{ session["badges"]["unicorn"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["unicorn"] }}%</i>
       </td>
@@ -45,7 +45,7 @@
         {% trans %}
         <b>FwF Top Scorer:</b>
           Your FwF score is higher than the max.
-          number of collectable flags. <br><i>Reiceived{% endtrans %}:
+          number of collectable flags. <br><i>Received{% endtrans %}:
           {% if session["badges"]["fwf_score"] %}{{ session["badges"]["fwf_score"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["fwf_score"] }}%</i>
       </td>
@@ -65,7 +65,7 @@
       <td style="text-align:left; vertical-align:top;" width="17.2%">
         {% trans %}
         <b>FwF Leader:</b>
-          You've achieved the highest FwF score of all times. <br><i>Reiceived{% endtrans %}:
+          You've achieved the highest FwF score of all times. <br><i>Received{% endtrans %}:
           {% if session["badges"]["fwf_leader"] %}{{ session["badges"]["fwf_leader"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["fwf_leader"] }}%</i>
       </td>

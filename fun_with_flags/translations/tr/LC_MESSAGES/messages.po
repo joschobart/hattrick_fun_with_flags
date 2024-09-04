@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: Kara_Kartallar\n"
-"POT-Creation-Date: 2024-09-03 22:36+0200\n"
+"POT-Creation-Date: 2024-09-04 17:59+0200\n"
 "PO-Revision-Date: 2024-09-02 23:34+0200\n"
 "Last-Translator: Kara_Kartallar\n"
 "Language: tr\n"
@@ -19,22 +19,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:165
+#: fun_with_flags/achievements.py:172
 #, python-format
 msgid "Rare: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:170
+#: fun_with_flags/achievements.py:177
 #, python-format
 msgid "Uncommon: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:174
+#: fun_with_flags/achievements.py:181
 #, python-format
 msgid "Common: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:178
+#: fun_with_flags/achievements.py:185
 #, python-format
 msgid "Usual: %(_prevalence)s"
 msgstr ""
@@ -395,7 +395,7 @@ msgid ""
 "\n"
 "        <b>The Club:</b>\n"
 "          You're in the\n"
-"          unicorn club. <br><i>Reiceived"
+"          unicorn club. <br><i>Received"
 msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:36
@@ -408,7 +408,7 @@ msgid ""
 "\n"
 "        <b>FwF Top Scorer:</b>\n"
 "          Your FwF score is higher than the max.\n"
-"          number of collectable flags. <br><i>Reiceived"
+"          number of collectable flags. <br><i>Received"
 msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:57
@@ -421,7 +421,7 @@ msgid ""
 "\n"
 "        <b>FwF Leader:</b>\n"
 "          You've achieved the highest FwF score of all times. "
-"<br><i>Reiceived"
+"<br><i>Received"
 msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:76
@@ -954,5 +954,26 @@ msgstr "<p><input type=\"submit\" id=\"checkout-button\" value=\"Klube Gir!\"></
 #~ "is %(_median_score)s.             Also you own"
 #~ " %(_owned_badges)s out of %(_total_nr_badges)s"
 #~ " badges available."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "        <b>The Club:</b>\n"
+#~ "          You're in the\n"
+#~ "          unicorn club. <br><i>Reiceived"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "        <b>FwF Top Scorer:</b>\n"
+#~ "          Your FwF score is higher than the max.\n"
+#~ "          number of collectable flags. <br><i>Reiceived"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "\n"
+#~ "        <b>FwF Leader:</b>\n"
+#~ "          You've achieved the highest "
+#~ "FwF score of all times. <br><i>Reiceived"
 #~ msgstr ""
 
