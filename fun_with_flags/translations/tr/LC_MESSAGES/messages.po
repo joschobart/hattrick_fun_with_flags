@@ -22,34 +22,34 @@ msgstr ""
 #: fun_with_flags/achievements.py:172
 #, python-format
 msgid "Rare: %(_prevalence)s"
-msgstr ""
+msgstr "Nadir: %(_prevalence)s"
 
 #: fun_with_flags/achievements.py:177
 #, python-format
 msgid "Uncommon: %(_prevalence)s"
-msgstr ""
+msgstr "Sıra Dışı: %(_prevalence)s"
 
 #: fun_with_flags/achievements.py:181
 #, python-format
 msgid "Common: %(_prevalence)s"
-msgstr ""
+msgstr "Yaygın: %(_prevalence)s"
 
 #: fun_with_flags/achievements.py:185
 #, python-format
 msgid "Usual: %(_prevalence)s"
-msgstr ""
+msgstr "Olağan: %(_prevalence)s"
 
 #: fun_with_flags/achievements.py:216
 msgid "Your FwF Neighbors Score Evolution"
-msgstr ""
+msgstr "FwF Komşularınızın Skor Gelişimi"
 
 #: fun_with_flags/achievements.py:250
 msgid "You"
-msgstr ""
+msgstr "Siz"
 
 #: fun_with_flags/achievements.py:260
 msgid "Well done!"
-msgstr "Gut gemacht!"
+msgstr "Tebrikler!"
 
 #: fun_with_flags/achievements.py:262
 msgid "There is still room to improve."
@@ -68,6 +68,10 @@ msgid ""
 "Also you own %(_owned_badges)s out of %(_total_nr_badges)s badges "
 "available."
 msgstr ""
+" %(_score)s puanınız sizi %(_competitors)s rakibiniz arasında %(_position)s "
+"konumuna getiriyor.             Ortalama puan %(_mean_score)s ve medyan puan "
+"%(_median_score)s'dir.             Ayrıca mevcut %(_total_nr_badges)s rozetten "
+"%(_owned_badges)s tanesine sahipsiniz."
 
 #: fun_with_flags/auth.py:41 fun_with_flags/auth.py:60
 msgid "{e}: Pin {pin} was not accepted."
@@ -107,7 +111,7 @@ msgstr "Maç rezerve edildi!"
 
 #: fun_with_flags/challenge.py:101
 msgid "Teams are challenged but not agreed yet."
-msgstr "Takımlara meydan okunuyor ancak henüz anlaşılamadı."
+msgstr "Takımlara meydan okunuyor ancak henüz maç ayarlanamadı."
 
 #: fun_with_flags/challenge.py:104
 msgid "No challenges to show."
@@ -119,7 +123,7 @@ msgstr "Var '{e}' eksik."
 
 #: fun_with_flags/challenge.py:168
 msgid "Challenges booked!"
-msgstr "Meydan okumalar rezerve edildi!"
+msgstr "Meydan okuma rezerve edildi!"
 
 #: fun_with_flags/flags.py:127
 msgid "Match not found."
@@ -223,12 +227,12 @@ msgstr ""
 "\n"
 "  <p><b>Değişiklik günlüğü (son 5):</b>\n"
 "  <ul type=\"1\">\n"
-"    <li><b>2024-08-17: </b>Uygulanan başarılar.    <li><b>2024-08-03: "
-"</b>\"Rakibin Son Girişi\" ayarı uygulandı.    <li><b>2024-07-26: "
-"</b>i18n ve l10n için destek eklendi.    <li><b>2024-07-16: "
-"</b>Basitleştirilmiş oturum açma işlemi uygulandı.    <li><b>2024-06-14: "
-"</b>Kupa mücadelesinden sonraki ilk hafta düzeltildi.  "
-"</li></li></li></li></li></ul>\n"
+"    <li><b>2024-09-02: </b>Başarılara rozetler eklendi.\n"
+"    <li><b>2024-08-17: </b>Başarılar eklendi.\n"
+"    <li><b>2024-08-03: </b>\"Rakibin Son Girişi\" ayarı eklendi.\n"
+"    <li><b>2024-07-26: </b>i18n ve l10n için destek eklendi.\n"
+"    <li><b>2024-07-16: </b>Basitleştirilmiş oturum açma işlemi uygulandı.\n"
+"  </ul>\n"
 "  </p>\n"
 "  "
 
@@ -376,6 +380,23 @@ msgid ""
 "get in touch.</p>\n"
 "  "
 msgstr ""
+"\n"
+"  <p><b>Lisans ve telif hakkı reddi beyanı:</b>Bu web sitesini oluşturan yazılım "
+"kodu, GPLv3 Lisansı altında github.org'da yayınlanmaktadır. Python ile "
+"yazılmıştır ve Apache v2.0 Lisansı altında yayınlanan bir arka uç kitaplığı olan "
+"ht-libs'i kullanır. \n"
+"  GPLv3 lisansının bir kopyasını burada bulabilirsiniz: <a href=\"https://www."
+"gnu.org/licenses/gpl-3.0.en.html\" target=\"_blank\">https://www.gnu.org /"
+"licenses/gpl-3.0.en.html.</a> Apache v2.0 lisansının bir kopyasını burada "
+"bulabilirsiniz: \n"
+"  <a href=\"https://apache.org/licenses/LICENSE-2.0\" target=\"_blank\">https://"
+"apache.org/licenses/LICENSE-2.0.</a> Hattrick.org lisansı altında sağlanan "
+"içerik de dahil olmak üzere bu web sitesindeki diğer tüm içerik ya kamu malıdır "
+"ya da  \n"
+"  web sitesi sahibinin bilgisi dahilinde kullanım hakkı ile yayınlanmıştır. Bu "
+"web sitesinde yayınlanan içeriğin telif hakkının sahibiyseniz ve telif "
+"hakkınızın ihlal edildiğini görürseniz lütfen bizimle iletişime geçin.</p>\n"
+"  "
 
 #: fun_with_flags/templates/achievements/achievements.html:4
 msgid "Achievements"
@@ -383,12 +404,12 @@ msgstr "Başarılar"
 
 #: fun_with_flags/templates/achievements/achievements.html:9
 msgid "Badges"
-msgstr ""
+msgstr "Rozetler"
 
 #: fun_with_flags/templates/achievements/achievements.html:15
 #: fun_with_flags/templates/achievements/achievements.html:19
 msgid "The Club"
-msgstr ""
+msgstr "Kulüp"
 
 #: fun_with_flags/templates/achievements/achievements.html:24
 msgid ""
@@ -397,11 +418,15 @@ msgid ""
 "          You're in the\n"
 "          unicorn club. <br><i>Received"
 msgstr ""
+"\n"
+"        <b>Kulüp:</b>\n"
+"          Sen içindesin\n"
+"          unicorn kulübü. <br><i>Alındı</i>"
 
 #: fun_with_flags/templates/achievements/achievements.html:36
 #: fun_with_flags/templates/achievements/achievements.html:40
 msgid "FwF Top Scorer"
-msgstr ""
+msgstr "FwF Kralı"
 
 #: fun_with_flags/templates/achievements/achievements.html:45
 msgid ""
@@ -410,11 +435,15 @@ msgid ""
 "          Your FwF score is higher than the max.\n"
 "          number of collectable flags. <br><i>Received"
 msgstr ""
+"\n"
+"        <b>FwF Kralı:</b>\n"
+"          FwF puanınız maksimum değerden yüksek.\n"
+"          toplanabilir bayrak sayısı. <br><i>Alındı</i>"
 
 #: fun_with_flags/templates/achievements/achievements.html:57
 #: fun_with_flags/templates/achievements/achievements.html:61
 msgid "FwF Leader"
-msgstr ""
+msgstr "FwF Lideri"
 
 #: fun_with_flags/templates/achievements/achievements.html:66
 msgid ""
@@ -423,10 +452,13 @@ msgid ""
 "          You've achieved the highest FwF score of all times. "
 "<br><i>Received"
 msgstr ""
+"\n"
+"        <b>FwF Lideri:</b>\n"
+"          Tüm zamanların en yüksek FwF puanını elde ettiniz. <br><i>Alındı</i>"
 
 #: fun_with_flags/templates/achievements/achievements.html:76
 msgid "Score"
-msgstr ""
+msgstr "Skor"
 
 #: fun_with_flags/templates/achievements/achievements.html:80
 msgid "Avg. Flag count per Team"
@@ -446,7 +478,7 @@ msgstr "Unicorn Bonusu"
 
 #: fun_with_flags/templates/achievements/achievements.html:115
 msgid "Fun with Flags Score"
-msgstr ""
+msgstr "Fun with Flags Skoru"
 
 #: fun_with_flags/templates/auth/authorize.html:4
 msgid "Authorize"
@@ -466,7 +498,7 @@ msgid ""
 "<input type=\"button\" class=\"button\" value=\"Hattrick-Authorization\" "
 "/>"
 msgstr ""
-"<input type=\"button\" class=\"button\" value=\"Hattrick-Yetkilendirme\" "
+"<input type=\"button\" class=\"button\" value=\"Hattrick'ten Yetki Al\" "
 "/>"
 
 #: fun_with_flags/templates/auth/authorize.html:14
@@ -589,7 +621,7 @@ msgstr "Bayrak Detayları"
 
 #: fun_with_flags/templates/flags/details.html:15
 msgid "<p>The "
-msgstr ""
+msgstr "<p> "
 
 #: fun_with_flags/templates/flags/details.html:15
 msgid "-flag of "
@@ -644,19 +676,19 @@ msgstr ""
 #: fun_with_flags/templates/flags/details.html:65
 #: fun_with_flags/templates/flags/details.html:70
 msgid "-flag of"
-msgstr ""
+msgstr " için"
 
 #: fun_with_flags/templates/flags/details.html:66
 msgid "is in your collection already. But let's challenge over and over!;)</p>"
-msgstr ""
+msgstr ""zaten koleksiyonunuzda yer alıyor. Ama tekrar tekrar meydan okuyalım!;)</p>"
 
 #: fun_with_flags/templates/flags/details.html:71
 msgid "is missing for your team"
-msgstr ""
+msgstr "bayrağınız yok."
 
 #: fun_with_flags/templates/flags/details.html:71
 msgid "Let's grab that flag!;)</p>"
-msgstr ""
+msgstr " takımınız için hadi o bayrağı alalım!;)</p>"
 
 #: fun_with_flags/templates/flags/details.html:76
 msgid ""
@@ -767,13 +799,15 @@ msgstr ""
 
 #: fun_with_flags/templates/flags/details.html:130
 msgid "<h4>&#129412; Schedule"
-msgstr ""
+msgstr "<h4>&#129412; Program"
 
 #: fun_with_flags/templates/flags/details.html:131
 msgid ""
 "<p>As a member of the unicorn-club you are even entitled to schedule a "
 "match in advance! Let's do it!;)</p>"
 msgstr ""
+"<p>Unicorn kulübünün bir üyesi olarak, önceden bir maç planlama hakkına "
+"sahipsiniz! Hadi yapalım şunu!;)</p>"
 
 #: fun_with_flags/templates/flags/details.html:133
 msgid ""
@@ -810,15 +844,15 @@ msgstr ""
 
 #: fun_with_flags/templates/flags/details.html:148
 msgid "<p>There are"
-msgstr ""
+msgstr "<p> "
 
 #: fun_with_flags/templates/flags/details.html:148
 msgid "teams challengeable in"
-msgstr ""
+msgstr "takıma şu andaki"
 
 #: fun_with_flags/templates/flags/details.html:149
 msgid "at the moment with your settings.</p>"
-msgstr ""
+msgstr "ayarlarınızla meydan okunabilir.</p>"
 
 #: fun_with_flags/templates/flags/details.html:151
 msgid "Challenge Opponents"
@@ -884,11 +918,11 @@ msgstr ""
 
 #: fun_with_flags/templates/settings/settings.html:71
 msgid "€</b> btw. That's the equivalent of"
-msgstr ""
+msgstr "€</b>. Bu "
 
 #: fun_with_flags/templates/settings/settings.html:72
 msgid "days</b> of operation. <b>Never stop to have fun!</b>:)"
-msgstr ""
+msgstr "günlük</b> çalışmaya eşdeğerdir. <b>\"Eğlenmeyi asla bırakmayın!\"</b>:)"
 
 #: fun_with_flags/templates/settings/settings.html:74
 msgid ""
@@ -901,6 +935,15 @@ msgid ""
 "              To setup a web-service is not only time-consuming, it "
 "implies also costs. At the moment costs for FwF amount to  about <b>"
 msgstr ""
+"\n"
+"              Bayraklarla Hattrick eğlencesi tamamen ücretsiz (ve reklamsız) "
+"olarak mevcuttur ve tüm ana işlevlerle birlikte kullanıma sunulmuştur ve "
+"sunulacaktır\n"
+"              daima. (ya da en azından bunu devam ettirmek için enerjimiz, "
+"zamanımız ve finansmanımız olduğu sürece) Ancak: Desteğiniz için her zaman "
+"müteşekkiriz.\n"
+"              Bir web hizmeti kurmak sadece zaman alıcı değil, aynı zamanda "
+"maliyet de anlamına gelir. Şu anda FwF'nin maliyeti yaklaşık <b>"
 
 #: fun_with_flags/templates/settings/settings.html:78
 msgid ""
@@ -925,6 +968,22 @@ msgid ""
 "speaking, for using fun with flags!</b>\n"
 "              "
 msgstr ""
+"€ gün başına. Paylaşmak önemsemektir. Sizin için unicorn kulübünü yaratmamızın "
+"nedenlerinden biri de budur.\n"
+"              Eğer hoşunuza gidiyorsa, FwF'ye destek vermenin en kolay yolu "
+"budur.<b>Sadece 5,00 € karşılığında</b> unicorn kulüp için ömür boyu abonelik \n"
+"              alabilirsiniz! <b>Kulüpte olmanın avantajları</b>, desteğiniz için "
+"<b>çok sevgi</b>, adınızın yanındaki <b>tek boynuzlu at rozeti</b> ve erişimdir\n"
+"              Önceden meydan okumanıza bile izin veren <b>zamanlayıcıya</b>, "
+"yani aranan bayrak için takımlara yapılan itirazlar otomatik olarak gönderilir\n"
+"              Perşembe sabahı saat 7'den hemen sonra UTC. Bu, avantajınızı daha "
+"da artıracak ve aynı zamanda yükünüzü de azaltacaktır çünkü bir sonraki "
+"haftanın \n"
+"              bayrağını istediğiniz zaman önceden tanımlayabilirsiniz. Gelecekte "
+"başka güzel ekstralar da eklenebilir. <b>Teşekkür ederim, \n"
+"              fwf unicorn olmayı düşündüğün ve genel anlamda Fun with Flags'i "
+"kullandığın için!</b>\n"
+"              "
 
 #: fun_with_flags/templates/settings/settings.html:91
 msgid ""
