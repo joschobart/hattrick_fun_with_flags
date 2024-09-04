@@ -18,7 +18,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-@decs.error_check
+#@decs.error_check
 def achievements():
     """ """
     # FwF score
@@ -94,14 +94,20 @@ def achievements():
         + g.fwf_matches_home
         + g.fwf_matches_away
     )
+    _weeknumber = strftime("%Y%W")
+
+    _my_document["score"]["score"] = g.fun_with_flags_score
+    _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
+    _my_document["score"]["meta"]["date_updated"] = str(datetime.utcnow())
+
+    # Write changements of the score to db
+    _couch[g.user_id] = _my_document
 
     # position in high score
-    _weeknumber = strftime("%Y%W")
     _score_list = []
     for _couchdoc in _couchdocs:
         if not str(_couchdoc["key"]).isdigit():
             continue
-
         try:
             _score = _couch[_couchdoc["key"]]["score"]["score"]
         except KeyError:
@@ -119,6 +125,7 @@ def achievements():
     _median_score = int(round(median(_simple_score_list), 0))
 
     _position = [x for x in _simple_score_list].index(g.fun_with_flags_score) + 1
+
     _competitors = len(_score_list)
 
     # maange badges
@@ -191,13 +198,6 @@ def achievements():
             session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(
                 " ", 1
             )[0]
-
-    _my_document["score"]["score"] = g.fun_with_flags_score
-    _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
-    _my_document["score"]["meta"]["date_updated"] = str(datetime.utcnow())
-
-    # Write changements of the score to db
-    _couch[g.user_id] = _my_document
 
     # pygal neighbor score plot
     _neighbors = {g.user_id: {}}
