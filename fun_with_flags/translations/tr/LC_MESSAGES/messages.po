@@ -161,7 +161,7 @@ msgstr "Ödeme alınmadı."
 
 #: fun_with_flags/templates/base.html:53
 msgid "<input type=\"submit\" value=\"Select\" onclick=\"loadSpinner()\">"
-msgstr ""<input type=\"submit\" value=\"Seç\" onclick=\"loadSpinner()\">""
+msgstr "<input type=\"submit\" value=\"Seç\" onclick=\"loadSpinner()\">"
 
 #: fun_with_flags/templates/base.html:59
 msgid "[Achievements]"
