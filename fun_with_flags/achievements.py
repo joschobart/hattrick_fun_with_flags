@@ -194,6 +194,8 @@ def achievements():
                 session["badges"][_badge] = _my_document["score"]["badges"][
                     _badge
                 ].split(" ", 1)[0]
+                # Write changements of the score to db
+                _couch[g.user_id] = _my_document
         else:
             session["badges"][_badge] = _my_document["score"]["badges"][_badge].split(
                 " ", 1
