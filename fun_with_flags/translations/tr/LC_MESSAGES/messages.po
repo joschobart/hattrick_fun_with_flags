@@ -438,7 +438,7 @@ msgstr ""
 "\n"
 "        <b>FwF Kralı:</b>\n"
 "          FwF puanınız maksimum değerden yüksek.\n"
-"          toplanabilir bayrak sayısı. <br><i>Alındı</i>"
+"          toplanabilir bayrak sayısı. <br><i>Alındı"
 
 #: fun_with_flags/templates/achievements/achievements.html:57
 #: fun_with_flags/templates/achievements/achievements.html:61
@@ -454,7 +454,8 @@ msgid ""
 msgstr ""
 "\n"
 "        <b>FwF Lideri:</b>\n"
-"          Tüm zamanların en yüksek FwF puanını elde ettiniz. <br><i>Alındı</i>"
+"          Tüm zamanların en yüksek FwF puanını elde ettiniz. "
+"<br><i>Alındı"
 
 #: fun_with_flags/templates/achievements/achievements.html:76
 msgid "Score"
