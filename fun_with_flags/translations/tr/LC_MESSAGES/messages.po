@@ -421,7 +421,7 @@ msgstr ""
 "\n"
 "        <b>Kulüp:</b>\n"
 "          Sen içindesin\n"
-"          unicorn kulübü. <br><i>Alındı</i>"
+"          unicorn kulübü. <br><i>Alındı"
 
 #: fun_with_flags/templates/achievements/achievements.html:36
 #: fun_with_flags/templates/achievements/achievements.html:40
