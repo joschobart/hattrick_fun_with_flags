@@ -142,28 +142,28 @@ DB__SETTINGS_DICT = {
                 },
             },
             "tr": {
-                "name": "Friendlies",
+                "name": "Dostluk Maçları",
                 "schema": {
                     "league_search_depth": (
-                        "League Search Depth",
-                        "Default: 2; The higher the number, the deeper the search, the longer it \
-                            takes to find potential opponents but also the more potential opponents there are.",
+                        "Lig Arama Derinliği",
+                        "Varsayılan: 2; Sayı ne kadar büyük olursa, arama o kadar derin olur, potansiyel rakipleri \
+                            bulmak o kadar uzun sürer, ancak aynı zamanda potansiyel rakipler de o kadar fazla olur.",
                         ["1", "2", "3", "4", "5", "6"],
                     ),
                     "match_rules": (
-                        "Match Rules",
-                        "Default: cup; Rules for the match. See hattrick-handbook for details.",
+                        "Maç Kuralları",
+                        "Varsayılan: kupa; Maçın kuralları. Ayrıntılar için hattrick kılavuzuna bakın.",
                         ["normal", "cup"],
                     ),
                     "opponent_type": (
-                        "Opponent Type",
-                        "Default: all; Accept either matches against all potential opponents or only against supporters.",
+                        "Rakip Türü",
+                        "Varsayılan: tümü; Tüm potansiyel rakiplere karşı veya yalnızca HT taraftarlarına karşı yapılacak maçları kabul edin.",
                         ["all", "supporters"],
                     ),
                     "opponent_last_login": (
-                        "Opponent Last Login",
-                        "Default: 240; Number of hours since the opponent last logged in. You'll wait \
-                            longer for results the smaller the number is.",
+                        "Rakibin Son Girişi",
+                        "Varsayılan: 240; Rakibin en son oturum açmasından bu yana geçen saat sayısı. Sayı ne kadar \
+                            küçük olursa sonuçlar için o kadar uzun süre beklersiniz.",
                         ["0.5", "1", "24", "240"],
                     ),
                 },
@@ -201,11 +201,11 @@ DB__SETTINGS_DICT = {
                 },
             },
             "tr": {
-                "name": "Locale",
+                "name": "Yerel",
                 "schema": {
                     "language": (
-                        "Language",
-                        "Default: en; Choose your language. This has priority over your browser settings.",
+                        "Dil",
+                        "Varsayılan: en ; Dilinizi seçin. Bu seçim tarayıcı ayarlarınıza göre önceliklidir.",
                         ["en", "de", "fr", "tr"],
                     ),
                 },
@@ -248,10 +248,10 @@ QUOTES = {
             "Regardez-moi ça ! T'as l'air fantastique aujourd'hui, l'artiste ! Quoi qu'il en soit, il est bon que tu saches ceci :",
         ],
         "tr": [
-            "Hey Boss! I'm sure you're quite surprised to see me here. Between you and me: I'm quite new in the flags business. Lovely to share this passion with you! Now to something completely different:",
-            "Nice to see you lad! I want to bring this to your attention:",
-            "That was a close call! Awful traffic today downtown! Really clever you always take the bus instead. May I bring something up regarding our flags thingy?",
-            "Look at you! You look fantastic today my maan! Anyways, you might want to know this:",
+            "Hey patron! Eminim beni burada gördüğüne çok şaşırmışsındır. Aramızda kalsın, bayraklar konusunda oldukça yeniyim. Ama bu tutkuyu sizinle paylaşmak bir zevk! Şimdi konuyu değiştirelim:",
+            "Seni gördüğüme sevindim dostum! Size şunu tavsiye etmek isterim:",
+            "Yetiştim! Bugün şehir merkezinde trafik berbat! Her zaman otobüse binmen gerçekten akıllıca. Bayraklarımızla ilgili bir şeyden bahsedebilir miyim?",
+            "Şuna bir bak! Bugün harika görünüyorsun dostum! Her neyse, aşağıdakileri bilmek isteyebilirsiniz:",
         ],
     },
     "quotes_post": {
@@ -274,10 +274,10 @@ QUOTES = {
             "Amène ta femme et tes gosses la prochaine fois !",
         ],
         "tr": [
-            "BTW: Did you notice something different about my appearance? That's right! I've shaved my goatee.",
-            "What a day! Sorry to interrupt you bro, but I have to rush. It's my turn to pick up the kids today.",
-            "It's always a pleasure to have a chat, mate!",
-            "Bring your wife and kids next time around!",
+            "Bu arada: Görünüşümle ilgili bir şey fark ettin mi? Doğru! Keçi sakalımı tıraş ettim.",
+            "Ne gün! Kardeşim, böldüğüm için özür dilerim ama acele etmem gerekiyor. Bugün çocukları alma sırası bende.",
+            "Sohbet etmek her zaman bir zevktir dostum!",
+            "Bir dahaki sefere eşinizi ve çocuklarınızı getirin!",
         ],
     },
 }
