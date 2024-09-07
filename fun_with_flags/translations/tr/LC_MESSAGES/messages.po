@@ -211,7 +211,6 @@ msgstr ""
 "  "
 
 #: fun_with_flags/templates/index.html:43
-#, fuzzy
 msgid ""
 "\n"
 "  <p><b>Change-log (last 5):</b>\n"
