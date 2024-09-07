@@ -228,11 +228,11 @@ msgstr ""
 "\n"
 "  <p><b>Değişiklik günlüğü (son 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>2024-09-07: </b>Bahamalar ve Ruanda eklendi.\n"
 "    <li><b>2024-09-02: </b>Başarılara rozetler eklendi.\n"
 "    <li><b>2024-08-17: </b>Başarılar eklendi.\n"
 "    <li><b>2024-08-03: </b>\"Rakibin Son Girişi\" ayarı eklendi.\n"
 "    <li><b>2024-07-26: </b>i18n ve l10n için destek eklendi.\n"
-"    <li><b>2024-07-16: </b>Basitleştirilmiş oturum açma işlemi uygulandı.\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -866,7 +866,7 @@ msgstr "Bayrak Genel Bakış"
 
 #: fun_with_flags/templates/flags/overview.html:17
 msgid "<h4>Home Flags"
-msgstr "<h4>Ev Bayrakları"
+msgstr "<h4>İç Saha Bayrakları"
 
 #: fun_with_flags/templates/flags/overview.html:43
 msgid "<h4>Away Flags"
