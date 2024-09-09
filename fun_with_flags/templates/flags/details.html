@@ -11,7 +11,10 @@
       {{ g.nation }} 
       <img src="{{ g.flagurl }}" alt="{{ g.nation }}" title="{{ g.nation }}">
     </h3>
+
     {% if g.missing_flag is false %}
+      <img src="https://res.hattrick.org/leaguelogo/{{ g.flagid }}.png" alt="{{ g.nation }}" title="{{ g.nation }}" height="120px">
+
       {% trans %}<p>The {% endtrans %}'{{ g.place }}'{% trans %}-flag of {% endtrans %}<b>{{ g.nation }}</b> {% trans %}for your team{% endtrans %} <b>{{ g.team }}
         </b> {% trans %}is in your collection already. Doesn't it look amazing?!:)</p>{% endtrans %}
 

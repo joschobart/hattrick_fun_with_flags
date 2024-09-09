@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-07 15:13+0200\n"
+"POT-Creation-Date: 2024-09-09 21:07+0200\n"
 "PO-Revision-Date: 2024-07-29 21:31+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ro\n"
@@ -39,27 +39,27 @@ msgstr ""
 msgid "Usual: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:216
+#: fun_with_flags/achievements.py:218
 msgid "Your FwF Neighbors Score Evolution"
 msgstr ""
 
-#: fun_with_flags/achievements.py:250
+#: fun_with_flags/achievements.py:252
 msgid "You"
 msgstr ""
 
-#: fun_with_flags/achievements.py:260
+#: fun_with_flags/achievements.py:262
 msgid "Well done!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:262
+#: fun_with_flags/achievements.py:264
 msgid "There is still room to improve."
 msgstr ""
 
-#: fun_with_flags/achievements.py:264
+#: fun_with_flags/achievements.py:266
 msgid "We can do better!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:275
+#: fun_with_flags/achievements.py:277
 #, python-format
 msgid ""
 " Your score of %(_score)s puts you on position %(_position)s out of "
@@ -494,41 +494,41 @@ msgstr ""
 msgid "Flag Details"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:15
+#: fun_with_flags/templates/flags/details.html:18
 msgid "<p>The "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:15
+#: fun_with_flags/templates/flags/details.html:18
 msgid "-flag of "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:15
+#: fun_with_flags/templates/flags/details.html:18
 msgid "for your team"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:16
+#: fun_with_flags/templates/flags/details.html:19
 msgid "is in your collection already. Doesn't it look amazing?!:)</p>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:20
+#: fun_with_flags/templates/flags/details.html:23
 msgid "<h4>Played "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:20
+#: fun_with_flags/templates/flags/details.html:23
 msgid "-matches</h4>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:50
+#: fun_with_flags/templates/flags/details.html:53
 msgid ""
 "<p>*Only matches booked over (or added later to) Fun with Flags appear "
 "here</p>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:52
+#: fun_with_flags/templates/flags/details.html:55
 msgid "<h4>Add past friendly for"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:54
+#: fun_with_flags/templates/flags/details.html:57
 msgid ""
 "\n"
 "          <form method=\"post\">\n"
@@ -541,75 +541,75 @@ msgid ""
 "          "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:65
-#: fun_with_flags/templates/flags/details.html:70
+#: fun_with_flags/templates/flags/details.html:68
+#: fun_with_flags/templates/flags/details.html:73
 msgid "<p>The"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:65
-#: fun_with_flags/templates/flags/details.html:70
+#: fun_with_flags/templates/flags/details.html:68
+#: fun_with_flags/templates/flags/details.html:73
 msgid "-flag of"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:66
+#: fun_with_flags/templates/flags/details.html:69
 msgid "is in your collection already. But let's challenge over and over!;)</p>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:71
+#: fun_with_flags/templates/flags/details.html:74
 msgid "is missing for your team"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:71
+#: fun_with_flags/templates/flags/details.html:74
 msgid "Let's grab that flag!;)</p>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:76
+#: fun_with_flags/templates/flags/details.html:79
 msgid ""
 "<p>Do you want to search for opponents to challenge? <b>This may take up "
 "to five minutes on level 5 depth!</b></p>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:81
+#: fun_with_flags/templates/flags/details.html:84
 msgid "<option value=\"0\" selected>Midweek friendly</option>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:84
+#: fun_with_flags/templates/flags/details.html:87
 msgid "<option value=\"1\">Weekend friendly</option>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:89
+#: fun_with_flags/templates/flags/details.html:92
 msgid ""
 "<input type=\"submit\" value=\"Search Opponents\" "
 "name=\"search_opponents\" id=\"search_opponents\" "
 "onclick=\"loadSpinner()\">"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:97
-#: fun_with_flags/templates/flags/details.html:120
+#: fun_with_flags/templates/flags/details.html:100
+#: fun_with_flags/templates/flags/details.html:123
 msgid "<h4>&#129412; Update schedule for"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:97
-#: fun_with_flags/templates/flags/details.html:110
-#: fun_with_flags/templates/flags/details.html:120
-#: fun_with_flags/templates/flags/details.html:130
+#: fun_with_flags/templates/flags/details.html:100
+#: fun_with_flags/templates/flags/details.html:113
+#: fun_with_flags/templates/flags/details.html:123
+#: fun_with_flags/templates/flags/details.html:133
 msgid "-match &#129412;</h4>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:99
-#: fun_with_flags/templates/flags/details.html:112
-#: fun_with_flags/templates/flags/details.html:122
+#: fun_with_flags/templates/flags/details.html:102
+#: fun_with_flags/templates/flags/details.html:115
+#: fun_with_flags/templates/flags/details.html:125
 msgid "There is a schedule for a(n)"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:99
-#: fun_with_flags/templates/flags/details.html:112
-#: fun_with_flags/templates/flags/details.html:122
-#: fun_with_flags/templates/flags/details.html:123
+#: fun_with_flags/templates/flags/details.html:102
+#: fun_with_flags/templates/flags/details.html:115
+#: fun_with_flags/templates/flags/details.html:125
+#: fun_with_flags/templates/flags/details.html:126
 msgid "-match for"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:99
+#: fun_with_flags/templates/flags/details.html:102
 msgid ""
 "already.\n"
 "                  You can resubmit it in case you have changed the "
@@ -618,7 +618,7 @@ msgid ""
 "scratch or to cancel it from here."
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:103
+#: fun_with_flags/templates/flags/details.html:106
 msgid ""
 "\n"
 "                <form method=\"post\" style=\"width: 200px;\">\n"
@@ -630,49 +630,49 @@ msgid ""
 "                "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:110
+#: fun_with_flags/templates/flags/details.html:113
 msgid "<h4>&#129412; Update schedule for "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:112
-#: fun_with_flags/templates/flags/details.html:122
+#: fun_with_flags/templates/flags/details.html:115
+#: fun_with_flags/templates/flags/details.html:125
 msgid ""
 "already.\n"
 "                  You can resubmit it as a(n)"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:113
+#: fun_with_flags/templates/flags/details.html:116
 msgid "-match instead. This will overwrite the schedule."
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:116
-#: fun_with_flags/templates/flags/details.html:126
+#: fun_with_flags/templates/flags/details.html:119
+#: fun_with_flags/templates/flags/details.html:129
 msgid ""
 "<input type=\"submit\" value=\"Update Schedule\" "
 "name=\"schedule_friendly\" id=\"schedule_friendly\">"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:123
+#: fun_with_flags/templates/flags/details.html:126
 msgid "instead. This will overwrite the existing schedule."
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:130
+#: fun_with_flags/templates/flags/details.html:133
 msgid "<h4>&#129412; Schedule"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:131
+#: fun_with_flags/templates/flags/details.html:134
 msgid ""
 "<p>As a member of the unicorn-club you are even entitled to schedule a "
 "match in advance! Let's do it!;)</p>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:133
+#: fun_with_flags/templates/flags/details.html:136
 msgid ""
 "<input type=\"submit\" value=\"Add Schedule\" name=\"schedule_friendly\" "
 "id=\"schedule_friendly\">"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:137
+#: fun_with_flags/templates/flags/details.html:140
 msgid ""
 "\n"
 "          <p><b>...but:</b> first you will have to wait until Thursday "
@@ -682,25 +682,25 @@ msgid ""
 "member here:"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:140
+#: fun_with_flags/templates/flags/details.html:143
 msgid ""
 "Settings</a></p>\n"
 "          "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:148
+#: fun_with_flags/templates/flags/details.html:151
 msgid "<p>There are"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:148
+#: fun_with_flags/templates/flags/details.html:151
 msgid "teams challengeable in"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:149
+#: fun_with_flags/templates/flags/details.html:152
 msgid "at the moment with your settings.</p>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:151
+#: fun_with_flags/templates/flags/details.html:154
 msgid "Challenge Opponents"
 msgstr ""
 
