@@ -142,7 +142,7 @@ def achievements():
     # fwf_score badge
     _badges.append("fwf_score")
     _total_nr_flags = nr_flags_home[1] + nr_flags_away[1]
-    if g.fun_with_flags_score >= _total_nr_flags:
+    if g.fun_with_flags_score > _total_nr_flags:
         _owned_badges.append("fwf_score")
 
     # fwf_leader badge
