@@ -25,7 +25,7 @@ def compose_flag_matrix(teamid, fernet_token=""):
     my_flags = api.ht_get_flags(xml_data)
     my_missing_flags = api.ht_get_missing_flags(xml_data)
 
-    base_url = "https://www.hattrick.org/Img/flags/"
+    base_url = "https://www71.hattrick.org/Img/flags/"
     url_end_i = "_inactive.png"
     url_end = ".png"
 
