@@ -68,7 +68,8 @@ def checkout():
         )
 
     except Exception as e:
-        return str(e)
+        print(e)
+        return
 
     _db_settings = current_app.config["DB__SETTINGS_DICT"]
     _my_document = db.bootstrap_user_document(g.user_id, g.couch, _db_settings)
