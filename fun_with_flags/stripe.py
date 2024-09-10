@@ -6,20 +6,9 @@ import os
 from datetime import datetime
 
 import stripe
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    g,
-    jsonify,
-    redirect,
-    render_template,
-    request,
-    session,
-)
-
+from flask import (Blueprint, current_app, flash, g, jsonify, redirect,
+                   render_template, request, session)
 from flask_babel import gettext
-
 
 from . import db, decs
 
@@ -48,13 +37,14 @@ def checkout():
         _stripe_user = stripe.Customer.search(query=f"name: '{session["username"]}'")
     except Exception as e:
         print(e)
-        return str(e)
+        return
 
     if len(_stripe_user["data"]) == 0:
         try:
             _stripe_user = stripe.Customer.create(name=session["username"])
         except Exception as e:
-            return str(e)
+            print(e)
+            return
         else:
             _stripe_user = _stripe_user["id"]
 
