@@ -150,7 +150,7 @@ def set_config_from_db(view):
             if session.get("lang") and session["lang"] != lang and lang != "None":
                 session["lang"] = lang
 
-                return
+                return redirect(request.url)
 
         return view(**kwargs)
 
