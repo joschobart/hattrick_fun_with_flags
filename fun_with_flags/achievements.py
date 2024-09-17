@@ -56,8 +56,11 @@ def achievements():
     g.fwf_matches_away = 0
     try:
         for _key in _my_document["history"]["friendlies"].keys():
+            # Don't count flags of abandoned teams in db
+            if not _key in session["my_team"].keys():
+                continue
             for _place in "home", "away":
-                for _id in range(1, 200):
+                for _id in range(1, 250):
                     try:
                         _matches = _my_document["history"]["friendlies"][_key][
                             "opponent_country"
@@ -203,14 +206,14 @@ def achievements():
 
     # pygal neighbor score plot
     _neighbors = {g.user_id: {}}
-    for x in range(_position, (_position + 4)):
+    for x in range(_position, (_position + 3)):
         try:
             _neighbors[_score_list[x][0]] = {}
         except IndexError:
             continue
 
     for x in range((_position - 4), _position):
-        if x < 1:
+        if x < 0:
             continue
         _neighbors[_score_list[x][0]] = {}
 
@@ -274,7 +277,7 @@ def achievements():
         _competitors=_competitors,
         _mean_score=_mean_score,
         _median_score=_median_score,
-        _owned_badges=len(_owned_badges),
+        _owned_badges=len(session["badges"]),
         _total_nr_badges=_total_nr_badges,
     )
     flash(_message)
