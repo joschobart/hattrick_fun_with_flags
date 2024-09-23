@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-09 21:07+0200\n"
+"POT-Creation-Date: 2024-09-23 22:26+0200\n"
 "PO-Revision-Date: 2024-07-29 21:31+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ro\n"
@@ -19,47 +19,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:172
+#: fun_with_flags/achievements.py:175
 #, python-format
 msgid "Rare: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:177
+#: fun_with_flags/achievements.py:180
 #, python-format
 msgid "Uncommon: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:181
+#: fun_with_flags/achievements.py:184
 #, python-format
 msgid "Common: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:185
+#: fun_with_flags/achievements.py:188
 #, python-format
 msgid "Usual: %(_prevalence)s"
 msgstr ""
 
-#: fun_with_flags/achievements.py:218
+#: fun_with_flags/achievements.py:221
 msgid "Your FwF Neighbors Score Evolution"
 msgstr ""
 
-#: fun_with_flags/achievements.py:252
+#: fun_with_flags/achievements.py:255
 msgid "You"
 msgstr ""
 
-#: fun_with_flags/achievements.py:262
+#: fun_with_flags/achievements.py:265
 msgid "Well done!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:264
+#: fun_with_flags/achievements.py:267
 msgid "There is still room to improve."
 msgstr ""
 
-#: fun_with_flags/achievements.py:266
+#: fun_with_flags/achievements.py:269
 msgid "We can do better!"
 msgstr ""
 
-#: fun_with_flags/achievements.py:277
+#: fun_with_flags/achievements.py:280
 #, python-format
 msgid ""
 " Your score of %(_score)s puts you on position %(_position)s out of "
@@ -143,11 +143,11 @@ msgstr ""
 msgid "Settings updated."
 msgstr ""
 
-#: fun_with_flags/stripe.py:164
+#: fun_with_flags/stripe.py:155
 msgid "Payment accepted. You're a FwF Unicorn now!"
 msgstr ""
 
-#: fun_with_flags/stripe.py:184
+#: fun_with_flags/stripe.py:175
 msgid "No payment received."
 msgstr ""
 

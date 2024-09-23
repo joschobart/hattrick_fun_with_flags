@@ -2,6 +2,8 @@
 
 from datetime import datetime, timedelta
 
+import couchdb
+
 from . import api, db, helperf
 
 
@@ -14,7 +16,11 @@ def sensor():
 
     _my_doc_name = _now.strftime("%Y%m%d")
 
-    _my_document = _couch[_my_doc_name]
+    try:
+        _my_document = _couch[_my_doc_name]
+    except couchdb.http.ResourceNotFound:
+        print("No jobs today")
+        return
 
     for _key in _my_document.keys():
         if _key != "_id" and _key != "_rev":
