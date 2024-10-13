@@ -205,17 +205,31 @@ def achievements():
             )[0]
 
     # pygal neighbor score plot
-    _neighbors = {g.user_id: {}}
-    for x in range(_position, (_position + 3)):
+    _neighbors = {}
+
+    for x in range((_position - 4), _position):
+        if _score_list[x][0] == g.user_id:
+            continue
+        elif x < 0:
+            continue
+        _neighbors[_score_list[x][0]] = {}
+
+        if len(_neighbors) == 3:
+            break
+
+    _neighbors[g.user_id] = {}
+
+    for x in range(_position, (_position + 4)):
+        if _score_list[x][0] == g.user_id:
+            continue
+
         try:
             _neighbors[_score_list[x][0]] = {}
         except IndexError:
             continue
 
-    for x in range((_position - 4), _position):
-        if x < 0:
-            continue
-        _neighbors[_score_list[x][0]] = {}
+        if len(_neighbors) == 7:
+            break
 
     line_chart = pygal.Line()
     line_chart.title = gettext("Your FwF Neighbors Score Evolution")
