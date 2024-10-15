@@ -7,7 +7,7 @@ Hattrick Fun with Flags
 Project state
 =============
 For now the projects state is "work-in-progress". It's just my this-year hobby project after all!;) I'm actively maintaining it though.
-(information as of 2023-08-01)
+(information as of 2024-08-01)
 
 
 Project link

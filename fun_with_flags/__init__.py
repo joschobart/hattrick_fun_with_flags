@@ -47,7 +47,7 @@ def create_app(test_config=None):
     # regular job for adding matches to user-db
     sched.add_job(scheduler.sensor, "cron", day_of_week="tue", hour=2, minute=2)
     #  v--- testing ---v
-    # sched.add_job(scheduler.sensor, "cron", day_of_week="mon-sun", hour=22, minute=23)
+    # sched.add_job(scheduler.sensor, "cron", day_of_week="mon-sun", hour=21, minute=18)
     sched.start()
     atexit.register(lambda: sched.shutdown(wait=False))
 

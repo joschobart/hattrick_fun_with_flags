@@ -15,7 +15,7 @@ bp_s = Blueprint("settings", __name__, url_prefix="/settings")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-#@decs.error_check
+@decs.error_check
 def settings():
     """ """
     _costs = current_app.config["COSTS"]
