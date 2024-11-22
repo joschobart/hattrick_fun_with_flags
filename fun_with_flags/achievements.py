@@ -18,7 +18,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-@decs.error_check
+#@decs.error_check
 def achievements():
     """ """
     # FwF score
@@ -235,6 +235,7 @@ def achievements():
     line_chart.title = gettext("Your FwF Neighbors Score Evolution")
 
     _weeks = set()
+
     for _neighbor in _neighbors:
         _my_neighbor_doc = _couch[_neighbor]
         try:
@@ -244,6 +245,14 @@ def achievements():
             continue
 
     _weeks = sorted(_weeks)
+
+    # limit history of weeks in graph to 15
+    while True:
+        if len(_weeks) > 15:
+            _weeks.remove(_weeks[0])
+        else:
+            break
+
     for _neighbor in _neighbors:
         _scores = []
         _my_neighbor_doc = _couch[_neighbor]

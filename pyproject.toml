@@ -36,6 +36,7 @@ dev-dependencies = [
     "ruff>=0.1.11",
     "pyment>=0.3.3",
     "setuptools>=71.0.0",
+    "python-dotenv>=1.0.1",
 ]
 
 [tool.hatch.metadata]

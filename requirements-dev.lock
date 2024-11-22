@@ -85,6 +85,7 @@ pygal-maps-world==1.0.2
     # via hattrick-fwf
 pylint==3.0.3
 pyment==0.3.3
+python-dotenv==1.0.1
 pytz==2023.3.post1
     # via apscheduler
     # via flask-babel
