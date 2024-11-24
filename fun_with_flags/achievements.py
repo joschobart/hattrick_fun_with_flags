@@ -18,7 +18,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-#@decs.error_check
+@decs.error_check
 def achievements():
     """ """
     # FwF score
@@ -234,22 +234,29 @@ def achievements():
     line_chart = pygal.Line()
     line_chart.title = gettext("Your FwF Neighbors Score Evolution")
 
-    _weeks = set()
-
+    _found_weeks = set()
     for _neighbor in _neighbors:
         _my_neighbor_doc = _couch[_neighbor]
         try:
             _neighbors[_neighbor] = _my_neighbor_doc["score"]["history"]
-            _weeks.update(_my_neighbor_doc["score"]["history"].keys())
+            _found_weeks.update(_my_neighbor_doc["score"]["history"].keys())
         except KeyError:
             continue
+    _found_weeks = sorted(_found_weeks)
 
-    _weeks = sorted(_weeks)
+    # handle new year
+    _weeks = []
+    w = int(_found_weeks[0])
+    while w <= int(_found_weeks[-1]):
+        if (w - 53) % 100 == 0:
+            w = w + 48
+        _weeks.append(w)
+        w += 1
 
     # limit history of weeks in graph to 15
     while True:
         if len(_weeks) > 15:
-            _weeks.remove(_weeks[0])
+            del _weeks[0]
         else:
             break
 
@@ -257,7 +264,7 @@ def achievements():
         _scores = []
         _my_neighbor_doc = _couch[_neighbor]
 
-        for _week in range(int(_weeks[0]), int(_weeks[-1]) + 1):
+        for _week in _weeks:
             try:
                 _scores.append(_my_neighbor_doc["score"]["history"][str(_week)])
             except Exception:
@@ -279,7 +286,7 @@ def achievements():
         else:
             line_chart.add(_neighbor, _scores)
 
-    line_chart.x_labels = map(str, range(int(_weeks[0]), int(_weeks[-1])))
+    line_chart.x_labels = map(str, _weeks)
     line_chart = line_chart.render_data_uri()
 
     if (_position <= (_competitors / 3) or _competitors < 3) and len(_badges) >= (
