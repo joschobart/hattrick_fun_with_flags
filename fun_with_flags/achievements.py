@@ -281,6 +281,15 @@ def achievements():
         if _scores[-1] is None:
             _scores[-1] = _my_neighbor_doc["score"]["score"]
 
+        if _scores[0] is None:
+            if sum(x is not None for x in _scores) > 3:
+                for _score in _scores:
+                    if _score is None:
+                        continue
+                    else:
+                        _scores[0] = _score
+                        break
+
         if _neighbor == g.user_id:
             line_chart.add(gettext("You"), _scores)
         else:
