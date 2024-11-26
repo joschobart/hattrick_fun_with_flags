@@ -48,7 +48,10 @@ def sensor():
                     teamId=_team_id,
                     isWeekendFriendly=_weekend_friendly,
                 )
-                _challenges = api.ht_get_challenges(_xml)
+                try:
+                    _challenges = api.ht_get_challenges(_xml)
+                except AttributeError:
+                    _challenges = { "challenges": [], }
 
                 if _challenges["challenges"] != []:
                     if _challenges["challenges"][0]["is_agreed"] == "True":
