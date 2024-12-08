@@ -164,6 +164,13 @@ def get_challengeable_teams_list(
     return teams
 
 
+def get_continent_flags(continent="NA"):
+    all_flags = api.ht_get_all_flags()
+    continent_flags = [item for item in all_flags if item[3].startswith(continent)]
+
+    return continent_flags
+
+
 def get_my_challenges():
     """ """
     now = datetime.now()

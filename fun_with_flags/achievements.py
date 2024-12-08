@@ -18,7 +18,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-@decs.error_check
+#@decs.error_check
 def achievements():
     """ """
     # FwF score
@@ -41,10 +41,31 @@ def achievements():
             nr_flags_away,
             *_,
         ) = helperf.compose_flag_matrix(_team)
+
+        _my_flags_home = []
+        _my_flags_away = []
+        _my_flags_home += [int(item[0]) for item in g.l_home if not item[2].endswith("_inactive.png")]
+        _my_flags_away += [int(item[0]) for item in g.l_away if not item[2].endswith("_inactive.png")]
         _nr_flags_home += nr_flags_home[0]
         _nr_flags_away += nr_flags_away[0]
         _total_nr_flags = _nr_flags_home + _nr_flags_away
-        _flags_per_team.append((_team, _total_nr_flags))
+        _flags_per_team.append((_team, _total_nr_flags  ))
+
+        # here we find continents for which all flags (home/away) were captured
+        _continents = []
+        for _continent in ["NA", "SA", "EU", "AF", "AS", "OC"]:
+            _c = []
+            _flags = []
+            _flags += [int(item[0]) for item in helperf.get_continent_flags(_continent)]
+
+            for _flag in _flags:
+                if _flag in _my_flags_home and _flag in _my_flags_away:
+                    _c.append(_flag)
+                else:
+                    break
+
+            if len(_c) == len(_flags):
+                _continents.append(_continent)
 
     _total_of_flags = 0
     for _team in _flags_per_team:
@@ -152,6 +173,20 @@ def achievements():
     _badges.append("fwf_leader")
     if _position == 1:
         _owned_badges.append("fwf_leader")
+
+    # north_america badge (NA)
+    _north_america = []
+    _north_america += [int(item[0]) for item in helperf.get_continent_flags("NA")]
+    _north_america.sort()
+    print(_north_america)
+
+
+
+    # Continents: NA, SA, EU, AF, AS, OC
+
+
+
+
 
     _total_nr_badges = len(_badges)
 

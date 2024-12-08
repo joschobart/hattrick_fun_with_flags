@@ -185,6 +185,17 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
     return xml_data
 
 
+def ht_get_all_flags():
+    """
+
+    :param: -
+
+    """
+    all_flags = get_flags.get_all_flags()
+
+    return all_flags
+
+
 def ht_get_flags(teamdetails_xml):
     """
 
