@@ -18,7 +18,7 @@ bp_a = Blueprint("achievements", __name__, url_prefix="/achievements")
 @decs.choose_team
 @decs.use_db
 @decs.set_config_from_db
-#@decs.error_check
+@decs.error_check
 def achievements():
     """ """
     # FwF score
@@ -27,11 +27,14 @@ def achievements():
     _couch = db.get_db("fwf_db")
     _couchdocs = _couch.view("_all_docs")
 
+    _continents = set()
     _flags_per_team = []
     for _team in session["my_team"].keys():
         if _team == "user":
             continue
 
+        _my_flags_home = []
+        _my_flags_away = []
         _nr_flags_home = 0
         _nr_flags_away = 0
         (
@@ -42,8 +45,6 @@ def achievements():
             *_,
         ) = helperf.compose_flag_matrix(_team)
 
-        _my_flags_home = []
-        _my_flags_away = []
         _my_flags_home += [int(item[0]) for item in g.l_home if not item[2].endswith("_inactive.png")]
         _my_flags_away += [int(item[0]) for item in g.l_away if not item[2].endswith("_inactive.png")]
         _nr_flags_home += nr_flags_home[0]
@@ -52,7 +53,6 @@ def achievements():
         _flags_per_team.append((_team, _total_nr_flags  ))
 
         # here we find continents for which all flags (home/away) were captured
-        _continents = []
         for _continent in ["NA", "SA", "EU", "AF", "AS", "OC"]:
             _c = []
             _flags = []
@@ -65,7 +65,7 @@ def achievements():
                     break
 
             if len(_c) == len(_flags):
-                _continents.append(_continent)
+                _continents.add(_continent)
 
     _total_of_flags = 0
     for _team in _flags_per_team:
@@ -175,18 +175,35 @@ def achievements():
         _owned_badges.append("fwf_leader")
 
     # north_america badge (NA)
-    _north_america = []
-    _north_america += [int(item[0]) for item in helperf.get_continent_flags("NA")]
-    _north_america.sort()
-    print(_north_america)
+    _badges.append("north_america")
+    if "NA" in _continents:
+        print("North America")
+        _owned_badges.append("north_america")
 
+    # south_america badge (NA)
+    _badges.append("south_america")
+    if "SA" in _continents:
+        _owned_badges.append("south_america")
 
+    # europe badge (NA)
+    _badges.append("europe")
+    if "EU" in _continents:
+        _owned_badges.append("europe")
 
-    # Continents: NA, SA, EU, AF, AS, OC
+    # africa badge (NA)
+    _badges.append("africa")
+    if "AF" in _continents:
+        _owned_badges.append("africa")
 
+    # asia badge (NA)
+    _badges.append("asia")
+    if "AS" in _continents:
+        _owned_badges.append("asia")
 
-
-
+    # oceania badge (NA)
+    _badges.append("oceania")
+    if "OC" in _continents:
+        _owned_badges.append("oceania")
 
     _total_nr_badges = len(_badges)
 
