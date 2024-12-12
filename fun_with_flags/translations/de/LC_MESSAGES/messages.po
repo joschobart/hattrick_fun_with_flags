@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: joschobart\n"
-"POT-Creation-Date: 2024-09-23 22:26+0200\n"
+"POT-Creation-Date: 2024-12-09 22:55+0100\n"
 "PO-Revision-Date: 2024-08-03 11:46+0200\n"
 "Last-Translator: joschobart\n"
 "Language: de\n"
@@ -19,47 +19,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:175
+#: fun_with_flags/achievements.py:227
 #, python-format
 msgid "Rare: %(_prevalence)s"
 msgstr "Selten: %(_prevalence)s"
 
-#: fun_with_flags/achievements.py:180
+#: fun_with_flags/achievements.py:232
 #, python-format
 msgid "Uncommon: %(_prevalence)s"
 msgstr "Unüblich: %(_prevalence)s"
 
-#: fun_with_flags/achievements.py:184
+#: fun_with_flags/achievements.py:236
 #, python-format
 msgid "Common: %(_prevalence)s"
 msgstr "Verbreitet: %(_prevalence)s"
 
-#: fun_with_flags/achievements.py:188
+#: fun_with_flags/achievements.py:240
 #, python-format
 msgid "Usual: %(_prevalence)s"
 msgstr "Üblich: %(_prevalence)s"
 
-#: fun_with_flags/achievements.py:221
+#: fun_with_flags/achievements.py:287
 msgid "Your FwF Neighbors Score Evolution"
 msgstr "Entwicklung des FwF Punktestands in deiner Nachbarschaft"
 
-#: fun_with_flags/achievements.py:255
+#: fun_with_flags/achievements.py:346
 msgid "You"
 msgstr "Du"
 
-#: fun_with_flags/achievements.py:265
+#: fun_with_flags/achievements.py:356
 msgid "Well done!"
 msgstr "Gut gemacht!"
 
-#: fun_with_flags/achievements.py:267
+#: fun_with_flags/achievements.py:358
 msgid "There is still room to improve."
 msgstr "Es gibt noch Luft nach oben."
 
-#: fun_with_flags/achievements.py:269
+#: fun_with_flags/achievements.py:360
 msgid "We can do better!"
 msgstr "Das können wir besser!"
 
-#: fun_with_flags/achievements.py:280
+#: fun_with_flags/achievements.py:371
 #, python-format
 msgid ""
 " Your score of %(_score)s puts you on position %(_position)s out of "
@@ -213,11 +213,11 @@ msgid ""
 "\n"
 "  <p><b>Change-log (last 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>2024-12-12: </b>Added continent badges in Achievements.\n"
 "    <li><b>2024-09-07: </b>Added Bahamas and Rwanda.\n"
 "    <li><b>2024-09-02: </b>Implemented badges in Achievements.\n"
 "    <li><b>2024-08-17: </b>Implemented Achievements.\n"
 "    <li><b>2024-08-03: </b>Implemented \"Opponent Last Login\" setting.\n"
-"    <li><b>2024-07-26: </b>Added support for i18n and l10n.\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -225,12 +225,12 @@ msgstr ""
 "\n"
 "  <p><b>Neuerungen (letzte 5):</b>\n"
 "  <ul type=\"1\">\n"
+"    <li><b>12.12.2024: </b>Kontinentenmedaillen eingeführt.\n"
 "    <li><b>07.09.2024: </b>Bahamas und Rwanda hinzugefügt.\n"
 "    <li><b>02.09.2024: </b>Medaillen unter Erfolge eingeführt.\n"
 "    <li><b>17.08.2024: </b>Errungenschaften eingeführt.\n"
 "    <li><b>03.08.2024: </b>Einstellung \"Letzer Login des Gegners\" "
 "eingeführt.\n"
-"    <li><b>26.07.2024: </b>Unterstützung für i18n und l10n hinzugefügt.\n"
 "  </ul>\n"
 "  </p>\n"
 "  "
@@ -419,12 +419,12 @@ msgid ""
 "\n"
 "        <b>The Club:</b>\n"
 "          You're in the\n"
-"          unicorn club. <br><i>Received"
+"          unicorn club. <br><i><div style=\"font-size:12px;\">Received"
 msgstr ""
 "\n"
 "        <b>Der Club:</b>\n"
 "          Du bist Mitglied des\n"
-"          Unicorn Clubs. <br><i>Erhalten"
+"          Unicorn Clubs. <br><i><div style=\"font-size:12px;\">Erhalten"
 
 #: fun_with_flags/templates/achievements/achievements.html:36
 #: fun_with_flags/templates/achievements/achievements.html:40
@@ -434,14 +434,16 @@ msgstr "FwF Überflieger"
 #: fun_with_flags/templates/achievements/achievements.html:45
 msgid ""
 "\n"
-"        <b>FwF Top Scorer:</b>\n"
+"        <b>Top Scorer:</b>\n"
 "          Your FwF score is higher than the max.\n"
-"          number of collectable flags. <br><i>Received"
+"          number of collectable flags. <br><i><div style=\"font-"
+"size:12px;\">Received"
 msgstr ""
 "\n"
 "        <b>FwF Überflieger:</b>\n"
 "          Deine FwF Punktzahl ist höher als das Maximum\n"
-"          erreichbarer Flaggen. <br><i>Erhalten"
+"          erreichbarer Flaggen. <br><i><div style=\"font-"
+"size:12px;\">Erhalten"
 
 #: fun_with_flags/templates/achievements/achievements.html:57
 #: fun_with_flags/templates/achievements/achievements.html:61
@@ -451,36 +453,150 @@ msgstr "FwF Champ"
 #: fun_with_flags/templates/achievements/achievements.html:66
 msgid ""
 "\n"
-"        <b>FwF Leader:</b>\n"
-"          You've achieved the highest FwF score of all times. "
-"<br><i>Received"
+"        <b>Leader:</b>\n"
+"          You've achieved the highest FwF score of all times. <br><i><div"
+" style=\"font-size:12px;\">Received"
 msgstr ""
 "\n"
 "        <b>FwF Champ:</b>\n"
 "          Du hast den höchsten FwF Punktestand aller Zeiten erreicht. "
-"<br><i>Erhalten"
+"<br><i><div style=\"font-size:12px;\">Erhalten"
 
-#: fun_with_flags/templates/achievements/achievements.html:76
+#: fun_with_flags/templates/achievements/achievements.html:77
+#: fun_with_flags/templates/achievements/achievements.html:81
+msgid "North America"
+msgstr "Nordamerika"
+
+#: fun_with_flags/templates/achievements/achievements.html:86
+msgid ""
+"\n"
+"        <b>Quanah:</b>\n"
+"          With one of your teams you've collected\n"
+"          all north american flags (home/away). <br><i><div style=\"font-"
+"size:12px;\">Received"
+msgstr ""
+"\n"
+"        <b>Quanah:</b>\n"
+"          Mit einem deiner Teams hast du alle Flaggen\n"
+"          (h/a) von Nordamerika gesammelt<br><i><div style=\"font-"
+"size:12px;\">Erhalten"
+
+#: fun_with_flags/templates/achievements/achievements.html:98
+#: fun_with_flags/templates/achievements/achievements.html:102
+msgid "Simón Bolívar"
+msgstr "Simón Bolívar"
+
+#: fun_with_flags/templates/achievements/achievements.html:107
+msgid ""
+"\n"
+"        <b>Bolívar:</b>\n"
+"          With one of your teams you've collected\n"
+"          all south american flags (home/away). <br><i><div style=\"font-"
+"size:12px;\">Received"
+msgstr ""
+"\n"
+"        <b>Bolívar:</b>\n"
+"          Mit einem deiner Teams hast du alle Flaggen\n"
+"          (h/a) von Südamerika gesammelt<br><i><div style=\"font-"
+"size:12px;\">Erhalten"
+
+#: fun_with_flags/templates/achievements/achievements.html:119
+#: fun_with_flags/templates/achievements/achievements.html:123
+msgid "Queen Elizabeth"
+msgstr "Königin Elizabeth"
+
+#: fun_with_flags/templates/achievements/achievements.html:128
+msgid ""
+"\n"
+"        <b>Elizabeth:</b>\n"
+"          With one of your teams you've collected\n"
+"          all european flags (home/away). <br><i><div style=\"font-"
+"size:12px;\">Received"
+msgstr ""
+"\n"
+"        <b>Elizabeth:</b>\n"
+"          Mit einem deiner Teams hast du alle Flaggen\n"
+"          (h/a) von Europa gesammelt<br><i><div style=\"font-"
+"size:12px;\">Erhalten"
+
+#: fun_with_flags/templates/achievements/achievements.html:140
+#: fun_with_flags/templates/achievements/achievements.html:144
+msgid "Nelson Mandela"
+msgstr "Nelson Mandela"
+
+#: fun_with_flags/templates/achievements/achievements.html:149
+msgid ""
+"\n"
+"        <b>Mandela:</b>\n"
+"          With one of your teams you've collected\n"
+"          all african flags (home/away). <br><i><div style=\"font-"
+"size:12px;\">Received"
+msgstr ""
+"\n"
+"        <b>Mandela:</b>\n"
+"          Mit einem deiner Teams hast du alle Flaggen\n"
+"          (h/a) von Afrika gesammelt<br><i><div style=\"font-"
+"size:12px;\">Erhalten"
+
+#: fun_with_flags/templates/achievements/achievements.html:161
+#: fun_with_flags/templates/achievements/achievements.html:165
+msgid "Gandhi"
+msgstr "Gandhi"
+
+#: fun_with_flags/templates/achievements/achievements.html:170
+msgid ""
+"\n"
+"        <b>Gandhi:</b>\n"
+"          With one of your teams you've collected\n"
+"          all asian flags (home/away). <br><i><div style=\"font-"
+"size:12px;\">Received"
+msgstr ""
+"\n"
+"        <b>Gandhi:</b>\n"
+"          Mit einem deiner Teams hast du alle Flaggen\n"
+"          (h/a) von Asien gesammelt<br><i><div style=\"font-"
+"size:12px;\">Erhalten"
+
+#: fun_with_flags/templates/achievements/achievements.html:182
+#: fun_with_flags/templates/achievements/achievements.html:186
+msgid "Hone Heke"
+msgstr "Hone Heke"
+
+#: fun_with_flags/templates/achievements/achievements.html:191
+msgid ""
+"\n"
+"        <b>Heke:</b>\n"
+"          With one of your teams you've collected\n"
+"          all oceania flags (home/away). <br><i><div style=\"font-"
+"size:12px;\">Received"
+msgstr ""
+"\n"
+"        <b>Heke:</b>\n"
+"          Mit einem deiner Teams hast du alle Flaggen\n"
+"          (h/a) von Ozeanien gesammelt<br><i><div style=\"font-"
+"size:12px;\">Erhalten"
+
+#: fun_with_flags/templates/achievements/achievements.html:202
 msgid "Score"
 msgstr "Punktestand"
 
-#: fun_with_flags/templates/achievements/achievements.html:80
+#: fun_with_flags/templates/achievements/achievements.html:206
 msgid "Avg. Flag count per Team"
 msgstr "Durchschnittliche Flaggenanzahl pro Team"
 
-#: fun_with_flags/templates/achievements/achievements.html:88
+#: fun_with_flags/templates/achievements/achievements.html:214
 msgid "Home Matches on FwF"
 msgstr "Heimspiele auf FwF"
 
-#: fun_with_flags/templates/achievements/achievements.html:96
+#: fun_with_flags/templates/achievements/achievements.html:222
 msgid "Away Matches on FwF"
 msgstr "Auswärtsspiele auf FwF"
 
-#: fun_with_flags/templates/achievements/achievements.html:105
+#: fun_with_flags/templates/achievements/achievements.html:231
 msgid "Unicorn Bonus"
 msgstr "Einhornbonus"
 
-#: fun_with_flags/templates/achievements/achievements.html:115
+#: fun_with_flags/templates/achievements/achievements.html:241
 msgid "Fun with Flags Score"
 msgstr "Fun with Flags Punktestand"
 
