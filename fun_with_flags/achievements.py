@@ -50,7 +50,7 @@ def achievements():
         _nr_flags_home += nr_flags_home[0]
         _nr_flags_away += nr_flags_away[0]
         _total_nr_flags = _nr_flags_home + _nr_flags_away
-        _flags_per_team.append((_team, _total_nr_flags  ))
+        _flags_per_team.append((_team, _total_nr_flags))
 
         # here we find continents for which all flags (home/away) were captured
         for _continent in ["NA", "SA", "EU", "AF", "AS", "OC"]:
@@ -177,7 +177,6 @@ def achievements():
     # north_america badge (NA)
     _badges.append("north_america")
     if "NA" in _continents:
-        print("North America")
         _owned_badges.append("north_america")
 
     # south_america badge (NA)
