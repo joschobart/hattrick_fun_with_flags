@@ -33,10 +33,6 @@ def achievements():
         if _team == "user":
             continue
 
-        _my_flags_home = []
-        _my_flags_away = []
-        _nr_flags_home = 0
-        _nr_flags_away = 0
         (
             g.l_home,
             g.l_away,
@@ -45,11 +41,13 @@ def achievements():
             *_,
         ) = helperf.compose_flag_matrix(_team)
 
+        _my_flags_home = []
+        _my_flags_away = []
         _my_flags_home += [int(item[0]) for item in g.l_home if not item[2].endswith("_inactive.png")]
         _my_flags_away += [int(item[0]) for item in g.l_away if not item[2].endswith("_inactive.png")]
-        _nr_flags_home += nr_flags_home[0]
-        _nr_flags_away += nr_flags_away[0]
-        _total_nr_flags = _nr_flags_home + _nr_flags_away
+
+        _total_nr_flags = nr_flags_home[0] + nr_flags_away[0]
+
         _flags_per_team.append((_team, _total_nr_flags))
 
         # here we find continents for which all flags (home/away) were captured
