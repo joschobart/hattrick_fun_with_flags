@@ -29,6 +29,11 @@ def achievements():
 
     _continents = set()
     _flags_per_team = []
+
+    # trap to debug funny score bug
+    if "279301" in session["my_team"].keys():
+        print(f"TRAP: {session["my_team"].keys()}")
+
     for _team in session["my_team"].keys():
         if _team == "user":
             continue
