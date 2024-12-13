@@ -341,8 +341,8 @@ def close_stripe_session(_userid, _couch, _session_id):
     :param _session_id:
 
     """
-    # sleep 3 secs as stripe sometimes needs time to submit to the webhook
-    sleep(3)
+    # sleep 5 secs as stripe sometimes needs time to submit to the webhook
+    sleep(5)
 
     # instantiate clone of db-document
     my_document = _couch[_userid]
