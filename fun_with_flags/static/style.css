@@ -408,3 +408,12 @@ input[type=submit] { align-self: start; min-width: 10em;
   height: 15px;
 }
 
+.hidden_field{
+  display:none;
+  visibility:hidden;
+}
+
+#copy_to_clipboard img{
+    display: block; 
+    width: 20px;
+}

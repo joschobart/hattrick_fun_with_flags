@@ -41,11 +41,46 @@
               <td style="text-align:left; with: 100px; color: seagreen;">
                 <b>{{ played_match["home_team_goals"] }} - {{ played_match["away_team_goals"] }}</b>
               </td>
+            {% elif played_match["home_team_goals"] | int > played_match["away_team_goals"] | int %}
+              <td style="text-align:left; width: 100px; color: gray;">
+                <b>{{ played_match["home_team_goals"] }} - {{ played_match["away_team_goals"] }}</b>
+              </td>
             {% else %}
               <td style="text-align:left; width: 100px; color: indianred;">
                 <b>{{ played_match["home_team_goals"] }} - {{ played_match["away_team_goals"] }}</b>
               </td>
             {% endif %}
+              <td>
+              {% if (played_match["away_team_goals"] | int > 0 | int and g.place == 'home') or
+                  (played_match["home_team_goals"] | int > 0 | int and g.place == 'away') %}
+                {% for goal in played_match["goals"] if goal["goal_scorer_teamid"] != session["teamid"] %}
+                    <input type="text" 
+                      value="Thank you for the flowers! We still present them in our clubhouse. They're dry by now. We keep our friendly [matchid={{ played_match['match_id'] }}] in best memories. {{ goal['goal_scorer_name'].split()[1:] | join(' ') }}s goal was not well received but fair. May the hattrick gods always look mildly on you guys! (This match was brought to you by CHPP Fun with Flags)" 
+                      class="hidden_field" id="courtesyText">
+
+                {% endfor %}
+              {% else %}
+                <input type="text" 
+                  value="Thank you for the flowers! We still present them in our clubhouse. They're dry by now. We keep our friendly [matchid={{ played_match['match_id'] }}] in best memories. Sorry you didn't score. May the hattrick gods always look mildly on you guys! (This match was brought to you by CHPP Fun with Flags)" 
+                  class="hidden_field" id="courtesyText">
+              {% endif %}
+
+
+                <button id="copy_to_clipboard" onclick="toClipboard()">
+                  <img src="{{ url_for('static', filename='edit-copy.png') }}"
+                    alt="Copy an auto-generated guestbook-text for the opponent of this match to clipboard"
+                    title="Copy an auto-generated guestbook-text for the opponent of this match to clipboard">
+                </button>
+
+                <script type="text/javascript">
+                  function toClipboard() {
+                    var copyText = document.getElementById("courtesyText");
+                    copyText.select();
+                    copyText.setSelectionRange(0, 99999); // For mobile devices
+                    navigator.clipboard.writeText(copyText.value);
+                  }
+                </script>
+              </td>
           </tr>
           {% endfor %}
         </table>
