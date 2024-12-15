@@ -41,7 +41,7 @@
               <td style="text-align:left; with: 100px; color: seagreen;">
                 <b>{{ played_match["home_team_goals"] }} - {{ played_match["away_team_goals"] }}</b>
               </td>
-            {% elif played_match["home_team_goals"] | int > played_match["away_team_goals"] | int %}
+            {% elif played_match["home_team_goals"] | int = played_match["away_team_goals"] | int %}
               <td style="text-align:left; width: 100px; color: gray;">
                 <b>{{ played_match["home_team_goals"] }} - {{ played_match["away_team_goals"] }}</b>
               </td>
