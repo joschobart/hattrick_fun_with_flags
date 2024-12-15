@@ -45,7 +45,7 @@ flask-babel==4.0.0
     # via hattrick-fwf
 gunicorn==21.2.0
     # via hattrick-fwf
-hattrick-libs==0.19.1
+hattrick-libs==0.19.2
     # via hattrick-fwf
 idna==3.6
     # via requests

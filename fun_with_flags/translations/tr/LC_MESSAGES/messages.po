@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.0.1\n"
 "Report-Msgid-Bugs-To: Kara_Kartallar\n"
-"POT-Creation-Date: 2024-12-09 22:55+0100\n"
+"POT-Creation-Date: 2024-12-15 13:11+0100\n"
 "PO-Revision-Date: 2024-09-02 23:34+0200\n"
 "Last-Translator: Kara_Kartallar\n"
 "Language: tr\n"
@@ -19,47 +19,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: fun_with_flags/achievements.py:227
+#: fun_with_flags/achievements.py:229
 #, python-format
 msgid "Rare: %(_prevalence)s"
 msgstr "Nadir: %(_prevalence)s"
 
-#: fun_with_flags/achievements.py:232
+#: fun_with_flags/achievements.py:234
 #, python-format
 msgid "Uncommon: %(_prevalence)s"
 msgstr "Sıra Dışı: %(_prevalence)s"
 
-#: fun_with_flags/achievements.py:236
+#: fun_with_flags/achievements.py:238
 #, python-format
 msgid "Common: %(_prevalence)s"
 msgstr "Yaygın: %(_prevalence)s"
 
-#: fun_with_flags/achievements.py:240
+#: fun_with_flags/achievements.py:242
 #, python-format
 msgid "Usual: %(_prevalence)s"
 msgstr "Olağan: %(_prevalence)s"
 
-#: fun_with_flags/achievements.py:287
+#: fun_with_flags/achievements.py:289
 msgid "Your FwF Neighbors Score Evolution"
 msgstr "FwF Komşularınızın Skor Gelişimi"
 
-#: fun_with_flags/achievements.py:346
+#: fun_with_flags/achievements.py:348
 msgid "You"
 msgstr "Siz"
 
-#: fun_with_flags/achievements.py:356
+#: fun_with_flags/achievements.py:358
 msgid "Well done!"
 msgstr "Tebrikler!"
 
-#: fun_with_flags/achievements.py:358
+#: fun_with_flags/achievements.py:360
 msgid "There is still room to improve."
 msgstr "Hala geliştirilecek yer var."
 
-#: fun_with_flags/achievements.py:360
+#: fun_with_flags/achievements.py:362
 msgid "We can do better!"
 msgstr "Daha iyisini yapabiliriz!"
 
-#: fun_with_flags/achievements.py:371
+#: fun_with_flags/achievements.py:373
 #, python-format
 msgid ""
 " Your score of %(_score)s puts you on position %(_position)s out of "
@@ -465,7 +465,7 @@ msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:77
 #: fun_with_flags/templates/achievements/achievements.html:81
-msgid "North America"
+msgid "Quanah Parker"
 msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:86
@@ -521,7 +521,7 @@ msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:161
 #: fun_with_flags/templates/achievements/achievements.html:165
-msgid "Gandhi"
+msgid "Mahatma Gandhi"
 msgstr ""
 
 #: fun_with_flags/templates/achievements/achievements.html:170
@@ -732,7 +732,13 @@ msgstr "<h4>Oynadı "
 msgid "-matches</h4>"
 msgstr "-maç</h4>"
 
-#: fun_with_flags/templates/flags/details.html:53
+#: fun_with_flags/templates/flags/details.html:70
+msgid ""
+"Copy an auto-generated guestbook-text for the opponent of this match to "
+"clipboard"
+msgstr ""
+
+#: fun_with_flags/templates/flags/details.html:87
 msgid ""
 "<p>*Only matches booked over (or added later to) Fun with Flags appear "
 "here</p>"
@@ -740,11 +746,11 @@ msgstr ""
 "<p>*Burada yalnızca Fun with Flags üzerinden rezerve edilen (veya daha "
 "sonra eklenen) maçlar görünür</p>"
 
-#: fun_with_flags/templates/flags/details.html:55
+#: fun_with_flags/templates/flags/details.html:89
 msgid "<h4>Add past friendly for"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:57
+#: fun_with_flags/templates/flags/details.html:91
 msgid ""
 "\n"
 "          <form method=\"post\">\n"
@@ -757,31 +763,31 @@ msgid ""
 "          "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:68
-#: fun_with_flags/templates/flags/details.html:73
+#: fun_with_flags/templates/flags/details.html:102
+#: fun_with_flags/templates/flags/details.html:107
 msgid "<p>The"
 msgstr " "
 
-#: fun_with_flags/templates/flags/details.html:68
-#: fun_with_flags/templates/flags/details.html:73
+#: fun_with_flags/templates/flags/details.html:102
+#: fun_with_flags/templates/flags/details.html:107
 msgid "-flag of"
 msgstr " için"
 
-#: fun_with_flags/templates/flags/details.html:69
+#: fun_with_flags/templates/flags/details.html:103
 msgid "is in your collection already. But let's challenge over and over!;)</p>"
 msgstr ""
 "\"zaten koleksiyonunuzda yer alıyor. Ama tekrar tekrar meydan "
 "okuyalım!;)</p>"
 
-#: fun_with_flags/templates/flags/details.html:74
+#: fun_with_flags/templates/flags/details.html:108
 msgid "is missing for your team"
 msgstr "bayrağınız yok."
 
-#: fun_with_flags/templates/flags/details.html:74
+#: fun_with_flags/templates/flags/details.html:108
 msgid "Let's grab that flag!;)</p>"
 msgstr " takımınız için hadi o bayrağı alalım!;)</p>"
 
-#: fun_with_flags/templates/flags/details.html:79
+#: fun_with_flags/templates/flags/details.html:113
 msgid ""
 "<p>Do you want to search for opponents to challenge? <b>This may take up "
 "to five minutes on level 5 depth!</b></p>"
@@ -789,15 +795,15 @@ msgstr ""
 "<p>Meydan okumak için rakipler aramak ister misiniz? <b>Bu, 5. seviye "
 "derinlikte beş dakika kadar sürebilir!</b></p>"
 
-#: fun_with_flags/templates/flags/details.html:84
+#: fun_with_flags/templates/flags/details.html:118
 msgid "<option value=\"0\" selected>Midweek friendly</option>"
 msgstr "<option value=\"0\" selected>Hafta ortası dostluk</option>"
 
-#: fun_with_flags/templates/flags/details.html:87
+#: fun_with_flags/templates/flags/details.html:121
 msgid "<option value=\"1\">Weekend friendly</option>"
 msgstr "<option value=\"1\">Hafta sonu dostluk</option>"
 
-#: fun_with_flags/templates/flags/details.html:92
+#: fun_with_flags/templates/flags/details.html:126
 msgid ""
 "<input type=\"submit\" value=\"Search Opponents\" "
 "name=\"search_opponents\" id=\"search_opponents\" "
@@ -806,32 +812,32 @@ msgstr ""
 "<input type=\"submit\" value=\"Rakipleri Ara\" name=\"search_opponents\" "
 "id=\"search_opponents\" onclick=\"loadSpinner()\">"
 
-#: fun_with_flags/templates/flags/details.html:100
-#: fun_with_flags/templates/flags/details.html:123
+#: fun_with_flags/templates/flags/details.html:134
+#: fun_with_flags/templates/flags/details.html:157
 msgid "<h4>&#129412; Update schedule for"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:100
-#: fun_with_flags/templates/flags/details.html:113
-#: fun_with_flags/templates/flags/details.html:123
-#: fun_with_flags/templates/flags/details.html:133
+#: fun_with_flags/templates/flags/details.html:134
+#: fun_with_flags/templates/flags/details.html:147
+#: fun_with_flags/templates/flags/details.html:157
+#: fun_with_flags/templates/flags/details.html:167
 msgid "-match &#129412;</h4>"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:102
-#: fun_with_flags/templates/flags/details.html:115
-#: fun_with_flags/templates/flags/details.html:125
+#: fun_with_flags/templates/flags/details.html:136
+#: fun_with_flags/templates/flags/details.html:149
+#: fun_with_flags/templates/flags/details.html:159
 msgid "There is a schedule for a(n)"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:102
-#: fun_with_flags/templates/flags/details.html:115
-#: fun_with_flags/templates/flags/details.html:125
-#: fun_with_flags/templates/flags/details.html:126
+#: fun_with_flags/templates/flags/details.html:136
+#: fun_with_flags/templates/flags/details.html:149
+#: fun_with_flags/templates/flags/details.html:159
+#: fun_with_flags/templates/flags/details.html:160
 msgid "-match for"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:102
+#: fun_with_flags/templates/flags/details.html:136
 msgid ""
 "already.\n"
 "                  You can resubmit it in case you have changed the "
@@ -840,7 +846,7 @@ msgid ""
 "scratch or to cancel it from here."
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:106
+#: fun_with_flags/templates/flags/details.html:140
 msgid ""
 "\n"
 "                <form method=\"post\" style=\"width: 200px;\">\n"
@@ -860,23 +866,23 @@ msgstr ""
 "                </form>\n"
 "                "
 
-#: fun_with_flags/templates/flags/details.html:113
+#: fun_with_flags/templates/flags/details.html:147
 msgid "<h4>&#129412; Update schedule for "
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:115
-#: fun_with_flags/templates/flags/details.html:125
+#: fun_with_flags/templates/flags/details.html:149
+#: fun_with_flags/templates/flags/details.html:159
 msgid ""
 "already.\n"
 "                  You can resubmit it as a(n)"
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:116
+#: fun_with_flags/templates/flags/details.html:150
 msgid "-match instead. This will overwrite the schedule."
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:119
-#: fun_with_flags/templates/flags/details.html:129
+#: fun_with_flags/templates/flags/details.html:153
+#: fun_with_flags/templates/flags/details.html:163
 msgid ""
 "<input type=\"submit\" value=\"Update Schedule\" "
 "name=\"schedule_friendly\" id=\"schedule_friendly\">"
@@ -884,15 +890,15 @@ msgstr ""
 "<input type=\"submit\" value=\"Programı Güncelle\" "
 "name=\"schedule_friendly\" id=\"schedule_friendly\">"
 
-#: fun_with_flags/templates/flags/details.html:126
+#: fun_with_flags/templates/flags/details.html:160
 msgid "instead. This will overwrite the existing schedule."
 msgstr ""
 
-#: fun_with_flags/templates/flags/details.html:133
+#: fun_with_flags/templates/flags/details.html:167
 msgid "<h4>&#129412; Schedule"
 msgstr "<h4>&#129412; Program"
 
-#: fun_with_flags/templates/flags/details.html:134
+#: fun_with_flags/templates/flags/details.html:168
 msgid ""
 "<p>As a member of the unicorn-club you are even entitled to schedule a "
 "match in advance! Let's do it!;)</p>"
@@ -900,7 +906,7 @@ msgstr ""
 "<p>Unicorn kulübünün bir üyesi olarak, önceden bir maç planlama hakkına "
 "sahipsiniz! Hadi yapalım şunu!;)</p>"
 
-#: fun_with_flags/templates/flags/details.html:136
+#: fun_with_flags/templates/flags/details.html:170
 msgid ""
 "<input type=\"submit\" value=\"Add Schedule\" name=\"schedule_friendly\" "
 "id=\"schedule_friendly\">"
@@ -908,7 +914,7 @@ msgstr ""
 "<input type=\"submit\" value=\"Program Ekle\" name=\"schedule_friendly\" "
 "id=\"schedule_friendly\">"
 
-#: fun_with_flags/templates/flags/details.html:140
+#: fun_with_flags/templates/flags/details.html:174
 msgid ""
 "\n"
 "          <p><b>...but:</b> first you will have to wait until Thursday "
@@ -925,7 +931,7 @@ msgstr ""
 "olarak, otomatik zamanlama daha erken başlar, yani HT 8:15 . Buradan üye "
 "olun:"
 
-#: fun_with_flags/templates/flags/details.html:143
+#: fun_with_flags/templates/flags/details.html:177
 msgid ""
 "Settings</a></p>\n"
 "          "
@@ -933,19 +939,19 @@ msgstr ""
 "Ayarlar</p>\n"
 "          "
 
-#: fun_with_flags/templates/flags/details.html:151
+#: fun_with_flags/templates/flags/details.html:185
 msgid "<p>There are"
 msgstr "<p> "
 
-#: fun_with_flags/templates/flags/details.html:151
+#: fun_with_flags/templates/flags/details.html:185
 msgid "teams challengeable in"
 msgstr "takıma şu andaki"
 
-#: fun_with_flags/templates/flags/details.html:152
+#: fun_with_flags/templates/flags/details.html:186
 msgid "at the moment with your settings.</p>"
 msgstr "ayarlarınızla meydan okunabilir.</p>"
 
-#: fun_with_flags/templates/flags/details.html:154
+#: fun_with_flags/templates/flags/details.html:188
 msgid "Challenge Opponents"
 msgstr "Rakiplere Meydan Okuyun"
 
@@ -1128,5 +1134,11 @@ msgstr "<p><input type=\"submit\" id=\"checkout-button\" value=\"Klube Gir!\"></
 #~ "        <b>FwF Leader:</b>\n"
 #~ "          You've achieved the highest "
 #~ "FwF score of all times. <br><i>Reiceived"
+#~ msgstr ""
+
+#~ msgid "North America"
+#~ msgstr ""
+
+#~ msgid "Gandhi"
 #~ msgstr ""
 

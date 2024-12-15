@@ -65,22 +65,21 @@
                   class="hidden_field" id="courtesyText">
               {% endif %}
 
-
-                <button id="copy_to_clipboard" onclick="toClipboard()">
-                  <img src="{{ url_for('static', filename='edit-copy.png') }}"
-                    alt="Copy an auto-generated guestbook-text for the opponent of this match to clipboard"
-                    title="Copy an auto-generated guestbook-text for the opponent of this match to clipboard">
-                </button>
-
-                <script type="text/javascript">
-                  function toClipboard() {
-                    var copyText = document.getElementById("courtesyText");
-                    copyText.select();
-                    copyText.setSelectionRange(0, 99999); // For mobile devices
-                    navigator.clipboard.writeText(copyText.value);
-                  }
-                </script>
-              </td>
+              <button id="copy_to_clipboard" onclick="toClipboard()">
+                <div class="button_effect_clipboard" 
+                  title="{% trans %}Copy an auto-generated guestbook-text for the opponent of this match to clipboard{% endtrans %}">
+                  <img src="{{ url_for('static', filename='edit-copy.png') }}">
+                </div>
+              </button>
+              <script type="text/javascript">
+                function toClipboard() {
+                  var copyText = document.getElementById("courtesyText");
+                  copyText.select();
+                  copyText.setSelectionRange(0, 99999); // For mobile devices
+                  navigator.clipboard.writeText(copyText.value);
+                }
+              </script>
+            </td>
           </tr>
           {% endfor %}
         </table>

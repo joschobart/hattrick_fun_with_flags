@@ -77,8 +77,6 @@ Also make sure to use a python `venv <https://docs.python.org/3/library/venv.htm
 
 .. code-block:: bash
 
-  pybabel extract -F babel.cfg -o messages.pot .
-
 5. Initialize your new language.
 
 .. code-block:: bash

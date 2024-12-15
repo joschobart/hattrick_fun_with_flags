@@ -414,6 +414,54 @@ input[type=submit] { align-self: start; min-width: 10em;
 }
 
 #copy_to_clipboard img{
-    display: block; 
-    width: 20px;
+  display: block; 
+  width: 20px;
+}
+
+
+.button_effect_clipboard {
+  position: relative;
+  font-size: 5px;
+  color: black;
+  padding: 0.2em 0.2em;
+  cursor:pointer;
+  user-select:none;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s; /* Safari */
+}
+
+.button_effect_clipboard:hover {
+  transition-duration: 0.1s;
+  color: grey;
+}
+
+.button_effect_clipboard:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px gray;
+}
+
+.button_effect_clipboard:active:after {
+  box-shadow: 0 0 0 0 black;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top:0;
+  opacity: 1;
+  transition: 0s;
+}
+
+.button_effect_clipboard:active {
+  top: 1px;
 }
