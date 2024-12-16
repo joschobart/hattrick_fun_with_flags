@@ -51,29 +51,35 @@
               </td>
             {% endif %}
               <td>
+
               {% if (played_match["away_team_goals"] | int > 0 | int and g.place == 'home') or
                   (played_match["home_team_goals"] | int > 0 | int and g.place == 'away') %}
-                {% for goal in played_match["goals"] if goal["goal_scorer_teamid"] != session["teamid"] %}
+
+                {% set data = namespace(h_bool=false) %}
+                {% for goal in played_match["goals"] if data.h_bool == false %}
+                  {% if goal["goal_scorer_teamid"] != session["teamid"]  %}
                     <input type="text" 
                       value="Thank you for the flowers! We still present them in our clubhouse. They're dry by now. We keep our friendly [matchid={{ played_match['match_id'] }}] in best memories. {{ goal['goal_scorer_name'].split()[1:] | join(' ') }}s goal was not well received but fair. May the hattrick gods always look mildly on you guys! (This match was brought to you by CHPP Fun with Flags)" 
-                      class="hidden_field" id="courtesyText">
-
+                      class="hidden_field" id="{{ played_match['match_id'] }}">
+                    {% set data.h_bool = true %}
+                  {% endif %}
                 {% endfor %}
+
               {% else %}
                 <input type="text" 
                   value="Thank you for the flowers! We still present them in our clubhouse. They're dry by now. We keep our friendly [matchid={{ played_match['match_id'] }}] in best memories. Sorry you didn't score. May the hattrick gods always look mildly on you guys! (This match was brought to you by CHPP Fun with Flags)" 
-                  class="hidden_field" id="courtesyText">
+                  class="hidden_field" id="{{ played_match['match_id'] }}">
               {% endif %}
 
-              <button id="copy_to_clipboard" onclick="toClipboard()">
+              <button id="copy_to_clipboard" onclick="toClipboard{{loop.index}}()">
                 <div class="button_effect_clipboard" 
                   title="{% trans %}Copy an auto-generated guestbook-text for the opponent of this match to clipboard{% endtrans %}">
                   <img src="{{ url_for('static', filename='edit-copy.png') }}">
                 </div>
               </button>
               <script type="text/javascript">
-                function toClipboard() {
-                  var copyText = document.getElementById("courtesyText");
+                function toClipboard{{loop.index}}() {
+                  var copyText = document.getElementById("{{ played_match['match_id'] }}");
                   copyText.select();
                   copyText.setSelectionRange(0, 99999); // For mobile devices
                   navigator.clipboard.writeText(copyText.value);
