@@ -71,24 +71,26 @@
                   class="hidden_field" id="{{ played_match['match_id'] }}">
               {% endif %}
 
-              <button id="copy_to_clipboard" onclick="toClipboard{{loop.index}}()">
+              <button id="copy_to_clipboard" onclick="toClipboard({{ played_match['match_id'] }})">
                 <div class="button_effect_clipboard" 
                   title="{% trans %}Copy an auto-generated guestbook-text for the opponent of this match to clipboard{% endtrans %}">
                   <img src="{{ url_for('static', filename='edit-copy.png') }}">
                 </div>
               </button>
-              <script type="text/javascript">
-                function toClipboard{{loop.index}}() {
-                  var copyText = document.getElementById("{{ played_match['match_id'] }}");
-                  copyText.select();
-                  copyText.setSelectionRange(0, 99999); // For mobile devices
-                  navigator.clipboard.writeText(copyText.value);
-                }
-              </script>
             </td>
           </tr>
           {% endfor %}
         </table>
+
+        <script type="text/javascript">
+          function toClipboard(Id) {
+            var copyText = document.getElementById(Id);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(copyText.value);
+          }
+        </script>
+
       {% endif %}
         {% trans %}<p>*Only matches booked over (or added later to) Fun with Flags appear here</p>{% endtrans %}
         <hr style="width:100%;text-align:left;margin-left:0">
