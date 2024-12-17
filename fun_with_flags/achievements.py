@@ -227,20 +227,20 @@ def achievements():
         )
         if g.badge_prevalence[_badge] <= 5:
             g.badge_prevalence[_badge] = gettext(
-                "Rare: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
+                "Legendary: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
             )
 
-        elif g.badge_prevalence[_badge] <= 25:
+        elif g.badge_prevalence[_badge] <= 20:
+            g.badge_prevalence[_badge] = gettext(
+                "Rare: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
+            )
+        elif g.badge_prevalence[_badge] <= 49:
             g.badge_prevalence[_badge] = gettext(
                 "Uncommon: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
             )
-        elif g.badge_prevalence[_badge] <= 60:
-            g.badge_prevalence[_badge] = gettext(
-                "Common: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
-            )
         else:
             g.badge_prevalence[_badge] = gettext(
-                "Usual: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
+                "Common: %(_prevalence)s", _prevalence=g.badge_prevalence[_badge]
             )
 
         try:
@@ -352,11 +352,13 @@ def achievements():
     line_chart.x_labels = map(str, _weeks)
     line_chart = line_chart.render_data_uri()
 
-    if (_position <= (_competitors / 3) or _competitors < 3) and len(_badges) >= (
-        _total_nr_badges / 2
+    print(len(session["badges"]))
+
+    if (_position <= (_competitors / 3) or _competitors < 3) and len(session["badges"]) >= (
+        _total_nr_badges / 3
     ):
         _message = gettext("Well done!")
-    elif _position <= (_competitors / 3 * 2) and len(_badges) >= (_total_nr_badges / 3):
+    elif _position <= (_competitors / 3 * 2) and len(session["badges"]) >= (_total_nr_badges / 4):
         _message = gettext("There is still room to improve.")
     else:
         _message = gettext("We can do better!")

@@ -22,9 +22,10 @@
       </td>
       <td style="text-align:left; vertical-align:top;" width="20%">
         {% trans %}
+        <div style="font-size:14px;">
         <b>The Club:</b>
           You're in the
-          unicorn club. <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          unicorn club. </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["unicorn"] %}{{ session["badges"]["unicorn"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["unicorn"] }}%</div></i>
       </td>
@@ -41,11 +42,12 @@
           </div>
         {% endif %}
       </td>
-      <td style="text-align:left; vertical-align:top;" width="21%">
+      <td style="text-align:left; vertical-align:top;" width="20%">
         {% trans %}
+        <div style="font-size:14px;">
         <b>Top Scorer:</b>
           Your FwF score is higher than the max.
-          number of collectable flags. <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          number of collectable flags. </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["fwf_score"] %}{{ session["badges"]["fwf_score"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["fwf_score"] }}%</div></i>
       </td>
@@ -64,8 +66,9 @@
       </td>
       <td style="text-align:left; vertical-align:top;" width="25%">
         {% trans %}
+        <div style="font-size:14px;">
         <b>Leader:</b>
-          You've achieved the highest FwF score of all times. <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          You've achieved the highest FwF score of all times. </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["fwf_leader"] %}{{ session["badges"]["fwf_leader"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["fwf_leader"] }}%</div></i>
       </td>
@@ -84,9 +87,10 @@
       </td>
       <td style="text-align:left; vertical-align:top;">
         {% trans %}
+        <div style="font-size:14px;">
         <b>Quanah:</b>
           With one of your teams you've collected
-          all north american flags (home/away). <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          all north american flags (home/away). </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["north_america"] %}{{ session["badges"]["north_america"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["north_america"] }}%</div></i>
       </td>
@@ -105,9 +109,10 @@
       </td>
       <td style="text-align:left; vertical-align:top;">
         {% trans %}
+        <div style="font-size:14px;">
         <b>Bolívar:</b>
           With one of your teams you've collected
-          all south american flags (home/away). <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          all south american flags (home/away). </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["south_america"] %}{{ session["badges"]["south_america"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["south_america"] }}%</div></i>
       </td>
@@ -126,9 +131,10 @@
       </td>
       <td style="text-align:left; vertical-align:top;">
         {% trans %}
+        <div style="font-size:14px;">
         <b>Elizabeth:</b>
           With one of your teams you've collected
-          all european flags (home/away). <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          all european flags (home/away). </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["europe"] %}{{ session["badges"]["europe"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["europe"] }}%</div></i>
       </td>
@@ -147,9 +153,10 @@
       </td>
       <td style="text-align:left; vertical-align:top;">
         {% trans %}
+        <div style="font-size:14px;">
         <b>Mandela:</b>
           With one of your teams you've collected
-          all african flags (home/away). <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          all african flags (home/away). </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["africa"] %}{{ session["badges"]["africa"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["africa"] }}%</div></i>
       </td>
@@ -168,9 +175,10 @@
       </td>
       <td style="text-align:left; vertical-align:top;">
         {% trans %}
+        <div style="font-size:14px;">
         <b>Gandhi:</b>
           With one of your teams you've collected
-          all asian flags (home/away). <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          all asian flags (home/away). </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["asia"] %}{{ session["badges"]["asia"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["asia"] }}%</div></i>
       </td>
@@ -189,9 +197,10 @@
       </td>
       <td style="text-align:left; vertical-align:top;">
         {% trans %}
+        <div style="font-size:14px;">
         <b>Heke:</b>
           With one of your teams you've collected
-          all oceania flags (home/away). <br><i><div style="font-size:12px;">Received{% endtrans %}:
+          all oceanian flags (home/away). </div><i><div style="font-size:12px;">Received{% endtrans %}:
           {% if session["badges"]["oceania"] %}{{ session["badges"]["oceania"] }}{% else %}- {% endif %};<be>
           {{ g.badge_prevalence["oceania"] }}%</div></i>
       </td>
