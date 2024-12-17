@@ -352,8 +352,6 @@ def achievements():
     line_chart.x_labels = map(str, _weeks)
     line_chart = line_chart.render_data_uri()
 
-    print(len(session["badges"]))
-
     if (_position <= (_competitors / 3) or _competitors < 3) and len(session["badges"]) >= (
         _total_nr_badges / 3
     ):
