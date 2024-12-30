@@ -121,7 +121,10 @@ def achievements():
         + g.fwf_matches_home
         + g.fwf_matches_away
     )
-    _weeknumber = strftime("%Y%W")
+    if strftime("%W") == "53":
+        _weeknumber = str(int(strftime("%Y%V")) + 100)
+    else:
+        _weeknumber = strftime("%Y%W")
 
     _my_document["score"]["score"] = g.fun_with_flags_score
     _my_document["score"]["history"][_weeknumber] = g.fun_with_flags_score
