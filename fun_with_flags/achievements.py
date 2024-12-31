@@ -327,16 +327,9 @@ def achievements():
             except Exception:
                 _scores.append(None)
 
-        if not "history" in _my_neighbor_doc["score"].keys():
-            _scores[-1] = _my_neighbor_doc["score"]["score"]
-            _scores[-2] = _my_neighbor_doc["score"]["score"]
-        elif len(_my_neighbor_doc["score"]["history"].keys()) < 2:
-            _scores[-2] = _my_neighbor_doc["score"]["score"]
-        else:
-            pass
-
         if _scores[-1] is None:
             _scores[-1] = _my_neighbor_doc["score"]["score"]
+            _scores[-2] = _my_neighbor_doc["score"]["score"]
 
         if _scores[0] is None:
             if sum(x is not None for x in _scores) > 3:
