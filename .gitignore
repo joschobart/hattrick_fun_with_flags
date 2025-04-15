@@ -20,4 +20,4 @@ wheels/
 .dalle
 
 # uv
-uv.*
+uv.lock
