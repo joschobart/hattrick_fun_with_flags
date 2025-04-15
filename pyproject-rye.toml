@@ -28,7 +28,7 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
         packages = ["fun_with_flags"]
 
-[tool.uv]
+[tool.rye]
 managed = true
 dev-dependencies = [
     "black>=23.12.1",
