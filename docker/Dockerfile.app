@@ -46,7 +46,6 @@ COPY . /opt/app
 
 WORKDIR /opt/app
 
-
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
 # Old
@@ -70,6 +69,10 @@ RUN pybabel extract -F babel.cfg -o messages.pot . && \
 
 EXPOSE 8000
 
+# Use non-root user
+RUN useradd -m -u 1000 appuser
+RUN chown -R appuser:appuser /opt/app
+USER appuser
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", \
                 "--threads", "4", \
