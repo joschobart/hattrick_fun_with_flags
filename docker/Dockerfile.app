@@ -61,7 +61,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 
 # Use non-root user
-RUN useradd -m -u 1000 -d /app
+RUN useradd -m -u 1000 -d /app appuser
 RUN chown -R appuser.appuser .venv
 RUN chmod -R u+x .venv/bin
 RUN head -1 .venv/bin/gunicorn
