@@ -70,8 +70,9 @@ RUN pybabel extract -F babel.cfg -o messages.pot . && \
 EXPOSE 8000
 
 # Use non-root user
-RUN useradd -m -u 1000 appuser
+RUN useradd -m -u 1000 -d /home/appuser appuser
 RUN chown -R appuser:appuser /app
+RUN chmod -R u+rx /app/.venv/bin
 USER appuser
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", \
