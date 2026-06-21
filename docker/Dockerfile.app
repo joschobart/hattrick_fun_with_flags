@@ -56,7 +56,10 @@ RUN pip install uv
 
 # Use uv to install dependencies
 RUN uv sync --frozen
+RUN chmod -R +x .venv/bin
+RUN ls -l .venv/bin
 ENV PATH="/app/.venv/bin:$PATH"
+
 
 
 RUN pybabel extract -F babel.cfg -o messages.pot . && \
