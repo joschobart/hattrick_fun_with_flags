@@ -55,6 +55,12 @@ RUN python -m pip install --upgrade pip
 RUN pip install uv
 ENV PATH="/app/.venv/bin:$PATH"
 
+
+# Use non-root user
+RUN useradd -m -u 1000 -d /home/appuser appuser
+USER appuser
+
+
 # Use uv to install dependencies
 RUN uv sync --frozen
 
@@ -65,15 +71,6 @@ RUN pybabel extract -F babel.cfg -o messages.pot . && \
 
 
 EXPOSE 8000
-
-
-# Use non-root user
-RUN useradd -m -u 1000 -d /home/appuser appuser
-RUN chown -R appuser:appuser /app
-RUN chmod -R u+rx /app/.venv/bin
-RUN chmod +x /app/.venv/bin/gunicorn
-RUN ls -la /app/.venv/bin
-USER appuser
 
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", \
