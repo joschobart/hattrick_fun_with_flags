@@ -19,5 +19,3 @@ wheels/
 # dall e
 .dalle
 
-# uv
-uv.lock
