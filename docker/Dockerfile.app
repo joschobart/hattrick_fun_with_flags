@@ -56,6 +56,8 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 # Install uv
 RUN python -m pip install --upgrade pip
 RUN pip install uv
+ENV PATH="/opt/app/.venv/bin:$PATH"
+
 
 # Use uv to install dependencies
 RUN uv sync --frozen
