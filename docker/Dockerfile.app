@@ -42,9 +42,9 @@ ENV STRIPE_PRICE_ITEM_TEST=$stpit
 ENV STRIPE_PRICE_ITEM=$stpi
 
 
-COPY . /opt/app
+COPY . /app
 
-WORKDIR /opt/app
+WORKDIR /app
 
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
@@ -55,7 +55,7 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 # Install uv
 RUN python -m pip install --upgrade pip
 RUN pip install uv
-ENV PATH="/opt/app/.venv/bin:$PATH"
+ENV PATH="/app/.venv/bin:$PATH"
 
 
 # Use uv to install dependencies
@@ -71,7 +71,7 @@ EXPOSE 8000
 
 # Use non-root user
 RUN useradd -m -u 1000 appuser
-RUN chown -R appuser:appuser /opt/app
+RUN chown -R appuser:appuser /app
 USER appuser
 
 CMD ["gunicorn", "-b", "0.0.0.0:8000", \
