@@ -71,6 +71,8 @@ EXPOSE 8000
 RUN useradd -m -u 1000 -d /home/appuser appuser
 RUN chown -R appuser:appuser /app
 RUN chmod -R u+rx /app/.venv/bin
+RUN chmod +x /app/.venv/bin/gunicorn
+RUN ls -la /app/.venv/bin
 USER appuser
 
 
