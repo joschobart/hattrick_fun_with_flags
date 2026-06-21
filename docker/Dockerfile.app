@@ -49,7 +49,17 @@ WORKDIR /opt/app
 
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/CET /etc/localtime
 
-RUN python -m pip install --upgrade pip && pip install .
+# Old
+# RUN python -m pip install --upgrade pip && pip install .
+
+# New
+# Install uv
+RUN python -m pip install --upgrade pip
+RUN pip install uv
+
+# Use uv to install dependencies
+RUN uv sync --frozen
+
 
 RUN pybabel extract -F babel.cfg -o messages.pot . && \
     pybabel update -i messages.pot -d fun_with_flags/translations/ && \
