@@ -10,7 +10,7 @@ wheels/
 .env
 
 # venv
-.venv
+.venv*
 
 # babel
 *.pot
