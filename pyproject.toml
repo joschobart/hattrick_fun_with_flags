@@ -7,7 +7,7 @@ authors = [
 ]
 dependencies = [
     "hattrick-libs==0.19.6",
-    "flask==3.0.3",
+    "flask==3.1.3",
     "cryptography>=41.0.7",
     "CouchDB>=1.2",
     "gunicorn>=21.2.0",
