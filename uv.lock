@@ -452,16 +452,16 @@ dev = [
 
 [[package]]
 name = "hattrick-libs"
-version = "0.21.0"
+version = "0.21.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beautifulsoup4" },
     { name = "lxml" },
     { name = "requests-oauthlib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7a/34/4eb1f256c62cdf81a0c8514601656964097c8f8db3b1e98072a88be8dc2e/hattrick_libs-0.21.0.tar.gz", hash = "sha256:98c2c7f04f17cf28b51d912aa939846996b417407a6aa5cc76cdc51e51ae890c", size = 86731, upload-time = "2026-10-22T12:56:48.041Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/89/16/2ca1ee383abb1a3f1cb9befd0ab5ed2e879d190d6c08f71b6b2423334e32/hattrick_libs-0.21.1.tar.gz", hash = "sha256:385ecef4e385669c2a499bc7641eeb7ca63c1cffd9b8ae78cd38cf30c07448dd", size = 91600, upload-time = "2026-10-22T20:43:50.111Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/af/7d/eda06e84bb7f840cd80f9f3d85ffb5a9b663decfd189fc954098c7e44c1d/hattrick_libs-0.21.0-py3-none-any.whl", hash = "sha256:445c9a6e995777a7f0d87ac0d273527c72919563e108b900245bdf8f11ab3347", size = 17529, upload-time = "2026-10-22T12:56:46.777Z" },
+    { url = "https://files.pythonhosted.org/packages/e2/51/c22f9e667143adb6dc9859f0bba377b3d57bfd3c014fb39ed81d53d43d3a/hattrick_libs-0.21.1-py3-none-any.whl", hash = "sha256:54e3efe5ae464cc59f2b388b2e7d2adaf2cb1b365afac4a6707654791f979d5a", size = 17645, upload-time = "2026-10-22T20:43:48.785Z" },
 ]
 
 [[package]]
