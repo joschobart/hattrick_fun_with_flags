@@ -12,9 +12,7 @@ jobs:
     needs: checks
     runs-on: ubuntu-latest
     steps:
-      # ... QEMU, Buildx, Login unchanged ...
-      -
-        name: Login to APPUiO registry
+      - name: Login to APPUiO registry
         uses: docker/login-action@v3
         with:
           registry: ${{ vars.REGISTRY_URL }}
