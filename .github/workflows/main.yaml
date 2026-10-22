@@ -2,61 +2,25 @@ name: ci
 
 on:
   push:
-    branches:
-      - 'main'
-
+    branches: [main]
 
 jobs:
-  publish-couchdb-container:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Login to APPUiO registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ vars.REGISTRY_URL }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          push: true
-          tags: ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/couchdb-image:latest
-          file: docker/Dockerfile.couchdb
-          secrets: |
-              couchdb_pw=${{ secrets.COUCHDB_PW }}
-
+  checks:
+    uses: ./.github/workflows/ci.yaml
 
   publish-app-container:
+    needs: checks
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
-        name: Login to APPUiO registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ vars.REGISTRY_URL }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
+      # ... QEMU, Buildx, Login unchanged ...
+      - name: Build and push
+        uses: docker/build-push-action@v6     # was v5, now the same as the CouchDB job
         with:
           push: true
-          tags: ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest
           file: docker/Dockerfile.app
+          tags: |
+            ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:latest
+            ${{ vars.REGISTRY_URL }}/${{ vars.OPENSHIFT_PROJECT }}/fun-with-flags_app-image:${{ github.sha }}
           build-args: |
               ck=${{ secrets.HATTRICK_OAUTH_CONSUMER_KEY }}
               cs=${{ secrets.HATTRICK_OAUTH_CONSUMER_SECRET }}

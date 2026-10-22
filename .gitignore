@@ -21,3 +21,6 @@ wheels/
 
 # uv
 .python-version
+
+#repomix
+repomix.md

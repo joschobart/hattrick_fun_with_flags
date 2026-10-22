@@ -145,7 +145,6 @@ def ht_get_challenges(challenges_xml):
 
     return challenges
 
-
 def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
     """Function to return XML documents from hattrick-api.
 
@@ -164,7 +163,7 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
 
     ht_session = oauth_open_session(fernet_token)
 
-    params = API_PARAMS[name]
+    params = {**API_PARAMS[name], **kwargs}
     params.update(kwargs)
     print(params)
 

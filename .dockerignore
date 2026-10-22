@@ -1,0 +1,6 @@
+.env
+.creds
+.venv
+.git
+**/__pycache__
+backup-*.json
