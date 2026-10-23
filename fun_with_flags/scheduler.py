@@ -83,19 +83,17 @@ def sensor():
                             fernet_token=_fernet_token,
                             teamID=_opponent_team_id,
                         )
+
                         _opponent_teamdetails = api.ht_get_team(_xml)
-                        _country_id = _opponent_teamdetails[_opponent_team_id][
-                            "team_country_id"
-                        ]
 
                         try:
+                            _country_id = api.flag_id_of_team(
+                                _opponent_teamdetails[_opponent_team_id],
+                                fernet_token=_fernet_token,
+                            )
                             _my_doc = db.set_match_history(
-                                _user_id,
-                                _user_couch,
-                                _country_id,
-                                _match_id,
-                                _match_place,
-                                _team_id,
+                                _user_id, _user_couch, _country_id,
+                                _match_id, _match_place, _team_id,
                             )
                         except Exception:
                             _my_document[_team_id]["fernet_token"] = ""

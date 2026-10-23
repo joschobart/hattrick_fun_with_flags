@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hand-trimmed from a real CHPP teamdetails 3.9 response (2026-10).
+     Tag structure and the IDs used by the tests are real.
+     Names, dates and LLU names/levels are PLACEHOLDERS. -->
+<HattrickData>
+  <FileName>teamdetails.xml</FileName>
+  <Version>3.9</Version>
+  <UserID>0</UserID>
+  <User>
+    <UserID>0</UserID>
+    <Loginname>test_manager</Loginname>
+    <SupporterTier>none</SupporterTier>
+    <SignupDate>2020-01-01 00:00:00</SignupDate>
+    <LastLoginDate>2026-10-01 00:00:00</LastLoginDate>
+  </User>
+  <Teams>
+    <Team>
+      <TeamID>628463</TeamID>
+      <TeamName>Men Test Team</TeamName>
+      <ShortTeamName>MTT</ShortTeamName>
+      <IsPrimaryClub>True</IsPrimaryClub>
+      <League>
+        <LeagueID>46</LeagueID>
+        <LeagueName>Switzerland</LeagueName>
+      </League>
+      <Country>
+        <CountryID>40</CountryID>
+        <CountryName>Switzerland</CountryName>
+      </Country>
+      <LeagueSystemID>1</LeagueSystemID>
+      <GenderID>1</GenderID>
+      <LeagueLevelUnit>
+        <LeagueLevelUnitID>20934</LeagueLevelUnitID>
+        <LeagueLevelUnitName>placeholder</LeagueLevelUnitName>
+        <LeagueLevel>0</LeagueLevel>
+      </LeagueLevelUnit>
+      <BotStatus>
+        <IsBot>False</IsBot>
+      </BotStatus>
+    </Team>
+    <Team>
+      <TeamID>3242724</TeamID>
+      <TeamName>Women Test Team</TeamName>
+      <ShortTeamName>WTT</ShortTeamName>
+      <IsPrimaryClub>False</IsPrimaryClub>
+      <League>
+        <LeagueID>3000</LeagueID>
+        <LeagueName>Hattrick Femme International</LeagueName>
+      </League>
+      <Country>
+        <CountryID>40</CountryID>
+        <CountryName>Switzerland</CountryName>
+      </Country>
+      <LeagueSystemID>2</LeagueSystemID>
+      <GenderID>2</GenderID>
+      <LeagueLevelUnit>
+        <LeagueLevelUnitID>270280</LeagueLevelUnitID>
+        <LeagueLevelUnitName>VII.420</LeagueLevelUnitName>
+        <LeagueLevel>7</LeagueLevel>
+      </LeagueLevelUnit>
+      <BotStatus>
+        <IsBot>False</IsBot>
+      </BotStatus>
+    </Team>
+  </Teams>
+</HattrickData>
