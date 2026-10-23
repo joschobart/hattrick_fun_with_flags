@@ -24,3 +24,5 @@ wheels/
 
 #repomix
 repomix.md
+
+tests/fixtures/recon

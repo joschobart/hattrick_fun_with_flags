@@ -73,6 +73,7 @@ def error_check(view):
             )
 
             flash(error)
+            current_app.logger.exception("view %s failed", view.__name__)
             return redirect(url_for("index"))
 
     return wrapped_view

@@ -2,5 +2,12 @@
 .creds
 .venv
 .git
+.ruff_cache
+.pythest_cache
+.github
 **/__pycache__
 backup-*.json
+scripts
+tests
+docker
+dist

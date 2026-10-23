@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Hand-trimmed from a real CHPP worlddetails 2.0 response (2026-10).
+     Only the tags the parsers read. CountryID/LeagueID pairs are real. -->
+<HattrickData>
+  <FileName>worlddetails.xml</FileName>
+  <Version>2.0</Version>
+  <UserID>0</UserID>
+  <LeagueList>
+    <League>
+      <LeagueID>1</LeagueID>
+      <LeagueName>Sweden</LeagueName>
+      <MatchRound>14</MatchRound>
+      <LeagueSystemID>1</LeagueSystemID>
+      <Country Available="True">
+        <CountryID>1</CountryID>
+        <CountryName>Sverige</CountryName>
+      </Country>
+      <NumberOfLevels>6</NumberOfLevels>
+    </League>
+    <League>
+      <LeagueID>14</LeagueID>
+      <LeagueName>Netherlands</LeagueName>
+      <LeagueSystemID>1</LeagueSystemID>
+      <Country Available="True">
+        <CountryID>12</CountryID>
+      </Country>
+    </League>
+    <League>
+      <LeagueID>46</LeagueID>
+      <LeagueName>Switzerland</LeagueName>
+      <LeagueSystemID>1</LeagueSystemID>
+      <Country Available="True">
+        <CountryID>40</CountryID>
+      </Country>
+    </League>
+    <League>
+      <LeagueID>52</LeagueID>
+      <LeagueName>Czechia</LeagueName>
+      <LeagueSystemID>1</LeagueSystemID>
+      <Country Available="True">
+        <CountryID>46</CountryID>
+      </Country>
+    </League>
+    <League>
+      <LeagueID>3000</LeagueID>
+      <LeagueName>Hattrick Femme International</LeagueName>
+      <LeagueSystemID>2</LeagueSystemID>
+      <Country Available="False" />
+    </League>
+  </LeagueList>
+</HattrickData>

@@ -1,5 +1,9 @@
 """hattrick-libs api-client functions"""
 
+
+import threading
+import time
+
 from flask import session
 from ht_libs import (do_challenge, do_hattrick_request, get_flags,
                      get_leaguelevels, get_matchdetails, get_matches,
@@ -14,7 +18,7 @@ TOKEN_STATUS_URL = "https://chpp.hattrick.org/oauth/check_token.ashx"
 API_PARAMS = {
     "teamdetails": {
         "file": "teamdetails",
-        "version": "3.6",
+        "version": "3.9",
         "teamID": "",
         "userID": "",
         "includeFlags": "",
@@ -28,7 +32,7 @@ API_PARAMS = {
     },
     "worlddetails": {
         "file": "worlddetails",
-        "version": "1.9",
+        "version": "2.0",
         "includeRegions": "false",
         "countryID": "",
         "leagueID": "",
@@ -78,6 +82,12 @@ API_PARAMS = {
         "teamID": "",
     },
 }
+
+WOMEN = "2"
+
+_FLAG_MAP = {"data": None, "ts": 0.0}
+_FLAG_MAP_TTL = 24 * 3600
+_FLAG_MAP_LOCK = threading.Lock()
 
 
 def ht_do_challenge(
@@ -380,3 +390,32 @@ def oauth_open_session(fernet_token=""):
     )
 
     return ht_session
+
+
+def get_country_flag_map(fernet_token=""):
+    """CountryID -> men's LeagueID (= flag id). Fetched at most once a day per process."""
+    with _FLAG_MAP_LOCK:
+        if _FLAG_MAP["data"] is None or time.time() - _FLAG_MAP["ts"] > _FLAG_MAP_TTL:
+            xml = ht_get_data(
+                "worlddetails", fernet_token=fernet_token, countryID="", leagueID=""
+            )
+            _FLAG_MAP["data"] = get_worlddetails.get_country_flag_map(xml)
+            _FLAG_MAP["ts"] = time.time()
+        return _FLAG_MAP["data"]
+
+
+def is_women_team(team):
+    """Old sessions without the key count as men's teams, so nothing changes for them."""
+    return team.get("team_gender_id") == WOMEN
+
+
+def flag_id_of_team(team, fernet_token=""):
+    """Which flag does this team stand for?
+
+    Men's teams: their LeagueID, as always.
+    Women's teams: all play in LeagueID 3000, so map their CountryID to the
+    country's men's LeagueID. CountryID 46 is Czechia (flag 52), not Switzerland!
+    """
+    if not is_women_team(team):
+        return team["team_country_id"]
+    return get_country_flag_map(fernet_token)[team["team_real_country_id"]]

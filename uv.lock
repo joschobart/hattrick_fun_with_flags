@@ -436,7 +436,7 @@ requires-dist = [
     { name = "flask", specifier = ">=3.1.3" },
     { name = "flask-babel", specifier = ">=4.0.0" },
     { name = "gunicorn", specifier = ">=21.2.0" },
-    { name = "hattrick-libs", specifier = ">=0.21.0" },
+    { name = "hattrick-libs", specifier = ">=0.22.0" },
     { name = "jinja2", specifier = ">=3.1.4" },
     { name = "pygal", specifier = ">=3.0.5" },
     { name = "pygal-maps-world", specifier = ">=1.0.2" },
@@ -452,16 +452,16 @@ dev = [
 
 [[package]]
 name = "hattrick-libs"
-version = "0.21.1"
+version = "0.22.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beautifulsoup4" },
     { name = "lxml" },
     { name = "requests-oauthlib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/89/16/2ca1ee383abb1a3f1cb9befd0ab5ed2e879d190d6c08f71b6b2423334e32/hattrick_libs-0.21.1.tar.gz", hash = "sha256:385ecef4e385669c2a499bc7641eeb7ca63c1cffd9b8ae78cd38cf30c07448dd", size = 91600, upload-time = "2026-10-22T20:43:50.111Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/da/40/f5260f73d8110324c055f0c973fb39ac9bffc7980fe43757088d85b3769c/hattrick_libs-0.22.0.tar.gz", hash = "sha256:95ca25a7e917adc62038a5a296d8cf9763a554ee9ca40f419ebc190e8f54125b", size = 93137, upload-time = "2026-10-23T22:22:08.407Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/e2/51/c22f9e667143adb6dc9859f0bba377b3d57bfd3c014fb39ed81d53d43d3a/hattrick_libs-0.21.1-py3-none-any.whl", hash = "sha256:54e3efe5ae464cc59f2b388b2e7d2adaf2cb1b365afac4a6707654791f979d5a", size = 17645, upload-time = "2026-10-22T20:43:48.785Z" },
+    { url = "https://files.pythonhosted.org/packages/29/61/3080bf33eeded98fddef8b22f111a2036eaab473a7ac63b3de10319c35aa/hattrick_libs-0.22.0-py3-none-any.whl", hash = "sha256:d2e34e8c90ba00bd5d4d1a0573876a244afb46c6616db35813722d9b50b69c40", size = 18406, upload-time = "2026-10-23T22:22:07.009Z" },
 ]
 
 [[package]]
