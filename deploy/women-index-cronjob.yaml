@@ -3,15 +3,15 @@ kind: CronJob
 metadata:
   name: women-index
 spec:
-  schedule: "30 3 * * 1"          # Monday 03:30
+  schedule: "*/30 * * * *"         # INITIAL BUILD: every 30 min (20 min work + 10 min gap)
   timeZone: "Europe/Zurich"
-  concurrencyPolicy: Forbid       # never two crawls at once
+  concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
-      backoffLimit: 0             # a failed crawl is NOT retried right away
-      activeDeadlineSeconds: 21600
+      backoffLimit: 0
+      activeDeadlineSeconds: 1800   # match the platform cap, so the YAML says what really happens
       template:
         spec:
           restartPolicy: Never
@@ -21,6 +21,8 @@ spec:
               imagePullPolicy: Always
               command: ["python", "-m", "fun_with_flags.crawl_women"]
               env:
+                - name: CRAWL_BUDGET_SECONDS
+                  value: "120"   # 25 min
                 - name: CRAWLER_FERNET_TOKEN
                   valueFrom:
                     secretKeyRef:
@@ -34,5 +36,6 @@ spec:
                 - name: PYTHONUNBUFFERED
                   value: "1"
               resources:
-                requests: { cpu: 50m, memory: 128Mi }
-                limits: { memory: 256Mi }
+                requests: { cpu: 50m, memory: 256Mi }
+                limits: { memory: 768Mi }
+

@@ -19,10 +19,24 @@ META_ID = "meta"
 PHASES = 4
 RETRY_WAITS = (30, 60, 120)  # seconds. CHPP outages are usually short
 MAX_FAILURE_RATE = 0.02  # more than 2 % failed requests: abort, keep last week's index
+PROGRESS_ID = "progress"
+
+
+class CrawlPaused(Exception):
+    """Time budget used up: state is saved, the next run continues."""
 
 
 class CrawlAborted(RuntimeError):
     """Too many failures: don't write a half-empty index."""
+
+
+def _week():
+    y, w, _ = datetime.now(timezone.utc).isocalendar()
+    return f"{y}-W{w:02d}"
+
+
+def _over_budget(t0, budget):
+    return budget and time.monotonic() - t0 > budget
 
 
 def _db():
@@ -101,11 +115,18 @@ def candidates(flag_id, exclude=()):
     return teams
 
 
-def build(token, delay=1.0, max_units=None):
+def build(token, delay=1.0, max_units=None, budget=None):
     t0 = time.monotonic()
     db = _db()
     cache_doc = db.get(TEAM_CACHE_ID) or {"_id": TEAM_CACHE_ID, "teams": {}}
     cache = cache_doc["teams"]
+
+    prog = db.get(PROGRESS_ID) or {"_id": PROGRESS_ID}
+    if prog.get("week") != _week():  # new week → new crawl
+        prog.update(week=_week(), done_units=[], humans=[], complete=False)
+    if prog.get("complete"):
+        log.info("✅ crawl for %s already complete, nothing to do", prog["week"])
+        return
 
     # 1. the women's league tree
     p = _phase(1, "league tree", league=api.WOMEN_LEAGUE_ID, delay=f"{delay}s")
@@ -119,18 +140,27 @@ def build(token, delay=1.0, max_units=None):
     _done(1, p, levels=levels["league_depth"], series=len(units),
           dry_run=bool(max_units))
 
-    # 2. human teams per series
-    p = _phase(2, "series → human teams", series=len(units))
-    humans, failed = [], []
-    for i, unit in enumerate(units, 1):
+    # 2. human teams per series (resumable)
+    done = set(prog["done_units"])
+    todo = [u for u in units if u not in done]
+    p = _phase(2, "series → human teams", series=len(units), already_done=len(done))
+    humans, failed = prog["humans"], []
+    for i, unit in enumerate(todo, 1):
         try:
             humans += human_teams(_get("teams_in_series", token, delay, leagueLevelUnitID=unit))
+            prog["done_units"].append(unit)
         except Exception:
             log.exception("  series %s failed", unit)
             failed.append(unit)
-        _progress("series", i, len(units), p, every=100)
-    humans = list(dict.fromkeys(humans))
-    _check_failures("series", failed, len(units))
+        if i % 100 == 0 or _over_budget(t0, budget):
+            prog["humans"] = list(dict.fromkeys(humans))
+            db.save(prog)
+            if _over_budget(t0, budget):
+                raise CrawlPaused(f"phase 2 at {len(prog['done_units'])}/{len(units)} series")
+        _progress("series", i, len(todo), p, every=100)
+    humans = prog["humans"] = list(dict.fromkeys(humans))
+    db.save(prog)
+    _check_failures("series", failed, len(todo))
     _done(2, p, human_teams=len(humans))
 
     # 3. CountryID for new teams only
@@ -144,9 +174,11 @@ def build(token, delay=1.0, max_units=None):
         except Exception:
             log.exception("  team %s failed", team_id)
             failed.append(team_id)
-        if i % 200 == 0:
+        if i % 200 == 0 or _over_budget(t0, budget):
             db.save(cache_doc)
             log.info("  checkpoint saved (%d teams cached)", len(cache))
+            if _over_budget(t0, budget):
+                raise CrawlPaused(f"phase 3 at {i}/{len(new)} new teams")
         _progress("teamdetails", i, len(new), p, every=100)
     db.save(cache_doc)  # the cache is always worth keeping, even if we abort below
     _check_failures("teams", failed, len(new))
@@ -164,6 +196,8 @@ def build(token, delay=1.0, max_units=None):
             unmapped += 1
     if unmapped:
         log.warning("  %d teams without a flag (unknown CountryID)", unmapped)
+    prog["complete"] = True
+    db.save(prog)
 
     now = datetime.now(timezone.utc).isoformat()
     for flag, teams in by_flag.items():
@@ -197,7 +231,11 @@ def main():
             os.environ["CRAWLER_FERNET_TOKEN"],
             delay=float(os.environ.get("CRAWL_DELAY", "1.0")),
             max_units=int(max_units) if max_units else None,
+            budget=float(os.environ.get("CRAWL_BUDGET_SECONDS", "0")) or None,
         )
+    except CrawlPaused as e:
+        log.info("⏸ paused, state saved, next run continues: %s", e)
+        # exit 0: not an error, just a break at half-time ⚽
     except CrawlAborted as e:
         log.error("✖ crawl aborted, last week's index is kept: %s", e)
         sys.exit(1)
