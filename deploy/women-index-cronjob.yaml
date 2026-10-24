@@ -22,7 +22,7 @@ spec:
               command: ["python", "-m", "fun_with_flags.crawl_women"]
               env:
                 - name: CRAWL_BUDGET_SECONDS
-                  value: "120"   # 25 min
+                  value: "1200"   # 20 min
                 - name: CRAWLER_FERNET_TOKEN
                   valueFrom:
                     secretKeyRef:
