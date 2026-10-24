@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: women-index
+spec:
+  schedule: "30 3 * * 1"          # Monday 03:30
+  timeZone: "Europe/Zurich"
+  concurrencyPolicy: Forbid       # never two crawls at once
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0             # a failed crawl is NOT retried right away
+      activeDeadlineSeconds: 21600
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: women-index
+              image: image-registry.openshift-image-registry.svc:5000/fun-with-flags/fun-with-flags_app-image:latest
+              imagePullPolicy: Always
+              command: ["python", "-m", "fun_with_flags.crawl_women"]
+              env:
+                - name: CRAWLER_FERNET_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: fwf-crawler
+                      key: fernet_token
+              resources:
+                requests: { cpu: 50m, memory: 128Mi }
+                limits: { memory: 256Mi }
