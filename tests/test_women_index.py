@@ -1,6 +1,6 @@
 """Women's index: bot filter and candidate lookup (no CHPP, no CouchDB)."""
 
-from fun_with_flags import women_index helperf
+from fun_with_flags import women_index, helperf
 
 # structure as in real leaguedetails 1.6 (UserId per team), values made up
 SERIES_XML = """<HattrickData><LeagueID>3000</LeagueID>
