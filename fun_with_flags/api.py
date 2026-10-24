@@ -84,6 +84,7 @@ API_PARAMS = {
 }
 
 WOMEN = "2"
+WOMEN_LEAGUE_ID = "3000"
 
 _FLAG_MAP = {"data": None, "ts": 0.0}
 _FLAG_MAP_TTL = 24 * 3600
@@ -405,8 +406,11 @@ def get_country_flag_map(fernet_token=""):
 
 
 def is_women_team(team):
-    """Old sessions without the key count as men's teams, so nothing changes for them."""
-    return team.get("team_gender_id") == WOMEN
+    """GenderID if we have it, else LeagueID 3000 (also works with pre-3.9 sessions)."""
+    return (
+        team.get("team_gender_id") == WOMEN
+        or team.get("team_country_id") == WOMEN_LEAGUE_ID
+    )
 
 
 def flag_id_of_team(team, fernet_token=""):

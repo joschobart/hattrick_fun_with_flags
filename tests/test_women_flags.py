@@ -31,6 +31,12 @@ def test_czech_women_team_never_gets_swiss_flag(teams):
     assert api.flag_id_of_team(czech) == "52"  # 🇨🇿≠🇨🇭
 
 
-def test_old_session_without_gender_is_men_path(teams):
-    assert api.flag_id_of_team({"team_country_id": "46"}) == "46"
+def test_old_session_women_team_detected_by_league_3000():
+    # session built before the deploy (teamdetails 3.6): no team_gender_id
+    old = {"team_country_id": "3000"}
+    assert api.is_women_team(old)
+
+
+def test_old_session_men_team_stays_men():
     assert not api.is_women_team({"team_country_id": "46"})
+    assert api.flag_id_of_team({"team_country_id": "46"}) == "46"
