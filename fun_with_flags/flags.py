@@ -4,7 +4,7 @@ from flask import (Blueprint, current_app, flash, g, render_template, request,
                    session)
 from flask_babel import gettext
 
-from . import api, db, decs, helperf, scheduler
+from . import api, db, decs, helperf, scheduler, women_index
 
 bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 
@@ -178,22 +178,26 @@ def details():
                 flash("Not one of your past friendly-matches.")
 
         elif "match_type" in request.form:
+            weekend_friendly = request.form["match_type"]
+
             if api.is_women_team(session["my_team"].get(session["teamid"], {})):
-                flash(gettext("Opponent search for women's teams is coming soon."))
+                challengeable = []
+                if not women_index.index_ready():
+                    flash(gettext("The women's team index is being built. Please try again later."))
+                else:
+                    _candidates = women_index.candidates(g.flagid, exclude={session["teamid"]})
+                    if _candidates:
+                        challengeable = helperf.get_challengeable_women_teams(
+                            session["teamid"], g.place, _candidates, weekend_friendly,
+                            _opponent_type, _opponent_last_login,
+                        )
+                    else:
+                        g.no_women_teams = True
             else:
-                weekend_friendly = request.form["match_type"]
-
-                sl = helperf.get_series_list(
-                    g.flagid, search_level=int(_league_search_depth)
-                )
-
+                sl = helperf.get_series_list(g.flagid, search_level=int(_league_search_depth))
                 challengeable = helperf.get_challengeable_teams_list(
-                    session["teamid"],
-                    g.place,
-                    sl,
-                    weekend_friendly,
-                    _opponent_type,
-                    _opponent_last_login,
+                    session["teamid"], g.place, sl, weekend_friendly,
+                    _opponent_type, _opponent_last_login,
                 )
                 session["weekend_friendly"] = weekend_friendly
                 session["place"] = g.place

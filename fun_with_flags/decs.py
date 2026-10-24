@@ -25,7 +25,9 @@ def choose_team(view):
         if "username" in session:
             helperf.get_my_teams()
 
-            if session["my_team"][session["teamid"]]["team_league_level_unit_id"] == "":
+            _team = session["my_team"][session["teamid"]]
+            # reload if LLU missing, or session predates teamdetails 3.9 (no gender/country)
+            if _team["team_league_level_unit_id"] == "" or "team_gender_id" not in _team:
                 _xml = api.ht_get_data(
                     "teamdetails", includeFlags="false", teamID=session["teamid"]
                 )

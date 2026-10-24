@@ -49,6 +49,7 @@ ENV UV_PYTHON_DOWNLOADS=never \
     UV_PYTHON=/usr/local/bin/python3.12
 
 ENV HOME=/tmp
+ENV PYTHONUNBUFFERED=1
 
 COPY . /app
 WORKDIR /app

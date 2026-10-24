@@ -164,6 +164,51 @@ def get_challengeable_teams_list(
     return teams
 
 
+def get_challengeable_women_teams(
+    _teamid, _place, candidate_ids, weekend_friendly, opponent_type,
+    opponent_last_login="240", fernet_token="", batch_size=8, max_candidates=400,
+):
+    """Like get_challengeable_teams_list, but candidates come from the women's index.
+
+    Batch size 8 = the same size the men's path sends (one series).
+    """
+    teams = []
+    _place = "0" if _place == "home" else "1"
+    ids = candidate_ids[:max_candidates]
+
+    for start in range(0, len(ids), batch_size):
+        batch = ids[start : start + batch_size]
+        _xml = api.ht_get_data(
+            "challengeable_teams",
+            fernet_token=fernet_token,
+            teamId=_teamid,
+            matchPlace=_place,
+            suggestedTeamIds=", ".join(batch),
+            isWeekendFriendly=weekend_friendly,
+        )
+        for team in api.ht_get_challengeable_teams(_xml):
+            _xml = api.ht_get_data(
+                "teamdetails", teamID=team, includeFlags="false", fernet_token=fernet_token
+            )
+            _team = api.ht_get_team(_xml)
+
+            _login = datetime.strptime(_team["user"]["last_login_date"], "%Y-%m-%d %H:%M:%S")
+            if (datetime.now() - _login).total_seconds() / 3600 > float(opponent_last_login):
+                continue
+
+            if opponent_type != "all":
+                signup_year = int(_team["user"]["signup_date"].split("-", 1)[0])
+                if _team["user"]["supporter_tier"] == "none" or datetime.now().year - signup_year <= 0:
+                    continue
+
+            teams.append((team, _team[team]["team_name"]))
+            if len(teams) >= 25:
+                return teams
+
+    return teams
+
+
+
 def get_continent_flags(continent="NA"):
     all_flags = api.ht_get_all_flags()
     continent_flags = [item for item in all_flags if item[3].startswith(continent)]

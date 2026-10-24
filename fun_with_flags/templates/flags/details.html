@@ -188,6 +188,16 @@
       
       {% endif %}
 
+      {% if g.no_women_teams %}
+        <hr style="width:100%;text-align:left;margin-left:0">
+        {% trans nation=g.nation %}
+        <p><b>Terra incognita!</b> &#129517; No women's team has planted its flag in
+        <b>{{ nation }}</b> yet. The pitch is empty and the history books are blank.
+        Know a manager there? Maybe it's time for the first rebel club in {{ nation }}!</p>
+        <p><i>New clubs might appear here after the next weekly index update (Mondays).</i></p>
+        {% endtrans %}
+      {% endif %}
+
       {% if session["challengeable"] | length > 0 %}
       <hr style="width:100%;text-align:left;margin-left:0">
       {% trans %}<p>There are{% endtrans %} <b>{{ session["challengeable"] | length }}</b> {% trans %}teams challengeable in{% endtrans %} 

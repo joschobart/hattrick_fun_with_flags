@@ -1,6 +1,7 @@
 """hattrick-libs api-client functions"""
 
 
+import logging
 import threading
 import time
 
@@ -84,10 +85,13 @@ API_PARAMS = {
 }
 
 WOMEN = "2"
+WOMEN_LEAGUE_ID = "3000"
 
 _FLAG_MAP = {"data": None, "ts": 0.0}
 _FLAG_MAP_TTL = 24 * 3600
 _FLAG_MAP_LOCK = threading.Lock()
+
+log = logging.getLogger(__name__)
 
 
 def ht_do_challenge(
@@ -175,7 +179,7 @@ def ht_get_data(name, api_url=API_URL, fernet_token="", **kwargs):
 
     params = {**API_PARAMS[name], **kwargs}
     params.update(kwargs)
-    print(params)
+    log.debug("CHPP %s", params)
 
     xml_data = ht_session.get(api_url, params=params)
     try:
@@ -405,8 +409,11 @@ def get_country_flag_map(fernet_token=""):
 
 
 def is_women_team(team):
-    """Old sessions without the key count as men's teams, so nothing changes for them."""
-    return team.get("team_gender_id") == WOMEN
+    """GenderID if we have it, else LeagueID 3000 (also works with pre-3.9 sessions)."""
+    return (
+        team.get("team_gender_id") == WOMEN
+        or team.get("team_country_id") == WOMEN_LEAGUE_ID
+    )
 
 
 def flag_id_of_team(team, fernet_token=""):
