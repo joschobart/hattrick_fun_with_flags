@@ -27,7 +27,12 @@ class CrawlAborted(RuntimeError):
 
 def _db():
     server = couchdb.Server(os.environ["COUCHDB_CONNECTION_STRING"])
-    return server[DB_NAME] if DB_NAME in server else server.create(DB_NAME)
+    if DB_NAME not in server:
+        raise RuntimeError(
+            f"CouchDB database {DB_NAME!r} is missing. An admin has to create it once "
+            "(and copy _security from fwf_db)."
+        )
+    return server[DB_NAME]
 
 
 def _fmt(seconds):

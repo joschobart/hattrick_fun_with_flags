@@ -26,6 +26,13 @@ spec:
                     secretKeyRef:
                       name: fwf-crawler
                       key: fernet_token
+                - name: COUCHDB_CONNECTION_STRING
+                  valueFrom:
+                    secretKeyRef:
+                      name: fwf-crawler-db
+                      key: url
+                - name: PYTHONUNBUFFERED
+                  value: "1"
               resources:
                 requests: { cpu: 50m, memory: 128Mi }
                 limits: { memory: 256Mi }
