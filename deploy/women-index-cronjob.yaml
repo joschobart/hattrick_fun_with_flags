@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: women-index
 spec:
-  schedule: "*/30 * * * *"         # INITIAL BUILD: every 30 min (20 min work + 10 min gap)
+  schedule: "15,45 3-6 * * 1"       # Monday 03:15–06:45, 8 slots
   timeZone: "Europe/Zurich"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 2
