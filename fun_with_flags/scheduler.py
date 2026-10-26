@@ -4,7 +4,30 @@ from datetime import datetime, timedelta
 
 import couchdb
 
-from . import api, db, helperf
+from . import api, db, helperf, women_index
+
+
+def find_opponents(team_id, team_gender, country_id, match_place, search_depth,
+                   weekend_friendly, opponent_type, fernet_token):
+    """Opponent search for scheduled runs.
+
+    """
+    if team_gender == api.WOMEN:
+        if not women_index.index_ready():
+            return []
+        candidates = women_index.candidates(country_id, exclude={team_id})
+        return helperf.get_challengeable_women_teams(
+            team_id, match_place, candidates, weekend_friendly, opponent_type,
+            fernet_token=fernet_token,
+        )
+
+    series = helperf.get_series_list(
+        country_id, search_level=int(search_depth), fernet_token=fernet_token
+    )
+    return helperf.get_challengeable_teams_list(
+        team_id, match_place, series, weekend_friendly, opponent_type,
+        fernet_token=fernet_token,
+    )
 
 
 def sensor():
@@ -37,6 +60,7 @@ def sensor():
                 _search_depth = _my_document[_team_id]["search_depth"]
                 _match_place = _my_document[_team_id]["match_place"]
                 _match_rules = _my_document[_team_id]["match_rules"]
+                _team_gender = _my_document[_team_id].get("team_gender", "1")  # old docs = men
                 _weekend_friendly = "0"
 
                 # here we check if there is a match-booking already for the
@@ -104,29 +128,12 @@ def sensor():
                         _user_couch[_user_id] = _my_doc
 
                 elif datetime.today().weekday() == 3:
-                    if _match_place == "home":
-                        _mp = "0"
-                    else:
-                        _mp = "1"
+                    _mp = "0" if _match_place == "home" else "1"   # for ht_do_challenge only
+                    _mr = "0" if _match_rules == "normal" else "1"
 
-                    if _match_rules == "normal":
-                        _mr = "0"
-                    else:
-                        _mr = "1"
-
-                    _series_list = helperf.get_series_list(
-                        _country_id,
-                        search_level=int(_search_depth),
-                        fernet_token=_fernet_token,
-                    )
-
-                    _challengeable = helperf.get_challengeable_teams_list(
-                        _team_id,
-                        _mp,
-                        _series_list,
-                        _weekend_friendly,
-                        _opponent_type,
-                        fernet_token=_fernet_token,
+                    _challengeable = find_opponents(
+                        _team_id, _team_gender, _country_id, _match_place,
+                        _search_depth, _weekend_friendly, _opponent_type, _fernet_token,
                     )
 
                     _object = {
@@ -141,6 +148,7 @@ def sensor():
                                 "opponent_type": _opponent_type,
                                 "search_depth": _search_depth,
                                 "weekend_friendly": _weekend_friendly,
+                                "team_gender": _team_gender,
                             },
                         },
                     }
@@ -216,6 +224,7 @@ def schedule(_event, _schedule_type=""):
             "opponent_type": _schedule_details["opponent_type"],
             "search_depth": _schedule_details["search_depth"],
             "weekend_friendly": _schedule_details["weekend_friendly"],
+            "team_gender": _schedule_details.get("team_gender", "1"),
         }
 
         try:

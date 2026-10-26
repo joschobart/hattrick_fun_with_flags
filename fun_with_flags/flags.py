@@ -51,6 +51,10 @@ def details():
 
     g.place = request.args.get("place")
 
+    _team_gender = (
+        api.WOMEN if api.is_women_team(session["my_team"].get(session["teamid"], {})) else "1"
+    )
+
     g.l_home, g.l_away, *_ = helperf.compose_flag_matrix(session["teamid"])
 
     gmc, bookable_slot = helperf.get_my_challenges()
@@ -214,36 +218,35 @@ def details():
                             "opponent_type": _opponent_type,
                             "search_depth": _league_search_depth,
                             "weekend_friendly": "0",
+                            "team_gender": _team_gender,
                         },
                     },
                 }
 
         elif "schedule_friendly" in request.form:
-            if api.is_women_team(session["my_team"].get(session["teamid"], {})):
-                flash(gettext("Schedules for women's teams are coming soon."))
-            else:
-                _object = {
-                    "type": "add_schedule",
-                    "data": {
-                        "object": {
-                            "team_id": session["teamid"],
-                            "fernet_token": session["encrypted_access_token"],
-                            "country_id": g.flagid,
-                            "match_place": g.place,
-                            "match_rules": _match_rules,
-                            "opponent_type": _opponent_type,
-                            "search_depth": _league_search_depth,
-                            "weekend_friendly": "0",
-                        },
+            _object = {
+                "type": "add_schedule",
+                "data": {
+                    "object": {
+                        "team_id": session["teamid"],
+                        "fernet_token": session["encrypted_access_token"],
+                        "country_id": g.flagid,
+                        "match_place": g.place,
+                        "match_rules": _match_rules,
+                        "opponent_type": _opponent_type,
+                        "search_depth": _league_search_depth,
+                        "weekend_friendly": "0",
+                        "team_gender": _team_gender,
                     },
-                }
+                },
+            }
 
-                scheduler.schedule(_object)
-                flash(
-                    gettext(
-                        "Schedule for challenge is booked. You find it under 'Challenges'."
-                    )
+            scheduler.schedule(_object)
+            flash(
+                gettext(
+                    "Schedule for challenge is booked. You find it under 'Challenges'."
                 )
+            )
 
         elif "delete_schedule" in request.form:
             _object = {
