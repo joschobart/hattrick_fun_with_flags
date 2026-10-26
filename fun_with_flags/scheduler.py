@@ -1,33 +1,41 @@
 """FwF-scheduler related functions"""
 
 from datetime import datetime, timedelta
+import logging
 
 import couchdb
 
 from . import api, db, helperf, women_index
 
+log = logging.getLogger(__name__)
+
 
 def find_opponents(team_id, team_gender, country_id, match_place, search_depth,
                    weekend_friendly, opponent_type, fernet_token):
-    """Opponent search for scheduled runs.
-
-    """
+    """Opponent search for scheduled runs. match_place is "home"/"away"."""
+    stats = {}
     if team_gender == api.WOMEN:
         if not women_index.index_ready():
+            log.info("scheduler %s: women's index not ready, skipping", team_id)
             return []
         candidates = women_index.candidates(country_id, exclude={team_id})
-        return helperf.get_challengeable_women_teams(
+        result = helperf.get_challengeable_women_teams(
             team_id, match_place, candidates, weekend_friendly, opponent_type,
-            fernet_token=fernet_token,
+            fernet_token=fernet_token, stats=stats,
+        )
+    else:
+        series = helperf.get_series_list(
+            country_id, search_level=int(search_depth), fernet_token=fernet_token
+        )
+        result = helperf.get_challengeable_teams_list(
+            team_id, match_place, series, weekend_friendly, opponent_type,
+            fernet_token=fernet_token, stats=stats,
         )
 
-    series = helperf.get_series_list(
-        country_id, search_level=int(search_depth), fernet_token=fernet_token
-    )
-    return helperf.get_challengeable_teams_list(
-        team_id, match_place, series, weekend_friendly, opponent_type,
-        fernet_token=fernet_token,
-    )
+    log.info("scheduler %s (gender %s, flag %s): checked=%s chpp_yes=%s found=%d",
+             team_id, team_gender, country_id,
+             stats.get("checked"), stats.get("chpp_yes"), len(result))
+    return result
 
 
 def sensor():

@@ -15,7 +15,7 @@ fi
 mkdir -p "$OUT_DIR"
 
 repomix "$REPO" \
-  --include "README.rst,fun_with_flags/*.py,fun_with_flags/templates/**,fun_with_flags/templates/**/**,instance/config.py,pyproject.toml,.github/**/**,docker/**" \
+  --include "README.rst,CONTEXT.md,fun_with_flags/*.py,fun_with_flags/templates/**,fun_with_flags/templates/**/**,instance/config.py,pyproject.toml,.github/**/**,docker/**" \
   -o "$OUT_DIR/repomix.md" --style markdown --token-budget "$BUDGET"
 
 echo "-> packs in $OUT_DIR"
