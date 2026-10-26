@@ -84,7 +84,7 @@ def crypto_string(_input, _op="encrypt"):
 
 
 def get_challengeable_teams_list(
-    _teamid, _place, series_list, weekend_friendly, opponent_type, opponent_last_login="240", fernet_token=""
+    _teamid, _place, series_list, weekend_friendly, opponent_type, opponent_last_login="240", fernet_token="", stats=None,
 ):
     """
 
@@ -166,7 +166,7 @@ def get_challengeable_teams_list(
 
 def get_challengeable_women_teams(
     _teamid, _place, candidate_ids, weekend_friendly, opponent_type,
-    opponent_last_login="240", fernet_token="", batch_size=8, max_candidates=400,
+    opponent_last_login="240", fernet_token="", batch_size=8, max_candidates=400, stats=None,
 ):
     """Like get_challengeable_teams_list, but candidates come from the women's index.
 
