@@ -11,3 +11,4 @@ scripts
 tests
 docker
 dist
+CONTEXT.md

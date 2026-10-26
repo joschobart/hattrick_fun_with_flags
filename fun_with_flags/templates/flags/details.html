@@ -133,7 +133,12 @@
            </p>
           {% trans %}<input type="submit" value="Search Opponents" name="search_opponents" id="search_opponents" onclick="loadSpinner()">{% endtrans %}
         </form>
-      {% else %}
+      {% endif %}
+
+      {% if not g.bookable %}
+        {% if g.weekend_bookable %}
+          <hr style="width:100%;text-align:left;margin-left:0">
+        {% endif %}
 
         {% if session["unicorn"] %}
           {% if g.schedule is defined %}
@@ -185,7 +190,6 @@
           <a href="{{url_for('settings.settings')}}">{% trans %}Settings</a></p>
           {% endtrans %}
         {% endif %}
-      
       {% endif %}
 
       {% if g.no_women_teams %}
@@ -195,6 +199,18 @@
         <b>{{ nation }}</b> yet. The pitch is empty and the history books are blank.
         Know a manager there? Maybe it's time for the first rebel club in {{ nation }}!</p>
         <p><i>New clubs might appear here after the next weekly index update (Mondays).</i></p>
+        {% endtrans %}
+      {% endif %}
+      {% if g.chpp_all_false %}
+        <hr style="width:100%;text-align:left;margin-left:0">
+        {% trans checked=g.chpp_all_false, teamid=session['teamid'] %}
+        <p><b>Hattrick says "no" to everyone</b> &#129300; We asked about {{ checked }} teams,
+        and Hattrick's CHPP interface reported every single one as not challengeable.
+        If you can challenge teams on hattrick.org, this is a known CHPP issue that
+        affects some teams for a few weeks at a time.</p>
+        <p>Until it's fixed: book directly on
+        <a href="https://hattrick.org/goto.ashx?path=/Club/Challenges/?TeamID={{ teamid }}" target="_blank">hattrick.org</a>,
+        and please report it to Hattrick support. The more reports, the better! &#128172;</p>
         {% endtrans %}
       {% endif %}
 

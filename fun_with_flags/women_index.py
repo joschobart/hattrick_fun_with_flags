@@ -122,11 +122,14 @@ def build(token, delay=1.0, max_units=None, budget=None):
     cache = cache_doc["teams"]
 
     prog = db.get(PROGRESS_ID) or {"_id": PROGRESS_ID}
-    if prog.get("week") != _week():  # new week → new crawl
-        prog.update(week=_week(), done_units=[], humans=[], complete=False)
+    if prog.get("week") != _week():
+        prog.update(week=_week(), done_units=[], humans=[], complete=False,
+                    started=datetime.now(timezone.utc).isoformat(), slices=0)
     if prog.get("complete"):
         log.info("✅ crawl for %s already complete, nothing to do", prog["week"])
         return
+    prog["slices"] = prog.get("slices", 0) + 1
+
 
     # 1. the women's league tree
     p = _phase(1, "league tree", league=api.WOMEN_LEAGUE_ID, delay=f"{delay}s")
@@ -196,8 +199,6 @@ def build(token, delay=1.0, max_units=None, budget=None):
             unmapped += 1
     if unmapped:
         log.warning("  %d teams without a flag (unknown CountryID)", unmapped)
-    prog["complete"] = True
-    db.save(prog)
 
     now = datetime.now(timezone.utc).isoformat()
     for flag, teams in by_flag.items():
@@ -211,9 +212,15 @@ def build(token, delay=1.0, max_units=None, budget=None):
             db.save(doc)
 
     meta = db.get(META_ID) or {"_id": META_ID}
+    meta.pop("duration", None)
     meta.update(updated=now, series=len(units), teams=len(humans), flags=len(by_flag),
-                duration=_fmt(time.monotonic() - t0), dry_run=bool(max_units))
+                duration_last_slice=_fmt(time.monotonic() - t0),
+                started=prog.get("started"), slices=prog["slices"], dry_run=bool(max_units))
     db.save(meta)
+
+    prog["complete"] = True
+    db.save(prog)
+
     _done(4, p, flags=len(by_flag), teams=sum(map(len, by_flag.values())))
     log.info("🏁 crawl finished in %s", _fmt(time.monotonic() - t0))
 

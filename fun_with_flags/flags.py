@@ -9,6 +9,19 @@ from . import api, db, decs, helperf, scheduler, women_index
 bp_f = Blueprint("flags", __name__, url_prefix="/flags")
 
 
+def _has_booked(challenges, weekend_friendly):
+    """True if an AGREED friendly of this type exists ("0" = midweek, "1" = weekend).
+
+    Pending challenges don't count: they block nothing on CHPP.
+    Tuple layout from helperf.get_my_challenges():
+    (challenge, match_time, tdelta, tdelta_hours, is_weekend_match, bookable, weekend_bookable)
+    """
+    want_weekend = weekend_friendly == "1"
+    return any(
+        c[0]["is_agreed"] == "True" and c[-3] == want_weekend for c in challenges
+    )
+
+
 @bp_f.route("/overview", methods=("GET", "POST"))
 @decs.login_required
 @decs.choose_team
@@ -51,9 +64,8 @@ def details():
 
     g.place = request.args.get("place")
 
-    _team_gender = (
-        api.WOMEN if api.is_women_team(session["my_team"].get(session["teamid"], {})) else "1"
-    )
+    _is_women = api.is_women_team(session["my_team"].get(session["teamid"], {}))
+    _team_gender = api.WOMEN if _is_women else "1"
 
     g.l_home, g.l_away, *_ = helperf.compose_flag_matrix(session["teamid"])
 
@@ -183,9 +195,9 @@ def details():
 
         elif "match_type" in request.form:
             weekend_friendly = request.form["match_type"]
+            _stats = {}
 
-            if api.is_women_team(session["my_team"].get(session["teamid"], {})):
-                challengeable = []
+            if _is_women:
                 if not women_index.index_ready():
                     flash(gettext("The women's team index is being built. Please try again later."))
                 else:
@@ -193,7 +205,7 @@ def details():
                     if _candidates:
                         challengeable = helperf.get_challengeable_women_teams(
                             session["teamid"], g.place, _candidates, weekend_friendly,
-                            _opponent_type, _opponent_last_login,
+                            _opponent_type, _opponent_last_login, stats=_stats,
                         )
                     else:
                         g.no_women_teams = True
@@ -201,27 +213,37 @@ def details():
                 sl = helperf.get_series_list(g.flagid, search_level=int(_league_search_depth))
                 challengeable = helperf.get_challengeable_teams_list(
                     session["teamid"], g.place, sl, weekend_friendly,
-                    _opponent_type, _opponent_last_login,
+                    _opponent_type, _opponent_last_login, stats=_stats,
                 )
-                session["weekend_friendly"] = weekend_friendly
-                session["place"] = g.place
-                session["challengeable"] = challengeable
-                session["object"] = {
-                    "type": "add_schedule",
-                    "data": {
-                        "object": {
-                            "team_id": session["teamid"],
-                            "fernet_token": session["encrypted_access_token"],
-                            "country_id": g.flagid,
-                            "match_place": g.place,
-                            "match_rules": _match_rules,
-                            "opponent_type": _opponent_type,
-                            "search_depth": _league_search_depth,
-                            "weekend_friendly": "0",
-                            "team_gender": _team_gender,
-                        },
+
+            # "no to everyone" only makes sense if nothing of this type is booked yet
+            if (
+                not challengeable
+                and _stats.get("checked")
+                and _stats["chpp_yes"] == 0
+                and not _has_booked(gmc, weekend_friendly)
+            ):
+                g.chpp_all_false = _stats["checked"]
+
+            session["weekend_friendly"] = weekend_friendly
+            session["place"] = g.place
+            session["challengeable"] = challengeable
+            session["object"] = {
+                "type": "add_schedule",
+                "data": {
+                    "object": {
+                        "team_id": session["teamid"],
+                        "fernet_token": session["encrypted_access_token"],
+                        "country_id": g.flagid,
+                        "match_place": g.place,
+                        "match_rules": _match_rules,
+                        "opponent_type": _opponent_type,
+                        "search_depth": _league_search_depth,
+                        "weekend_friendly": "0",
+                        "team_gender": _team_gender,
                     },
-                }
+                },
+            }
 
         elif "schedule_friendly" in request.form:
             _object = {

@@ -84,19 +84,29 @@ def crypto_string(_input, _op="encrypt"):
 
 
 def get_challengeable_teams_list(
-    _teamid, _place, series_list, weekend_friendly, opponent_type, opponent_last_login="240", fernet_token="", stats=None,
+    _teamid,
+    _place,
+    series_list,
+    weekend_friendly,
+    opponent_type,
+    opponent_last_login="240",
+    fernet_token="",
+    stats=None,
 ):
-    """
+    """Search challengeable men's teams series by series.
 
-    :param _teamid:
-    :param _place:
-    :param series_list:
-    :param weekend_friendly:
-    :param opponent_type:
-    :param fernet_token:  (Default value = "")
-
+    :param _teamid: own team id
+    :param _place: "home" or "away"
+    :param series_list: LeagueLevelUnitIDs to search
+    :param weekend_friendly: "0" or "1"
+    :param opponent_type: "all" or "supporter"
+    :param opponent_last_login: max hours since the opponent's last login
+    :param fernet_token: (Default value = "")
+    :param stats: optional dict, filled with checked / chpp_yes counts
     """
     teams = []
+    if stats is not None:
+        stats.update(checked=0, chpp_yes=0)
 
     if _place == "home":
         _place = "0"
@@ -108,18 +118,22 @@ def get_challengeable_teams_list(
             "teams_in_series", fernet_token=fernet_token, leagueLevelUnitID=series
         )
         teams_in_series = api.ht_get_teams_in_series(teams_in_series)
-        teams_in_series = ", ".join(teams_in_series["series_teams"])
+        series_ids = teams_in_series["series_teams"]
 
         challengeable_teams = api.ht_get_data(
             "challengeable_teams",
             fernet_token=fernet_token,
             teamId=_teamid,
             matchPlace=_place,
-            suggestedTeamIds=teams_in_series,
+            suggestedTeamIds=", ".join(series_ids),
             isWeekendFriendly=weekend_friendly,
         )
 
         challengeable_teams = api.ht_get_challengeable_teams(challengeable_teams)
+
+        if stats is not None:
+            stats["checked"] += len(series_ids)
+            stats["chpp_yes"] += len(challengeable_teams)
 
         for team in challengeable_teams:
             _xml = api.ht_get_data(
@@ -136,7 +150,6 @@ def get_challengeable_teams_list(
             _tdelta = _tdelta.total_seconds()
             _tdelta_hours = round(_tdelta / 3600, 1)
 
-
             if _tdelta_hours > float(opponent_last_login):
                 continue
 
@@ -145,7 +158,7 @@ def get_challengeable_teams_list(
                     _team = (team, _team[team]["team_name"])
                     teams.append(_team)
                 else:
-                    break
+                    return teams
 
             else:
                 signup_year = _team["user"]["signup_date"].split("-", 1)[0]
@@ -159,20 +172,32 @@ def get_challengeable_teams_list(
                         _team = (team, _team[team]["team_name"])
                         teams.append(_team)
                     else:
-                        break
+                        return teams
 
     return teams
 
 
 def get_challengeable_women_teams(
-    _teamid, _place, candidate_ids, weekend_friendly, opponent_type,
-    opponent_last_login="240", fernet_token="", batch_size=8, max_candidates=400, stats=None,
+    _teamid,
+    _place,
+    candidate_ids,
+    weekend_friendly,
+    opponent_type,
+    opponent_last_login="240",
+    fernet_token="",
+    batch_size=8,
+    max_candidates=400,
+    stats=None,
 ):
     """Like get_challengeable_teams_list, but candidates come from the women's index.
 
     Batch size 8 = the same size the men's path sends (one series).
+    :param stats: optional dict, filled with checked / chpp_yes counts
     """
     teams = []
+    if stats is not None:
+        stats.update(checked=0, chpp_yes=0)
+
     _place = "0" if _place == "home" else "1"
     ids = candidate_ids[:max_candidates]
 
@@ -186,7 +211,13 @@ def get_challengeable_women_teams(
             suggestedTeamIds=", ".join(batch),
             isWeekendFriendly=weekend_friendly,
         )
-        for team in api.ht_get_challengeable_teams(_xml):
+        chpp_yes = api.ht_get_challengeable_teams(_xml)
+
+        if stats is not None:
+            stats["checked"] += len(batch)
+            stats["chpp_yes"] += len(chpp_yes)
+
+        for team in chpp_yes:
             _xml = api.ht_get_data(
                 "teamdetails", teamID=team, includeFlags="false", fernet_token=fernet_token
             )
@@ -206,7 +237,6 @@ def get_challengeable_women_teams(
                 return teams
 
     return teams
-
 
 
 def get_continent_flags(continent="NA"):

@@ -28,6 +28,11 @@ def test_ht_libs_contract_used_by_login():
     xml = "<HattrickData><UserID>42</UserID></HattrickData>"
     assert request_token_status.request_token_status(xml)["user_id"][0] == "42"
 
+def test_all_templates_compile():
+    app = create_app()
+    env = app.jinja_env
+    for name in env.list_templates(extensions=["html"]):
+        env.get_template(name)   # raises TemplateSyntaxError on broken templates
 
 def test_worldmap_renders():
     flags = {"123": {"flags_home": [("46", "Switzerland", "CH", "EU")], "flags_away": []}}
