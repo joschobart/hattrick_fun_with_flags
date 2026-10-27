@@ -10,6 +10,8 @@ from pygal import maps, style
 
 from . import api
 
+WORLDMAP_NO_DATA_TEXT = "No data yet. Go capture a flag first!;)"
+
 
 def compose_flag_matrix(teamid, fernet_token=""):
     """
@@ -423,9 +425,15 @@ def render_worldmap(my_flags, teamid):
         opacity_hover=".9",
         transition="400ms ease-in",
         colors=("#40513B", "#609966", "#522546", "#88304E"),
+        no_data_font_size=25,
     )
 
-    worldmap_chart = maps.world.World(height=350, style=_style)
+    # no_data_text: shown when the team has no flags yet
+    worldmap_chart = maps.world.World(
+        height=390,
+        style=_style,
+        no_data_text=WORLDMAP_NO_DATA_TEXT,
+    )
 
     for home_flag in my_flags[teamid]["flags_home"]:
         home_flag = home_flag[2].lower()
