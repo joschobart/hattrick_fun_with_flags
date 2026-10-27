@@ -1,5 +1,7 @@
 """Men's opponent search: stops at 25 teams and counts stats."""
 
+import base64
+
 from fun_with_flags import helperf
 
 
@@ -52,3 +54,13 @@ def test_men_search_all_false_is_detectable(monkeypatch):
 
     assert result == []
     assert stats == {"checked": 16, "chpp_yes": 0}  # → "Hattrick says no to everyone"
+
+
+def _svg(data_uri):
+    return base64.b64decode(data_uri.split(",", 1)[1]).decode("utf-8")
+
+
+def test_worldmap_empty_collection_shows_friendly_text():
+    flags = {"3242724": {"flags_home": [], "flags_away": []}}
+    svg = _svg(helperf.render_worldmap(flags, "3242724"))
+    assert helperf.WORLDMAP_NO_DATA_TEXT in svg
