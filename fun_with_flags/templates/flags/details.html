@@ -201,6 +201,7 @@
         <p><i>New clubs might appear here after the next weekly index update (Mondays).</i></p>
         {% endtrans %}
       {% endif %}
+
       {% if g.chpp_all_false %}
         <hr style="width:100%;text-align:left;margin-left:0">
         {% trans checked=g.chpp_all_false, teamid=session['teamid'] %}
@@ -212,7 +213,24 @@
         <a href="https://hattrick.org/goto.ashx?path=/Club/Challenges/?TeamID={{ teamid }}" target="_blank">hattrick.org</a>,
         and please report it to Hattrick support. The more reports, the better! &#128172;</p>
         {% endtrans %}
+
+        {% if g.chpp_scanned %}
+          {% trans %}<p><b>Teams we checked</b> &#128269; Open a team's page to challenge it by hand.
+          Some of them may already have a friendly booked.</p>{% endtrans %}
+          <table style="width:100%; border:0; border-collapse:collapse;">
+            {% for row in g.chpp_scanned | batch(4) %}
+              <tr>
+                {% for team_id, team_name in row %}
+                  <td style="border:0; padding:2px 8px; text-align:left; width:25%;">
+                    <a href="https://hattrick.org/goto.ashx?path=/Club/?TeamID={{ team_id }}" target="_blank">{{ team_name }}</a>
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </table>
+        {% endif %}
       {% endif %}
+
 
       {% if session["challengeable"] | length > 0 %}
       <hr style="width:100%;text-align:left;margin-left:0">

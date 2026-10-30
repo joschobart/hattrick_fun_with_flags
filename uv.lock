@@ -407,6 +407,7 @@ version = "1.5.0"
 source = { editable = "." }
 dependencies = [
     { name = "apscheduler" },
+    { name = "beautifulsoup4" },
     { name = "cffi" },
     { name = "couchdb" },
     { name = "cryptography" },
@@ -415,6 +416,7 @@ dependencies = [
     { name = "gunicorn" },
     { name = "hattrick-libs" },
     { name = "jinja2" },
+    { name = "lxml" },
     { name = "pygal" },
     { name = "pygal-maps-world" },
     { name = "stripe" },
@@ -430,6 +432,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "apscheduler", specifier = ">=3.10.4,<4" },
+    { name = "beautifulsoup4", specifier = ">=4.13" },
     { name = "cffi", specifier = ">=2.1.1" },
     { name = "couchdb", specifier = ">=1.2" },
     { name = "cryptography", specifier = ">=50.0.0" },
@@ -438,6 +441,7 @@ requires-dist = [
     { name = "gunicorn", specifier = ">=21.2.0" },
     { name = "hattrick-libs", specifier = ">=0.22.0" },
     { name = "jinja2", specifier = ">=3.1.4" },
+    { name = "lxml", specifier = ">=6" },
     { name = "pygal", specifier = ">=3.0.5" },
     { name = "pygal-maps-world", specifier = ">=1.0.2" },
     { name = "stripe", specifier = ">=8.1.0,<13" },

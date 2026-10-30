@@ -224,6 +224,7 @@ def details():
                 and not _has_booked(gmc, weekend_friendly)
             ):
                 g.chpp_all_false = _stats["checked"]
+                g.chpp_scanned = helperf.sample_scanned(_stats.get("scanned", []))
 
             session["weekend_friendly"] = weekend_friendly
             session["place"] = g.place
