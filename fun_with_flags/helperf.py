@@ -2,15 +2,49 @@
 
 import os
 from datetime import datetime
-from random import randrange, shuffle
+from random import randrange, sample, shuffle
 
+from bs4 import BeautifulSoup
 from cryptography.fernet import Fernet
 from flask import session
 from pygal import maps, style
 
 from . import api
 
-WORLDMAP_NO_DATA_TEXT = "No data yet. Go capture a flag first!;)"
+WORLDMAP_NO_DATA_TEXT = "No flags yet. Go grab your first one!"
+SCANNED_MAX = 40  # teams listed under "Hattrick says no to everyone"
+
+
+def _scanned_opponents(challengeable_xml):
+    """(team_id, team_name) of every human opponent in a challengeable response.
+
+    CHPP lists each suggested team as <Opponent>, challengeable or not,
+    so names come for free. Bots (UserId 0) are skipped.
+    """
+    soup = BeautifulSoup(challengeable_xml, "xml")
+    scanned = []
+    for o in soup.find_all("Opponent"):
+        if o.TeamId is None or o.TeamName is None:
+            continue
+        if o.UserId is not None and o.UserId.text.strip() == "0":
+            continue
+        scanned.append((o.TeamId.text.strip(), o.TeamName.text.strip()))
+    return scanned
+
+
+def _collect_stats(stats, checked, chpp_yes, challengeable_xml):
+    """Update stats in place: counts plus ALL scanned human teams (sampled for display)."""
+    if stats is None:
+        return
+    stats["checked"] += checked
+    stats["chpp_yes"] += chpp_yes
+    stats["scanned"].extend(_scanned_opponents(challengeable_xml))
+
+
+def sample_scanned(scanned, k=SCANNED_MAX):
+    """Random k of all scanned teams, in random order: each refresh shows new ones."""
+    unique = list(dict.fromkeys(scanned))
+    return sample(unique, min(k, len(unique)))
 
 
 def compose_flag_matrix(teamid, fernet_token=""):
@@ -104,11 +138,11 @@ def get_challengeable_teams_list(
     :param opponent_type: "all" or "supporter"
     :param opponent_last_login: max hours since the opponent's last login
     :param fernet_token: (Default value = "")
-    :param stats: optional dict, filled with checked / chpp_yes counts
+    :param stats: optional dict, filled with checked / chpp_yes / scanned
     """
     teams = []
     if stats is not None:
-        stats.update(checked=0, chpp_yes=0)
+        stats.update(checked=0, chpp_yes=0, scanned=[])
 
     if _place == "home":
         _place = "0"
@@ -122,7 +156,7 @@ def get_challengeable_teams_list(
         teams_in_series = api.ht_get_teams_in_series(teams_in_series)
         series_ids = teams_in_series["series_teams"]
 
-        challengeable_teams = api.ht_get_data(
+        _challengeable_xml = api.ht_get_data(
             "challengeable_teams",
             fernet_token=fernet_token,
             teamId=_teamid,
@@ -131,11 +165,9 @@ def get_challengeable_teams_list(
             isWeekendFriendly=weekend_friendly,
         )
 
-        challengeable_teams = api.ht_get_challengeable_teams(challengeable_teams)
+        challengeable_teams = api.ht_get_challengeable_teams(_challengeable_xml)
 
-        if stats is not None:
-            stats["checked"] += len(series_ids)
-            stats["chpp_yes"] += len(challengeable_teams)
+        _collect_stats(stats, len(series_ids), len(challengeable_teams), _challengeable_xml)
 
         for team in challengeable_teams:
             _xml = api.ht_get_data(
@@ -194,11 +226,11 @@ def get_challengeable_women_teams(
     """Like get_challengeable_teams_list, but candidates come from the women's index.
 
     Batch size 8 = the same size the men's path sends (one series).
-    :param stats: optional dict, filled with checked / chpp_yes counts
+    :param stats: optional dict, filled with checked / chpp_yes / scanned
     """
     teams = []
     if stats is not None:
-        stats.update(checked=0, chpp_yes=0)
+        stats.update(checked=0, chpp_yes=0, scanned=[])
 
     _place = "0" if _place == "home" else "1"
     ids = candidate_ids[:max_candidates]
@@ -215,9 +247,7 @@ def get_challengeable_women_teams(
         )
         chpp_yes = api.ht_get_challengeable_teams(_xml)
 
-        if stats is not None:
-            stats["checked"] += len(batch)
-            stats["chpp_yes"] += len(chpp_yes)
+        _collect_stats(stats, len(batch), len(chpp_yes), _xml)
 
         for team in chpp_yes:
             _xml = api.ht_get_data(
@@ -359,7 +389,7 @@ def get_series_list(flagid, search_level=2, fernet_token=""):
     (1, "i",     1),
     (2, "ii",    4),  # <------ default (search_level=2)
     (3, "iii",  16),
-    (4, "iv",   64),  
+    (4, "iv",   64),
     (5, "v",   256),  # <------ 341 series, max. 2728 teams (deep-search)
     (6, "vi", 1024),
     """
@@ -425,14 +455,11 @@ def render_worldmap(my_flags, teamid):
         opacity_hover=".9",
         transition="400ms ease-in",
         colors=("#40513B", "#609966", "#522546", "#88304E"),
-        no_data_font_size=25,
     )
 
-    # no_data_text: shown when the team has no flags yet
+    # no_data_text: shown when the team has no flags yet (e.g. a brand-new women's team)
     worldmap_chart = maps.world.World(
-        height=390,
-        style=_style,
-        no_data_text=WORLDMAP_NO_DATA_TEXT,
+        height=350, style=_style, no_data_text=WORLDMAP_NO_DATA_TEXT
     )
 
     for home_flag in my_flags[teamid]["flags_home"]:

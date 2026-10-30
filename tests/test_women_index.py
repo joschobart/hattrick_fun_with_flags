@@ -58,4 +58,4 @@ def test_all_false_is_detectable(monkeypatch):
     stats = {}
     assert helperf.get_challengeable_women_teams(
         "3242724", "home", ["1", "2", "3"], "0", "all", stats=stats) == []
-    assert stats == {"checked": 3, "chpp_yes": 0}
+    assert stats == {"scanned": [], "checked": 3, "chpp_yes": 0}
