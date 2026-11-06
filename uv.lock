@@ -439,7 +439,7 @@ requires-dist = [
     { name = "flask", specifier = ">=3.1.3" },
     { name = "flask-babel", specifier = ">=4.0.0" },
     { name = "gunicorn", specifier = ">=21.2.0" },
-    { name = "hattrick-libs", specifier = ">=0.22.0" },
+    { name = "hattrick-libs", specifier = ">=0.22.2" },
     { name = "jinja2", specifier = ">=3.1.4" },
     { name = "lxml", specifier = ">=6" },
     { name = "pygal", specifier = ">=3.0.5" },
@@ -456,16 +456,17 @@ dev = [
 
 [[package]]
 name = "hattrick-libs"
-version = "0.22.0"
+version = "0.22.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beautifulsoup4" },
     { name = "lxml" },
+    { name = "oauthlib" },
     { name = "requests-oauthlib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/da/40/f5260f73d8110324c055f0c973fb39ac9bffc7980fe43757088d85b3769c/hattrick_libs-0.22.0.tar.gz", hash = "sha256:95ca25a7e917adc62038a5a296d8cf9763a554ee9ca40f419ebc190e8f54125b", size = 93137, upload-time = "2026-10-23T22:22:08.407Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/de/0f/9077ef83c6a30e8dabe1c26d67d515b14bd89ab4d88e8bc7d08f4184c1f7/hattrick_libs-0.22.2.tar.gz", hash = "sha256:fe7ac4408ae3355b2194e830dd13a0f18b04f68e6872af78466d9e5bddccbe55", size = 93292, upload-time = "2026-11-06T21:15:09.699Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/29/61/3080bf33eeded98fddef8b22f111a2036eaab473a7ac63b3de10319c35aa/hattrick_libs-0.22.0-py3-none-any.whl", hash = "sha256:d2e34e8c90ba00bd5d4d1a0573876a244afb46c6616db35813722d9b50b69c40", size = 18406, upload-time = "2026-10-23T22:22:07.009Z" },
+    { url = "https://files.pythonhosted.org/packages/a7/69/236f4ac45e9285c3385a94317b686c8973b423d738c282e97d76d9703a7f/hattrick_libs-0.22.2-py3-none-any.whl", hash = "sha256:dec5618be8cdb8c5c9b6a4f4c7a4f629c8b5bc0757c7e4a6ad6aaef182d008a1", size = 18414, upload-time = "2026-11-06T21:15:08.223Z" },
 ]
 
 [[package]]
@@ -744,11 +745,11 @@ wheels = [
 
 [[package]]
 name = "oauthlib"
-version = "4.0.0"
+version = "4.0.1"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/7a/d8/a1bcc8ba112a627f8ffbdc212a78ce18d3ac07e91a5ca65d27918eee25a1/oauthlib-4.0.0.tar.gz", hash = "sha256:efb274799819440f95b4ab3b818869f1ce9ae26c5beacba0201d1a1b76b54f86", size = 187232, upload-time = "2026-09-28T06:01:18.77Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/33/17/2bb072de0b990303c985f26869fd47bb179024a051f47e7f9d208eb92f8e/oauthlib-4.0.1.tar.gz", hash = "sha256:3d73febdb6faa00f277c81fb04be7b7586fb96fc3b7f0b9c772dada69a25ede7", size = 191219, upload-time = "2026-10-31T09:52:58.008Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d9/f4/78229a1066068ca14fc60fb26cf7381cabe4382261392b90e5f9552722d4/oauthlib-4.0.0-py3-none-any.whl", hash = "sha256:624c28c13a0a59cabf9747dfa52af63be3e512a7f2714df16e91b5b3a145e6cd", size = 159715, upload-time = "2026-09-28T06:01:17.008Z" },
+    { url = "https://files.pythonhosted.org/packages/df/ef/3b8adde1b32a6f540758bff734d3442c621734c83708e5f02b0ba2f43b84/oauthlib-4.0.1-py3-none-any.whl", hash = "sha256:498a298876e996301950a5b053d12c31628bb7b895db03666430c69ce182eb61", size = 161934, upload-time = "2026-10-31T09:52:56.206Z" },
 ]
 
 [[package]]
